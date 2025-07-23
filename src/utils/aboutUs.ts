@@ -1,20 +1,20 @@
-import GithubIcon from '@icons/GithubIcon.astro'
-import WhatsappIcon from '@icons/WhatsappIcon.astro'
+import { FaGithub, FaWhatsapp } from 'react-icons/fa';
 
 export const socialLinks = [
+    {
+    title: 'WhatsApp de la comunidad',
+    description: 'Únete a la comunidad',
+    url: 'https://chat.whatsapp.com/LlbgQpQ7EB1Hy5Rq4WhJd6',
+    icon: FaWhatsapp,
+  },
   {
     title: 'GitHub de la comunidad',
     description: 'Repositorio de GitHub',
     url: 'https://github.com/eliasvelazquezdev/share-it-resources',
-    icon: GithubIcon,
+    icon: FaGithub,
   },
-  {
-    title: 'WhatsApp de la comunidad',
-    description: 'Únete a la comunidad',
-    url: 'https://chat.whatsapp.com/LlbgQpQ7EB1Hy5Rq4WhJd6',
-    icon: WhatsappIcon,
-  },
-]
+
+];
 
 export const groups = [
   {
@@ -47,7 +47,7 @@ export const groups = [
       'A veces necesitamos hacer catarsis de ese compañero que no nos escucha en el trabajo, de aquel profesor que pide cosas imposibles o cuando te ghostean en un proceso laboral. ¡Acá tenés el lugar indicado para descargarte!',
     size: 'sm:col-span-2 sm:row-span-2',
   },
-]
+];
 
 export const admins = [
   {
@@ -95,4 +95,4 @@ export const admins = [
     website: 'http://nicolascruz.jovinet.com/',
     twitter: 'https://x.com/NicoCruzDev',
   },
-]
+];
