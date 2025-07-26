@@ -6,7 +6,6 @@ import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content'
 import {getTagNamesByEntries} from "@helpers/tagHelper"
 import { SocialLinks } from '@components/SocialLinks/SocialLinks';
-import { EntryFormWrapper } from '@components/EntryForm/EntryFormWrapper';
 
 
 
@@ -47,9 +46,6 @@ export const prerender = true
     </p>
     <div class='flex sm:flex-row justify-center min-[1000px]:justify-start gap-4 flex-col'>
       <SocialLinks client:load/>
-    </div>
-    <div>
-        <EntryFormWrapper client:load />
     </div>
 
     </div>
