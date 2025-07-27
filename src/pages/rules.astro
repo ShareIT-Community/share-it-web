@@ -1,0 +1,28 @@
+---
+import Layout from '@layouts/Layout.astro';
+import { RulesTimelines } from '@components/RulesTimelines/RulesTimelines';
+---
+
+<Layout
+	title='Reglas de | Share IT'
+	showBackButton>
+	<div class='space-y-10'>
+		<div class='flex flex-col items-center gap-2 mb-5'>
+			<h1 class='text-4xl font-bold text-center text-white'>Reglas</h1>
+			<span class='text-lg text-center text-gray-400'
+				>Establecidas por la administración de Share IT. 👨🏻‍💻</span
+			>
+		</div>
+
+		<RulesTimelines client:load />
+
+		<div
+			class='border border-yellow-400 bg-yellow-100/10 text-yellow-300 p-4 rounded-xl text-sm max-w-xl mx-auto mt-6'>
+			<strong class='block mb-1 text-yellow-400'>⚠️ Aviso Importante</strong>
+			<p>
+				La administración se reserva el derecho de admisión y permanencia. Estas
+				reglas se presumen conocidas por todos los miembros de la comunidad.
+			</p>
+		</div>
+	</div>
+</Layout>
