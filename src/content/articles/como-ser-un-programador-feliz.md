@@ -8,6 +8,8 @@ date: '2025-02-08'
 draft: false
 category: 'Productividad'
 author: 06-justin-h
+tags: 
+  - dev
 ---
 
 # ¿Cómo ser un programador feliz?
