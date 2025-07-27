@@ -1,26 +1,47 @@
 ---
 const currentYear = new Date().getFullYear();
+
+const TEAM_MEMBERS = [
+	{
+		name: 'Victor Quiñones',
+		social: 'https://www.linkedin.com/in/victorqui',
+	},
+	{
+		name: 'Azariel Moreno',
+		social: 'https://azzadesignsweb.vercel.app/',
+	},
+	{
+		name: 'Justin Huertas',
+		social: 'https://portafolio-justin.vercel.app/',
+	},
+];
 ---
 
-<footer class="bg-gray-800 mt-auto p-8">
-  <div class="container mx-auto px-4 max-w-4xl">
-    <div
-      class="flex flex-col justify-center md:flex-row md:justify-between items-center gap-4"
-    >
-      <div class="text-gray-400 text-center text-sm">
-        © {currentYear} Share IT. Todos los derechos reservados.
-      </div>
-      <div class="flex gap-2 text-sm">
-        <p>Una iniciativa de</p>
-        <a
-          rel="noopener noreferrer"
-          target="_blank"
-          href="https://linkedin.com/in/victorqui"
-          class="text-gray-400 hover:text-secondary font-bold"
-        >
-          Victor Quiñones 🚀
-        </a>
-      </div>
-    </div>
-  </div>
+<footer class='bg-gray-800 mt-auto p-8'>
+	<div class='container mx-auto px-4 max-w-4xl'>
+		<div
+			class='flex flex-col justify-center md:flex-row md:justify-between items-center gap-4'>
+			<div class='text-gray-400 text-center text-sm'>
+				© {currentYear} Share IT. Todos los derechos reservados.
+			</div>
+			<div class='flex flex-col sm:flex-row gap-2 text-sm'>
+				<p>Web desarrollada por:</p>
+				<ul class='flex flex-col sm:flex-row gap-2 list-disc sm:list-none'>
+					{
+						TEAM_MEMBERS.map(({ name, social }) => (
+							<li>
+								<a
+									rel='noopener noreferrer'
+									target='_blank'
+									href={social}
+									class='text-gray-400 hover:text-secondary font-bold'>
+									{name}
+								</a>
+							</li>
+						))
+					}
+				</ul>
+			</div>
+		</div>
+	</div>
 </footer>

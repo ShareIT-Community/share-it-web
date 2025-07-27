@@ -48,7 +48,7 @@ export const COMMUNITY_RULES_GROUPS = [
 		description: "No se puede utilizar el grupo para ofrecer ayuda/mentoría a cambio de dinero. Es mejor definir ese tipo de situaciones por privado. Sin embargo, esto no quiere decir que se esté dando permiso a que se pueda acosar a miembros de la comunidad por privado para ofrecer servicios. Si otro miembro de la comunidad te acosa por privado, por favor comunícate con un administrador (y acompañado con pruebas)."
 	},
 	{
-		title: "🌎📝 Networking",
+		title: "🌎📝 Networking, Eventos y CV",
 		description: "No está permitido compartir eventos de otras comunidades de WhatsApp sin previa autorización de los administradores. Tampoco se permite el spam de publicaciones, medios o servicios propios que no estén estrechamente relacionados con contenido IT. En caso de querer ofrecer un servicio IT, por favor consultar a los administradores primero."
 	},
 	{
