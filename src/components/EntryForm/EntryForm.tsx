@@ -1,9 +1,10 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import type { UseFormRegister, FieldErrors } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { entryFormSchema, type FormData } from '../SocialLinks/schema/entryFormSchema';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { entryFormSchema, type FormData, type FormInputData } from '../SocialLinks/schema/entryFormSchema';
 import { InputField } from '../forms/InputField';
+import { FaTimes } from 'react-icons/fa';
 
 const inputClass = 'border p-2 rounded w-full bg-[#181f2a] text-white placeholder-gray-400';
 
@@ -12,8 +13,8 @@ type EntryFormProps = {
 };
 
 type FormSectionProps = {
-  register: UseFormRegister<FormData>;
-  errors: FieldErrors<FormData>;
+  register: UseFormRegister<FormInputData>;
+  errors: FieldErrors<FormInputData>;
 };
 
 type DatosPersonalesProps = FormSectionProps & {
@@ -24,7 +25,7 @@ const DatosPersonales: React.FC<DatosPersonalesProps> = ({ register, errors, cou
   <>
     <h2 className="text-lg font-bold mt-4 text-white">DATOS PERSONALES</h2>
     <InputField label="Edad *" error={errors.age?.message}>
-      <input type="number" {...register('age')} className={inputClass} placeholder="Ej: 25" />
+      <input type="number" {...register('age')} className={inputClass} placeholder="Inserta tu edad" />
     </InputField>
     <InputField label="Nombre *" error={errors.firstName?.message}>
       <input type="text" {...register('firstName')} className={inputClass} placeholder="Tu nombre" />
@@ -70,7 +71,7 @@ const DatosLaborales: React.FC<FormSectionProps> = ({ register, errors }) => (
     <InputField label="Si estás trabajando en la industria, ¿cuántos años de experiencia tenés?" error={errors.experience?.message}>
       <input type="text" {...register('experience')} className={inputClass} placeholder="Ej: 3 años" />
     </InputField>
-    <InputField label="Tu LinkedIn es... *" error={errors.linkedin?.message}>
+    <InputField label="Tu LinkedIn es..." error={errors.linkedin?.message}>
       <input type="text" {...register('linkedin')} className={inputClass} placeholder="Tu perfil de LinkedIn" />
     </InputField>
     <InputField label="Tu GitHub es..." error={errors.github?.message}>
@@ -97,8 +98,8 @@ export const EntryForm: React.FC<EntryFormProps> = ({ onClose }) => {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<FormData>({
-    resolver: yupResolver(entryFormSchema) as any,
+  } = useForm<FormInputData>({
+    resolver: zodResolver(entryFormSchema),
     defaultValues: {
       email: '',
       age: undefined,
@@ -122,7 +123,7 @@ export const EntryForm: React.FC<EntryFormProps> = ({ onClose }) => {
 
   const countryValue = watch('country');
 
-  const onSubmit = (data: FormData) => {
+  const onSubmit = (data: FormInputData) => {
     alert('Formulario enviado correctamente!');
     onClose();
   };
@@ -131,7 +132,7 @@ export const EntryForm: React.FC<EntryFormProps> = ({ onClose }) => {
     <form
       key="entry-form"
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col gap-4 w-full shadow-2xl shadow-black h-200 overflow-y-auto p-10 bg-[#101828] rounded custom-scrollbar"
+      className="flex flex-col gap-4 w-full relative shadow-2xl shadow-black h-200 overflow-y-auto p-10 bg-[#101828] rounded custom-scrollbar"
       style={{ boxSizing: 'border-box' }}
     >
       <h2 className='mb-5 text-3xl font-bold'>¡Binvenido a la comunidad!</h2>
@@ -145,19 +146,19 @@ export const EntryForm: React.FC<EntryFormProps> = ({ onClose }) => {
       </InputField>
       <DatosPersonales register={register} errors={errors} countryValue={countryValue ?? ''} />
       <DatosLaborales register={register} errors={errors} />
-      <div className="flex gap-2 mt-4">
+      <div className="mt-4">
         <button
           type="submit"
-          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+          className="w-full px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
         >
-          Enviar
+          Siguiente
         </button>
         <button
           type="button"
           onClick={onClose}
-          className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition"
+          className="w-8 h-8 bg-red-500 top-5 right-5 text-white rounded-full hover:bg-red-600 transition absolute flex items-center justify-center"
         >
-          Cerrar
+          <FaTimes size={16} />
         </button>
       </div>
       <style>{`

@@ -33,8 +33,8 @@ export const SocialLinks: React.FC = () => {
       </div>
 
       {isFormOpen && (
-        <section className="mt-4 p-4 left-0 backdrop-blur-2xl flex justify-center items-center rounded fixed h-screen z-50 w-full shadow">
-          <div className="bg-white-5 rounded-lg shadow-lg bg-blue-500  w-150 ">
+        <section className=" p-4 left-0 backdrop-blur-2xl flex justify-center items-center rounded fixed h-screen z-50 w-full shadow">
+          <div className="bg-white-5 rounded-lg shadow-lg   w-150 ">
             <EntryForm onClose={() => setIsFormOpen(false)} />
           </div>
         </section>
