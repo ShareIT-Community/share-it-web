@@ -1,20 +1,18 @@
 import { FaGithub, FaWhatsapp } from 'react-icons/fa';
-
-export const socialLinks = [
-    {
+export const socialLinks = {
+  whatsapp: {
     title: 'WhatsApp de la comunidad',
     description: 'Únete a la comunidad',
     url: 'https://chat.whatsapp.com/LlbgQpQ7EB1Hy5Rq4WhJd6',
     icon: FaWhatsapp,
   },
-  {
+  github: {
     title: 'GitHub de la comunidad',
     description: 'Repositorio de GitHub',
     url: 'https://github.com/eliasvelazquezdev/share-it-resources',
     icon: FaGithub,
   },
-
-];
+};
 
 export const groups = [
   {
