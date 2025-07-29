@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import type { UseFormRegister, FieldErrors } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { entryFormSchema, type FormData, type FormInputData } from '../SocialLinks/schema/entryFormSchema';
+import { entryFormSchema, type FormInputData } from '../SocialLinks/schema/entryFormSchema';
 import { InputField } from '../forms/InputField';
 import { FaTimes } from 'react-icons/fa';
+import { RulesTimelines } from '../RulesTimelines/RulesTimelines';
+import { ProgressIndicator } from './ProgressIndicator';
 
 const inputClass = 'border p-2 rounded w-full bg-[#181f2a] text-white placeholder-gray-400';
 
@@ -17,11 +19,11 @@ type FormSectionProps = {
   errors: FieldErrors<FormInputData>;
 };
 
-type DatosPersonalesProps = FormSectionProps & {
+type PersonalDataProps = FormSectionProps & {
   countryValue: string;
 };
 
-const DatosPersonales: React.FC<DatosPersonalesProps> = ({ register, errors, countryValue }) => (
+const PersonalData: React.FC<PersonalDataProps> = ({ register, errors, countryValue }) => (
   <>
     <h2 className="text-lg font-bold mt-4 text-white">DATOS PERSONALES</h2>
     <InputField label="Edad *" error={errors.age?.message}>
@@ -59,7 +61,7 @@ const DatosPersonales: React.FC<DatosPersonalesProps> = ({ register, errors, cou
   </>
 );
 
-const DatosLaborales: React.FC<FormSectionProps> = ({ register, errors }) => (
+const WorkData: React.FC<FormSectionProps> = ({ register, errors }) => (
   <>
     <h2 className="text-lg font-bold mt-4 text-white">DATOS LABORALES</h2>
     <InputField label="Rol actual / Rol al que aspiras *" error={errors.role?.message}>
@@ -92,11 +94,65 @@ const DatosLaborales: React.FC<FormSectionProps> = ({ register, errors }) => (
   </>
 );
 
+const RulesAndConfirmation: React.FC<{ onAccept: () => void; onBack: () => void }> = ({ onAccept, onBack }) => {
+  const [accepted, setAccepted] = useState(false);
+
+  return (
+    <>
+      <h2 className="text-lg font-bold mt-4 text-white">REGLAS Y CONFIRMACIÓN</h2>
+      
+      <div className="bg-gray-800 p-4 rounded-lg mb-4">
+        <RulesTimelines />
+      </div>
+
+      <div className="bg-red-900/20 border border-red-600/30 rounded-lg p-4 mb-4">
+        <p className="text-red-300 text-center font-bold text-lg">
+          La administración se reserva el derecho de admisión y permanencia.
+        </p>
+      </div>
+
+      <div className="flex items-start gap-3 mb-6">
+        <input
+          type="checkbox"
+          id="accept-rules"
+          checked={accepted}
+          onChange={(e) => setAccepted(e.target.checked)}
+          className="mt-1 w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500 focus:ring-2"
+        />
+        <label htmlFor="accept-rules" className="text-white text-sm">
+          Entiendo y acepto las reglas de la comunidad
+        </label>
+      </div>
+
+      <div className="flex gap-3">
+        <button
+          type="button"
+          onClick={onBack}
+          className="flex-1 px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700 transition"
+        >
+          Volver
+        </button>
+        <button
+          type="button"
+          onClick={onAccept}
+          disabled={!accepted}
+          className="flex-1 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition disabled:bg-gray-500 disabled:cursor-not-allowed"
+        >
+          Enviar
+        </button>
+      </div>
+    </>
+  );
+};
+
 export const EntryForm: React.FC<EntryFormProps> = ({ onClose }) => {
+  const [currentStage, setCurrentStage] = useState<'personal' | 'confirmation'>('personal');
+  
   const {
     register,
     handleSubmit,
     watch,
+    trigger,
     formState: { errors },
   } = useForm<FormInputData>({
     resolver: zodResolver(entryFormSchema),
@@ -128,6 +184,24 @@ export const EntryForm: React.FC<EntryFormProps> = ({ onClose }) => {
     onClose();
   };
 
+  const handleNext = async () => {
+    // Validar todos los campos usando el schema existente
+    const isValid = await trigger();
+    if (isValid) {
+      setCurrentStage('confirmation');
+    }
+  };
+
+  const handleBack = () => {
+    setCurrentStage('personal');
+  };
+
+  const handleSubmitForm = () => {
+    // Aquí se enviaría el formulario
+    alert('Formulario enviado correctamente!');
+    onClose();
+  };
+
   return (
     <form
       key="entry-form"
@@ -136,31 +210,45 @@ export const EntryForm: React.FC<EntryFormProps> = ({ onClose }) => {
       style={{ boxSizing: 'border-box' }}
     >
       <h2 className='mb-5 text-3xl font-bold'>¡Binvenido a la comunidad!</h2>
-      <InputField label="Correo electrónico *" error={errors.email?.message}>
-        <input
-          type="email"
-          {...register('email')}
-          className={inputClass}
-          placeholder="Tu correo electrónico"
-        />
-      </InputField>
-      <DatosPersonales register={register} errors={errors} countryValue={countryValue ?? ''} />
-      <DatosLaborales register={register} errors={errors} />
-      <div className="mt-4">
-        <button
-          type="submit"
-          className="w-full px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
-        >
-          Siguiente
-        </button>
-        <button
-          type="button"
-          onClick={onClose}
-          className="w-8 h-8 bg-red-500 top-5 right-5 text-white rounded-full hover:bg-red-600 transition absolute flex items-center justify-center"
-        >
-          <FaTimes size={16} />
-        </button>
-      </div>
+      
+      {/* Progress Indicator */}
+      <ProgressIndicator currentStage={currentStage} />
+      
+      <button
+        type="button"
+        onClick={onClose}
+        className="w-8 h-8 bg-red-500 top-5 right-5 text-white rounded-full hover:bg-red-600 transition absolute flex items-center justify-center"
+      >
+        <FaTimes size={16} />
+      </button>
+
+      {currentStage === 'personal' ? (
+        <>
+          <InputField label="Correo electrónico *" error={errors.email?.message}>
+            <input
+              type="email"
+              {...register('email')}
+              className={inputClass}
+              placeholder="Tu correo electrónico"
+            />
+          </InputField>
+          <PersonalData register={register} errors={errors} countryValue={countryValue ?? ''} />
+          <WorkData register={register} errors={errors} />
+          
+          <div className="mt-4">
+            <button
+              type="button"
+              onClick={handleNext}
+              className="w-full px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+            >
+              Siguiente
+            </button>
+          </div>
+        </>
+      ) : (
+        <RulesAndConfirmation onAccept={handleSubmitForm} onBack={handleBack} />
+      )}
+
       <style>{`
         .custom-scrollbar {
           scrollbar-width: thin;
@@ -182,3 +270,11 @@ export const EntryForm: React.FC<EntryFormProps> = ({ onClose }) => {
     </form>
   );
 };
+
+
+{/*
+  linkedin obligatorio
+  sacar limite de letras en lo ultimo
+  sumar la advertencia al componente de reglas
+  
+  */}
