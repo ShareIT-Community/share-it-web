@@ -164,12 +164,12 @@ export const entryFormSchema = z.object({
     .optional()
     .refine((experienceValue) => !experienceValue || validateInappropriateContent(experienceValue), 'Contenido no permitido'),
 
-  linkedin: z
-    .string()
-    .trim()
-    .optional()
-    .refine((linkedinValue) => !linkedinValue || linkedinRegex.test(linkedinValue), 'Debe ser un perfil de LinkedIn válido')
-    .refine((linkedinValue) => !linkedinValue || validateInappropriateContent(linkedinValue), 'Contenido no permitido'),
+    linkedin: z
+      .string()
+      .min(1, 'El perfil de LinkedIn es obligatorio')
+      .trim()
+      .regex(linkedinRegex, 'Debe ser un perfil de LinkedIn válido')
+      .refine(validateInappropriateContent, 'Contenido no permitido'),
 
   github: z
     .string()
@@ -203,7 +203,7 @@ export const entryFormSchema = z.object({
     .string()
     .min(1, 'Las expectativas son obligatorias')
     .trim()
-    .min(20, 'Contá un poco más sobre tus expectativas (mínimo 20 caracteres)')
+    .min(0, 'Contá un poco más sobre tus expectativas (mínimo 20 caracteres)')
     .max(500, 'Máximo 500 caracteres permitidos')
     .refine(validateInappropriateContent, 'Contenido no permitido')
 });

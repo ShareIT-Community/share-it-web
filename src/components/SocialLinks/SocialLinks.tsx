@@ -21,7 +21,7 @@ export const SocialLinks: React.FC = () => {
           description={whatsapp.description}
           icon={whatsapp.icon}
           onClick={openForm}
-          hoverColor="#25D366"
+          hoverColor={"#25D366"}
           ariaLabel={whatsapp.title}
         />
         <SocialContainer

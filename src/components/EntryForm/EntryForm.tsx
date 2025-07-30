@@ -105,11 +105,6 @@ const RulesAndConfirmation: React.FC<{ onAccept: () => void; onBack: () => void 
         <RulesTimelines />
       </div>
 
-      <div className="bg-red-900/20 border border-red-600/30 rounded-lg p-4 mb-4">
-        <p className="text-red-300 text-center font-bold text-lg">
-          La administración se reserva el derecho de admisión y permanencia.
-        </p>
-      </div>
 
       <div className="flex items-start gap-3 mb-6">
         <input
@@ -124,7 +119,7 @@ const RulesAndConfirmation: React.FC<{ onAccept: () => void; onBack: () => void 
         </label>
       </div>
 
-      <div className="flex gap-3">
+      <div className="flex h-10 gap-3">
         <button
           type="button"
           onClick={onBack}
@@ -132,14 +127,22 @@ const RulesAndConfirmation: React.FC<{ onAccept: () => void; onBack: () => void 
         >
           Volver
         </button>
-        <button
-          type="button"
-          onClick={onAccept}
-          disabled={!accepted}
-          className="flex-1 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition disabled:bg-gray-500 disabled:cursor-not-allowed"
-        >
-          Enviar
-        </button>
+        <div className="flex-1 flex justify-center h-10 items-center bg-gradient-to-r from-[#4b6ef8] via-primary to-[#94e7f8] p-0.5 rounded">
+          <button
+            type="button"
+            onClick={onAccept}
+            disabled={!accepted}
+            className="w-full flex justify-center items-center text-white rounded transition-all duration-200
+                      bg-gradient-to-r from-[#4b6ef8] via-primary to-[#94e7f8] h-full hover:w-[99%] hover:h-[95%]
+                    hover:bg-gray-900 hover:from-transparent hover:via-transparent hover:to-transparent
+                      hover:border-2 hover:border-white/30
+                      hover:shadow-md hover:shadow-white/20
+                    disabled:bg-gray-500 disabled:cursor-not-allowed
+                      disabled:bg-none disabled:from-transparent disabled:via-transparent disabled:to-transparent border-none"
+          >
+            Enviar
+          </button>
+        </div>
       </div>
     </>
   );
@@ -206,10 +209,10 @@ export const EntryForm: React.FC<EntryFormProps> = ({ onClose }) => {
     <form
       key="entry-form"
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col gap-4 w-full relative shadow-2xl shadow-black h-200 overflow-y-auto p-10 bg-[#101828] rounded custom-scrollbar"
+      className="flex flex-col gap-4 w-full relative shadow-2xl shadow-black h-200 overflow-y-auto p-10 bg-gray-900 rounded custom-scrollbar"
       style={{ boxSizing: 'border-box' }}
     >
-      <h2 className='mb-5 text-3xl font-bold'>¡Binvenido a la comunidad!</h2>
+      <h2 className='mb-5 text-3xl font-bold  flex justify-center items-center'>¡Binvenido a la comunidad!</h2>
       
       {/* Progress Indicator */}
       <ProgressIndicator currentStage={currentStage} />
@@ -217,7 +220,7 @@ export const EntryForm: React.FC<EntryFormProps> = ({ onClose }) => {
       <button
         type="button"
         onClick={onClose}
-        className="w-8 h-8 bg-red-500 top-5 right-5 text-white rounded-full hover:bg-red-600 transition absolute flex items-center justify-center"
+        className="w-8 h-8 bg-red-500 top-5 right-10 text-white rounded-full hover:bg-red-600 transition absolute flex items-center justify-center"
       >
         <FaTimes size={16} />
       </button>
@@ -235,11 +238,16 @@ export const EntryForm: React.FC<EntryFormProps> = ({ onClose }) => {
           <PersonalData register={register} errors={errors} countryValue={countryValue ?? ''} />
           <WorkData register={register} errors={errors} />
           
-          <div className="mt-4">
+          <div className="mt-4  flex justify-center items-center bg-gradient-to-r from-[#4b6ef8] via-primary to-[#94e7f8] p-0.5 rounded">
             <button
               type="button"
               onClick={handleNext}
-              className="w-full px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+              className="w-full px-4 h-full py-2 text-white text-lg rounded transition-all duration-200
+                        bg-gradient-to-r from-[#4b6ef8] via-primary to-[#94e7f8]
+                        hover:bg-gray-900 hover:from-transparent hover:via-transparent hover:to-transparent
+                        hover:border-2 hover:border-white/30
+                        hover:shadow-md hover:shadow-white/20
+                        hover:w-[99%] hover:h-[95%] hover:border-none"
             >
               Siguiente
             </button>
