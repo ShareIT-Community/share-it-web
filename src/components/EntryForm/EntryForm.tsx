@@ -7,6 +7,7 @@ import { InputField } from '../forms/InputField';
 import { FaTimes } from 'react-icons/fa';
 import { RulesTimelines } from '../RulesTimelines/RulesTimelines';
 import { ProgressIndicator } from './ProgressIndicator';
+import "./Button.css"
 
 const inputClass = 'border p-2 rounded w-full bg-[#181f2a] text-white placeholder-gray-400';
 
@@ -101,8 +102,10 @@ const RulesAndConfirmation: React.FC<{ onAccept: () => void; onBack: () => void 
     <>
       <h2 className="text-lg font-bold mt-4 text-white">REGLAS Y CONFIRMACIÓN</h2>
       
-      <div className="bg-gray-800 p-4 rounded-lg mb-4">
-        <RulesTimelines />
+      <div className="  p-4 rounded-lg mb-4">
+        
+          <RulesTimelines />
+        
       </div>
 
 
@@ -119,26 +122,21 @@ const RulesAndConfirmation: React.FC<{ onAccept: () => void; onBack: () => void 
         </label>
       </div>
 
-      <div className="flex h-10 gap-3">
+      <div className="flex h-10 justify-center items-center gap-3">
         <button
           type="button"
           onClick={onBack}
-          className="flex-1 px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700 transition"
+          className="flex-1 px-4 py-2 btn-back transition"
         >
           Volver
         </button>
-        <div className="flex-1 flex justify-center h-10 items-center bg-gradient-to-r from-[#4b6ef8] via-primary to-[#94e7f8] p-0.5 rounded">
+        <div className="flex-1 flex justify-center h-10 items-center">
           <button
             type="button"
             onClick={onAccept}
             disabled={!accepted}
-            className="w-full flex justify-center items-center text-white rounded transition-all duration-200
-                      bg-gradient-to-r from-[#4b6ef8] via-primary to-[#94e7f8] h-full hover:w-[99%] hover:h-[95%]
-                    hover:bg-gray-900 hover:from-transparent hover:via-transparent hover:to-transparent
-                      hover:border-2 hover:border-white/30
-                      hover:shadow-md hover:shadow-white/20
-                    disabled:bg-gray-500 disabled:cursor-not-allowed
-                      disabled:bg-none disabled:from-transparent disabled:via-transparent disabled:to-transparent border-none"
+            className={`w-full flex justify-center items-center text-white rounded transition-all duration-200
+                        ${accepted ? 'btn-gradient' : 'btn-disabled'}`}
           >
             Enviar
           </button>
@@ -209,10 +207,10 @@ export const EntryForm: React.FC<EntryFormProps> = ({ onClose }) => {
     <form
       key="entry-form"
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col gap-4 w-full relative shadow-2xl shadow-black h-200 overflow-y-auto p-10 bg-gray-900 rounded custom-scrollbar"
+      className="flex flex-col h-screen gap-4 max-w-200 bg-gray-900  relative shadow-2xl shadow-black  overflow-y-auto p-10 rounded custom-scrollbar"
       style={{ boxSizing: 'border-box' }}
     >
-      <h2 className='mb-5 text-3xl font-bold  flex justify-center items-center'>¡Binvenido a la comunidad!</h2>
+      <h2 className='mb-5 text-3xl font-bold  flex justify-center items-center'>¡Bienvenido a la comunidad!</h2>
       
       {/* Progress Indicator */}
       <ProgressIndicator currentStage={currentStage} />
@@ -220,7 +218,7 @@ export const EntryForm: React.FC<EntryFormProps> = ({ onClose }) => {
       <button
         type="button"
         onClick={onClose}
-        className="w-8 h-8 bg-red-500 top-5 right-10 text-white rounded-full hover:bg-red-600 transition absolute flex items-center justify-center"
+        className="w-8 h-8 bg-red-500 top-10 right-5 text-white rounded-full hover:bg-red-600 transition absolute flex items-center justify-center"
       >
         <FaTimes size={16} />
       </button>
@@ -238,23 +236,16 @@ export const EntryForm: React.FC<EntryFormProps> = ({ onClose }) => {
           <PersonalData register={register} errors={errors} countryValue={countryValue ?? ''} />
           <WorkData register={register} errors={errors} />
           
-          <div className="mt-4  flex justify-center items-center bg-gradient-to-r from-[#4b6ef8] via-primary to-[#94e7f8] p-0.5 rounded">
-            <button
-              type="button"
-              onClick={handleNext}
-              className="w-full px-4 h-full py-2 text-white text-lg rounded transition-all duration-200
-                        bg-gradient-to-r from-[#4b6ef8] via-primary to-[#94e7f8]
-                        hover:bg-gray-900 hover:from-transparent hover:via-transparent hover:to-transparent
-                        hover:border-2 hover:border-white/30
-                        hover:shadow-md hover:shadow-white/20
-                        hover:w-[99%] hover:h-[95%] hover:border-none"
-            >
+          <div className=" h-20">
+            <button type="button" onClick={handleNext} className="btn-gradient h-20"    >
               Siguiente
             </button>
           </div>
         </>
       ) : (
-        <RulesAndConfirmation onAccept={handleSubmitForm} onBack={handleBack} />
+        
+          <RulesAndConfirmation onAccept={handleSubmitForm} onBack={handleBack} />
+        
       )}
 
       <style>{`

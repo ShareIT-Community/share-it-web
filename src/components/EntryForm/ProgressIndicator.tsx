@@ -10,7 +10,7 @@ export const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({ currentSta
       <div
         className={`w-4 h-4 rounded-full transition-all duration-300 ${
           currentStage === 'personal' 
-            ? 'bg-gradient-to-r from-[#4b6ef8] via-primary to-[#94e7f8]' 
+            ? 'bg-[#94e7f8]' 
             : 'bg-white/90'
         }`}
       />
@@ -18,7 +18,7 @@ export const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({ currentSta
         className={`w-4 h-4 rounded-full transition-all duration-300 ${
           currentStage === 'personal' 
             ? 'bg-white/90' 
-            : 'bg-gradient-to-r from-[#4b6ef8] via-primary to-[#94e7f8]'
+            : 'bg-[#94e7f8]'
         }`}
       />
     </div>

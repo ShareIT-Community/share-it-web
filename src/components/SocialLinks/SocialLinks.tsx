@@ -1,7 +1,5 @@
-import React, { useState } from 'react';
-import clsx from 'clsx';
+import React, { useEffect, useState } from 'react';
 import { socialLinks } from 'src/utils/aboutUs';
-import { FaWhatsapp } from 'react-icons/fa';
 import { EntryForm } from '@components/EntryForm/EntryForm';
 import { SocialContainer } from './SocialContainer';
 
@@ -11,6 +9,14 @@ export const SocialLinks: React.FC = () => {
   const openForm = () => {
     setIsFormOpen((prev) => !prev);
   };
+
+    useEffect(() => {
+      if (isFormOpen) {
+        document.body.classList.add('overflow-hidden');
+      } else {
+        document.body.classList.remove('overflow-hidden');
+      }
+    }, [isFormOpen]);
 
   const whatsapp = socialLinks.whatsapp;
 
@@ -23,18 +29,22 @@ export const SocialLinks: React.FC = () => {
           onClick={openForm}
           hoverColor={"#25D366"}
           ariaLabel={whatsapp.title}
+          social="whatsapp"
         />
         <SocialContainer
           description={socialLinks.github.description}
           icon={socialLinks.github.icon}
           onClick={() => window.open(socialLinks.github.url, '_blank')}
-          hoverColor="white"
-          ariaLabel={socialLinks.github.title}/>
+          hoverColor={"#3f3f3f"}
+          ariaLabel={socialLinks.github.title}
+          social="github"
+          />
+          
       </div>
 
       {isFormOpen && (
-        <section className=" p-4 left-0 backdrop-blur-2xl flex justify-center items-center rounded fixed h-screen z-50 w-full shadow">
-          <div className="bg-white-5 rounded-lg shadow-lg   w-150 ">
+        <section className=" left-0 top-0 backdrop-blur-3xl flex justify-center items-center rounded fixed h-full z-50 w-full shadow">
+          <div className="bg-white-5 rounded-lg shadow-lg  ">
             <EntryForm onClose={() => setIsFormOpen(false)} />
           </div>
         </section>

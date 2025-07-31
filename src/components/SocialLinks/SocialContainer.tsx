@@ -7,25 +7,46 @@ interface SocialButtonProps {
   onClick: () => void;
   hoverColor?: string;
   ariaLabel?: string;
+  social?: string;
 }
 
 export const SocialContainer: React.FC<SocialButtonProps> = ({
   description,
   icon: Icon,
   onClick,
-  hoverColor = '#ffffff',
+  hoverColor,
   ariaLabel = 'social-button',
+  social = 'default',
 }) => {
   const [isHovered, setIsHovered] = useState(false);
+
+  const borderColor = clsx({
+    'border-green-500': social === 'whatsapp' && !isHovered,
+    'border-gray-300': social === 'github' && !isHovered,
+    'border-white': social !== 'whatsapp' && social !== 'github' && !isHovered,
+    'border-transparent': isHovered,
+  });
+
+  const textColor = isHovered
+    ? 'text-white'
+    : clsx({
+        'text-green-500': social === 'whatsapp',
+        'text-gray-300': social === 'github',
+        'text-white': social !== 'whatsapp' && social !== 'github',
+      });
+
+  const hoveredStyle = isHovered
+    ? { background: hoverColor ?? 'rgba(255, 255, 255, 0.1)' }
+    : {};
 
   return (
     <div
       className={clsx(
-        'flex items-center text-sm lg:text-lg active:scale-95 h-12 justify-center cursor-pointer rounded-md w-full sm:w-auto font-semibold transition-all duration-200',
-        'bg-[#314aa9]',
-        isHovered && 'bg-gray-900 border'
+        'flex items-center text-sm lg:text-lg active:scale-95 h-12 justify-center cursor-pointer rounded-md w-full sm:w-auto font-semibold transition-all duration-200 border',
+        borderColor,
+        textColor
       )}
-      style={isHovered ? { borderColor: hoverColor, color: hoverColor } : { color: 'white' }}
+      style={hoveredStyle}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -40,3 +61,4 @@ export const SocialContainer: React.FC<SocialButtonProps> = ({
     </div>
   );
 };
+
