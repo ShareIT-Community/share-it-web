@@ -207,7 +207,7 @@ export const EntryForm: React.FC<EntryFormProps> = ({ onClose }) => {
     <form
       key="entry-form"
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col h-screen gap-4 max-w-200 bg-gray-900  relative shadow-2xl shadow-black  overflow-y-auto p-10 rounded custom-scrollbar"
+      className="flex flex-col h-screen gap-4 max-w-160 bg-gray-900  relative shadow-2xl shadow-black  overflow-y-auto p-10 rounded custom-scrollbar"
       style={{ boxSizing: 'border-box' }}
     >
       <h2 className='mb-5 text-3xl font-bold  flex justify-center items-center'>¡Bienvenido a la comunidad!</h2>
