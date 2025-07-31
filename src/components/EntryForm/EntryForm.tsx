@@ -251,7 +251,7 @@ export const EntryForm: React.FC<EntryFormProps> = ({ onClose }) => {
       <style>{`
         .custom-scrollbar {
           scrollbar-width: thin;
-          scrollbar-color: #85D9F6  transparent;
+          scrollbar-color: #94e7f8 transparent;
         }
         .custom-scrollbar::-webkit-scrollbar {
           width: 6px;
