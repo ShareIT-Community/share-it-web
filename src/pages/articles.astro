@@ -1,0 +1,256 @@
+---
+import { getCollection } from 'astro:content';
+import ContentCard from '@components/ContentCard.astro'
+import Layout from '@layouts/Layout.astro'
+import { getTagNamesByEntries } from '@helpers/tagHelper';
+
+// Obtener todos los artículos
+const articles = await getCollection('articles', ({ data }) => !data.draft);
+const authors = await getCollection('authors');
+
+// Obtener información completa de los tags
+const tagEntries = await getCollection('tags');
+const tagMap = new Map(tagEntries.map(tag => [tag.id, tag.data]));
+
+// Combinar artículos con información de autores
+const articlesWithAuthors = articles.map(article => {
+  const author = authors.find(author => author.id === article.data.author.id);
+  return {
+    ...article,
+    author: author?.data || null
+  };
+}).sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+// Obtener tags para cada artículo
+const tagNamesByArticles = await getTagNamesByEntries(articles);
+
+// Obtener todos los tags únicos para los filtros
+function getUniqueTags() {
+  const tagIds = new Set<string>();
+  const uniqueTags: Array<{id: string, name: string}> = [];
+  
+  // Recorrer todos los artículos
+  articles.forEach(article => {
+    article.data.tags.forEach(tag => {
+      if (!tagIds.has(tag.id)) {
+        tagIds.add(tag.id);
+        const tagData = tagMap.get(tag.id);
+        uniqueTags.push({
+          id: tag.id,
+          name: tagData?.name || tag.id
+        });
+      }
+    });
+  });
+  
+  return uniqueTags.sort((a, b) => a.name.localeCompare(b.name));
+}
+
+const allTags = getUniqueTags();
+---
+
+<Layout title='Artículos y Autores | Share IT' showBackButton>
+  <div class='flex flex-col items-center mb-8 gap-2'>
+    <h1 class='text-4xl font-bold text-center text-white'>Artículos</h1>
+    <span class='text-lg text-center text-gray-400'>
+      Conocimiento compartido por la comunidad de Share IT.📃👨🏻‍💻
+    </span>
+  </div>
+
+  <!-- Filtros de Tags -->
+  <div class='mb-8'>
+    <div class='flex flex-wrap gap-2 justify-center' id='tag-filters'>
+      <button
+        class='px-4 py-2 text-white rounded-full text-sm font-medium transition-colors active-filter filter-btn cursor-pointer'
+        style='background-color: var(--primary);'
+        data-tag='all'
+      >
+        Todos
+      </button>
+      {
+        allTags.map(tag => (
+          <button
+            class='px-4 py-2 bg-gray-700 text-gray-300 rounded-full text-sm font-medium hover:text-white transition-colors filter-btn cursor-pointer'
+            style='hover:background-color: var(--secondary);'
+            data-tag={tag.id}
+          >
+            {tag.name}
+          </button>
+        ))
+      }
+    </div>
+  </div>
+
+  <!-- Contenido -->
+  <div id='content-grid'>
+    <!-- Artículos con información de autores -->
+    <div class='mb-12'>
+      <div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6' id='articles-grid'>
+        {
+          articlesWithAuthors.length === 0 ? (
+            <div class='text-center py-8 col-span-full'>
+              <p class='text-gray-400 text-lg'>
+                Aun no hay artículos publicados. ¡Vuelve pronto!🚀
+              </p>
+            </div>
+          ) : (
+            articlesWithAuthors.map((article) => (
+              <div 
+                class='content-item article-item'
+                data-tags={article.data.tags.map(tag => tag.id).join(' ')}
+                data-type='article'
+              >
+                <div class='card-share-it relative block p-6 border rounded-lg border-[#368beb] hover:border-[#83D6E7] bg-gradient-to-br transition-all duration-300 from-[#1a1f2e] via-[#1e2332] to-[#2a2f3e] hover:from-[#1e2332] hover:via-[#2a2f3e] hover:to-[#314aa9]/20'>
+                  <div class='flex flex-col justify-between h-[280px]'>
+                    <div class='flex flex-col gap-3'>
+                      <!-- Información del autor -->
+                      {article.author && (
+                        <div class='flex items-center gap-3 mb-3'>
+                          <img 
+                            src={article.author.avatar} 
+                            alt={`Avatar de ${article.author.name}`}
+                            class='w-10 h-10 rounded-full object-cover border-2 border-[#368beb]'
+                          />
+                          <div class='flex flex-col'>
+                            <p class='text-sm font-semibold text-white'>{article.author.name}</p>
+                            <p class='text-xs text-gray-400'>{article.author.role}</p>
+                          </div>
+                        </div>
+                      )}
+                      
+                      <!-- Título y descripción -->
+                      <div class='flex flex-col gap-2'>
+                        <h3 class='card-title text-lg font-bold text-primary line-clamp-2'>{article.data.title}</h3>
+                        <p class='text-gray-300 text-sm text-ellipsis overflow-hidden line-clamp-3'>
+                          {article.data.description}
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <!-- Fecha y tags -->
+                    <div class='flex flex-col items-start gap-2 text-xs mt-auto'>
+                      <p class='text-gray-400'>{new Date(article.data.date).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                      <div class='flex gap-2 flex-wrap'>
+                        {
+                          tagNamesByArticles.get(article.id)?.map((tag) => (
+                            <span class='bg-[#314aa9] text-violet-200 px-2 py-1 rounded text-xs'>
+                              {tag}
+                            </span>
+                          )) || []
+                        }
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- Enlace invisible para toda la tarjeta -->
+                  <a 
+                    href={`/articles/${article.id}`}
+                    class='absolute inset-0 z-10'
+                    aria-label={`Leer artículo: ${article.data.title}`}
+                  ></a>
+                </div>
+              </div>
+            ))
+          )
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- Enlace a más recursos -->
+  <div class='text-center mt-8'>
+    <a
+      href='/resources'
+      class='text-primary hover:text-secondary transition-colors'
+      aria-label='Ver todos los recursos'
+    >
+      ¿Quieres ver recursos adicionales? ¡Hazlo aquí! →
+    </a>
+  </div>
+</Layout>
+
+<script is:inline>
+  function filterByTag(tagId) {
+    const contentItems = document.querySelectorAll('.content-item');
+    const filterButtons = document.querySelectorAll('#tag-filters button');
+    
+    // Actualizar botones activos
+    filterButtons.forEach(button => {
+      button.classList.remove('active-filter', 'text-white');
+      button.classList.add('bg-gray-700', 'text-gray-300');
+      button.style.backgroundColor = '';
+    });
+    
+    const activeButton = document.querySelector(`[data-tag="${tagId}"]`);
+    if (activeButton) {
+      activeButton.classList.add('active-filter', 'text-white');
+      activeButton.classList.remove('bg-gray-700', 'text-gray-300');
+      activeButton.style.backgroundColor = 'var(--primary)';
+    }
+    
+    // Filtrar contenido
+    contentItems.forEach(item => {
+      const dataTags = item.getAttribute('data-tags');
+      if (tagId === 'all') {
+        item.style.display = 'block';
+      } else if (dataTags) {
+        const itemTags = dataTags.split(' ');
+        if (itemTags.includes(tagId)) {
+          item.style.display = 'block';
+        } else {
+          item.style.display = 'none';
+        }
+      }
+    });
+  }
+
+  // Función para inicializar los event listeners
+  function initializeFilters() {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    
+    filterButtons.forEach(button => {
+      // Remover event listeners existentes para evitar duplicados
+      button.removeEventListener('click', button.clickHandler);
+      
+      // Crear nuevo event listener
+      button.clickHandler = function() {
+        const tagId = this.getAttribute('data-tag');
+        if (tagId) {
+          filterByTag(tagId);
+        }
+      };
+      
+      // Agregar event listener
+      button.addEventListener('click', button.clickHandler);
+    });
+  }
+
+  // Ejecutar cuando el DOM esté listo
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeFilters);
+  } else {
+    // Si el DOM ya está cargado, ejecutar inmediatamente
+    initializeFilters();
+  }
+</script>
+
+<style>
+  .active-filter {
+    background-color: var(--primary) !important;
+    color: white !important;
+  }
+  
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style> 
