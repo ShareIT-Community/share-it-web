@@ -9,6 +9,7 @@ import { InputField } from '../forms/InputField';
 import { FaTimes } from 'react-icons/fa';
 import './Button.css';
 import { registerMember } from 'src/services/form.service';
+import { registerMemberAdapter } from 'src/adapters/register-member.adapter';
 import { ProgressIndicator } from './steps/ProgressIndicator';
 import { PersonalData } from './inputs/PersonalData';
 import { WorkData } from './inputs/WorkData';
@@ -31,6 +32,7 @@ export const EntryForm: React.FC<EntryFormProps> = ({ onClose }) => {
 		handleSubmit,
 		watch,
 		formState: { errors, isValid },
+		control,
 	} = useForm<FormInputData>({
 		resolver: zodResolver(entryFormSchema),
 		defaultValues: {
@@ -43,7 +45,7 @@ export const EntryForm: React.FC<EntryFormProps> = ({ onClose }) => {
 			country: '',
 			otherCountry: '',
 			role: '',
-			stack: '',
+			stack: [],
 			experience: '',
 			linkedin: '',
 			github: '',
@@ -66,7 +68,9 @@ export const EntryForm: React.FC<EntryFormProps> = ({ onClose }) => {
 	};
 
 	const handleSubmitForm = (data: FormInputData) => {
-		registerMember(data)
+		const formattedData = registerMemberAdapter(data);
+
+		registerMember(formattedData)
 			.then((res) => {
 				onClose();
 			})

@@ -2,44 +2,44 @@ import { z } from 'zod';
 
 const palabrasInapropiadas = [
 
-  'puta', 'puto', 'pendejo', 'pendeja', 'cabrón', 'cabrona', 'mierda', 'joder', 'carajo', 'coño', 
-  'chinga', 'chingada', 'culero', 'culera', 'verga', 'vergudo', 'verguda', 'pinche', 'cagada', 
-  'cagar', 'cagón', 'cagona','se la come' ,'gilipollas', 'estúpido', 'estúpida', 'idiota', 'imbécil', 'mamón', 
-  'mamona', 'marica', 'maricón', 'travesti', 'zorra', 'zorro', 'huevón', 'huevona', 'pelotudo', 
+  'puta', 'puto', 'pendejo', 'pendeja', 'cabrón', 'cabrona', 'mierda', 'joder', 'carajo', 'coño',
+  'chinga', 'chingada', 'culero', 'culera', 'verga', 'vergudo', 'verguda', 'pinche', 'cagada',
+  'cagar', 'cagón', 'cagona', 'se la come', 'gilipollas', 'estúpido', 'estúpida', 'idiota', 'imbécil', 'mamón',
+  'mamona', 'marica', 'maricón', 'travesti', 'zorra', 'zorro', 'huevón', 'huevona', 'pelotudo',
   'pelotuda', 'imbécila', 'bobo', 'boba', 'gil', 'gila', 'gilazo', 'gilipolla',
 
-  'p3nd3j0', 'p3nd3j4', 'pvto' ,'c4br0n','s3 l4 c0m3' ,'c4br0n4', 'm13rd4', 'j0d3r', 'c4r4j0', 
-  'c0ñ0', 'ch1ng4', 'ch1ng4d4', 'cul3r0', 'cul3r4', 'v3rg4', 'v3rgud0', 'v3rgud4', 'p1nch3', 
-  'c4g4d4', 'c4g4r', 'c4g0n', 'c4g0n4', 'g1l1p0ll4s', '3stúp1d0', '3stúp1d4', '1d10t4', 
-  '1mbéc1l', 'm4m0n', 'm4m0n4', 'm4r1c4', 'm4r1c0n', 'tr4v3st1', 'z0rr4', 'z0rr0', 'hu3v0n', 
+  'p3nd3j0', 'p3nd3j4', 'pvto', 'c4br0n', 's3 l4 c0m3', 'c4br0n4', 'm13rd4', 'j0d3r', 'c4r4j0',
+  'c0ñ0', 'ch1ng4', 'ch1ng4d4', 'cul3r0', 'cul3r4', 'v3rg4', 'v3rgud0', 'v3rgud4', 'p1nch3',
+  'c4g4d4', 'c4g4r', 'c4g0n', 'c4g0n4', 'g1l1p0ll4s', '3stúp1d0', '3stúp1d4', '1d10t4',
+  '1mbéc1l', 'm4m0n', 'm4m0n4', 'm4r1c4', 'm4r1c0n', 'tr4v3st1', 'z0rr4', 'z0rr0', 'hu3v0n',
   'hu3v0n4', 'p3l0tud0', 'p3l0tud4', '1mbéc1l4', 'b0b0', 'b0b4', 'g1l', 'g1l4', 'g1l4z0', 'g1l1p0ll4',
 
-  'la concha de tu madre', 'andate a la mierda', 'hijo de puta', 'malparido', 'cagapalos', 
-  'cabrón de mierda', 'mamaguevo', 'hpta', 'pta', 'maldito', 'maldita', 'cornudo', 'cornuda', 
-  'cojud', 'pajero', 'boludo', 'boluda', 'petardo', 'baboso', 'babosa', 'wey', 'guanaco', 
-  'sucio', 'perra', 'perro', 'malnacido', 'sapo', 'putañero', 'maricueca', 'careculo', 
-  'careverga', 'culia', 'me vale verga', 'qué chucha', 'qué verga', 'chucha tu madre', 
+  'la concha de tu madre', 'andate a la mierda', 'hijo de puta', 'malparido', 'cagapalos',
+  'cabrón de mierda', 'mamaguevo', 'hpta', 'pta', 'maldito', 'maldita', 'cornudo', 'cornuda',
+  'cojud', 'pajero', 'boludo', 'boluda', 'petardo', 'baboso', 'babosa', 'wey', 'guanaco',
+  'sucio', 'perra', 'perro', 'malnacido', 'sapo', 'putañero', 'maricueca', 'careculo',
+  'careverga', 'culia', 'me vale verga', 'qué chucha', 'qué verga', 'chucha tu madre',
   'hueón', 'sopenco', 'cholo', 'grone', 'indio de mierda',
 
-  'fuck', 'shit', 'bitch', 'bastard', 'asshole', 'dick', 'pussy', 'damn', 'crap', 'slut', 
-  'whore', 'prick', 'cunt', 'retard', 'motherfucker', 'cock', 'fag', 'douche', 'twat', 
+  'fuck', 'shit', 'bitch', 'bastard', 'asshole', 'dick', 'pussy', 'damn', 'crap', 'slut',
+  'whore', 'prick', 'cunt', 'retard', 'motherfucker', 'cock', 'fag', 'douche', 'twat',
   'wanker', 'dickhead', 'scumbag', 'cocksucker', 'jackass', 'arsehole', 'bellend', 'bugger',
 
-  'f*ck', 'sh*t', 'b*tch', 'b*stard', 'a*shole', 'd*ck', 'p*ssy', 'd*mn', 'cr*p', 'sl*t', 
-  'wh*re', 'pr*ck', 'c*nt', 'ret*rd', 'motherf*cker', 'c*ck', 'f*g', 'd*uche', 'tw*t', 
+  'f*ck', 'sh*t', 'b*tch', 'b*stard', 'a*shole', 'd*ck', 'p*ssy', 'd*mn', 'cr*p', 'sl*t',
+  'wh*re', 'pr*ck', 'c*nt', 'ret*rd', 'motherf*cker', 'c*ck', 'f*g', 'd*uche', 'tw*t',
   'w*nker', 'd*ckhead', 'sc*mbag', 'c*cksucker', 'j*ckass', 'arseh*le', 'bell*nd', 'b*gger',
 
-  'jerk off', 'jerk it', 'jack off', 'blow job', 'bj', 'titty', 'tits', 'titties', 'nipple', 
-  'gangbang', 'rimjob', 'handjob', 'fucking her', 'doggystyle', 'rawdog', 'creampie', 
-  'eat her out', 'muff dive', 'snatch', 'boner', 'hard-on', 'wood', 'nut', 'bust a nut', 
-  'fuckboy', 'fuckgirl', 'bitchass', 'slutty', 'ho', 'hoe', 'skeet', 'bukkake', 'cum', 
+  'jerk off', 'jerk it', 'jack off', 'blow job', 'bj', 'titty', 'tits', 'titties', 'nipple',
+  'gangbang', 'rimjob', 'handjob', 'fucking her', 'doggystyle', 'rawdog', 'creampie',
+  'eat her out', 'muff dive', 'snatch', 'boner', 'hard-on', 'wood', 'nut', 'bust a nut',
+  'fuckboy', 'fuckgirl', 'bitchass', 'slutty', 'ho', 'hoe', 'skeet', 'bukkake', 'cum',
   'jizz', 'nutting',
 
-  'nigger', 'chink', 'spic', 'kike', 'sandnigger', 'towelhead', 'wetback', 'gook', 'cracker', 
+  'nigger', 'chink', 'spic', 'kike', 'sandnigger', 'towelhead', 'wetback', 'gook', 'cracker',
   'redskin', 'faggot', 'tranny', 'retarded',
 
-  'go to hell', 'eat shit', 'suck my dick', 'fuck you', 'fuck off', 'screw you', 'eat a dick', 
-  'kiss my ass', 'dumb fuck', 'stupid bitch', 'damn you', 'go fuck yourself', 'die bitch', 
+  'go to hell', 'eat shit', 'suck my dick', 'fuck you', 'fuck off', 'screw you', 'eat a dick',
+  'kiss my ass', 'dumb fuck', 'stupid bitch', 'damn you', 'go fuck yourself', 'die bitch',
   'rot in hell', 'burn in hell', 'you piece of shit',
 
   'hdp', 'hijo de', 'concha', 'conchuda', 'conchudo', 'forro', 'forra',
@@ -62,7 +62,7 @@ const contieneContenidoInapropiado = (texto: string): boolean => {
     .trim()
     .toLowerCase();
 
-  return Array.from(palabrasInapropiadasSet).some(palabra => 
+  return Array.from(palabrasInapropiadasSet).some(palabra =>
     normalizado.includes(palabra.toLowerCase())
   );
 };
@@ -148,14 +148,14 @@ export const entryFormSchema = z.object({
     .refine(validateInappropriateContent, 'Contenido no permitido'),
 
   stack: z
-    .string()
-    .trim()
+    .array(
+      z.object({
+        value: z.string().trim().min(1),
+        label: z.string().trim().min(1),
+      })
+    )
     .optional()
-    .refine((stackValue) => {
-      if (!stackValue) return true;
-      return stackValue.split(',').every(tech => tech.trim().length > 1);
-    }, 'Debe ingresar tecnologías separadas por comas')
-    .refine((stackValue) => !stackValue || validateInappropriateContent(stackValue), 'Contenido no permitido'),
+  ,
 
   experience: z
     .string()
@@ -164,12 +164,12 @@ export const entryFormSchema = z.object({
     .optional()
     .refine((experienceValue) => !experienceValue || validateInappropriateContent(experienceValue), 'Contenido no permitido'),
 
-    linkedin: z
-      .string()
-      .min(1, 'El perfil de LinkedIn es obligatorio')
-      .trim()
-      .regex(linkedinRegex, 'Debe ser un perfil de LinkedIn válido')
-      .refine(validateInappropriateContent, 'Contenido no permitido'),
+  linkedin: z
+    .string()
+    .min(1, 'El perfil de LinkedIn es obligatorio')
+    .trim()
+    .regex(linkedinRegex, 'Debe ser un perfil de LinkedIn válido')
+    .refine(validateInappropriateContent, 'Contenido no permitido'),
 
   github: z
     .string()
