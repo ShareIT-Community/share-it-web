@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { FaTimes } from 'react-icons/fa';
-import { ProgressIndicator } from './ProgressIndicator';
+import { ProgressIndicator } from './steps/ProgressIndicator';
 import { InputField } from '../forms/InputField';
-import { PersonalData } from './PersonalData';
-import { WorkData } from './WorkData';
-import { RulesAndConfirmation } from './RulesAndConfirmation';
+import { PersonalData } from './inputs/PersonalData';
+import { WorkData } from './inputs/WorkData';
+import { RulesAndConfirmation } from './steps/RulesAndConfirmation';
 
 import "./Button.css";
 import { useEntryForm } from 'src/hooks/useEntryForm';

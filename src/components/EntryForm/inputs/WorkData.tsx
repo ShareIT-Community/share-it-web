@@ -1,6 +1,6 @@
 import { InputField } from "@components/forms/InputField";
 import type { UseFormRegister, FieldErrors } from 'react-hook-form';
-import { entryFormSchema, type FormInputData } from '../SocialLinks/schema/entryFormSchema';
+import { entryFormSchema, type FormInputData } from '../../SocialLinks/schema/entryFormSchema';
 
 const inputClass = 'border p-2 rounded w-full bg-[#181f2a] text-white placeholder-gray-400';
 
