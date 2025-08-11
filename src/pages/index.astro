@@ -65,8 +65,14 @@ export const prerender = true
   </div>
 
   <section class='mb-12'>
-    <h2 class='text-3xl font-bold mb-6 text-white'>📝 Últimos Artículos</h2>
-    <div class='grid grid-cols-1 md:grid-cols-2 gap-6'>
+    <div class='mb-8'>
+      <h2 class='text-3xl font-bold mb-4 text-white'>📚 Contenido Destacado</h2>
+      <p class='text-gray-300 max-w-2xl'>
+        Descubre nuestros últimos artículos y recursos más valiosos. Conocimiento compartido por nuestra comunidad para ayudarte en tu crecimiento profesional.
+      </p>
+    </div>
+    
+    <div class='grid grid-cols-1 md:grid-cols-2 gap-6 mb-8'>
       {
         latestArticles.map((article) => (
           <ContentCard
@@ -80,25 +86,10 @@ export const prerender = true
         ))
       }
     </div>
-    <div class='text-center mt-4'>
-      <a href='/articles/1' class='text-primary hover:text-secondary'
-        >Ver todos los artículos →</a
-      >
-    </div>
-  </section>
 
-  <section class="mb-12">
-  {
-    latestResources.length === 0 ? (
-      <div class='text-center py-12'>
-        <h2 class='text-3xl font-bold mb-6 text-white text-start'>Recursos</h2>
-        <p class='text-gray-400 text-lg'>
-          Aún no hay recursos publicados. ¡Vuelve pronto!🚀
-        </p>
-      </div>
-    ) : (
-        <h2 class='text-3xl font-bold mb-6 text-white'>📚 Recursos Destacados</h2>
-        <div class='grid grid-cols-1 md:grid-cols-2 gap-6'>
+    {
+      latestResources.length > 0 && (
+        <div class='grid grid-cols-1 md:grid-cols-2 gap-6 mb-8'>
           {latestResources.map((resource) => (
             <ContentCard
               target='_blank'
@@ -111,29 +102,43 @@ export const prerender = true
             />
           ))}
         </div>
-        <div class='text-center mt-4'>
-          <a href='/resources' class='text-primary hover:text-secondary'>
-            Ver todos los recursos →
-          </a>
-        </div>
-    )
-  }
+      )
+    }
+
+    <div class='text-center mt-6'>
+      <div class='flex flex-col sm:flex-row gap-4 justify-center items-center'>
+        <a href='/articles/1' class='text-primary hover:text-secondary transition-colors'>
+          Ver todos los artículos →
+        </a>
+        {
+          latestResources.length > 0 && (
+            <span class='text-gray-500 hidden sm:block'>|</span>
+          )
+        }
+        {
+          latestResources.length > 0 && (
+            <a href='/resources' class='text-primary hover:text-secondary transition-colors'>
+              Ver todos los recursos →
+            </a>
+          )
+        }
+      </div>
+    </div>
   </section>
+
   <section class="mb-6">
     <div class="flex flex-col gap-3 justify-center items-center">
       <h2 class='text-3xl font-bold text-center text-white'>
-        🖊️ ¿Quieres formar parte de los futuros escritores?
+        📋 Conoce nuestras reglas de convivencia
       </h2>
-      <p class='text-lg text-center text-gray-400'>Para más información ingresa en el siguiente link dándole clic al botón. 😉
+      <p class='text-lg text-center text-gray-400'>Para mantener una comunidad sana y productiva, es importante conocer y respetar nuestras reglas. ¡Tómate un momento para leerlas! 😉
 
       </p>
       <a
-      href='https://github.com/Vctorqui/share-it-blog'
-      target="_blank"
-      rel="noopener noreferrer"
+      href='/rules'
       class='flex justify-center items-center bg-[#314aa9] hover:bg-[#2f3fca] text-white px-6 py-2 rounded-full'
     >
-      Escribir un artículo
+      Ver reglas de la comunidad
     </a>
     </div>
   </section>
