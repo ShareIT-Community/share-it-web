@@ -9,9 +9,7 @@ export const RulesAndConfirmation: React.FC<{ onAccept: () => void; onBack: () =
       <h2 className="text-lg font-bold mt-4 text-white">REGLAS Y CONFIRMACIÓN</h2>
       
       <div className="  p-4 rounded-lg mb-4">
-        
-          <RulesTimelines />
-        
+          <RulesTimelines /> 
       </div>
 
 

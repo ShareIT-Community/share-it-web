@@ -53,16 +53,15 @@ export const RulesTimelines = () => {
 			)}
 
 
-		<div
-			className='border border-yellow-400 bg-yellow-100/10 text-yellow-300 p-4 rounded-xl text-sm max-w-xl mx-auto mt-10'>
-			<p className='block font-extrabold mb-1 text-yellow-400 text-xl'
-				>⚠️ Aviso Importante</p
-			>
-			<p className='text-base font-bold'>
-				La administración se reserva el derecho de admisión y permanencia. Estas
-				reglas se presumen conocidas por todos los miembros de la comunidad.
-			</p>
-		</div>
+			<div
+				className='border border-yellow-400 bg-yellow-100/10 text-yellow-300 p-4 rounded-xl text-sm max-w-xl mx-auto mt-10'>
+				<p className='block font-extrabold mb-1 text-yellow-400 text-xl'
+					>⚠️ Aviso Importante</p>
+				<p className='text-base font-bold'>
+					La administración se reserva el derecho de admisión y permanencia. Estas
+					reglas se presumen conocidas por todos los miembros de la comunidad.
+				</p>
+			</div>
 		</>
 	);
 };
