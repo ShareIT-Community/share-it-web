@@ -36,8 +36,15 @@
 - ✅ Data Theft Protection
 - ✅ Form Blocking
 - ✅ Real-time Validation
-- ✅ React Hook Form Integration
+- ✅ React Hook Form Integration (included in library)
 
 ## 🎯 Customization
 
 Modify the template at `src/components/SecureSharkForm.tsx` to match your needs.
+
+## 🔧 Manual Installation
+
+If templates weren't installed automatically, run:
+```bash
+node node_modules/securesharkinputs/scripts/install-templates.js
+```

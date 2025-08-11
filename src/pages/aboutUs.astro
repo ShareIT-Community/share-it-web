@@ -1,9 +1,9 @@
 ---
 import Layout from '@layouts/Layout.astro'
 import GroupCard from '@components/GroupCard.astro'
-import { admins, groups, socialLinks } from 'src/utils/aboutUs'
+import { admins, groups} from 'src/utils/aboutUs'
 import CarouselAdmin from '@components/CarouselAdmin/CarouselAdmin'
-import HelloFromReact from '@components/HelloFromReact.tsx';
+
 const styledParagraph = 'text-[1rem] text-gray-300 leading-relaxed'
 
 const OPTIONS = {
@@ -19,7 +19,6 @@ const OPTIONS = {
     <h1 class='text-4xl font-bold text-center mb-8 text-white'>
       Acerca de Nosotros
     </h1>
-    <HelloFromReact client:load />
     <p class=`${styledParagraph} mb-2`>
       <span class='font-bold text-lg text-secondary'>Share</span>
       <span class='font-bold text-[#586ab1]'>IT</span>
