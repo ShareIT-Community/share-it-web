@@ -30,6 +30,7 @@
     "react-dom": "^19.1.0",
     "react-hook-form": "^7.60.0",
     "react-icons": "^5.5.0",
+    "react-phone-number-input": "^3.4.12",
     "securesharkinputs": "^1.3.0",
     "typewriter-effect": "^2.21.0",
     "zod": "^3.25.76",

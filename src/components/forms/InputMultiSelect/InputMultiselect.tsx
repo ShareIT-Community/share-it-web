@@ -72,7 +72,7 @@ export const InputMultiselect = ({
 
 				return (
 					<div className='flex flex-col gap-2 relative w-full'>
-						{label && <label className='font-medium text-white'>{label}</label>}
+						{label && <label className='font-medium text-left text-white'>{label}</label>}
 
 						<div className='flex flex-wrap gap-2 border-white border p-2 rounded-md items-center'>
 							{selected.map((opt) => (
@@ -106,8 +106,15 @@ export const InputMultiselect = ({
 										</div>
 									))
 								) : (
-									<div className='p-2 text-gray-400 text-sm'>
-										Presiona Enter para crear "{inputValue}"
+									<div
+										className='p-2 text-gray-400 text-sm'
+										onClick={() =>
+											handleSelect({
+												value: inputValue.toLowerCase(),
+												label: inputValue,
+											})
+										}>
+										Presiona Enter o da click para crear "{inputValue}"
 									</div>
 								)}
 							</div>

@@ -1,95 +1,107 @@
 @import 'tailwindcss';
 @import './typography.css';
 
-
 :root {
-    --primary: #368beb;
-    --secondary: #83D6E7;
-    --accent: 136, 58, 234;
-    --accent-light: 224, 204, 250;
-    --accent-dark: 49, 10, 101;
-    --accent-gradient: linear-gradient(45deg,
-            rgb(var(--accent)),
-            rgb(var(--accent-light)) 30%,
-            white 60%);
+	--primary: #368beb;
+	--secondary: #83d6e7;
+	--accent: 136, 58, 234;
+	--accent-light: 224, 204, 250;
+	--accent-dark: 49, 10, 101;
+	--accent-gradient: linear-gradient(
+		45deg,
+		rgb(var(--accent)),
+		rgb(var(--accent-light)) 30%,
+		white 60%
+	);
 }
 
 @theme inline {
-    --color-primary: var(--primary);
-    --color-secondary: var(--secondary);
-    --color-accent: var(--accent);
-    --color-accent-light: var(--accent-light);
-    --color-accent-dark: var(--accent-dark);
-    --color-accent-gradient: var(--accent-gradient);
+	--color-primary: var(--primary);
+	--color-secondary: var(--secondary);
+	--color-accent: var(--accent);
+	--color-accent-light: var(--accent-light);
+	--color-accent-dark: var(--accent-dark);
+	--color-accent-gradient: var(--accent-gradient);
 }
 
 @layer base {
-    html {
-        font-family: system-ui, sans-serif;
-        background: #13151a;
-        color: #ffffff;
-    }
+	html {
+		font-family: system-ui, sans-serif;
+		background: #13151a;
+		color: #ffffff;
+	}
 
-    code {
-        font-family:
-            Menlo,
-            Monaco,
-            Lucida Console,
-            Liberation Mono,
-            DejaVu Sans Mono,
-            Bitstream Vera Sans Mono,
-            Courier New,
-            monospace;
-    }
+	code {
+		font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
+			DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
+	}
 
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-        color: #ffffff;
-    }
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		color: #ffffff;
+	}
 
-    p {
-        color: #e5e7eb;
-        margin-bottom: 0;
-    }
+	p {
+		color: #e5e7eb;
+		margin-bottom: 0;
+	}
 
-    a {
-        color: #a78bfa;
-    }
+	a {
+		color: #a78bfa;
+	}
 
+	a:hover {
+		color: #e5e7eb;
+	}
 
-    a:hover {
-        color: #e5e7eb;
-    }
-
-    b,
-    strong {
-        color: #b5bafd;
-    }
+	b,
+	strong {
+		color: #b5bafd;
+	}
 }
 
 @keyframes float {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
-  100% { transform: translateY(0); }
+	0% {
+		transform: translateY(0);
+	}
+	50% {
+		transform: translateY(-8px);
+	}
+	100% {
+		transform: translateY(0);
+	}
 }
 
 .animate-float {
-  animation: float 5s ease-in-out infinite;
+	animation: float 5s ease-in-out infinite;
 }
-
 
 /*Card title hover */
 .card-title {
-    transition-property: color, background-color, border-color,
-        text-decoration-color, fill, stroke;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 150ms;
+	transition-property: color, background-color, border-color,
+		text-decoration-color, fill, stroke;
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	transition-duration: 150ms;
 }
 
 .card-share-it:hover .card-title {
-    color: secondary
+	color: secondary;
+}
+
+@layer base {
+	.PhoneInputInput {
+		@apply outline-none focus:outline-none;
+	}
+
+	.PhoneInputCountrySelect {
+		@apply bg-gray-800 text-white;
+	}
+
+	.PhoneInputCountrySelect option {
+		@apply bg-gray-800 text-white;
+	}
 }

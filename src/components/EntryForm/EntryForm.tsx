@@ -15,6 +15,7 @@ import { PersonalData } from './inputs/PersonalData';
 import { WorkData } from './inputs/WorkData';
 import { RulesAndConfirmation } from './steps/RulesAndConfirmation';
 
+
 const inputClass =
 	'border p-2 rounded w-full bg-[#181f2a] text-white placeholder-gray-400';
 
