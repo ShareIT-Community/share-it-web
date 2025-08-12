@@ -6,7 +6,7 @@ import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content'
 import {getTagNamesByEntries} from "@helpers/tagHelper"
 import { SocialLinks } from '@components/SocialLinks/SocialLinks';
-import { Toast } from '@components/Toasts/Toast';
+import { NotificationsContainer } from '@components/Toasts/notifications';
 
 
 
@@ -137,6 +137,6 @@ export const prerender = true
       Ver reglas de la comunidad
     </a>
     </div>
-    <Toast client:load/>
+    <NotificationsContainer client:load />
   </section>
 </Layout>

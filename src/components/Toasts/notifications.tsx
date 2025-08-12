@@ -1,10 +1,9 @@
-import React from "react";
 import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from "react-toastify";
 
 export const notifications = {
-  loginSuccess: "✅ ¡Bienvenido! Has iniciado sesión con éxito.",
-  errorNetwork: "⚠️ Error de red, por favor intenta de nuevo.",
-  infoUpdate: "ℹ️ Hay una actualización disponible.",
+  errorForm: "⚠️ Error al llenar el formulario. Por favor, modifica los campos solicitados.",
 };
 
 export type NotificationType = keyof typeof notifications;
@@ -16,3 +15,5 @@ export function showNotification(type: NotificationType) {
     pauseOnHover: true,
   });
 }
+
+export const NotificationsContainer = ToastContainer;

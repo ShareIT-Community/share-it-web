@@ -35,6 +35,7 @@ export const EntryForm: React.FC<EntryFormProps> = ({ onClose }) => {
 		watch,
 		formState: { errors, isValid },
 		control,
+		trigger,
 	} = useForm<FormInputData>({
 		resolver: zodResolver(entryFormSchema),
 		defaultValues: {
@@ -62,11 +63,13 @@ export const EntryForm: React.FC<EntryFormProps> = ({ onClose }) => {
 	const countryValue = watch('country');
 
 	const handleNext = () => {
-		if (!isValid) {
-			showNotification('errorNetwork');
-			return;
-		}
-		setCurrentStage('confirmation');
+		trigger().then((valid) => {
+			if (!valid) {
+				showNotification('errorForm');
+				return;
+			}
+			setCurrentStage('confirmation');
+		});
 	};
 
 	const handleBack = () => {
@@ -144,25 +147,6 @@ export const EntryForm: React.FC<EntryFormProps> = ({ onClose }) => {
 					onBack={handleBack}
 				/>
 			)}
-
-			<style>{`
-        .custom-scrollbar {
-          scrollbar-width: thin;
-          scrollbar-color: #94e7f8 transparent;
-        }
-        .custom-scrollbar::-webkit-scrollbar {
-          width: 6px;
-          background: transparent;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: #111;
-          border-radius: 8px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-          background: transparent;
-          border-left: 1px solid #222;
-        }
-      `}</style>
 		</form>
 	);
 };

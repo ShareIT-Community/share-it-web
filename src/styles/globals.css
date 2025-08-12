@@ -1,3 +1,20 @@
+/* Custom scrollbar for forms */
+.custom-scrollbar {
+	scrollbar-width: thin;
+	scrollbar-color: #94e7f8 transparent;
+}
+.custom-scrollbar::-webkit-scrollbar {
+	width: 6px;
+	background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+	background: #111;
+	border-radius: 8px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+	background: transparent;
+	border-left: 1px solid #222;
+}
 @import 'tailwindcss';
 @import './typography.css';
 
