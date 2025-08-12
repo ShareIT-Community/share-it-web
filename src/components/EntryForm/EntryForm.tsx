@@ -14,6 +14,7 @@ import { ProgressIndicator } from './steps/ProgressIndicator';
 import { PersonalData } from './inputs/PersonalData';
 import { WorkData } from './inputs/WorkData';
 import { RulesAndConfirmation } from './steps/RulesAndConfirmation';
+import { showNotification } from '@components/Toasts/notifications';
 
 
 const inputClass =
@@ -61,6 +62,10 @@ export const EntryForm: React.FC<EntryFormProps> = ({ onClose }) => {
 	const countryValue = watch('country');
 
 	const handleNext = () => {
+		if (!isValid) {
+			showNotification('errorNetwork');
+			return;
+		}
 		setCurrentStage('confirmation');
 	};
 
@@ -128,7 +133,6 @@ export const EntryForm: React.FC<EntryFormProps> = ({ onClose }) => {
 						<button
 							type='button'
 							onClick={handleNext}
-							disabled={!isValid}
 							className='btn-gradient h-20'>
 							Siguiente
 						</button>
