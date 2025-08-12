@@ -83,14 +83,5 @@ export const admins = [
     linkedin: 'https://www.linkedin.com/in/jeanmra/',
     website: 'https://jeanroa.dev/',
   },
-  {
-    name: 'Nicolás Cruz (Nico)',
-    about: 'Admin',
-    role: 'Fullstack Developer',
-    avatar: '/images/nico-avatar.jpg',
-    github: 'https://github.com/NicoFJCruz',
-    linkedin: 'https://www.linkedin.com/in/nicofj-cruz',
-    website: 'http://nicolascruz.jovinet.com/',
-    twitter: 'https://x.com/NicoCruzDev',
-  },
-];
+]
+

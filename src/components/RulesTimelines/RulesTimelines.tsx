@@ -20,6 +20,7 @@ export const RulesTimelines = () => {
 				<li className='me-2'>
 					<button
 						type="button"
+
 						className={`inline-flex items-center justify-center p-4 border-b-2  rounded-t-lg hover:text-cyan-300 hover:border-cyan-300 font-semibold cursor-pointer ${
 							tabOption === 'general'
 								? 'text-cyan-300 border-cyan-300'
