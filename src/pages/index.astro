@@ -5,6 +5,9 @@ import Layout from '@layouts/Layout.astro'
 import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content'
 import {getTagNamesByEntries} from "@helpers/tagHelper"
+import { SocialLinks } from '@components/SocialLinks/SocialLinks';
+
+
 
 const articles = await getCollection('articles', ({ data }) => {
   return !data.draft
@@ -42,26 +45,18 @@ export const prerender = true
       <span class='font-bold'>Este es un rincón para intercambiar conocimientos</span> y experiencias que nos han guiado y ayudado en <span class='font-bold'>nuestro recorrido</span>.
     </p>
     <div class='flex sm:flex-row justify-center min-[1000px]:justify-start gap-4 flex-col'>
-      <a
-        href='/articles/1'
-        class='flex justify-center items-center bg-[#314aa9] hover:bg-[#2f3fca] text-white px-6 py-2 rounded-full'
-      >
-        Explorar Artículos
-      </a>
-      <a
-        href='/aboutUs'
-        class='flex justify-center items-center border-[#314aa9] hover:border-[#83d6e7] border-2 text-white px-6 py-2 rounded-full transition-colors'
-      >
-        Acerca de nosotros
-      </a>
+      <SocialLinks client:load/>
     </div>
+
     </div>
 
     <Image
       src='/images/Frame.png'
       width={300}
       height={300}
-      alt='Hero Image'/>
+      alt='Hero Image'
+      class='mt-16'
+      />
   </div>
 
   <section class='mb-12'>

@@ -1,0 +1,65 @@
+import { RulesTimelines } from "@components/RulesTimelines/RulesTimelines";
+import { useState } from "react";
+import { CommunityEntrance } from "./CommunityEntrance";
+
+export const RulesAndConfirmation: React.FC<{ onAccept: () => void; onBack: () => void }> = ({ onAccept, onBack }) => {
+  const [accepted, setAccepted] = useState(false);
+  const [allowSend, setAllowSend] = useState(false);
+
+  const handleAccept = () => {
+    setAllowSend(true);
+  };
+
+  return (
+    <div className="relative">
+      <h2 className="text-lg font-bold mt-4 text-white">REGLAS Y CONFIRMACIÓN</h2>
+      
+      <div className="p-4 rounded-lg mb-4">
+        <RulesTimelines /> 
+      </div>
+
+      <div className="flex items-start gap-3 mb-6">
+        <input
+          type="checkbox"
+          id="accept-rules"
+          checked={accepted}
+          onChange={(e) => setAccepted(e.target.checked)}
+          className="mt-1 w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500 focus:ring-2"
+        />
+        <label htmlFor="accept-rules" className="text-white text-sm">
+          Entiendo y acepto las reglas de la comunidad
+        </label>
+      </div>
+
+      {allowSend && (
+        <div className="mb-4">
+          <CommunityEntrance />
+        </div>
+      )}
+
+      <div className="flex h-10 justify-center items-center gap-3">
+        <button
+          type="button"
+          onClick={() => {
+            setAllowSend(false); // opcional: resetear si vuelves atrás
+            onBack();
+          }}
+          className="flex-1 px-4 py-2 btn-back transition"
+        >
+          Volver
+        </button>
+        <div className="flex-1 flex justify-center h-10 items-center">
+          <button
+            type="button"
+            onClick={handleAccept}
+            disabled={!accepted}
+            className={`w-full flex justify-center items-center text-white rounded transition-all duration-200
+                        ${accepted ? 'btn-gradient' : 'btn-disabled'}`}
+          >
+            Enviar
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
