@@ -11,6 +11,9 @@ importers:
       '@astrojs/react':
         specifier: ^4.3.0
         version: 4.3.0(@types/node@24.1.0)(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(jiti@2.4.2)(lightningcss@1.29.2)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(yaml@2.6.1)
+      '@gsap/react':
+        specifier: ^2.1.2
+        version: 2.1.2(gsap@3.13.0)(react@19.1.1)
       '@hookform/resolvers':
         specifier: ^5.2.0
         version: 5.2.0(react-hook-form@7.61.1(react@19.1.1))
@@ -375,6 +378,12 @@ packages:
     engines: {node: '>=18'}
     cpu: [x64]
     os: [win32]
+
+  '@gsap/react@2.1.2':
+    resolution: {integrity: sha512-JqliybO1837UcgH2hVOM4VO+38APk3ECNrsuSM4MuXp+rbf+/2IG2K1YJiqfTcXQHH7XlA0m3ykniFYstfq0Iw==}
+    peerDependencies:
+      gsap: ^3.12.5
+      react: '>=17'
 
   '@hookform/resolvers@5.2.0':
     resolution: {integrity: sha512-3YI+VqxJQH6ryRWG+j3k+M19Wf37LeSKJDg6Vdjq6makLOqZGYn77iTaYLMLpVi/uHc1N6OTCmcxJwhOQV979g==}
@@ -2656,6 +2665,11 @@ snapshots:
 
   '@esbuild/win32-x64@0.25.4':
     optional: true
+
+  '@gsap/react@2.1.2(gsap@3.13.0)(react@19.1.1)':
+    dependencies:
+      gsap: 3.13.0
+      react: 19.1.1
 
   '@hookform/resolvers@5.2.0(react-hook-form@7.61.1(react@19.1.1))':
     dependencies:

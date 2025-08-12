@@ -6,9 +6,10 @@ interface Props {
 	control: Control<any>;
 	name: string;
 	label?: string;
+	error: string;
 }
 
-export const InputPhoneNumber = ({ control, name, label }: Props) => {
+export const InputPhoneNumber = ({ control, name, label, error }: Props) => {
 	return (
 		<Controller
 			name={name}
@@ -25,6 +26,7 @@ export const InputPhoneNumber = ({ control, name, label }: Props) => {
 						onChange={field.onChange}
 						className='w-full border border-white p-2 rounded-md'
 					/>
+					<span className='mt-4 text-sm text-red-500'>{error}</span>
 				</div>
 			)}
 		/>

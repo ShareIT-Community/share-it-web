@@ -116,10 +116,12 @@ export const EntryForm: React.FC<EntryFormProps> = ({ onClose }) => {
 						register={register}
 						errors={errors}
 						countryValue={countryValue ?? ''}
+						control={control}
 					/>
 					<WorkData
 						register={register}
 						errors={errors}
+						control={control}
 					/>
 
 					<div className=' h-20'>
