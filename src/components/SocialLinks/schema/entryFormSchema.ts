@@ -210,5 +210,4 @@ export const entryFormSchema = z.object({
 
 export type FormData = z.infer<typeof entryFormSchema>;
 
-// Tipo para los datos de entrada del formulario
 export type FormInputData = z.infer<typeof entryFormSchema>; 
