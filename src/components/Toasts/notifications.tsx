@@ -16,4 +16,12 @@ export function showNotification(type: NotificationType) {
   });
 }
 
-export const NotificationsContainer = ToastContainer;
+export const NotificationsContainer = () => (
+  <ToastContainer
+    position="top-right"
+    autoClose={3000}
+    pauseOnHover
+    toastClassName="custom-toast"//los estilos estan en globals.css abajo del todo
+    theme={undefined}
+  />
+);
