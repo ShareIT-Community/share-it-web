@@ -30,12 +30,12 @@
 		background: #13151a;
 		color: #ffffff;
 	}
-
+	
 	code {
 		font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
-			DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
+		DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
 	}
-
+	
 	h1,
 	h2,
 	h3,
@@ -44,20 +44,20 @@
 	h6 {
 		color: #ffffff;
 	}
-
+	
 	p {
 		color: #e5e7eb;
 		margin-bottom: 0;
 	}
-
+	
 	a {
 		color: #a78bfa;
 	}
-
+	
 	a:hover {
 		color: #e5e7eb;
 	}
-
+	
 	b,
 	strong {
 		color: #b5bafd;
@@ -96,12 +96,39 @@
 	.PhoneInputInput {
 		@apply outline-none focus:outline-none;
 	}
-
+	
 	.PhoneInputCountrySelect {
 		@apply bg-gray-800 text-white;
 	}
-
+	
 	.PhoneInputCountrySelect option {
 		@apply bg-gray-800 text-white;
 	}
+}
+
+/* Custom scrollbar for forms */
+.custom-scrollbar {
+	scrollbar-width: thin;
+	scrollbar-color: #94e7f8 transparent;
+}
+.custom-scrollbar::-webkit-scrollbar {
+	width: 6px;
+	background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+	background: #111;
+	border-radius: 8px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+	background: transparent;
+	border-left: 1px solid #222;
+}
+
+
+/* Custom Toast Styles */
+.custom-toast {
+	background: #94e7f8;
+	color: black;
+	font-weight: 600;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
