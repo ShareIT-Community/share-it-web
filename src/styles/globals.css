@@ -127,8 +127,7 @@
 
 /* Custom Toast Styles */
 .custom-toast {
-	background: #94e7f8;
-	color: black;
+	background: #1d2c49;
 	font-weight: 600;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }

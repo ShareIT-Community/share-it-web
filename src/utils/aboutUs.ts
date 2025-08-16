@@ -83,5 +83,14 @@ export const admins = [
     linkedin: 'https://www.linkedin.com/in/jeanmra/',
     website: 'https://jeanroa.dev/',
   },
+  {
+    name:"Azariel Moreno (Azza)",
+    about:"admin",
+    role:'Full-Stack Developer',
+    avatar:'/images/azza-avatar.jpg',
+    github:'https://github.com/AzzADesigns',
+    linkedin:'https://www.linkedin.com/in/azariel-moreno-4267ba254/',
+    website:'https://www.azzadesigns.dev/'
+  }
 ]
 

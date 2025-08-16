@@ -2,12 +2,21 @@ import { RulesTimelines } from "@components/RulesTimelines/RulesTimelines";
 import { useState } from "react";
 import { CommunityEntrance } from "./CommunityEntrance";
 
-export const RulesAndConfirmation: React.FC<{ onAccept: () => void; onBack: () => void }> = ({ onAccept, onBack }) => {
+interface Props{
+  onAccept: () => void; 
+  onBack: () => void
+  isSucces: boolean
+  isLoading: boolean
+}
+
+
+export const RulesAndConfirmation: React.FC<Props> = ({ onAccept, onBack, isSucces, isLoading }) => {
   const [accepted, setAccepted] = useState(false);
-  const [allowSend, setAllowSend] = useState(false);
+
 
   const handleAccept = () => {
-    setAllowSend(true);
+    console.log(isSucces)
+    onAccept()
   };
 
   return (
@@ -31,7 +40,7 @@ export const RulesAndConfirmation: React.FC<{ onAccept: () => void; onBack: () =
         </label>
       </div>
 
-      {allowSend && (
+      {isSucces && (
         <div className="mb-4">
           <CommunityEntrance />
         </div>
@@ -40,10 +49,8 @@ export const RulesAndConfirmation: React.FC<{ onAccept: () => void; onBack: () =
       <div className="flex h-10 justify-center items-center gap-3">
         <button
           type="button"
-          onClick={() => {
-            setAllowSend(false); // opcional: resetear si vuelves atrás
-            onBack();
-          }}
+          disabled={isLoading}
+          onClick={onBack}
           className="flex-1 px-4 py-2 btn-back transition"
         >
           Volver
@@ -52,11 +59,11 @@ export const RulesAndConfirmation: React.FC<{ onAccept: () => void; onBack: () =
           <button
             type="button"
             onClick={handleAccept}
-            disabled={!accepted}
+            disabled={!accepted || isLoading}
             className={`w-full flex justify-center items-center text-white rounded transition-all duration-200
                         ${accepted ? 'btn-gradient' : 'btn-disabled'}`}
           >
-            Enviar
+            {isLoading ? "Enviando...": "Enviar"}
           </button>
         </div>
       </div>

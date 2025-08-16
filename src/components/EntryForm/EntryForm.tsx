@@ -7,9 +7,9 @@ import { ProgressIndicator } from './steps/ProgressIndicator';
 import { PersonalData } from './inputs/PersonalData';
 import { WorkData } from './inputs/WorkData';
 import { RulesAndConfirmation } from './steps/RulesAndConfirmation';
-import { showNotification } from '@components/Toasts/Notifications';
 import { useEntryForm } from 'src/hooks/useEntryForm'; 
 import './Button.css';
+import { toast } from 'react-toastify';
 
 const inputClass =
 	'border p-2 rounded w-full bg-[#181f2a] text-white placeholder-gray-400';
@@ -22,6 +22,8 @@ export const EntryForm: React.FC<EntryFormProps> = ({ onClose }) => {
 	const [currentStage, setCurrentStage] = useState<'personal' | 'confirmation'>(
 		'personal',
 	);
+	const [isSucess, setIssSucess] = useState(false)
+	const [isLoading, setIsloading] = useState(false)
 
 	const {
 		register,
@@ -37,7 +39,7 @@ export const EntryForm: React.FC<EntryFormProps> = ({ onClose }) => {
 	const handleNext = () => {
 		trigger().then((valid) => {
 			if (!valid) {
-				showNotification('errorForm');
+				toast.error('Error al llenar el formulario. Por favor, modifica los campos solicitados.');
 				return;
 			}
 			setCurrentStage('confirmation');
@@ -46,19 +48,25 @@ export const EntryForm: React.FC<EntryFormProps> = ({ onClose }) => {
 
 	const handleBack = () => {
 		setCurrentStage('personal');
+		setIssSucess(false)
 	};
 
-	const handleSubmitForm = (data: any) => {
+	const handleSubmitForm = async (data: any) => {
 		const formattedData = registerMemberAdapter(data);
 		
-		registerMember(formattedData)
-			.then(() => {
-				onClose();
-			})
-			.catch((err: Error) => {
-				console.log(err.message);
-			});
-	};
+
+		try{
+			setIsloading(true)
+			const data = await registerMember(formattedData)
+			toast.success(data.message)
+			setIssSucess(data.success)
+		}catch(error:any){
+			toast.error(error.message)
+				setIssSucess(error.success)
+		}finally{
+			setIsloading(false)
+		}
+	}
 
 	return (
 		<form
@@ -110,6 +118,8 @@ export const EntryForm: React.FC<EntryFormProps> = ({ onClose }) => {
 				<RulesAndConfirmation
 					onAccept={handleSubmit(handleSubmitForm)}
 					onBack={handleBack}
+					isSucces={isSucess}
+					isLoading={isLoading}
 				/>
 			)}
 		</form>
