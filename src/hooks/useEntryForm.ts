@@ -18,7 +18,7 @@ export const useEntryForm = () => {
       country: '',
       otherCountry: '',
       role: '',
-      stack: '',
+      stack: [],
       experience: '',
       linkedin: '',
       github: '',
