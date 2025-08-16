@@ -1,8 +1,9 @@
 ---
 import Layout from '@layouts/Layout.astro'
 import GroupCard from '@components/GroupCard.astro'
-import { admins, groups, socialLinks } from 'src/utils/aboutUs'
+import { admins, groups} from 'src/utils/aboutUs'
 import CarouselAdmin from '@components/CarouselAdmin/CarouselAdmin'
+
 const styledParagraph = 'text-[1rem] text-gray-300 leading-relaxed'
 
 const OPTIONS = {
@@ -68,27 +69,6 @@ const OPTIONS = {
               una comunidad más sana.
             </p>
           </div>
-        </div>
-      </div>
-      <div class='flex flex-col justify-center gap-4 mt-2'>
-        <p class=`text-lg text-center text-gray-200 leading-relaxed font-bold`>
-          Únete a nosotros y sé parte de esta increíble comunidad. 🚀
-        </p>
-        <div class='flex sm:flex-row justify-center gap-4 flex-col'>
-          {
-            socialLinks.map((link) => (
-              <a
-                aria-label={link.title}
-                rel='noopener noreferrer'
-                target='_blank'
-                href={link.url}
-                class='flex items-center justify-center gap-2 bg-[#314aa9] hover:bg-[#2f3fca] text-white px-6 py-2 rounded-full w-full sm:w-auto font-semibold'
-              >
-                {link.description}
-                <link.icon />
-              </a>
-            ))
-          }
         </div>
       </div>
       <div>

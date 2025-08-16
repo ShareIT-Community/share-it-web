@@ -1,0 +1,54 @@
+.btn-gradient {
+  background: linear-gradient(to right, #4b6ef8, #6b8cff, #94e7f8);
+  color: white;
+  font-size: 1.125rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: none;
+  width: 100%;
+  height: 50px;
+  transition: all 0.4s ;
+  cursor: pointer;
+}
+
+.btn-gradient:hover {
+  background: #4b6ef8;
+  border: 2px solid rgb(195, 195, 195);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+  width: 99.9%;
+}
+
+.btn-disabled {
+  background: #cbd5e1;
+  color: #64748b;  
+  font-size: 1.125rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: none;
+  width: 100%;
+  height: 50px;
+  cursor: not-allowed;
+  opacity: 0.6;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-back {
+  background: #d9d9d9;
+  color: #1e3a8a; 
+  font-size: 1.125rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: 2px solid #383838;
+  width: 100%;
+  height: 50px;
+  cursor: pointer;
+  transition: all 2s ;
+}
+
+.btn-back:hover {
+  background: #e0e7ff; 
+  color: #1e40af;     
+  border-color: #464646;
+}
+
+
