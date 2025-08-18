@@ -3,13 +3,13 @@ name: Docker
 on:
   push:
     branches: 
-      - "main"
+      - "master"
       - "feature/*"
       - "bugfix/*" 
       - "hotfix/*"
     tags: [ 'v*.*.*' ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "master" ]
 
 env:
   REGISTRY: ghcr.io
@@ -37,7 +37,7 @@ jobs:
       - name: Determine build type
         id: build-type
         run: |
-          if [[ "${{ github.event_name }}" != "pull_request" && ("${{ github.ref }}" == "refs/heads/main" || "${{ github.ref }}" == refs/tags/v*) ]]; then
+          if [[ "${{ github.event_name }}" != "pull_request" && ("${{ github.ref }}" == "refs/heads/master" || "${{ github.ref }}" == refs/tags/v*) ]]; then
             echo "type=push" >> $GITHUB_OUTPUT
           else
             echo "type=build-only" >> $GITHUB_OUTPUT
