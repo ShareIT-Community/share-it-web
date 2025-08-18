@@ -35,9 +35,9 @@ export const SocialLinks: React.FC = () => {
           description={socialLinks.github.description}
           icon={socialLinks.github.icon}
           onClick={() => window.open(socialLinks.github.url, '_blank')}
-          hoverColor={"#3f3f3f"}
+          hoverColor={"#6b8cff"}
           ariaLabel={socialLinks.github.title}
-          social="github"
+          social="redes"
           />
           
       </div>

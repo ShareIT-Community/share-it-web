@@ -1,4 +1,5 @@
-import { FaGithub, FaWhatsapp } from 'react-icons/fa';
+import { FaWhatsapp } from 'react-icons/fa';
+import { GoRocket } from "react-icons/go";
 export const socialLinks = {
   whatsapp: {
     title: 'WhatsApp de la comunidad',
@@ -8,9 +9,9 @@ export const socialLinks = {
   },
   github: {
     title: 'GitHub de la comunidad',
-    description: 'Repositorio de GitHub',
-    url: 'https://github.com/eliasvelazquezdev/share-it-resources',
-    icon: FaGithub,
+    description: 'Nuestras redes',
+    url: 'https://bento.me/shareit',
+    icon: GoRocket,
   },
 };
 

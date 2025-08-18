@@ -23,7 +23,7 @@ export const SocialContainer: React.FC<SocialButtonProps> = ({
   const borderColor = clsx({
     'border-green-500': social === 'whatsapp' && !isHovered,
     'border-gray-300': social === 'github' && !isHovered,
-    'border-white': social !== 'whatsapp' && social !== 'github' && !isHovered,
+    'border-[#94e7f8]': social !== 'whatsapp' && social !== 'github' && !isHovered,
     'border-transparent': isHovered,
   });
 
@@ -31,8 +31,8 @@ export const SocialContainer: React.FC<SocialButtonProps> = ({
     ? 'text-white'
     : clsx({
         'text-green-500': social === 'whatsapp',
-        'text-gray-300': social === 'github',
-        'text-white': social !== 'whatsapp' && social !== 'github',
+        'text-[#6b8cff]': social === 'redes',
+        'text-white': social !== 'whatsapp' && social !== 'redes',
       });
 
   const hoveredStyle = isHovered
