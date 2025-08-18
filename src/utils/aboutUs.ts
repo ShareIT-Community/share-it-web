@@ -1,20 +1,19 @@
-import GithubIcon from '@icons/GithubIcon.astro'
-import WhatsappIcon from '@icons/WhatsappIcon.astro'
-
-export const socialLinks = [
-  {
-    title: 'GitHub de la comunidad',
-    description: 'Repositorio de GitHub',
-    url: 'https://github.com/eliasvelazquezdev/share-it-resources',
-    icon: GithubIcon,
-  },
-  {
+import { FaWhatsapp } from 'react-icons/fa';
+import { GoRocket } from "react-icons/go";
+export const socialLinks = {
+  whatsapp: {
     title: 'WhatsApp de la comunidad',
     description: 'Únete a la comunidad',
     url: 'https://chat.whatsapp.com/LlbgQpQ7EB1Hy5Rq4WhJd6',
-    icon: WhatsappIcon,
+    icon: FaWhatsapp,
   },
-]
+  github: {
+    title: 'GitHub de la comunidad',
+    description: 'Nuestras redes',
+    url: 'https://bento.me/shareit',
+    icon: GoRocket,
+  },
+};
 
 export const groups = [
   {
@@ -47,7 +46,7 @@ export const groups = [
       'A veces necesitamos hacer catarsis de ese compañero que no nos escucha en el trabajo, de aquel profesor que pide cosas imposibles o cuando te ghostean en un proceso laboral. ¡Acá tenés el lugar indicado para descargarte!',
     size: 'sm:col-span-2 sm:row-span-2',
   },
-]
+];
 
 export const admins = [
   {
@@ -85,4 +84,14 @@ export const admins = [
     linkedin: 'https://www.linkedin.com/in/jeanmra/',
     website: 'https://jeanroa.dev/',
   },
+  {
+    name:"Azariel Moreno (Azza)",
+    about:"admin",
+    role:'Full-Stack Developer',
+    avatar:'/images/azza-avatar.jpg',
+    github:'https://github.com/AzzADesigns',
+    linkedin:'https://www.linkedin.com/in/azariel-moreno-4267ba254/',
+    website:'https://www.azzadesigns.dev/'
+  }
 ]
+

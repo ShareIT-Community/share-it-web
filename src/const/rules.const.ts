@@ -5,7 +5,7 @@ export const COMMUNITY_RULES_DISCORD = [
 	},
 	{
 		title: "📚📌 Usa los canales adecuados",
-		description: "Utiliza los canales temáticos correspondientes para cada tipo de discusión o pregunta. Esto ayudará a mantener el orden y facilitará la búsqueda de información relevante."
+		description: "Utiliza los canales temáticos correspondientes para cada tipo de discusión o pregunta. Esto ayudará a mantener el orden y facilitará la búsqueda de información relevante, por ultimo, todas las charlas organizadas se llevaran a cabo en el Discord de la comunidad."
 	},
 	{
 		title: "🚫📵 Contenido",
@@ -30,6 +30,10 @@ export const COMMUNITY_RULES_DISCORD = [
 	{
 		title: "🚀💬 Proactividad",
 		description: "Anima a los miembros a participar, compartir sus conocimientos y contribuir a la comunidad. La participación activa enriquece la experiencia de todos."
+	},
+	{
+		title: "📅📢 Avisa",
+		description: "Si quieres organizar un evento, charla, actividad o un grupo que crees que puede ser de interés para la comunidad, por favor avisa a los administradores antes de hacerlo. Esto es para evitar conflictos y asegurar que el contenido sea adecuado o aceptable para el grupo."
 	},
 	{
 		title: "🧑‍⚖️📣 Respeta a los admins",
