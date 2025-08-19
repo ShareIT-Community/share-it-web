@@ -53,7 +53,7 @@ export const SocialContainer: React.FC<SocialButtonProps> = ({
       <button
         aria-label={ariaLabel}
         onClick={onClick}
-        className="flex items-center gap-2 justify-between cursor-pointer lg:px-18 h-full"
+        className="flex items-center gap-2 w-full justify-center cursor-pointer lg:px-18 h-full"
       >
         {description}
         <Icon className="lg:w-15 lg:h-7" />
