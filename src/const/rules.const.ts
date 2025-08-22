@@ -48,12 +48,16 @@ export const COMMUNITY_RULES_GROUPS = [
 		description: "Si bien este espacio es para charlar de cualquier tema que no entre en los demás grupos, existen ciertos temas que no pueden tocarse, sin excepción, como por ejemplo: religión, política, contenido erótico o insinuante."
 	},
 	{
-		title: "📚 🆘 Recursos y Ayuda",
-		description: "No se puede utilizar el grupo para ofrecer ayuda/mentoría a cambio de dinero. Es mejor definir ese tipo de situaciones por privado. Sin embargo, esto no quiere decir que se esté dando permiso a que se pueda acosar a miembros de la comunidad por privado para ofrecer servicios. Si otro miembro de la comunidad te acosa por privado, por favor comunícate con un administrador (y acompañado con pruebas)."
+		title: "📚 Recursos",
+		description: "Este grupo está destinado a ser una biblioteca de recursos de la comunidad y por ende, se espera que solamente añadas una descripción muy breve del recurso que estás compartiendo. Si un recurso compartido por otro miembro te resulta útil o interesante, por favor no desarrolles una conversación al respecto dentro del grupo. Reaccionar al mensaje será más que suficiente para mostrar tu apoyo y evitará que los recursos se pierdan entre múltiples mensajes."
+	},
+	{
+		title: "🆘 Mesa de Ayuda",
+		description: "Está prohibido ofrecer servicios pagados de mentoría o ayuda dentro del grupo. Si deseas ofrecer servicios pagados, hazlo por mensaje privado. Sin embargo, esto no autoriza el acoso a otros miembros para ofrecer servicios. Si recibes mensajes no deseados o acoso de otro miembro, repórtalo a un administrador adjuntando evidencia."
 	},
 	{
 		title: "🌎📝 Networking, Eventos y CV",
-		description: "No está permitido compartir eventos de otras comunidades de WhatsApp sin previa autorización de los administradores. Tampoco se permite el spam de publicaciones, medios o servicios propios que no estén estrechamente relacionados con contenido IT. En caso de querer ofrecer un servicio IT, por favor consultar a los administradores primero."
+		description: "No está permitido compartir eventos de otras comunidades de WhatsApp sin previa autorización de los administradores. Tampoco se permite el spam de publicaciones, medios o servicios propios que no estén estrechamente relacionados con contenido IT. En caso de querer ofrecer un servicio de índole IT, por favor consultar a los administradores primero."
 	},
 	{
 		title: "☕💧 La Llorería",
