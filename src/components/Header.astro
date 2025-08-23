@@ -1,6 +1,8 @@
 ---
 import ShareIt from '@icons/ShareIt.astro';
 import MobileMenu from './MobileMenu/MobileMenu.astro';
+import { Image } from 'astro:assets';
+import LogoWaves from 'public/images/shareit_logo_waves.png';
 
 const navItems = [
 	{ href: '/', text: 'Inicio' },
@@ -18,8 +20,9 @@ const navItems = [
 		class='container mx-auto px-4 max-w-4xl flex items-center justify-between'>
 		<a
 			href='/'
-			class='font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#4b6ef8] via-primary to-[#94e7f8] text-xl'>
-			ShareIT
+			class='font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#4b6ef8] via-primary to-[#94e7f8] text-xl inline-flex h-full flex-justify-center items-center gap-1'>
+			<Image src={LogoWaves} alt="ShareIT Logo Waves" class="size-4"/>
+			<span>ShareIT</span>
 		</a>
 
 		<ul

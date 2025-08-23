@@ -42,7 +42,7 @@ export const SocialContainer: React.FC<SocialButtonProps> = ({
   return (
     <div
       className={clsx(
-        'flex items-center text-sm lg:text-lg active:scale-95 h-12 justify-center cursor-pointer rounded-md w-full sm:w-auto font-semibold transition-all duration-200 border',
+        'flex items-center text-lg active:scale-95 h-12 justify-center cursor-pointer rounded-md w-full sm:w-auto font-semibold transition-all duration-200 border',
         borderColor,
         textColor
       )}
@@ -53,7 +53,7 @@ export const SocialContainer: React.FC<SocialButtonProps> = ({
       <button
         aria-label={ariaLabel}
         onClick={onClick}
-        className="flex items-center gap-2 w-full justify-center cursor-pointer lg:px-18 h-full"
+        className="flex items-center gap-2 w-full justify-center cursor-pointer lg:px-10 h-full"
       >
         {description}
         <Icon className="lg:w-15 lg:h-7" />
