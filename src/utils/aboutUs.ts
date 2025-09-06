@@ -1,11 +1,11 @@
-import { FaWhatsapp } from 'react-icons/fa';
+import { FaDiscord } from "react-icons/fa6";
 import { GoRocket } from "react-icons/go";
 export const socialLinks = {
-  whatsapp: {
-    title: 'WhatsApp de la comunidad',
+  discord: {
+    title: 'Discord de la comunidad',
     description: 'Únete a la comunidad',
-    url: 'https://chat.whatsapp.com/LlbgQpQ7EB1Hy5Rq4WhJd6',
-    icon: FaWhatsapp,
+    url: 'https://discord.gg/G54pYpjp6U',
+    icon: FaDiscord,
   },
   github: {
     title: 'GitHub de la comunidad',

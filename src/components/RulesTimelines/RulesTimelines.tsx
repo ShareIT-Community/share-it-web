@@ -30,24 +30,9 @@ export const RulesTimelines = () => {
 						Reglas generales
 					</button>
 				</li>
-
-				<li className='me-2'>
-					<button
-						type="button"
-						className={`inline-flex items-center justify-center p-4 border-b-2  rounded-t-lg hover:text-cyan-300 hover:border-cyan-300 font-semibold cursor-pointer ${
-							tabOption === 'groups'
-								? 'text-cyan-300 border-cyan-300'
-								: 'border-transparent'
-						}`}
-						onClick={() => handleChangeTab('groups')}>
-						Grupos de WhatsApp
-					</button>
-				</li>
 			</ul>
 
-			{tabOption === 'groups' && (
-				<RulesLineItem data={COMMUNITY_RULES_GROUPS} />
-			)}
+
 
 			{tabOption === 'general' && (
 				<RulesLineItem data={COMMUNITY_RULES_DISCORD} />

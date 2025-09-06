@@ -18,18 +18,18 @@ export const SocialLinks: React.FC = () => {
       }
     }, [isFormOpen]);
 
-  const whatsapp = socialLinks.whatsapp;
+  const discord = socialLinks.discord;
 
   return (
     <div className="flex flex-col justify-center gap-4 mt-2 w-full">
       <div className="flex justify-center gap-4 w-full flex-col">
         <SocialContainer
-          description={whatsapp.description}
-          icon={whatsapp.icon}
+          description={discord.description}
+          icon={discord.icon}
           onClick={openForm}
-          hoverColor={"#25D366"}
-          ariaLabel={whatsapp.title}
-          social="whatsapp"
+          hoverColor={"#5865F2"}
+          ariaLabel={discord.title}
+          social="discord"
         />
         <SocialContainer
           description={socialLinks.github.description}
