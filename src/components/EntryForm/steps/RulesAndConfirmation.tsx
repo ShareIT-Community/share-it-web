@@ -2,22 +2,15 @@ import { RulesTimelines } from "@components/RulesTimelines/RulesTimelines";
 import { useState } from "react";
 import { CommunityEntrance } from "./CommunityEntrance";
 
-interface Props{
-  onAccept: () => void; 
-  onBack: () => void
-  isSucces: boolean
-  isLoading: boolean
-}
 
 
-export const RulesAndConfirmation: React.FC<Props> = ({ onAccept, onBack, isSucces, isLoading }) => {
+export const RulesAndConfirmation = () => {
+
   const [accepted, setAccepted] = useState(false);
 
-
-  const handleAccept = () => {
-    console.log(isSucces)
-    onAccept()
-  };
+  const handleAccepted = () => {
+    setAccepted(true)
+  }
 
   return (
     <div className="relative">
@@ -27,43 +20,21 @@ export const RulesAndConfirmation: React.FC<Props> = ({ onAccept, onBack, isSucc
         <RulesTimelines /> 
       </div>
 
-      <div className="flex items-start gap-3 mb-6">
-        <input
-          type="checkbox"
-          id="accept-rules"
-          checked={accepted}
-          onChange={(e) => setAccepted(e.target.checked)}
-          className="mt-1 w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500 focus:ring-2"
-        />
-        <label htmlFor="accept-rules" className="text-white text-sm">
-          Entiendo y acepto las reglas de la comunidad
-        </label>
-      </div>
-
-      {isSucces && (
+      {accepted && (
         <div className="mb-4">
           <CommunityEntrance />
         </div>
       )}
 
       <div className="flex h-10 justify-center items-center gap-3">
-        <button
-          type="button"
-          disabled={isLoading}
-          onClick={onBack}
-          className="flex-1 px-4 py-2 btn-back transition"
-        >
-          Volver
-        </button>
         <div className="flex-1 flex justify-center h-10 items-center">
           <button
+            onClick={handleAccepted}
+            id="accept-rules"
             type="button"
-            onClick={handleAccept}
-            disabled={!accepted || isLoading}
-            className={`w-full flex justify-center items-center text-white rounded transition-all duration-200
-                        ${accepted ? 'btn-gradient' : 'btn-disabled'}`}
+            className={`mt-4 px-6 py-2 btn-gradient flex justify-center items-center rounded transition ${accepted ? 'hidden' : 'block'}`}
           >
-            {isLoading ? "Enviando...": "Enviar"}
+            Entiendo y acepto las reglas
           </button>
         </div>
       </div>
