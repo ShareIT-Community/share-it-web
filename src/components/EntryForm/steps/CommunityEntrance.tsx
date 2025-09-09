@@ -31,7 +31,7 @@ export const CommunityEntrance = () => {
       <h2 className="text-2xl font-bold text-white">¡Bienvenido a la comunidad!</h2>
       <h3 className="font-semibold">Haz click en el botón para ingresar</h3>
       <a
-        href="https://discord.gg/G54pYpjp6U"
+        href="https://discord.gg/8cvhbu7sgn"
         target="_blank"
         rel="noopener noreferrer"
         className="mt-4 px-6 py-2 btn-gradient flex justify-center items-center rounded transition"
