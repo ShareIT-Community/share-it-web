@@ -41,6 +41,9 @@ importers:
       astro:
         specifier: ^5.7.12
         version: 5.13.2(@netlify/blobs@10.0.8)(@types/node@24.3.0)(jiti@2.6.1)(lightningcss@1.30.1)(rollup@4.46.2)(typescript@5.9.2)(yaml@2.8.1)
+      astro-portabletext:
+        specifier: ^0.11.3
+        version: 0.11.3(astro@5.13.2(@netlify/blobs@10.0.8)(@types/node@24.3.0)(jiti@2.6.1)(lightningcss@1.30.1)(rollup@4.46.2)(typescript@5.9.2)(yaml@2.8.1))
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -3089,6 +3092,11 @@ packages:
   ast-module-types@6.0.1:
     resolution: {integrity: sha512-WHw67kLXYbZuHTmcdbIrVArCq5wxo6NEuj3hiYAWr8mwJeC+C2mMCIBIWCiDoCye/OF/xelc+teJ1ERoWmnEIA==}
     engines: {node: '>=18'}
+
+  astro-portabletext@0.11.3:
+    resolution: {integrity: sha512-KzQG91U4jOsL7FOhivmZIeJyW6pJLoKe7dUCUTbyzdKAfeZI0dVZmL50g97b/XGV7i3iymG5iEiC6R4AJfxtVg==}
+    peerDependencies:
+      astro: '>=4.6.0'
 
   astro@5.13.2:
     resolution: {integrity: sha512-yjcXY0Ua3EwjpVd3GoUXa65HQ6qgmURBptA+M9GzE0oYvgfuyM7bIbH8IR/TWIbdefVUJR5b7nZ0oVnMytmyfQ==}
@@ -10906,6 +10914,12 @@ snapshots:
   arrify@2.0.1: {}
 
   ast-module-types@6.0.1: {}
+
+  astro-portabletext@0.11.3(astro@5.13.2(@netlify/blobs@10.0.8)(@types/node@24.3.0)(jiti@2.6.1)(lightningcss@1.30.1)(rollup@4.46.2)(typescript@5.9.2)(yaml@2.8.1)):
+    dependencies:
+      '@portabletext/toolkit': 3.0.1
+      '@portabletext/types': 2.0.15
+      astro: 5.13.2(@netlify/blobs@10.0.8)(@types/node@24.3.0)(jiti@2.6.1)(lightningcss@1.30.1)(rollup@4.46.2)(typescript@5.9.2)(yaml@2.8.1)
 
   astro@5.13.2(@netlify/blobs@10.0.8)(@types/node@24.3.0)(jiti@2.6.1)(lightningcss@1.30.1)(rollup@4.46.2)(typescript@5.9.2)(yaml@2.8.1):
     dependencies:
