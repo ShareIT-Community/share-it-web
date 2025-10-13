@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { socialLinks } from 'src/utils/aboutUs';
-import { EntryForm } from '@components/EntryForm/EntryForm';
 import { SocialContainer } from './SocialContainer';
+import { EntryForm } from '../EntryForm/EntryForm';
 
 export const SocialLinks: React.FC = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);

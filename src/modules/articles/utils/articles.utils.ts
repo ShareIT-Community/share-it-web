@@ -46,4 +46,9 @@ function getUniqueTags() {
 
 const allTags = getUniqueTags()
 
-export { articlesWithAuthors, tagMap, tagNamesByArticles, allTags }
+const latestArticles = articles
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 2)
+const tagNamesByArticle = await getTagNamesByEntries(latestArticles);
+
+export { articlesWithAuthors, tagMap, tagNamesByArticles, allTags, articles, tagNamesByArticle, latestArticles }
