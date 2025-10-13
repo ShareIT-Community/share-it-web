@@ -37,22 +37,22 @@ const resourceSchema = z.object({
 })
 
 const articles = defineCollection({
-    loader:  glob({ pattern: '**/*.md', base: "./src/content/articles" }),
+    loader:  glob({ pattern: '**/*.md', base: "./src/modules/articles/content/articles" }),
   schema: articleSchema,
 })
 
 const authors = defineCollection({
-    loader:  glob({ pattern: '**/*.yaml', base: "./src/content/authors" }),
+    loader:  glob({ pattern: '**/*.yaml', base: "./src/modules/articles/content/authors" }),
   schema: authorSchema,
 })
 
 const tags = defineCollection({
-  loader: file("./src/content/catalogs/tags.yaml"),
+  loader: file("./src/modules/articles/content/catalogs/tags.yaml"),
   schema: tagSchema
 })
 
 const resources = defineCollection({
-  loader: file("./src/content/catalogs/resources.yaml"),
+  loader: file("./src/modules/articles/content/catalogs/resources.yaml"),
   schema: resourceSchema
 })
 
