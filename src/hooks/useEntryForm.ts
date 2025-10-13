@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { entryFormSchema } from '@components/SocialLinks/schema/entryFormSchema';
+import { entryFormSchema } from 'src/modules/home/SocialLinks/schema/entryFormSchema';
 import { z } from 'zod';
 
 export type FormInputData = z.infer<typeof entryFormSchema>;

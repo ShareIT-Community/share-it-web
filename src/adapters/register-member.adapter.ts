@@ -1,4 +1,4 @@
-import type { FormInputData } from "@components/SocialLinks/schema/entryFormSchema";
+import type { FormInputData } from "src/modules/home/SocialLinks/schema/entryFormSchema";
 
 export const registerMemberAdapter = (data: FormInputData) => {
 	return {
