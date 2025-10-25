@@ -74,15 +74,6 @@ export const admins = [
     linkedin: 'https://www.linkedin.com/in/natalia-a-quevedo/',
   },
   {
-    name: 'Eros Benitez (Shini)',
-    about: 'Admin',
-    role: 'Diseñador Multimedia',
-    avatar: '/images/eros-avatar.jpg',
-    github: 'https://github.com/Shinigamy19',
-    linkedin: 'https://www.linkedin.com/in/eros-benitez/',
-    website: 'https://linktr.ee/shinigamy19',
-  },
-  {
     name: 'Jean Roa (Drak)',
     about: 'Admin',
     role: 'Software Developer',
@@ -91,14 +82,5 @@ export const admins = [
     linkedin: 'https://www.linkedin.com/in/jeanmra/',
     website: 'https://jeanroa.dev/',
   },
-  {
-    name:"Azariel Moreno (Azza)",
-    about:"admin",
-    role:'Full-Stack Developer',
-    avatar:'/images/azza-avatar.jpg',
-    github:'https://github.com/AzzADesigns',
-    linkedin:'https://www.linkedin.com/in/azariel-moreno-4267ba254/',
-    website:'https://www.azzadesigns.dev/'
-  }
 ]
 

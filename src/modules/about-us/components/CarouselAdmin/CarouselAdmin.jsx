@@ -1,17 +1,18 @@
-import React from "react";
 import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
-
+import { useMediaQuery } from "src/modules/global/hooks/useMediaQuery";
 import { SocialLinks } from "./CustomLinks";
 import "./styles.css";
 
-
-
 const EmblaCarouselAdmin = ({ slides, options }) => {
-  const [emblaRef, emblaApi] = useEmblaCarousel(options, [Autoplay()]);
+  const isMobile = useMediaQuery("(max-width: 768px)");
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    { ...options, watchDrag: isMobile },
+    [Autoplay()]
+  );
 
   return (
-    <section className="embla relative">
+    <section className="embla relative select-none">
       <div className="embla__viewport" ref={emblaRef}>
         <div className="embla__container">
           {slides.map((item, i) => (
@@ -20,6 +21,7 @@ const EmblaCarouselAdmin = ({ slides, options }) => {
                 <img
                   src={item.avatar}
                   alt={item.name}
+                  draggable="false"
                   className="w-32 h-32 rounded-full mb-4 object-cover border-4 border-[#83D6E7]"
                 />
                 <div className="flex flex-col items-center mb-2">
@@ -41,7 +43,6 @@ const EmblaCarouselAdmin = ({ slides, options }) => {
           ))}
         </div>
       </div>
-
     </section>
   );
 };
