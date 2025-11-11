@@ -27,27 +27,18 @@ Las ramas deben seguir las siguientes reglas de nomenclatura:
 - **No incluir números ni símbolos especiales**.
 
 ### ✅ Ejemplos válidos
-```
 
 azza-auth-module
 vic-reports-generator
 justin-customer-management
 
-```
-
 ### ❌ Ejemplos inválidos
-```
 
 justin-customer-management-#3 (inválido)
 
-```
-
 ### 🔁 Alternativa válida
-```
 
 justin-customer-management-attempt-three
-
-```
 
 ---
 
@@ -59,11 +50,8 @@ la rama correspondiente puede eliminarse **si ya no será utilizada**.
 Si en el futuro se requieren mejoras o correcciones, se debe **crear una nueva rama** que indique su propósito de forma clara.
 
 ### Ejemplo:
-```
 
 vic-form-fix-remove-linkedin-field
-
-```
 
 ---
 
@@ -107,8 +95,8 @@ vic-form-fix-remove-linkedin-field
 
 - [Convención de Pull Requests](./convencionPR.md)
 - [Convención de Commits](./convencionCommits.md)
-```
 
 ---
 
 https://share-it-conventions.vercel.app/
+```
