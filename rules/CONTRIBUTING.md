@@ -68,7 +68,7 @@ Todos los mensajes de commit deben seguir la convención establecida en el sigui
 
 Las reglas de apertura, revisión y aprobación de PR se encuentran detalladas en:
 
-👉 [**Ver convención de Pull Requests**](./convencionPR.md)
+👉 [**Ver convención de Pull Requests**](./convencionBranchs.md)
 
 A modo de resumen:
 
