@@ -1,87 +1,88 @@
-# 🧭 Guía de Contribución
+# 🧭 Contribution Guide
 
-Este documento define las reglas y el flujo de trabajo que deben seguirse para contribuir al proyecto.  
-El objetivo es mantener una organización clara, trazabilidad de tareas y calidad en el código.
-
----
-
-## 📋 1. Definición de Tareas
-
-Antes de comenzar cualquier desarrollo o modificación de código, **todas las tareas deben definirse en la sección _Projects_ de GitHub**.  
-Cada tarea debe contar con las siguientes propiedades:
-
-### 🔸 Prioridad (Priority)
-
-La **prioridad** indica el nivel de urgencia o importancia de la tarea:
-
-| Código | Descripción                                                                                                              |
-| :----- | :----------------------------------------------------------------------------------------------------------------------- |
-| **P0** | **Crítica / Primordial.** Debe resolverse de forma inmediata. Afecta el funcionamiento principal o bloquea otras tareas. |
-| **P1** | **Alta.** Importante pero no bloqueante. Debe resolverse pronto para mantener el flujo del proyecto.                     |
-| **P2** | **Media o baja.** Mejora, refactor o ajuste que puede postergarse sin impacto inmediato.                                 |
+This document defines the rules and workflow that must be followed when contributing to the project.  
+The goal is to maintain clear organization, task traceability, and code quality.
 
 ---
 
-### 🔹 Tamaño (Size)
+## 📋 1. Task Definition
 
-El **tamaño** representa la complejidad o el esfuerzo requerido para completar la tarea:
+Before starting any development or code modification, **all tasks must be created in the GitHub _Projects_ section**.  
+Each task must include the following properties:
 
-| Código | Descripción                                                         |
-| :----- | :------------------------------------------------------------------ |
-| **XS** | Cambios mínimos o triviales (ortografía, pequeños estilos, etc.).   |
-| **S**  | Tareas pequeñas y de bajo riesgo (un componente o endpoint simple). |
-| **M**  | Complejidad media, puede involucrar varios archivos o dependencias. |
-| **L**  | Cambios amplios o de alto impacto en el sistema.                    |
-| **XL** | Refactors o implementaciones grandes que afectan múltiples áreas.   |
+### 🔸 Priority
 
-> ⚙️ **Las tareas de tamaño XS y S pueden ser auto-mergeadas** (sin revisión obligatoria).
+**Priority** indicates the urgency or importance of the task:
 
----
-
-## 🧑‍💻 2. Asignación y Seguimiento de Tareas
-
-- Si un colaborador decide trabajar en una tarea, debe **asignarse a sí mismo como responsable** dentro del _Project_.
-- Luego, mover la tarea a la columna correspondiente según el estado:
-
-| Estado          | Descripción                                            |
-| :-------------- | :----------------------------------------------------- |
-| **Analysis**    | Fase de análisis o planificación previa al desarrollo. |
-| **To Do**       | Pendiente de iniciar.                                  |
-| **In Progress** | En desarrollo activo.                                  |
-| **In Review**   | Código finalizado y en proceso de revisión.            |
-| **Done**        | Tarea aprobada y mergeada.                             |
-| **Stoper**      | Tarea en pausa o bloqueada por dependencias externas.  |
-
-> Toda codificación o alteración debe quedar **declarada y actualizada en el mismo _Project_**, para asegurar trazabilidad.
+| Code | Description                                                                                                   |
+| :---- | :------------------------------------------------------------------------------------------------------------ |
+| **P0** | **Critical / Essential.** Must be resolved immediately. Affects core functionality or blocks other tasks.     |
+| **P1** | **High.** Important but not blocking. Should be solved soon to maintain project flow.                         |
+| **P2** | **Medium or Low.** Improvement, refactor, or adjustment that can be postponed without immediate impact.       |
 
 ---
 
-## 🪶 3. Convención de Commits
+### 🔹 Size
 
-Todos los mensajes de commit deben seguir la convención establecida en el siguiente documento:
+**Size** represents the complexity or effort required to complete the task:
 
-👉 [**Ver convención de commits**](./convencionCommits.md)
+| Code | Description                                                          |
+| :---- | :------------------------------------------------------------------- |
+| **XS** | Minimal or trivial changes (typos, small style fixes, etc.).        |
+| **S**  | Small, low-risk tasks (a simple component or endpoint).             |
+| **M**  | Medium complexity, may involve multiple files or dependencies.      |
+| **L**  | Large or high-impact system changes.                                |
+| **XL** | Major refactors or implementations affecting multiple areas.        |
+
+> ⚙️ **Tasks sized XS and S may be auto-merged** (no mandatory review).
+
+---
+
+## 🧑‍💻 2. Task Assignment and Tracking
+
+- If a collaborator chooses to work on a task, they must **assign themselves as the owner** within the _Project_.
+- Then, move the task to the correct column according to its status:
+
+| Status        | Description                                         |
+| :------------ | :-------------------------------------------------- |
+| **Analysis**  | Analysis or planning phase before development.      |
+| **To Do**     | Pending to start.                                   |
+| **In Progress** | Currently being developed.                         |
+| **In Review** | Code completed and pending review.                  |
+| **Done**      | Task approved and merged.                           |
+| **Stoper**    | Task paused or blocked by external dependencies.    |
+
+> All coding or modifications must be **registered and updated in the same _Project_**, ensuring traceability.
+
+---
+
+## 🪶 3. Commit Convention
+
+All commit messages must follow the convention described in the following document:
+
+👉 [**View commit convention**](./convencionCommits.md)
 
 ---
 
 ## 🚀 4. Pull Requests (PR)
 
-Las reglas de apertura, revisión y aprobación de PR se encuentran detalladas en:
+Rules for opening, reviewing, and approving PRs are detailed in:
 
-👉 [**Ver convención de Pull Requests**](./convencionBranchs.md)
+👉 [**View Pull Request Convention**](./convencionBranchs.md)
 
-A modo de resumen:
+Summary:
 
-- Los PR deben estar vinculados a una tarea del _Project_.
-- Los PR de tamaño **XS / S** pueden **autoautorizarse**.
-- Los PR de tamaño **M / L / XL** deben ser **revisados y aprobados por el responsable de merge (Mersh)**.
+- PRs must be linked to a task in the _Project_.
+- PRs sized **XS / S** may be **self-approved**.
+- PRs sized **M / L / XL** must be **reviewed and approved by the merge responsible (Mersh)**.
 
 ---
 
-## ✅ 5. Buenas Prácticas
+## ✅ 5. Best Practices
 
-- Mantener commits claros, breves y descriptivos.
-- Seguir las convenciones de código del proyecto.
-- No mergear directamente a la rama principal sin seguir el flujo de revisión.
-- Consultar al equipo antes de iniciar tareas grandes o de prioridad alta (P0 o P1).
-- Mantener comunicación activa dentro de las tareas y PRs.
+- Keep commits clear, concise, and descriptive.
+- Follow the project's coding conventions.
+- Do not merge directly into the main branch without following the review workflow.
+- Consult the team before starting large or high-priority tasks (P0 or P1).
+- Maintain active communication within tasks and PRs.
+

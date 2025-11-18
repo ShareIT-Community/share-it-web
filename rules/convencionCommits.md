@@ -1,116 +1,133 @@
-# 📜 Convención de Commits
+# 📜 Commit Convention
 
-Este documento establece las reglas para escribir mensajes de commit claros y estandarizados, basados en la especificación de **Conventional Commits**.
+This document defines the rules for writing clear and standardized
+commit messages, based on the **Conventional Commits** specification.
 
----
+------------------------------------------------------------------------
 
-## 🤔 ¿Por Qué Usar Conventional Commits?
+## 🤔 Why Use Conventional Commits?
 
-- **Automatización:** Permite generar `CHANGELOGs` automáticamente.
-- **Claridad:** Facilita la comprensión del historial de cambios de un vistazo.
-- **Trazabilidad:** Ayuda a identificar qué tipo de cambio introduce cada commit (una nueva función, una corrección, etc.).
-- **Integración:** Es un estándar reconocido por muchas herramientas de desarrollo.
+-   **Automation:** Enables automatic generation of `CHANGELOG`s.
+-   **Clarity:** Makes it easier to understand the change history at a
+    glance.
+-   **Traceability:** Helps identify what type of change each commit
+    introduces (a new feature, a fix, etc.).
+-   **Integration:** A widely recognized standard supported by many
+    development tools.
 
----
+------------------------------------------------------------------------
 
-## 🧱 Estructura de un Commit
+## 🧱 Commit Structure
 
-Un mensaje de commit debe seguir el siguiente formato:
+A commit message must follow the format:
 
-```
-<tipo>[ámbito opcional]: <descripción>
+    <type>[optional scope]: <description>
 
-[cuerpo opcional]
+    [optional body]
 
-[pie opcional]
-```
+    [optional footer]
 
----
+------------------------------------------------------------------------
 
-### 🔸 1. Tipo (Type)
+### 🔸 1. Type
 
-El **tipo** es obligatorio y define la naturaleza del cambio. Debe ser uno de los siguientes:
+The **type** is mandatory and describes the nature of the change. It
+must be one of the following:
 
-| Tipo         | Descripción                                                                                             |
-| :----------- | :------------------------------------------------------------------------------------------------------ |
-| **`feat`**   | **(Feature)** Introduce una nueva funcionalidad al código.                                              |
-| **`fix`**    | **(Bug Fix)** Corrige un error o bug en el código.                                                      |
-| **`docs`**   | **(Documentation)** Cambios exclusivos en la documentación (guías, READMEs, etc.).                    |
-| **`style`**  | Cambios que no afectan la lógica del código (formato, espacios, punto y coma, etc.).                    |
-| **`refactor`** | Cambios en el código que no corrigen un error ni añaden una función, sino que mejoran la estructura. |
-| **`test`**   | Añade o modifica pruebas (unitarias, de integración, etc.).                                             |
-| **`chore`**  | **(Chores)** Tareas de mantenimiento, builds, configuración, etc. No afecta el código de producción.   |
-| **`perf`**   | **(Performance)** Un cambio de código que mejora el rendimiento.                                        |
-| **`ci`**     | Cambios en los archivos y scripts de configuración de CI (Integración Continua).                        |
-| **`revert`** | Revierte un commit anterior.                                                                            |
+  --------------------------------------------------------------------------------
+  Type             Description
+  ---------------- ---------------------------------------------------------------
+  **`feat`**       **Feature.** Introduces a new functionality.
 
----
+  **`fix`**        **Bug Fix.** Fixes an error or bug in the code.
 
-### 🔹 2. Ámbito (Scope) - Opcional
+  **`docs`**       **Documentation.** Documentation-only changes (guides, READMEs,
+                   etc.).
 
-El **ámbito** es un sustantivo que describe la sección del código afectada por el cambio.
+  **`style`**      Changes that do not affect code logic (formatting, whitespace,
+                   semicolons, etc.).
 
-**Ejemplos:**
-`feat(api): ...`
-`fix(login): ...`
+  **`refactor`**   Code changes that neither fix a bug nor add a feature, but
+                   improve structure.
+
+  **`test`**       Adds or updates tests (unit, integration, etc.).
+
+  **`chore`**      **Maintenance tasks**, build changes, config updates, etc. No
+                   production code impact.
+
+  **`perf`**       **Performance.** Code changes that improve performance.
+
+  **`ci`**         Changes to CI configuration files or scripts.
+
+  **`revert`**     Reverts a previous commit.
+  --------------------------------------------------------------------------------
+
+------------------------------------------------------------------------
+
+### 🔹 2. Scope (Optional)
+
+The **scope** is a noun describing the section of the code affected by
+the change.
+
+**Examples:** `feat(api): ...`\
+`fix(login): ...`\
 `refactor(profile-page): ...`
 
----
+------------------------------------------------------------------------
 
-### 📝 3. Descripción (Description)
+### 📝 3. Description
 
-- Una descripción **breve y concisa** del cambio.
-- En **minúsculas** y sin punto final.
-- Escrita en **imperativo** (ej: "añade" en lugar de "añadido" o "añadiendo").
+-   A **brief and concise** summary of the change.
+-   Written in **lowercase**, without a trailing period.
+-   Written in **imperative mood** ("add" instead of "added" or
+    "adding").
 
----
+------------------------------------------------------------------------
 
-### 📄 4. Cuerpo (Body) - Opcional
+### 📄 4. Body (Optional)
 
-- Proporciona **contexto adicional** sobre el cambio.
-- Explica el "qué" y el "porqué" del cambio, no el "cómo".
-- Se separa de la descripción con una línea en blanco.
+-   Provides **additional context** about the change.
+-   Explains **what** and **why**, not the *how*.
+-   Separated from the description by a blank line.
 
----
+------------------------------------------------------------------------
 
-### <footer> 5. Pie (Footer) - Opcional
+### 🦶 5. Footer (Optional)
 
-- Se utiliza para hacer referencia a **issues de GitHub** o para indicar **cambios que rompen la compatibilidad (Breaking Changes)**.
-- **Breaking Change:** Un commit que introduce un cambio que rompe la compatibilidad con versiones anteriores debe indicarlo con `BREAKING CHANGE:` en el pie.
+-   Used to reference **GitHub issues** or indicate **breaking
+    changes**.
+-   **Breaking Change:** If a commit introduces a change that breaks
+    compatibility, include `BREAKING CHANGE:` in the footer.
 
----
+------------------------------------------------------------------------
 
-## ✅ Ejemplos de Commits
+## ✅ Commit Examples
 
-**Commit simple (solo descripción):**
-```
-feat: permitir que el usuario actualice su foto de perfil
-```
+**Simple commit (only description):**
 
-**Commit con ámbito:**
-```
-fix(auth): corregir redirección después del login
-```
+    feat: allow users to update their profile picture
 
-**Commit con cuerpo:**
-```
-docs: actualizar la guía de contribución
+**Commit with scope:**
 
-Se añade una sección sobre la nomenclatura de ramas y se
-corrigen errores de formato en las tablas.
-```
+    fix(auth): correct redirect after login
 
-**Commit con Breaking Change:**
-```
-refactor(api): simplificar el endpoint de usuarios
+**Commit with body:**
 
-BREAKING CHANGE: El endpoint `/users/{id}` ahora devuelve un objeto
-con la clave `data` en lugar de devolver el usuario directamente.
-```
+    docs: update contribution guide
 
----
+    Adds a section about branch naming and fixes formatting issues in tables.
 
-## 🔗 Referencia Oficial
+**Commit with Breaking Change:**
 
-Para más detalles, consulta la especificación oficial:
-[**Conventional Commits Specification**](https://www.conventionalcommits.org/)
+    refactor(api): simplify user endpoint
+
+    BREAKING CHANGE: The `/users/{id}` endpoint now returns an object
+    with a `data` key instead of returning the user directly.
+
+------------------------------------------------------------------------
+
+## 🔗 Official Reference
+
+For more details, see the official specification:\
+[**Conventional Commits
+Specification**](https://www.conventionalcommits.org/)

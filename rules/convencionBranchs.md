@@ -1,85 +1,94 @@
-# 🌿 Convención de Ramas y Pull Requests
+# 📘 ShareIT Guide
 
-Este documento define el flujo de trabajo y las reglas para la creación y gestión de ramas y Pull Requests (PRs) en el proyecto.
+## 1. 🌳 Branch Convention (GitHub Flow)
 
----
+  -----------------------------------------------------------------------------------
+  Branch            Purpose                           Naming Convention
+  ----------------- --------------------------------- -------------------------------
+  **main**          Contains production-ready code.   `main`
+                    Always stable.                    
 
-## 🌳 1. Flujo de Ramas
+  **Feature**       Development of a new feature.     `feature/<short-description>`
 
-El flujo de trabajo se basa en **crear una rama por cada tarea**. Cada rama debe estar asociada a una corrección (`fix`), una nueva característica (`feature`) o una refactorización (`refactor`).
+  **Bugfix**        Fixing an issue or bug.           `fix/<short-description>` or
+                                                      `bugfix/<issue-id>`
 
-### 🔸 Nomenclatura de Ramas
+  **Maintenance**   Non-feature, non-bug tasks (e.g., `chore/<short-description>`
+                    updating dependencies).           
+  -----------------------------------------------------------------------------------
 
-Para mantener la consistencia, todas las ramas deben seguir estas reglas:
+### Workflow
 
-- **Idioma:** Escribir nombres en **inglés**.
-- **Separador:** Usar **guiones medios** (`-`) para separar palabras.
-- **Minúsculas:** Todo el nombre debe estar en minúsculas.
-- **Autor:** Incluir el **nombre del autor** al inicio.
-- **Sin caracteres especiales:** No usar números de issues o símbolos.
+1.  Create a new branch from `main` for any change.\
+    Example:
 
----
+    ``` bash
+    git checkout -b feature/dark-theme
+    ```
 
-### 🔹 Ejemplos de Nomenclatura
+2.  Develop and commit following the Commit Convention.
 
-| Tipo            | Ejemplo Válido                             | Ejemplo Inválido                              |
-| :-------------- | :----------------------------------------- | :-------------------------------------------- |
-| **Feature**     | `vic/reports-generator`                    | `vic-reports-generator-#3` (usa número)       |
-| **Feature**     | `azza/auth-module`                         | `Azza/AuthModule` (usa mayúsculas)            |
-| **Refactor**    | `justin/customer-management-refactor`      | `justin/customer_management` (usa guion bajo) |
-| **Alternativa** | `justin/customer-management-attempt-three` |                                               |
+3.  Push the branch and open a Pull Request (PR) to `main`.
 
----
+4.  Once approved, merge it into `main`.
 
-### 🗑️ Eliminación de Ramas
+5.  Delete the branch after merging.
 
-- Una vez que una rama se ha integrado en `dev` a través de un PR, **debe ser eliminada** desde GitHub.
-- Si se necesitan cambios futuros sobre la misma funcionalidad, se debe crear una **nueva rama** a partir de `dev`.
+------------------------------------------------------------------------
 
-**Ejemplo:**
-Si `vic/form-fix` fue integrada, para un nuevo cambio se podría crear `vic/form-fix-add-validation`.
+## 2. Pull Request (PR) Convention
 
----
+A well-structured PR makes code review easier and speeds up integration.
 
-## 🚀 2. Pull Requests (PR)
+### PR Title
 
-Un Pull Request (PR) es el mecanismo para proponer cambios y solicitar su integración en otra rama (generalmente `dev` o `main`).
+Must be concise and follow the commit convention.
 
-### 🔸 Reglas para Pull Requests
+Example:
 
-1.  **Vincular a una Tarea:** Todo PR debe estar **vinculado a una tarea existente** en el _Project_ de GitHub. Esto asegura que cada cambio tiene un propósito definido y trazable.
+    feat(ui): implement dark theme
 
-2.  **PR Pequeños y Enfocados:** Cada PR debe resolver **una sola tarea**. Evita mezclar correcciones, nuevas funcionalidades y refactors en un mismo PR.
+------------------------------------------------------------------------
 
-3.  **Auto-aprobación (Auto-Merge):**
+## Pull Request Description Template
 
-    - Los PRs marcados con tamaño **XS** o **S** pueden ser **auto-aprobados y mergeados por su autor**.
-    - Esto aplica a cambios menores como correcciones de texto, ajustes de estilos o bugs triviales.
+### Description
 
-4.  **Revisión Obligatoria:**
-    - Los PRs de tamaño **M**, **L**, o **XL** requieren la **revisión y aprobación de al menos un miembro del equipo** antes de ser mergeados.
-    - El responsable de merge (conocido como "Mersh") tiene la última palabra en la aprobación.
+Brief summary of the changes made.
 
----
+### Problem / Context
 
-## 🧭 3. Ejemplo de Flujo Completo
+Why is this change needed? - Closes/Relates to issue:
+\#`<Issue-Number>`{=html}
 
-**Caso:** Un desarrollador llamado `Azza` necesita refactorizar el módulo de reportes.
+### Type of Change
 
-1.  **Crear Tarea:** Azza crea una tarea en el _Project_ de GitHub con `Size: M` y `Priority: P2`.
-2.  **Asignar Tarea:** Se asigna la tarea a sí mismo y la mueve a "In Progress".
-3.  **Crear Rama:** Crea una nueva rama desde `dev`: `azza/reports-generator-refactor`.
-4.  **Desarrollar:** Realiza los cambios y los commitea siguiendo la [convención de commits](./convencionCommits.md).
-5.  **Crear Pull Request:** Abre un PR desde `azza/reports-generator-refactor` hacia `dev`. En la descripción, vincula el PR a la tarea del _Project_.
-6.  **Revisión:** Al ser tamaño `M`, el PR es revisado y aprobado por otro miembro del equipo.
-7.  **Merge:** Una vez aprobado, Azza mergea el PR a `dev`.
-8.  **Limpieza:** Finalmente, elimina la rama `azza/reports-generator-refactor`.
+-   [ ] New feature (`feat`)
+-   [ ] Bug fix (`fix`)
+-   [ ] Documentation (`docs`)
+-   [ ] Refactor (`refactor`)
+-   [ ] Maintenance task (`chore`)
+-   [ ] Style/Formatting (`style`)
 
----
+### Review Checklist
 
-## 📄 Archivos Relacionados
+-   [ ] All unit/integration tests pass.
+-   [ ] Necessary documentation has been updated.
+-   [ ] The target branch is correct (`main`).
+-   [ ] No merge conflicts with the base branch.
 
-- [**Guía de Contribución**](./CONTRIBUTING.md)
-- [**Convención de Commits**](./convencionCommits.md)
-- [**Pagina de Referencia**](https://share-it-conventions.vercel.app)
+### How to Test / Reproduction Steps
 
+1.  Run `npm start`.
+2.  Navigate to `/login`.
+3.  Verify the new validation component is working.
+
+------------------------------------------------------------------------
+
+## Code Review Rules
+
+### Reviewer Assignment
+
+Assign at least one team member if needed.\
+Anyone may take a PR and review it.\
+Static or trivial changes may be self-approved.
