@@ -1,5 +1,5 @@
 {
-  "name": "blog-vicdev",
+  "name": "share-it-web",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
@@ -15,15 +15,14 @@
     "test:all": "node scripts/penetration-test.mjs"
   },
   "dependencies": {
-    "@astrojs/netlify": "^6.5.7",
-    "@astrojs/node": "^9.4.2",
-    "@astrojs/react": "^4.3.0",
+    "@astrojs/netlify": "^6.5.13",
+    "@astrojs/node": "^9.5.0",
+    "@astrojs/react": "^4.4.0",
     "@gsap/react": "^2.1.2",
     "@hookform/resolvers": "^5.2.0",
     "@tailwindcss/vite": "^4.1.5",
-    "@types/react-dom": "^19.1.6",
     "animejs": "^3.2.2",
-    "astro": "^5.7.12",
+    "astro": "^5.14.5",
     "clsx": "^2.1.1",
     "embla-carousel": "^8.5.2",
     "embla-carousel-autoplay": "^8.5.2",
@@ -43,6 +42,7 @@
     "@types/animejs": "^3.1.12",
     "@types/node": "^24.1.0",
     "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
     "tailwindcss": "^4.1.11",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
