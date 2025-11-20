@@ -1,45 +1,55 @@
 ---
-import ShareIt from '@icons/ShareIt.astro';
-import MobileMenu from './MobileMenu/MobileMenu.astro';
-import { Image } from 'astro:assets';
-import LogoWaves from 'public/images/shareit_logo_waves.png';
+import MobileMenu from "./MobileMenu/MobileMenu.astro";
+import { Image } from "astro:assets";
+import LogoWaves from "public/images/shareit_logo_waves.png";
 
 const navItems = [
-	{ href: '/', text: 'Inicio' },
-	{ href: '/rules', text: 'Reglas' },
-	{ href: '/articles', text: 'Blog' },
-	{ href: '/resources', text: 'Recursos' },
-	// { href: '/collaborators', text: 'Autores' },
-	{ href: '/aboutUs', text: 'Sobre nosotros' },
-	// { href: '/talent', text: 'Talento' },
+  { href: "/", text: "Inicio" },
+  { href: "/rules", text: "Reglas" },
+  { href: "/articles", text: "Blog" },
+  { href: "/resources", text: "Recursos" },
+  // { href: '/collaborators', text: 'Autores' },
+  { href: "/aboutUs", text: "Sobre nosotros" },
+  // { href: '/talent', text: 'Talento' },
 ];
+
+const currentPath = Astro.url.pathname;
 ---
 
-<header class='p-4'>
-	<nav
-		class='container mx-auto px-4 max-w-4xl flex items-center justify-between'>
-		<a
-			href='/'
-			class='font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#4b6ef8] via-primary to-[#94e7f8] text-xl inline-flex h-full flex-justify-center items-center gap-1'>
-			<Image src={LogoWaves} alt="ShareIT Logo Waves" class="size-4"/>
-			<span>ShareIT</span>
-		</a>
+<header class="p-4">
+  <nav
+    class="container mx-auto px-4 max-w-4xl flex items-center justify-between"
+  >
+    <a
+      href="/"
+      class="font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#4b6ef8] via-primary to-[#94e7f8] text-xl inline-flex h-full flex-justify-center items-center gap-1"
+    >
+      <Image src={LogoWaves} alt="ShareIT Logo Waves" class="size-4" />
+      <span>ShareIT</span>
+    </a>
 
-		<ul
-			class='flex gap-6'
-			id='menu'>
-			{
-				navItems.map((item) => (
-					<li class='md:flex hidden'>
-						<a
-							href={item.href}
-							class='text-gray-300 hover:text-secondary transition-colors font-medium relative before:content-[""] before:absolute before:bottom-0 before:w-full before:bg-secondary before:h-0.5 before:transition-all before:duration-500 before:ease-in-out before:scale-0 hover:before:scale-100 before:origin-left'>
-							{item.text}
-						</a>
-					</li>
-				))
-			}
-		</ul>
-		<MobileMenu navItems={navItems} />
-	</nav>
+    <ul class="flex gap-6" id="menu">
+      {
+        navItems.map((item) => (
+          <li class="md:flex hidden">
+            <a
+              href={item.href}
+              class={
+                (
+                  item.href === "/"
+                    ? currentPath === "/"
+                    : currentPath.startsWith(item.href)
+                )
+                  ? `text-secondary relative before:content-[""] before:absolute before:bottom-0 before:w-full before:bg-secondary before:h-0.5 before:scale-100`
+                  : `text-gray-300 hover:text-secondary transition-colors font-medium relative before:content-[""] before:absolute before:bottom-0 before:w-full before:bg-secondary before:h-0.5 before:transition-all before:duration-500 before:ease-in-out before:scale-0 hover:before:scale-100 before:origin-left`
+              }
+            >
+              {item.text}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <MobileMenu navItems={navItems} />
+  </nav>
 </header>
