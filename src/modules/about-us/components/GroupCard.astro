@@ -3,15 +3,21 @@ interface Props {
 	title: string;
 	description: string;
 	size?: string;
+	span?: string;
+	spanStyle?: boolean
 }
 
-const { title, description, size } = Astro.props;
+const { title, description, size, span, spanStyle } = Astro.props;
 ---
 
 <article
-	class=`card-share-it relative block p-6 border rounded-lg border-[#368beb] hover:border-[#83D6E7] bg-gradient-to-br transition-all duration-300 from-[#1a1f2e] via-[#1e2332] to-[#2a2f3e] hover:from-[#1e2332] hover:via-[#2a2f3e] hover:to-[#314aa9]/20 ${size}`>
-	<p class='card-title text-lg font-bold text-primary'>{title}</p>
-	<p class='text-gray-300 text-sm'>
+	class=`card-share-it relative block p-6 border rounded-lg border-[#368beb] hover:border-[#83D6E7] bg-gradient-to-br transition-all duration-300 from-[#1a1f2e] via-[#1e2332] to-[#2a2f3e] hover:from-[#1e2332] hover:via-[#2a2f3e] hover:to-[#314aa9]/20 ${size}`
+>
+	<p class="card-title text-lg font-bold text-primary">{title}</p>
+	<p class="text-gray-300 text-sm">
 		{description}
+		<br>
+		<br>
+		<span class=`${spanStyle ? ("text-gray-400 italic text-sm") : ("")}`>{span}</span>
 	</p>
 </article>
