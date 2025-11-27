@@ -20,7 +20,7 @@ const latestResources = resources
 const tagNamesByResources = await getTagNamesByEntries(latestResources);
 ---
 
-<Layout title='Share IT'>
+<Layout title='ShareIT - Nadie despega solo'>
 	<div class='grid min-[1000px]:grid-cols-2 place-items-center mb-16'>
 		<div class='text-center min-[1000px]:text-start px-4 py-12'>
 			<AnimatedText client:load />
@@ -39,7 +39,7 @@ const tagNamesByResources = await getTagNamesByEntries(latestResources);
 				</span>
 			</p>
 			<div
-				class='flex sm:flex-row justify-center min-[1000px]:justify-start gap-4 flex-col'>
+				class='flex sm:flex-row justify min-[1000px]:justify-start gap-4 flex-col'>
 				<SocialLinks client:load />
 			</div>
 		</div>
@@ -52,6 +52,27 @@ const tagNamesByResources = await getTagNamesByEntries(latestResources);
 			class='mt-16'
 		/>
 	</div>
+
+	<section class='mb-14'>
+		<div class='mb-8'>
+			<h2 class='text-3xl font-bold mb-4 text-white'>🚀 Presentación en Nerdearla 2025</h2>
+			<p class='text-gray-300 max-w-2xl'>
+				Conoce más sobre nuestra visión como comunidad en la siguiente Lightning Talk que tuvo lugar durante la Nerdearla de 2025, unos de los eventos de tecnología más importantes de la región.
+			</p>
+		</div>
+		<div class='flex justify-center'>
+			<iframe
+				width='560'
+				height='315'
+				src='https://www.youtube.com/embed/muNVy6tuGNg'
+				title='YouTube video player'
+				frameborder='0'
+				allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+				allowfullscreen
+				class='rounded-lg shadow-lg'
+			></iframe>
+		</div>
+	</section>
 
 	<section class='mb-12'>
 		<div class='mb-8'>
