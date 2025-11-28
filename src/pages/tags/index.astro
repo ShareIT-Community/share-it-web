@@ -1,48 +1,61 @@
 ---
-import TagCard from "@components/TagCard.astro";
-import Layout from "@layouts/Layout.astro";
-import { getCollection } from "astro:content";
-import type TagCount from "@models/TagCount"
+import { getCollection } from 'astro:content';
+import TagCard from 'src/modules/global/components/Tags/TagCard.astro';
+import type TagCount from 'src/modules/global/interfaces/tag-count.interface';
+import Layout from 'src/modules/global/layouts/Layout.astro';
 
-const DEFAULT_COUNT = Object.freeze<TagCount>({ articleCount: 0, resourceCount: 0, totalCount: 0})
+const DEFAULT_COUNT = Object.freeze<TagCount>({
+	articleCount: 0,
+	resourceCount: 0,
+	totalCount: 0,
+});
 
-const articles = await getCollection("articles", ({ data }) => !data.draft);
-const resources = await getCollection("resources");
-const tags = await getCollection("tags");
+const articles = await getCollection('articles', ({ data }) => !data.draft);
+const resources = await getCollection('resources');
+const tags = await getCollection('tags');
 const tagCount = new Map<string, TagCount>();
 
 resources
-  .flatMap(r => r.data.tags)
-  .map(t => t.id)
-  .forEach((tagId) => {
-    const current = tagCount.get(tagId) || DEFAULT_COUNT;
-    tagCount.set(tagId, { ...current, resourceCount: current.resourceCount + 1, totalCount: current.totalCount + 1 });
-  });
+	.flatMap((r) => r.data.tags)
+	.map((t) => t.id)
+	.forEach((tagId) => {
+		const current = tagCount.get(tagId) || DEFAULT_COUNT;
+		tagCount.set(tagId, {
+			...current,
+			resourceCount: current.resourceCount + 1,
+			totalCount: current.totalCount + 1,
+		});
+	});
 articles
-  .flatMap(a => a.data.tags)
-  .map(t => t.id)
-  .forEach((tagId) => {
-    const current = tagCount.get(tagId) || DEFAULT_COUNT;
-    tagCount.set(tagId, { ...current, articleCount: current.articleCount + 1, totalCount: current.totalCount + 1 });
-  });
-
+	.flatMap((a) => a.data.tags)
+	.map((t) => t.id)
+	.forEach((tagId) => {
+		const current = tagCount.get(tagId) || DEFAULT_COUNT;
+		tagCount.set(tagId, {
+			...current,
+			articleCount: current.articleCount + 1,
+			totalCount: current.totalCount + 1,
+		});
+	});
 ---
 
-<Layout title="Tags | Share IT" showBackButton>
-  <h1 class="text-4xl font-bold text-center mb-8 text-white">
-    Explorar por Tags
-  </h1>
+<Layout
+	title='Tags | Share IT'
+	showBackButton>
+	<h1 class='text-4xl font-bold text-center mb-8 text-white'>
+		Explorar por Tags
+	</h1>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-    {
-      tags.map((tag) => (
-        <TagCard
-          id={tag.id}
-          name={tag.data.name}
-          description={tag.data.description}
-          count={tagCount.get(tag.id) || DEFAULT_COUNT}
-        />
-      ))
-    }
-  </div>
+	<div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+		{
+			tags.map((tag) => (
+				<TagCard
+					id={tag.id}
+					name={tag.data.name}
+					description={tag.data.description}
+					count={tagCount.get(tag.id) || DEFAULT_COUNT}
+				/>
+			))
+		}
+	</div>
 </Layout>

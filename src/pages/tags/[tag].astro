@@ -1,99 +1,101 @@
 ---
-import Layout from '@layouts/Layout.astro'
-import { getCollection } from 'astro:content'
-import ContentCard from '@components/ContentCard.astro'
-import { getTagNamesByEntries } from '@helpers/tagHelper'
+import { getCollection } from 'astro:content';
+import { getTagNamesByEntries } from '@helpers/tag.helper';
+import Layout from 'src/modules/global/layouts/Layout.astro';
+import ContentCard from 'src/modules/global/components/CustomCard/ContentCard.astro';
 
 export async function getStaticPaths() {
-  const tags = await getCollection("tags")
+	const tags = await getCollection('tags');
 
-  return tags.map((tag) => ({
-    params: { tag: tag.id },
-    props: { tag: tag.data },
-  }))
+	return tags.map((tag) => ({
+		params: { tag: tag.id },
+		props: { tag: tag.data },
+	}));
 }
 
-const { tag } = Astro.props
+const { tag } = Astro.props;
 
-const filteredResources = await getCollection("resources", ({data}) => {
-  return data.tags.some(t => t.id === tag.id)
-})
+const filteredResources = await getCollection('resources', ({ data }) => {
+	return data.tags.some((t) => t.id === tag.id);
+});
 const tagNamesByResources = await getTagNamesByEntries(filteredResources);
 
 const articles = await getCollection('articles', ({ data }) => {
-  return !data.draft && data.tags.some(t => t.id === tag.id)
-})
+	return !data.draft && data.tags.some((t) => t.id === tag.id);
+});
 const tagNamesByArticles = await getTagNamesByEntries(articles);
 
 const contentItems = [
-  ...filteredResources.map((item) => ({
-    ...item,
-    data: { ...item, type: 'resource' as const },
-  })),
-  ...articles.map((item) => ({
-    ...item.data,
-    type: 'article' as const,
-  })),
-]
+	...filteredResources.map((item) => ({
+		...item,
+		data: { ...item, type: 'resource' as const },
+	})),
+	...articles.map((item) => ({
+		...item.data,
+		type: 'article' as const,
+	})),
+];
 ---
 
-<Layout title={`${tag.name} | Tags`} showBackButton>
-  <h1 class='text-4xl font-bold mb-8 text-white'>
-    Contenido en {tag.name}
-    <span class='text-lg text-gray-400 ml-2'>({contentItems.length})</span>
-  </h1>
-  <p class='text-gray-300 my-2'>{tag.description}</p>
-  {
-    contentItems.length > 0 ? (
-      <div class='space-y-12'>
-        <section>
-          <h2 class='text-2xl font-bold mb-6 text-secondary'>Artículos</h2>
-          {articles.length > 0 ? (
-            <div class='grid grid-cols-1 md:grid-cols-2 gap-6'>
-              {articles.map((article) => (
-                <ContentCard
-                  date={article.data.date}
-                  title={article.data.title}
-                  description={article.data.description}
-                  tags={tagNamesByArticles.get(article.id)}
-                  href={`/articles/${article.id}`}
-                />
-              ))}
-            </div>
-          ) : (
-            <p class='text-center text-gray-400 py-12'>
-              No se encontraron artículos en esta categoría.
-            </p>
-          )}
-        </section>
+<Layout
+	title={`${tag.name} | Tags`}
+	showBackButton>
+	<h1 class='text-4xl font-bold mb-8 text-white'>
+		Contenido en {tag.name}
+		<span class='text-lg text-gray-400 ml-2'>({contentItems.length})</span>
+	</h1>
+	<p class='text-gray-300 my-2'>{tag.description}</p>
+	{
+		contentItems.length > 0 ? (
+			<div class='space-y-12'>
+				<section>
+					<h2 class='text-2xl font-bold mb-6 text-secondary'>Artículos</h2>
+					{articles.length > 0 ? (
+						<div class='grid grid-cols-1 md:grid-cols-2 gap-6'>
+							{articles.map((article) => (
+								<ContentCard
+									date={article.data.date}
+									title={article.data.title}
+									description={article.data.description}
+									tags={tagNamesByArticles.get(article.id)}
+									href={`/articles/${article.id}`}
+								/>
+							))}
+						</div>
+					) : (
+						<p class='text-center text-gray-400 py-12'>
+							No se encontraron artículos en esta categoría.
+						</p>
+					)}
+				</section>
 
-        <section>
-          <h2 class='text-2xl font-bold mb-6 text-secondary'>Recursos</h2>
-          {filteredResources.length > 0 ? (
-            <div class='grid grid-cols-1 md:grid-cols-2 gap-6'>
-              {filteredResources.map((resource) => (
-                <ContentCard
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  title={resource.data.title}
-                  description={resource.data.description}
-                  tags={tagNamesByResources.get(resource.id)}
-                  date={resource.data.date}
-                  href={resource.data.url}
-                />
-              ))}
-            </div>
-          ) : (
-            <p class='text-center text-gray-400 py-12'>
-              No se encontraron recursos en esta categoría.
-            </p>
-          )}
-        </section>
-      </div>
-    ) : (
-      <p class='text-center text-gray-400 py-12'>
-        No se encontró contenido en esta categoría.
-      </p>
-    )
-  }
+				<section>
+					<h2 class='text-2xl font-bold mb-6 text-secondary'>Recursos</h2>
+					{filteredResources.length > 0 ? (
+						<div class='grid grid-cols-1 md:grid-cols-2 gap-6'>
+							{filteredResources.map((resource) => (
+								<ContentCard
+									target='_blank'
+									rel='noopener noreferrer'
+									title={resource.data.title}
+									description={resource.data.description}
+									tags={tagNamesByResources.get(resource.id)}
+									date={resource.data.date}
+									href={resource.data.url}
+								/>
+							))}
+						</div>
+					) : (
+						<p class='text-center text-gray-400 py-12'>
+							No se encontraron recursos en esta categoría.
+						</p>
+					)}
+				</section>
+			</div>
+		) : (
+			<p class='text-center text-gray-400 py-12'>
+				No se encontró contenido en esta categoría.
+			</p>
+		)
+	}
 </Layout>

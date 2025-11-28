@@ -1,82 +1,71 @@
 ---
-import Layout from '@layouts/Layout.astro'
-import GroupCard from '@components/GroupCard.astro'
-import { admins, groups} from 'src/utils/aboutUs'
-import CarouselAdmin from '@components/CarouselAdmin/CarouselAdmin'
+import CarouselAdmin from "src/modules/about-us/components/CarouselAdmin/CarouselAdmin";
+import GroupCard from "src/modules/about-us/components/GroupCard.astro";
+import { admins, groups } from "src/modules/about-us/constants/about-us.const";
+import Layout from "src/modules/global/layouts/Layout.astro";
 
-const styledParagraph = 'text-[1rem] text-gray-300 leading-relaxed'
+const styledParagraph = "text-[1rem] text-gray-300 leading-relaxed";
 
 const OPTIONS = {
-  align: 'start',
-  dragFree: true,
-  loop: true,
-  slidesToScroll: 'auto',
-}
+	align: "start",
+	dragFree: true,
+	loop: true,
+	slidesToScroll: "auto",
+};
 ---
 
-<Layout title='Acerca de | Share IT' showBackButton>
-  <div class='max-w-4xl mx-auto'>
-    <h1 class='text-4xl font-bold text-center mb-8 text-white'>
-      Acerca de Nosotros
-    </h1>
-    <p class=`${styledParagraph} mb-2`>
-      <span class='font-bold text-lg text-secondary'>Share</span>
-      <span class='font-bold text-[#586ab1]'>IT</span>
-      es una comunidad de Discord que <span class='font-bold'
-        >reúne a personas de toda índole y de habla hispana</span
-      >, que forman parte o aspiran a formar parte de la industria IT. Somos una
-      comunidad unida por el deseo de <span class='font-bold'
-        >aprender, compartir conocimientos y crecer juntos</span
-      > en el ámbito tecnológico. Nuestro propósito es construir una red de apoyo
-      que permita a sus integrantes progresar como profesionales de esta industria,
-      siempre teniendo en cuenta que la colaboración mutua es el principal motor
-      para un crecimiento sostenible. 💪
-    </p>
-    <h2 class='text-2xl mt-6 font-bold text-white'>
-      ¿Qué vas a encontrar en esta comunidad?
-    </h2>
-    <p class=`${styledParagraph} mt-2`>
-      La comunidad está compuesta por varios grupos, cada uno con una dinámica
-      distinta.
-    </p>
-    <div class='flex flex-col gap-4 my-3'>
-      <div
-        class='grid h-full w-full gap-4 grid-cols-1 grid-rows-1 sm:grid-cols-2 lg:grid-cols-2'
-      >
-        {
-          groups.map((group) => (
-            <GroupCard
-              title={group.title}
-              description={group.description}
-              size={group.size}
-            />
-          ))
-        }
-      </div>
-      <div class='bg-blue-900/20 border border-blue-500/30 rounded-lg p-4 my-4'>
-        <div class='flex items-start gap-3'>
-          <div class='flex-shrink-0 mt-0.5'>
-            <svg class='w-5 h-5 text-blue-400' fill='currentColor' viewBox='0 0 20 20'>
-              <path fill-rule='evenodd' d='M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z' clip-rule='evenodd'></path>
-            </svg>
-          </div>
-          <div>
-            <p class='text-sm text-gray-200 leading-relaxed'>
-              <span class='font-semibold text-blue-300'>Información importante:</span> Al ingresar a la comunidad te pediremos que por favor rellenes un
-              formulario con algunos datos personales <span class='font-bold text-blue-200'
-                >(no se piden datos sensibles)</span> ya que llevamos un registro de los usuarios que se incorporan.
-              Esto nos permite evitar el ingreso de usuarios maliciosos y contribuye a
-              una comunidad más sana.
-            </p>
-          </div>
-        </div>
-      </div>
-      <div>
-        <h2 class='text-2xl mt-6 mb-4 font-bold text-white'>
-          Conoce a los Líderes de Nuestra Comunidad
-        </h2>
-        <CarouselAdmin slides={admins} options={OPTIONS} client:load />
-      </div>
-    </div>
-  </div>
+<Layout title="Acerca de | Share IT" showBackButton>
+	<div class="max-w-4xl mx-auto cursor-default">
+		<h1 class="text-4xl font-bold text-center mb-8 text-white">
+			Acerca de Nosotros
+		</h1>
+		<p class=`${styledParagraph} mb-2`>
+			<span class="font-bold text-lg text-secondary">Share</span>
+			<span class="font-bold text-[#586ab1]">IT</span>
+			es una comunidad <span class="font-bold">hispanohablante</span> de personas
+			que trabajan o quieren trabajar en la industria IT. Nos reunimos en WhatsApp
+			y Discord para <span class="font-bold"
+				>aprender juntos, compartir conocimientos y acompañarnos en el
+				crecimiento profesional</span
+			>.<br /> <br /> Creemos en el poder de la colaboración. Por eso fomentamos un
+			ambiente donde puedes hacer preguntas sin miedo, recibir ayuda, aportar
+			lo que sabes y conectar con otros que están en tu mismo camino. Nuestro
+			propósito es simple: crear una red de apoyo real que ayude a cada miembro
+			a desarrollarse en tecnología de manera sostenible, humana y sin egos.
+			<br /> <br />
+			<span class="font-bold">Nadie despega solo </span>🚀
+		</p>
+		<h2 class="text-2xl mt-6 font-bold text-white">
+			¿Qué vas a encontrar en esta comunidad?
+		</h2>
+		<p class=`${styledParagraph} mt-2`>
+			La comunidad en WhatsApp está compuesta por los siguientes grupos,
+			cada uno con una dinámica distinta. Por favor asegúrate de leer la
+			descripción de cada uno para entender su propósito.
+		</p>
+		<div class="flex flex-col gap-4 my-3">
+			<div
+				class="grid h-full w-full gap-4 grid-cols-1 grid-rows-1 sm:grid-cols-2 lg:grid-cols-2"
+			>
+				{
+					groups.map((group) => (
+						<GroupCard
+							title={group.title}
+							description={group.description}
+							size={group.size}
+							span={group.span}
+							spanStyle={group.spanStyle}
+						/>
+					))
+				}
+			</div>
+
+			<div>
+				<h2 class="text-2xl mt-6 mb-4 font-bold text-white">
+					Conoce a los Líderes de Nuestra Comunidad
+				</h2>
+				<CarouselAdmin slides={admins} options={OPTIONS} client:load />
+			</div>
+		</div>
+	</div>
 </Layout>

@@ -1,142 +1,175 @@
 ---
-import { AnimatedText } from '@components/AnimatedText/AnimatedText'
-import ContentCard from '@components/ContentCard.astro'
-import Layout from '@layouts/Layout.astro'
-import { Image } from 'astro:assets';
-import { getCollection } from 'astro:content'
-import {getTagNamesByEntries} from "@helpers/tagHelper"
-import { SocialLinks } from '@components/SocialLinks/SocialLinks';
-import { NotificationsContainer } from '@components/Toasts/notifications';
-
-
-
-const articles = await getCollection('articles', ({ data }) => {
-  return !data.draft
-})
+import { AnimatedText } from "src/modules/home/components/AnimatedText/AnimatedText";
+import Layout from "src/modules/global/layouts/Layout.astro";
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+import { getTagNamesByEntries } from "@helpers/tag.helper";
+import { SocialLinks } from "src/modules/home/components/SocialLinks/SocialLinks";
+import { ToastProvider } from "src/modules/global/components/Toast/toast";
+import {
+	tagNamesByArticles,
+	latestArticles,
+} from "src/modules/blog/utils/articles.utils";
+import ContentCard from "src/modules/global/components/CustomCard/ContentCard.astro";
 
 const resources = await getCollection("resources");
 
-const latestArticles = articles
-  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
-  .slice(0, 2)
-const tagNamesByArticle = await getTagNamesByEntries(latestArticles);
-
 const latestResources = resources
-  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
-  .slice(0, 2)
+	.sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+	.slice(0, 2);
 const tagNamesByResources = await getTagNamesByEntries(latestResources);
-
-export const prerender = true
 ---
 
-<Layout title='Share IT'>
-  <div class="grid min-[1000px]:grid-cols-2 place-items-center mb-16">
-    <div
-    class='text-center min-[1000px]:text-start px-4 py-12'
-  >
-    <AnimatedText client:load />
-    <p class='text-3xl md:text-4xl text-gray-300 max-w-2xl mx-auto mt-2'>
-      Bienvenido a <span
-        class='font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#4b6ef8] via-primary to-[#94e7f8]'
-        >Share IT</span
-      >.
-    </p>
-    <p class='text-gray-300 mx-auto m-4 max-w-[600px]'>
-      Somos una comunidad unida por el deseo de aprender, compartir conocimientos y crecer juntos en el ámbito tecnológico.
-      <span class='font-bold'>Aquí encontrarás artículos, recursos y un espacio para conectar con otros entusiastas de la tecnología. </span>
-    </p>
-    <div class='flex sm:flex-row justify-center min-[1000px]:justify-start gap-4 flex-col'>
-      <SocialLinks client:load/>
-    </div>
+<Layout title="ShareIT - Nadie despega solo">
+	<div class="grid min-[1000px]:grid-cols-2 place-items-center mb-16">
+		<div class="text-center min-[1000px]:text-start px-4 py-12">
+			<AnimatedText client:load />
+			<p
+				class="text-3xl md:text-4xl text-gray-300 max-w-2xl mx-auto mt-2"
+			>
+				Bienvenido a <span
+					class="font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#4b6ef8] via-primary to-[#94e7f8]"
+					>Share IT</span
+				>.
+			</p>
+			<p class="text-gray-300 mx-auto m-4 max-w-[600px]">
+				Somos una comunidad unida por el deseo de aprender, compartir
+				conocimientos y crecer juntos en el ámbito tecnológico.
+				<span class="font-bold"
+					>Aquí encontrarás artículos, recursos y un espacio para
+					conectar con otros entusiastas de la tecnología.
+				</span>
+			</p>
+			<div
+				class="flex sm:flex-row justify min-[1000px]:justify-start gap-4 flex-col"
+			>
+				<SocialLinks client:load />
+			</div>
+		</div>
 
-    </div>
+		<Image
+			src="/images/Frame.png"
+			width={300}
+			height={300}
+			alt="Hero Image"
+			class="mt-16"
+		/>
+	</div>
 
-    <Image
-      src='/images/Frame.png'
-      width={300}
-      height={300}
-      alt='Hero Image'
-      class='mt-16'
-      />
-  </div>
+	<section class="mb-14">
+		<div class="mb-8">
+			<h2 class="text-3xl font-bold mb-4 text-white">
+				🚀 Presentación en Nerdearla 2025
+			</h2>
+			<p class="text-gray-300 max-w-2xl">
+				Conoce más sobre nuestra visión como comunidad en la siguiente
+				Lightning Talk que tuvo lugar durante la Nerdearla de 2025, unos
+				de los eventos de tecnología más importantes de la región.
+			</p>
+		</div>
+		<div class="flex justify-center">
+			<div class="aspect-video w-full max-w-3xl">
+				<iframe
+					src="https://www.youtube.com/embed/muNVy6tuGNg"
+					title="YouTube video player"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowfullscreen
+					class="rounded-lg shadow-lg w-full h-full"></iframe>
+			</div>
+		</div>
+	</section>
 
-  <section class='mb-12'>
-    <div class='mb-8'>
-      <h2 class='text-3xl font-bold mb-4 text-white'>📚 Contenido Destacado</h2>
-      <p class='text-gray-300 max-w-2xl'>
-        Descubre nuestros últimos artículos y recursos más valiosos. Conocimiento compartido por nuestra comunidad para ayudarte en tu crecimiento profesional.
-      </p>
-    </div>
-    
-    <div class='grid grid-cols-1 md:grid-cols-2 gap-6 mb-8'>
-      {
-        latestArticles.map((article) => (
-          <ContentCard
-            additionalClass='md:h-[200px] h-[220px]'
-            title={article.data.title}
-            description={article.data.description}
-            tags={tagNamesByArticle.get(article.id)}
-            date={article.data.date}
-            href={`/articles/${article.id}`}
-          />
-        ))
-      }
-    </div>
+	<section class="mb-12">
+		<div class="mb-8">
+			<h2 class="text-3xl font-bold mb-4 text-white">
+				📚 Contenido Destacado
+			</h2>
+			<p class="text-gray-300 max-w-2xl">
+				Descubre nuestros últimos artículos y recursos más valiosos.
+				Conocimiento compartido por nuestra comunidad para ayudarte en
+				tu crecimiento profesional.
+			</p>
+		</div>
 
-    {
-      latestResources.length > 0 && (
-        <div class='grid grid-cols-1 md:grid-cols-2 gap-6 mb-8'>
-          {latestResources.map((resource) => (
-            <ContentCard
-              target='_blank'
-              rel='noopener noreferrer'
-              title={resource.data.title}
-              description={resource.data.description}
-              tags={tagNamesByResources.get(resource.id)}
-              date={resource.data.date}
-              href={resource.data.url}
-            />
-          ))}
-        </div>
-      )
-    }
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+			{
+				latestArticles.map((article) => (
+					<ContentCard
+						additionalClass="md:h-[200px] h-[220px]"
+						title={article.data.title}
+						description={article.data.description}
+						tags={tagNamesByArticles.get(article.id)}
+						date={article.data.date}
+						href={`/articles/${article.id}`}
+					/>
+				))
+			}
+		</div>
 
-    <div class='text-center mt-6'>
-      <div class='flex flex-col sm:flex-row gap-4 justify-center items-center'>
-        <a href='/articles/1' class='text-primary hover:text-secondary transition-colors'>
-          Ver todos los artículos →
-        </a>
-        {
-          latestResources.length > 0 && (
-            <span class='text-gray-500 hidden sm:block'>|</span>
-          )
-        }
-        {
-          latestResources.length > 0 && (
-            <a href='/resources' class='text-primary hover:text-secondary transition-colors'>
-              Ver todos los recursos →
-            </a>
-          )
-        }
-      </div>
-    </div>
-  </section>
+		{
+			latestResources.length > 0 && (
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+					{latestResources.map((resource) => (
+						<ContentCard
+							target="_blank"
+							rel="noopener noreferrer"
+							title={resource.data.title}
+							description={resource.data.description}
+							tags={tagNamesByResources.get(resource.id)}
+							date={resource.data.date}
+							href={resource.data.url}
+						/>
+					))}
+				</div>
+			)
+		}
 
-  <section class="mb-6">
-    <div class="flex flex-col gap-3 justify-center items-center">
-      <h2 class='text-3xl font-bold text-center text-white'>
-        📋 Conoce nuestras reglas de convivencia
-      </h2>
-      <p class='text-lg text-center text-gray-400'>Para mantener una comunidad sana y productiva, es importante conocer y respetar nuestras reglas. ¡Tómate un momento para leerlas! 😉
+		<div class="text-center mt-6">
+			<div
+				class="flex flex-col sm:flex-row gap-4 justify-center items-center"
+			>
+				<a
+					href="/articles/1"
+					class="text-primary hover:text-secondary transition-colors"
+				>
+					Ver todos los artículos →
+				</a>
+				{
+					latestResources.length > 0 && (
+						<span class="text-gray-500 hidden sm:block">|</span>
+					)
+				}
+				{
+					latestResources.length > 0 && (
+						<a
+							href="/resources"
+							class="text-primary hover:text-secondary transition-colors"
+						>
+							Ver todos los recursos →
+						</a>
+					)
+				}
+			</div>
+		</div>
+	</section>
 
-      </p>
-      <a
-      href='/rules'
-      class='flex justify-center items-center bg-[#314aa9] hover:bg-[#2f3fca] text-white px-6 py-2 rounded-full'
-    >
-      Ver reglas de la comunidad
-    </a>
-    </div>
-    <NotificationsContainer client:load />
-  </section>
+	<section class="mb-6">
+		<div class="flex flex-col gap-3 justify-center items-center">
+			<h2 class="text-3xl font-bold text-center text-white">
+				📋 Conoce nuestras reglas de convivencia
+			</h2>
+			<p class="text-lg text-center text-gray-400">
+				Para mantener una comunidad sana y productiva, es importante
+				conocer y respetar nuestras reglas. ¡Tómate un momento para
+				leerlas! 😉
+			</p>
+			<a
+				href="/rules"
+				class="flex justify-center items-center bg-[#314aa9] hover:bg-[#2f3fca] text-white px-6 py-2 rounded-full"
+			>
+				Ver reglas de la comunidad
+			</a>
+		</div>
+		<ToastProvider client:load />
+	</section>
 </Layout>

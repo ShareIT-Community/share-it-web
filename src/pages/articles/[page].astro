@@ -1,74 +1,76 @@
 ---
-import { type CollectionEntry, getCollection } from 'astro:content'
-import Layout from '@layouts/Layout.astro'
-import Pagination from '@components/Pagination.astro'
-import ContentCard from '@components/ContentCard.astro'
-import { getTagNamesByEntries } from '@helpers/tagHelper'
+import { type CollectionEntry, getCollection } from 'astro:content';
+import Layout from 'src/modules/global/layouts/Layout.astro';
+import { getTagNamesByEntries } from '@helpers/tag.helper';
+import ContentCard from 'src/modules/global/components/CustomCard/ContentCard.astro';
+import Pagination from 'src/modules/global/components/Pagination/Pagination.astro';
 
 export async function getStaticPaths({
-  paginate,
+	paginate,
 }: {
-  paginate: (items: any[], options: { pageSize: number }) => any
+	paginate: (items: any[], options: { pageSize: number }) => any;
 }) {
-  const articles = await getCollection('articles', ({ data }) => {
-    return !data.draft
-  })
+	const articles = await getCollection('articles', ({ data }) => {
+		return !data.draft;
+	});
 
-  const sortedArticles = articles.sort(
-    (a, b) => b.data.date.getTime() - a.data.date.getTime()
-  )
+	const sortedArticles = articles.sort(
+		(a, b) => b.data.date.getTime() - a.data.date.getTime(),
+	);
 
-  return paginate(sortedArticles, { pageSize: 6 })
+	return paginate(sortedArticles, { pageSize: 6 });
 }
 
-const { page } = Astro.props
+const { page } = Astro.props;
 
 const {
-  data: articles,
-  currentPage,
-  lastPage,
+	data: articles,
+	currentPage,
+	lastPage,
 } = page as {
-  data: Array<CollectionEntry<"articles">>
-  currentPage: number
-  lastPage: number
-}
+	data: Array<CollectionEntry<'articles'>>;
+	currentPage: number;
+	lastPage: number;
+};
 
 const tagNamesByArticle = await getTagNamesByEntries(articles);
 ---
 
-<Layout title='Artículos | Share IT' showBackButton>
-  <div class='flex flex-col items-center mb-8 gap-2'>
-    <h1 class='text-4xl font-bold text-center text-white'>Artículos</h1>
-    <span class='text-lg text-center text-gray-400'>
-      Artículos escritos por desarrolladores de la comunidad de Share IT.📃
-    </span>
-  </div>
+<Layout
+	title='Artículos | Share IT'
+	showBackButton>
+	<div class='flex flex-col items-center mb-8 gap-2'>
+		<h1 class='text-4xl font-bold text-center text-white'>Artículos</h1>
+		<span class='text-lg text-center text-gray-400'>
+			Artículos escritos por desarrolladores de la comunidad de Share IT.📃
+		</span>
+	</div>
 
-  <div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
-    {
-      articles.length === 0 ? (
-        <div class='text-center py-12'>
-          <p class='text-gray-400 text-lg'>
-            Aun no hay artículos publicados. ¡Vuelve pronto!🚀
-          </p>
-        </div>
-      ) : (
-        articles.map((article) => (
-          <ContentCard
-            additionalClass='h-[250px]'
-            title={article.data.title}
-            description={article.data.description}
-            tags={tagNamesByArticle.get(article.id)}
-            date={article.data.date}
-            href={`/articles/${article.id}`}
-          />
-        ))
-      )
-    }
-  </div>
-  <Pagination
-    currentPage={currentPage}
-    totalPages={lastPage}
-    baseUrl='/articles'
-  />
+	<div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
+		{
+			articles.length === 0 ? (
+				<div class='text-center py-12'>
+					<p class='text-gray-400 text-lg'>
+						Aun no hay artículos publicados. ¡Vuelve pronto!🚀
+					</p>
+				</div>
+			) : (
+				articles.map((article) => (
+					<ContentCard
+						additionalClass='h-[250px]'
+						title={article.data.title}
+						description={article.data.description}
+						tags={tagNamesByArticle.get(article.id)}
+						date={article.data.date}
+						href={`/articles/${article.id}`}
+					/>
+				))
+			)
+		}
+	</div>
+	<Pagination
+		currentPage={currentPage}
+		totalPages={lastPage}
+		baseUrl='/articles'
+	/>
 </Layout>
