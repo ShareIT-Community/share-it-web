@@ -8,7 +8,12 @@ import sanity from '@sanity/astro';
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [react(), sanity()],
+  integrations: [react(), sanity({
+    projectId: "bhiv53i7",
+    dataset: "production",
+    useCdn: false,
+    apiVersion: "2025-11-30",
+  })],
   vite: {
     plugins: [tailwindcss()]
   },
