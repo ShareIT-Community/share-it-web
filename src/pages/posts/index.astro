@@ -1,0 +1,28 @@
+---
+import type { SanityDocument } from "@sanity/client";
+import { loadQuery } from "src/sanity/lib/load-query";
+
+const { data } = await loadQuery<SanityDocument[]>({
+  query: `*[_type == "post"]`,
+});
+---
+
+<div>
+  <h1>Blog list</h1>
+  {
+    data.length > 0 && (
+      data.map(
+        (post: {
+          title: string;
+          slug: {
+            current: string;
+          };
+        }) => {
+          return (
+            <a href={`/posts/${post.slug.current}`}>{post.title}</a>
+          );
+        }
+      )
+    )
+  }
+</div>
