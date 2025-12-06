@@ -21,8 +21,8 @@ export const SocialLinks: React.FC = () => {
   const discord = socialLinks.discord;
 
   return (
-    <div className="flex flex-col justify-center gap-4 mt-2 w-full">
-      <div className="flex justify-center gap-4 w-full flex-col">
+    <div className="flex justify-center gap-4 mt-2 w-full">
+      <div className="flex justify-center gap-4 w-full ">
         <SocialContainer
           description={discord.description}
           icon={discord.icon}

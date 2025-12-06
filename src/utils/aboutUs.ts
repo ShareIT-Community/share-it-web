@@ -3,7 +3,7 @@ import { GoRocket } from "react-icons/go";
 export const socialLinks = {
   discord: {
     title: 'Discord de la comunidad',
-    description: 'Únete a la comunidad',
+    description: '¡¡Únete ahora!!',
     url: 'https://discord.gg/8cvhbu7sgn',
     icon: FaDiscord,
   },

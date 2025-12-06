@@ -3,6 +3,8 @@ import ShareIt from '@icons/ShareIt.astro';
 import MobileMenu from './MobileMenu/MobileMenu.astro';
 import { Image } from 'astro:assets';
 import LogoWaves from 'public/images/shareit_logo_waves.png';
+import { SocialContainer } from './SocialLinks/SocialContainer';
+import { socialLinks } from 'src/utils/aboutUs';
 
 const navItems = [
 	{ href: '/', text: 'Inicio' },
@@ -13,11 +15,15 @@ const navItems = [
 	{ href: '/aboutUs', text: 'Sobre nosotros' },
 	// { href: '/talent', text: 'Talento' },
 ];
+
+const discord = socialLinks.discord;
 ---
 
+
 <header class='p-4'>
+	
 	<nav
-		class='container mx-auto px-4 max-w-4xl flex items-center justify-between'>
+		class='container mx-auto max-w-6xl flex items-center justify-between'>
 		<a
 			href='/'
 			class='font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#4b6ef8] via-primary to-[#94e7f8] text-xl inline-flex h-full flex-justify-center items-center gap-1'>
@@ -40,6 +46,13 @@ const navItems = [
 				))
 			}
 		</ul>
+		<SocialContainer
+          description={discord.description}
+          icon={discord.icon}
+          hoverColor={"#5865F2"}
+          ariaLabel={discord.title}
+          social="discord"
+        />
 		<MobileMenu navItems={navItems} />
 	</nav>
 </header>

@@ -30,7 +30,7 @@ export const SocialContainer: React.FC<SocialButtonProps> = ({
   const textColor = isHovered
     ? 'text-white'
     : clsx({
-        'text-[#94e7f8]': social === 'discord',
+        'bg-primary': social === 'discord',
         'text-[#6b8cff]': social === 'redes',
         'text-white': social !== 'discord' && social !== 'redes',
       });
@@ -56,7 +56,6 @@ export const SocialContainer: React.FC<SocialButtonProps> = ({
         className="flex items-center gap-2 w-full justify-center cursor-pointer lg:px-10 h-full"
       >
         {description}
-        <Icon className="lg:w-15 lg:h-7" />
       </button>
     </div>
   );
