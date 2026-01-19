@@ -1,41 +1,42 @@
 ---
-import { Image } from "astro:assets";
-import LogoWaves from "public/images/shareit_logo_waves.png";
-import MobileMenu from "src/modules/global/components/MobileMenu/MobileMenu.astro";
+import { Image } from 'astro:assets'
+import LogoWaves from 'public/images/shareit_logo_waves.png'
+import MobileMenu from 'src/modules/global/components/MobileMenu/MobileMenu.astro'
 
 const navItems = [
-  { href: "/", text: "Inicio" },
-  { href: "/rules", text: "Reglas" },
-  { href: "/articles", text: "Blog" },
-  { href: "/resources", text: "Recursos" },
-  { href: "/aboutUs", text: "Sobre nosotros" },
-];
+  { href: '/', text: 'Inicio' },
+  { href: '/rules', text: 'Reglas' },
+  { href: '/articles', text: 'Blog' },
+  { href: '/resources', text: 'Recursos' },
+  { href: '/aboutUs', text: 'Sobre nosotros' },
+  { href: '/resources-v2', text: 'Recursos v2' },
+]
 
-const currentPath = Astro.url.pathname;
+const currentPath = Astro.url.pathname
 ---
 
-<header class="p-4">
+<header class='p-4'>
   <nav
-    class="container mx-auto px-4 max-w-4xl flex items-center justify-between"
+    class='container mx-auto px-4 max-w-4xl flex items-center justify-between'
   >
     <a
-      href="/"
-      class="font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#4b6ef8] via-primary to-[#94e7f8] text-xl inline-flex h-full flex-justify-center items-center gap-1"
+      href='/'
+      class='font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#4b6ef8] via-primary to-[#94e7f8] text-xl inline-flex h-full flex-justify-center items-center gap-1'
     >
-      <Image src={LogoWaves} alt="ShareIT Logo Waves" class="size-4" />
+      <Image src={LogoWaves} alt='ShareIT Logo Waves' class='size-4' />
       <span>ShareIT</span>
     </a>
 
-    <ul class="flex gap-6" id="menu">
+    <ul class='flex gap-6' id='menu'>
       {
         navItems.map((item) => (
-          <li class="md:flex hidden">
+          <li class='md:flex hidden'>
             <a
               href={item.href}
               class:list={[
                 `relative font-medium transition-colors before:content-[""] before:absolute before:bottom-0 before:w-full before:bg-secondary before:h-0.5`,
                 currentPath === item.href ||
-                currentPath.startsWith(item.href + "/")
+                currentPath.startsWith(item.href + '/')
                   ? `text-secondary before:scale-100`
                   : `text-gray-300 hover:text-secondary before:transition-all before:duration-500 before:ease-in-out before:scale-0 hover:before:scale-100 before:origin-left`,
               ]}

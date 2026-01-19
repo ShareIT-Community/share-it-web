@@ -1,0 +1,95 @@
+---
+import { ClientRouter } from 'astro:transitions'
+import Sidebar from '../components/ResourceContent/Sidebar'
+import MobileMenu from '../components/ResourceContent/MobileMenu'
+import '../../global/styles/globals.css'
+
+interface Props {
+  title: string
+}
+
+const { title } = Astro.props
+---
+
+<!doctype html>
+<html lang='es' class='dark'>
+  <head>
+    <meta charset='UTF-8' />
+    <meta name='viewport' content='width=device-width' />
+    <link rel='icon' type='image/svg+xml' href='/share-it-icon.png' />
+    <meta name='generator' content={Astro.generator} />
+    <title>{title}</title>
+    <ClientRouter />
+    <link rel='preconnect' href='https://fonts.googleapis.com' />
+    <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin />
+    <link
+      href='https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap'
+      rel='stylesheet'
+    />
+  </head>
+  <body
+    class="bg-[#101828] text-slate-200 font-['Outfit',_sans-serif] antialiased"
+  >
+    <div class='flex flex-col md:flex-row min-h-screen'>
+      <!-- Sidebar - Fixed on Desktop -->
+      <aside
+        class='hidden md:block w-72 lg:w-80 fixed inset-y-0 left-0 z-40 bg-[#1d2939] border-r border-slate-800/50'
+      >
+        <div class='h-full overflow-y-auto custom-scrollbar'>
+          <Sidebar client:load />
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class='flex-1 md:ml-72 lg:ml-80 min-h-screen'>
+        <div class='max-w-7xl mx-auto px-6 lg:px-12 py-10'>
+          <slot />
+        </div>
+      </main>
+    </div>
+
+    <!-- Mobile Nav Header -->
+    <div
+      class='md:hidden sticky top-0 z-50 bg-[#020617]/80 backdrop-blur-xl border-b border-slate-800/50 px-6 py-4 flex items-center justify-between'
+    >
+      <div class='flex items-center gap-2'>
+        <a href='/' class='cursor-pointer'>
+          <img
+            src='/images/shareit_logo_waves.png'
+            alt='ShareIT Logo'
+            class='w-8 h-8 object-contain'
+          />
+          <span class='font-bold text-lg tracking-tight text-white'
+            >ShareIT</span
+          >
+        </a>
+      </div>
+      <MobileMenu client:load />
+    </div>
+
+    <style is:global>
+      :root {
+        --font-outfit: 'Outfit', sans-serif;
+        --background: #020617;
+      }
+
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 5px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #1e293b;
+        border-radius: 20px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: #334155;
+      }
+
+      .resource-grid-item {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+    </style>
+  </body>
+</html>
