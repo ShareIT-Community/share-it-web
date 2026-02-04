@@ -74,7 +74,7 @@ export const admins = [
   {
     name: 'Jean Roa (Drak)',
     about: 'Admin',
-    role: 'Software Developer',
+    role: 'Software Engineer | Cybersecurity',
     avatar: '/images/drak-avatar.png',
     github: 'https://github.com/TheSoftwareWizard',
     linkedin: 'https://www.linkedin.com/in/jeanmra/',
