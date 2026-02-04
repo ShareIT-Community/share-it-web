@@ -5,7 +5,7 @@ export const socialLinks = {
   discord: {
     title: 'Discord de la comunidad',
     description: 'Únete a la comunidad',
-    url: 'https://discord.gg/8cvhbu7sgn',
+    url: 'https://discord.gg/9pdx93VGk3',
     icon: FaDiscord,
   },
   github: {
