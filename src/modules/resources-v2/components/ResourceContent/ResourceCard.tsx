@@ -34,33 +34,33 @@ const ResourceCard: React.FC<Props> = ({ resource }) => {
   }
 
   return (
-    <div className='group relative bg-slate-800/40 border border-slate-800/50 rounded-3xl overflow-hidden hover:border-[var(--primary)]/40 transition-all duration-300 flex flex-col h-full shadow-2xl shadow-black/20'>
-      {/* Thumbnail Area */}
-      <div className='relative aspect-[16/10] overflow-hidden'>
+    <div className='group relative bg-slate-800/40 border border-slate-800/50 rounded-md overflow-hidden hover:border-[var(--primary)]/40 transition-all duration-300 flex flex-col h-full shadow-2xl shadow-black/20'>
+      <div className='relative aspect-[16/10] overflow-hidden bg-slate-900'>
         <img
           src={resource.thumbnail}
-          alt={resource.title}
+          alt={`Miniatura de ${resource.title}`}
+          loading='lazy'
+          decoding='async'
           className='w-full h-full object-cover transition-transform duration-500 group-hover:scale-105'
         />
         <div className='absolute inset-0 bg-gradient-to-t from-[var(--background)] via-transparent to-transparent opacity-60' />
 
-        {/* Status Badge */}
         <div
           className={`absolute top-4 right-4 px-2.5 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider border ${getStatusColor()}`}
         >
           {resource.status}
         </div>
 
-        {/* Label Ribbon/Badge */}
+        {/* NOTA: Will be implemented in the future
         {resource.label && (
           <div className='absolute top-4 left-4 flex items-center gap-1.5 px-2.5 py-1 bg-slate-900/80 backdrop-blur-md border border-white/10 rounded-lg text-[10px] font-bold uppercase tracking-wider text-slate-200'>
             {getLabelIcon()}
             <span>{resource.label}</span>
           </div>
         )}
+        */}
       </div>
 
-      {/* Content Area */}
       <div className='p-6 flex flex-col flex-1 gap-4'>
         <div className='flex justify-between items-start'>
           <div className='flex flex-col gap-1'>
@@ -82,7 +82,6 @@ const ResourceCard: React.FC<Props> = ({ resource }) => {
           )}
         </div>
 
-        {/* Tech Stack Pills */}
         <div className='flex flex-wrap gap-2'>
           {resource.tags.map((tag) => (
             <span
@@ -94,8 +93,7 @@ const ResourceCard: React.FC<Props> = ({ resource }) => {
           ))}
         </div>
 
-        {/* Footer */}
-        <div className='mt-auto pt-6 border-t border-slate-800/50 flex items-center justify-between'>
+        <div className='mt-auto pt-6 flex-col border-t border-slate-800/50 flex items-start gap-4'>
           <div className='flex items-center gap-3'>
             <div className='relative'>
               <img
@@ -106,7 +104,7 @@ const ResourceCard: React.FC<Props> = ({ resource }) => {
               <div className='absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 border-2 border-slate-800 rounded-full' />
             </div>
             <span className='text-xs font-medium text-slate-500'>
-              Shared by{' '}
+              Compartido por{' '}
               <span className='text-slate-300'>
                 {resource.contributor.name}
               </span>

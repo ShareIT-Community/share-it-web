@@ -6,6 +6,7 @@ export const selectedCategory = atom('front-end')
 export const activeFilters = atom<ResourceStatus[]>([])
 export const sortBy = atom<'newest' | 'popular' | 'trending'>('newest')
 export const isMobileMenuOpen = atom(false)
+export const isSidebarCollapsed = atom(false)
 
 export const setQuery = (query: string) => searchQuery.set(query)
 export const setCategory = (category: string) => {
@@ -24,3 +25,12 @@ export const setSortBy = (sort: 'newest' | 'popular' | 'trending') =>
   sortBy.set(sort)
 export const toggleMobileMenu = () =>
   isMobileMenuOpen.set(!isMobileMenuOpen.get())
+
+export const toggleSidebar = () =>
+  isSidebarCollapsed.set(!isSidebarCollapsed.get())
+
+export const resetFilters = () => {
+  searchQuery.set('')
+  activeFilters.set([])
+  selectedCategory.set('front-end')
+}

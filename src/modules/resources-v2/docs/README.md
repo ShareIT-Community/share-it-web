@@ -1,8 +1,8 @@
 # Resources v2 Module Documentation
 
-## Overview
+**NOTE**: To view the module, follow this path:
 
-The Resources v2 module is a modern, feature-rich resource directory built with Astro, React, and TypeScript. It provides an intuitive interface for browsing, searching, and filtering development resources across multiple categories.
+http://localhost:4321/resources-v2
 
 ## Architecture
 
@@ -11,33 +11,39 @@ The Resources v2 module is a modern, feature-rich resource directory built with 
 ```
 src/modules/resources-v2/
 ├── layouts/
-│   └── ResourceLayout.astro     # Main layout with sidebar
+│   └── ResourceLayout.astro     # Main layout with state-aware sidebar
 ├── components/
-│   ├── ResourceContent.astro    # Content wrapper
+│   ├── ResourceContent.astro    # Content wrapper & orchestration
+│   ├── ResourceLayout/
+│   │   ├── ResourceHeader.tsx   # Page header with title
+│   │   ├── Sidebar.tsx          # Collapsible category navigation
+│   │   └── MobileMenu.tsx       # Mobile navigation
 │   └── ResourceContent/
-│       ├── SearchBar.tsx         # Search functionality
-│       ├── ResourceGrid.tsx     # Resource grid display
-│       ├── Sidebar.tsx          # Category navigation
+│       ├── SearchBar.tsx        # Search functionality
+│       ├── StatusFilters.tsx    # relocated status filters
+│       ├── ResourceGrid.tsx     # Resource grid with skeletons
 │       ├── ResourceCard.tsx     # Individual resource card
-│       └── MobileMenu.tsx        # Mobile navigation
+│       └── ResourceCardSkeleton.tsx # Loading placeholder
 ├── store/
-│   └── resourceStore.ts         # State management
+│   └── resourceStore.ts         # State management (Nanostores)
 ├── services/
-│   └── resourceService.ts       # API service layer
+│   └── resourceService.ts       # API service layer (mock)
 ├── hooks/
-│   └── useResources.ts           # Custom React hooks
-├── types/
-│   └── resource.d.ts            # TypeScript definitions
+│   └── useResources.ts          # Data fetching & filtering hook
 └── docs/
     └── README.md                # This documentation
 ```
 
+### Global Components Used
+
+- `src/modules/global/components/Tooltip/Tooltip.tsx`: Custom Portal-based tooltip for layout independence.
+
 ## Technology Stack
 
-- **Framework**: Astro 5.16.11
-- **UI Library**: React 19.2.3
-- **Language**: TypeScript 5.9.3
-- **Styling**: Tailwind CSS 4.1.18
+- **Framework**: Astro 5.14.5
+- **UI Library**: React 19.1.0
+- **Language**: TypeScript 5.8.3
+- **Styling**: Tailwind CSS 4.1.11
 - **State Management**: Nanostores 1.1.0
 - **Icons**: React Icons 5.5.0
 
@@ -45,31 +51,29 @@ src/modules/resources-v2/
 
 ### 🔍 Search & Discovery
 
-- Real-time search with debounced input
-- Category-based filtering
-- Status filtering (Free/Open Source/Paid)
-- Sort options (newest/popular/trending)
+- Real-time search with debounced input.
+- Category-based filtering.
+- **Relocated Status Filters**: "Free", "Open Source", and "Paid" filters are now integrated into the main content flow for better UX.
+- "Clear Filters" functionality in empty states.
 
 ### 📱 Responsive Design
 
-- Desktop: Fixed sidebar navigation
-- Mobile: Hamburger menu with slide-out navigation
-- Adaptive grid layout
-- Touch-friendly interactions
+- **Collapsible Sidebar**: Desktop sidebar can be toggled to a "mini" version to maximize content space.
+- **Portal-based Tooltips**: Category names appear as tooltips when the sidebar is collapsed, preventing layout clipping.
+- **Mobile-First Layout**: Mobile header moved to the top; sidebar transforms into a full-screen drawer.
+- Adaptive grid layout (1-3 columns).
 
 ### 🎨 Modern UI
 
-- Smooth animations and transitions
-- Hover states and micro-interactions
-- Custom scrollbar styling
-- Loading states and skeletons
+- **Skeleton Screens**: Professional loading placeholders that match the card layout.
+- **State via Data Attributes**: Sidebar state managed via `data-sidebar-collapsed` for performant CSS transitions.
+- Smooth animations and hover states.
 
 ### ⚡ Performance
 
-- Client-side navigation with Astro transitions
-- Optimized component rendering
-- Efficient state management
-- Lazy loading capabilities
+- Optimized images with `lazy` loading and `async` decoding.
+- Lightweight state management with Nanostores.
+- CSS-driven layout transitions.
 
 ## Data Models
 
@@ -119,49 +123,28 @@ interface FilterState {
 
 ## State Management
 
-### Store Structure
-
-The module uses Nanostores for lightweight, reactive state management:
+### Store Structure (Nanostores)
 
 ```typescript
-// Search and filter state
 export const searchQuery = atom('')
 export const selectedCategory = atom('front-end')
 export const activeFilters = atom<ResourceStatus[]>([])
-export const sortBy = atom<'newest' | 'popular' | 'trending'>('newest')
-
-// UI state
+export const isSidebarCollapsed = atom(false)
 export const isMobileMenuOpen = atom(false)
 ```
 
 ### Store Actions
 
-```typescript
-export const setQuery = (query: string) => searchQuery.set(query)
-export const setCategory = (category: string) => selectedCategory.set(category)
-export const toggleFilter = (filter: ResourceStatus) => {
-  /* toggle logic */
-}
-export const setSortBy = (sort: 'newest' | 'popular' | 'trending') =>
-  sortBy.set(sort)
-export const toggleMobileMenu = () =>
-  isMobileMenuOpen.set(!isMobileMenuOpen.get())
-```
+- `setQuery(query)`: Updates search string.
+- `setCategory(id)`: Changes active category.
+- `toggleSidebar()`: Toggles expanded/collapsed state on desktop.
+- `resetFilters()`: Resets all active searches and filters to default.
 
 ## Components
 
 ### ResourceLayout.astro
 
-The main layout component that provides:
-
-- HTML structure with meta tags
-- Sidebar navigation (desktop)
-- Mobile header with hamburger menu
-- Global styles and fonts
-
-**Props:**
-
-- `title: string` - Page title for SEO
+Manages the global module layout. Uses a `data-sidebar-collapsed` attribute on a container to drive CSS layout shifts (widths/margins) without frequent DOM class manipulation.
 
 ### ResourceContent.astro
 
@@ -189,34 +172,11 @@ Search functionality component featuring:
 
 ### ResourceGrid.tsx
 
-Main grid display component handling:
-
-- Resource card rendering
-- Empty state display
-- Loading skeletons
-- Responsive grid layout
-
-**Features:**
-
-- Adaptive columns (1-3 based on screen size)
-- Smooth transitions
-- Accessibility attributes
+Orchestrates the display of `ResourceCard` or `ResourceCardSkeleton` based on the loading state. Includes an empty state with a "Limpiar filtros" action.
 
 ### Sidebar.tsx
 
-Desktop navigation sidebar providing:
-
-- Category list with resource counts
-- Status filter checkboxes
-- Sort options
-- Active state indicators
-
-**Features:**
-
-- Fixed positioning on desktop
-- Custom scrollbar styling
-- Hover and active states
-- Icon integration
+Navigational component that supports a `forceExpanded` prop for mobile use. Features integrate `Tooltip` components to provide context in collapsed mode.
 
 ### ResourceCard.tsx
 
@@ -250,6 +210,14 @@ Mobile navigation component featuring:
 - Smooth animations
 - Backdrop overlay
 - Escape key support
+
+### StatusFilters.tsx
+
+Horizontal filter bar located in the main content area. Provides quick access to status-based filtering (Free/Paid/etc) using a "pill" UI.
+
+### Tooltip.tsx (Global)
+
+A robust tooltip implementation using **React Portals**. It renders at the `document.body` level to avoid being clipped by parent containers with `overflow: hidden` or `overflow: auto`.
 
 ## Services
 
@@ -310,5 +278,5 @@ Custom React hooks providing:
 
 ---
 
-_Last updated: January 19, 2026_
-_Version: 2.0.0_
+_Last updated: February 11, 2026_
+_Version: 2.1.0_

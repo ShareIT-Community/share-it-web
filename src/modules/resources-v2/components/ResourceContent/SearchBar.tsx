@@ -9,14 +9,12 @@ const SearchBar: React.FC = () => {
   const [isMac, setIsMac] = useState(false)
 
   useEffect(() => {
-    // Detect OS for keyboard shortcut display
     setIsMac(
       typeof navigator !== 'undefined' &&
         navigator.platform.toUpperCase().indexOf('MAC') >= 0,
     )
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      // Support both Cmd (Mac) and Ctrl (Windows/Linux)
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
         e.preventDefault()
         inputRef.current?.focus()
@@ -37,7 +35,7 @@ const SearchBar: React.FC = () => {
         type='text'
         value={$searchQuery}
         onChange={(e) => setQuery(e.target.value)}
-        className='block w-full pl-11 pr-20 py-3 bg-slate-800/40 border border-slate-800 rounded-2xl text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/40 focus:border-[var(--primary)] transition-all duration-200'
+        className='block w-full pl-11 pr-20 py-3 bg-slate-800/40 border border-slate-800 rounded-md text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/40 focus:border-[var(--primary)] transition-all duration-200'
         placeholder='Buscar recursos, herramientas o librerías...'
       />
       <div className='absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none'>
