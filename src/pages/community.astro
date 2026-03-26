@@ -1,6 +1,6 @@
 ---
 import Layout from "src/modules/global/layouts/Layout.astro";
-import communityEvents from "src/modules/global/constants/community-events.json";
+import Events from "src/modules/resources/components/Events.astro";
 ---
 
 <Layout title="ShareIT - Comunidad">
@@ -203,31 +203,7 @@ Charlamos sobre lógica, APIs, bases de datos y cómo conectar todo para que las
 		<h3 class="text-2xl font-bold text-white mb-4">Eventos pasados</h3>
 
 		<div class="space-y-4">
-			{
-				communityEvents.map((event) => (
-					<div
-						class={
-							event.style === "featured"
-								? "relative mb-6 bg-gradient-to-br from-[#1a2a55] to-gray-800/80 border border-[#314aa9]/50 rounded-2xl p-6 overflow-hidden"
-								: "bg-gray-800/50 mb-6 border border-gray-700 hover:border-gray-600 rounded-2xl p-6 transition-all duration-200"
-						}
-					>
-						{event.style === "featured" && (
-							<div class="absolute top-0 right-0 w-48 h-48 bg-primary/5 rounded-full -translate-y-1/2 translate-x-1/4 pointer-events-none"></div>
-						)}
-						<div class="flex flex-col sm:flex-row sm:items-center gap-4">
-							<div class="flex-1">
-								<div class="flex flex-wrap items-center gap-2 mb-1">
-									<span class="text-xs font-semibold bg-primary/20 text-primary px-2 py-0.5 rounded-full">{event.badge}</span>
-									<span class="text-xs text-gray-400">{event.date} · {event.time}</span>
-								</div>
-								<h3 class="text-white font-bold text-xl">{event.title}</h3>
-								<p class="text-gray-300 text-sm mt-1">{event.description}</p>
-							</div>
-						</div>
-					</div>
-				))
-			}
+			<Events />
 		</div>
 
 		<p class="text-center text-gray-500 text-sm mt-8">
