@@ -61,7 +61,7 @@ export const admins = [
     avatar: '/images/kani-avatar.png',
     github: 'https://github.com/eliasvelazquezdev',
     linkedin: 'https://linkedin.com/in/eliassvelazquez',
-    website: 'http://evelazquez.dev/',
+    website: 'https://linktr.ee/elingenieroconsciente',
     twitter: 'https://x.com/esvdev',
   },
   {
