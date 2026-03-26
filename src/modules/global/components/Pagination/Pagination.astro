@@ -1,0 +1,80 @@
+---
+interface PaginationLabels {
+  prev?: string
+  next?: string
+  page?: string
+  of?: string
+}
+
+interface Props {
+  currentPage: number
+  totalPages: number
+  baseUrl: string
+  showPrevNext?: boolean
+  labels?: PaginationLabels
+}
+
+const {
+  currentPage,
+  totalPages,
+  baseUrl,
+  showPrevNext = true,
+  labels = {
+    prev: 'Anterior',
+    next: 'Siguiente',
+    page: 'Página',
+    of: 'de',
+  },
+} = Astro.props
+
+const validCurrentPage = Math.max(1, Math.min(currentPage, totalPages))
+
+const prevUrl =
+  validCurrentPage > 1 ? `${baseUrl}/${validCurrentPage - 1}` : null
+
+const nextUrl =
+  validCurrentPage < totalPages ? `${baseUrl}/${validCurrentPage + 1}` : null
+---
+
+<div class='flex items-center justify-between mt-8' aria-label='Pagination'>
+  {
+    showPrevNext &&
+      (prevUrl ? (
+        <a
+          href={prevUrl}
+          class={'text-sm text-primary hover:text-secondary'}
+          aria-disabled={!prevUrl}
+          tabindex={prevUrl ? 0 : -1}
+        >
+          {labels.prev}
+        </a>
+      ) : (
+        <span class='text-sm text-gray-500 cursor-not-allowed'>
+          {labels.prev}
+          <i class='bx bx-right-arrow-alt' />
+        </span>
+      ))
+  }
+  <span class='text-sm text-gray-300'
+    >{labels.page} {validCurrentPage} {labels.of} {totalPages}</span
+  >
+
+  {
+    showPrevNext &&
+      (nextUrl ? (
+        <a
+          href={nextUrl}
+          class={'text-sm text-primary hover:text-secondary'}
+          aria-disabled={!nextUrl}
+          tabindex={nextUrl ? 0 : -1}
+        >
+          {labels.next}
+        </a>
+      ) : (
+        <span class='text-sm text-gray-500 cursor-not-allowed'>
+          {labels.next}
+          <i class='bx bx-right-arrow-alt' />
+        </span>
+      ))
+  }
+</div>

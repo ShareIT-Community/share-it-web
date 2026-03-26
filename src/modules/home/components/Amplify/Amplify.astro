@@ -1,0 +1,166 @@
+---
+import MemberCard from "./MemberCard.astro";
+
+const members = [
+  {
+    name: "Alex Rivera",
+    role: "Frontend Developer",
+    photo: "/images/Frame.png",
+    profileUrl: "https://linkedin.com"
+  },
+  {
+    name: "Sofía Castro",
+    role: "UI/UX Designer",
+    photo: "/images/Frame.png",
+    profileUrl: "https://linkedin.com"
+  },
+  {
+    name: "Mateo Ortiz",
+    role: "Backend Engineer",
+    photo: "/images/Frame.png",
+    profileUrl: "https://linkedin.com"
+  },
+  {
+    name: "Lucía Méndez",
+    role: "Fullstack Developer",
+    photo: "/images/Frame.png",
+    profileUrl: "https://linkedin.com"
+  }
+];
+
+
+const sliderConfig = {
+  scrollSpeed: 2,
+};
+---
+
+<section class="mb-16 overflow-hidden">
+  <div class="mb-8 text-center px-4">
+    <h2 class="text-3xl md:text-4xl font-bold mb-4 text-white">
+      Amplify – Marca Personal
+
+    </h2>
+
+    <p class="text-gray-400 max-w-2xl mx-auto text-lg">
+      Amplify es el espacio de la comunidad donde construimos y potenciamos nuestra presencia profesional en redes.
+    </p>
+
+    <p class="text-gray-400 max-w-2xl mx-auto text-lg mt-8">
+      Aquí compartimos publicaciones para recibir apoyo y feedback, revisamos perfiles profesionales, planificamos contenido y trabajamos nuestra marca personal a nuestro ritmo, aprendiendo de quienes crean de forma consistente.
+    </p>
+
+    <p class="text-gray-400 max-w-2xl mx-auto text-lg mt-8">
+      Estos son algunos de los perfiles que se han potenciado al participar de esta dinámica
+    </p>
+  </div>
+  
+  <div class="relative group/section max-w-sm mx-auto lg:max-w-none">
+    <div id="amplify-slider" class="flex lg:grid lg:grid-cols-4 gap-6 overflow-x-auto lg:overflow-x-visible pb-8 lg:pb-0 snap-x snap-mandatory scrollbar-hide lg:px-0">
+      {members.map((member) => (
+        <div class="snap-center min-w-full lg:min-w-0 px-4 lg:px-0 h-full">
+          <MemberCard {...member} />
+        </div>
+      ))}
+    </div>
+    
+    
+    <div id="amplify-dots" class="lg:hidden flex justify-center gap-2 mt-4">
+      {members.map((_, index) => (
+        <button 
+          class={`w-2 h-2 rounded-full transition-all duration-300 ${index === 0 ? 'bg-[#4b6ef8] w-4' : 'bg-gray-700'}`}
+          aria-label={`Go to member ${index + 1}`}
+          data-index={index}
+        ></button>
+      ))}
+    </div>
+  </div>
+  
+  
+</section>
+
+
+
+
+
+
+
+<script define:vars={{ sliderConfig }}>
+  const slider = document.getElementById('amplify-slider');
+  const dots = document.querySelectorAll('#amplify-dots button');
+
+  if (slider && dots.length > 0) {
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    const syncDots = () => {
+      const index = Math.round(slider.scrollLeft / slider.offsetWidth);
+      dots.forEach((dot, i) => {
+        const isActive = i === index;
+        dot.classList.toggle('bg-[#4b6ef8]', isActive);
+        dot.classList.toggle('w-4', isActive);
+        dot.classList.toggle('bg-gray-700', !isActive);
+      });
+    };
+
+    const scrollToIndex = (index) => {
+      slider.scrollTo({
+        left: index * slider.offsetWidth,
+        behavior: 'smooth'
+      });
+    };
+
+    const handleMouseDown = (e) => {
+      isDown = true;
+      slider.classList.add('active');
+      slider.style.cursor = 'grabbing';
+      slider.style.scrollSnapType = 'none';
+      startX = e.pageX - slider.offsetLeft;
+      scrollLeft = slider.scrollLeft;
+    };
+
+    const handleMouseLeaveUp = () => {
+      if (!isDown) return;
+      isDown = false;
+      slider.classList.remove('active');
+      slider.style.cursor = 'grab';
+      slider.style.scrollSnapType = 'x mandatory';
+    };
+
+    const handleMouseMove = (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - slider.offsetLeft;
+      const walk = (x - startX) * sliderConfig.scrollSpeed;
+      slider.scrollLeft = scrollLeft - walk;
+    };
+
+    // Event Listeners
+    slider.addEventListener('scroll', syncDots, { passive: true });
+    
+    dots.forEach((dot) => {
+      dot.addEventListener('click', () => {
+        const index = parseInt(dot.getAttribute('data-index') || '0');
+        scrollToIndex(index);
+      });
+    });
+
+    slider.addEventListener('mousedown', handleMouseDown);
+    slider.addEventListener('mouseleave', handleMouseLeaveUp);
+    slider.addEventListener('mouseup', handleMouseLeaveUp);
+    slider.addEventListener('mousemove', handleMouseMove);
+
+    // Initial setup
+    slider.style.cursor = 'grab';
+  }
+</script>
+
+<style>
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+</style>

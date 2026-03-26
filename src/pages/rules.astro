@@ -1,0 +1,23 @@
+---
+import { RulesTimelines } from 'src/modules/rules/components/RulesTimelines';
+import Layout from 'src/modules/global/layouts/Layout.astro';
+---
+
+<Layout
+	title='Reglas de | Share IT'
+	showBackButton>
+	<div class='space-y-10'>
+		<div class='flex flex-col items-center gap-2 mb-5'>
+			<h1 class='text-4xl font-bold text-center text-white mb-1'>Reglas</h1>
+			<span class='md:text-lg text-center text-gray-400'
+				>Estas son las reglas de la comunidad que facilitan una sana y
+				productiva convivencia entre los miembros de la misma. Por favor lee
+				atentamente cada una de ellas ya que su incumplimiento puede derivar en
+				sanciones o incluso la expulsion del grupo en cuestion o la misma
+				comunidad. 🚀
+			</span>
+		</div>
+
+		<RulesTimelines client:load />
+	</div>
+</Layout>

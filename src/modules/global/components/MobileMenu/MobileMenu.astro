@@ -1,0 +1,36 @@
+---
+import './styles.css'
+import { JoinButton } from '../Header/JoinButton'
+
+interface Props {
+  navItems: { href: string; text: string }[]
+}
+
+const { navItems } = Astro.props
+---
+
+<label class='popup md:hidden inline-block'>
+  <input type='checkbox' />
+  <div class='burger' tabindex='0'>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  <nav class='popup-window'>
+    <legend>Menu</legend>
+    <ul>
+      {
+        navItems.map((item) => (
+          <li>
+            <a class='submenu-link' href={item.href}>
+              {item.text}
+            </a>
+          </li>
+        ))
+      }
+      <li class='mt-3 flex px-2 pb-2'>
+        <JoinButton client:load />
+      </li>
+    </ul>
+  </nav>
+</label>
