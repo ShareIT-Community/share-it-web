@@ -1,7 +1,7 @@
 ---
 import { admins } from "src/modules/about-us/constants/about-us.const";
 import Layout from "src/modules/global/layouts/Layout.astro";
-import { FaGithub, FaLinkedin, FaXTwitter, FaGlobe } from "react-icons/fa6";
+import { SocialLinks } from "src/modules/about-us/components/CarouselAdmin/CustomLinks";
 
 const styledParagraph = "text-[1rem] text-gray-300 leading-relaxed";
 
@@ -123,27 +123,15 @@ const leaderDescriptions = [
 										<span class="text-sm font-bold text-secondary">{admin.role}</span>
 										<span class="text-gray-400 text-sm mt-1">{admin.about}</span>
 										
-										<div class="flex justify-center gap-4 mt-3 text-xl">
-											{admin.github && (
-												<a href={admin.github} target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors" aria-label={`GitHub de ${admin.name}`}>
-													<FaGithub />
-												</a>
-											)}
-											{admin.linkedin && (
-												<a href={admin.linkedin} target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors" aria-label={`LinkedIn de ${admin.name}`}>
-													<FaLinkedin />
-												</a>
-											)}
-											{admin.website && (
-												<a href={admin.website} target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors" aria-label={`Sitio web de ${admin.name}`}>
-													<FaGlobe />
-												</a>
-											)}
-											{admin.twitter && (
-												<a href={admin.twitter} target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors" aria-label={`Twitter/X de ${admin.name}`}>
-													<FaXTwitter />
-												</a>
-											)}
+										<div class="flex justify-center mt-3 text-xl">
+											<SocialLinks
+												github={admin.github}
+												linkedin={admin.linkedin}
+												website={admin.website}
+												twitter={admin.twitter}
+												instagram={admin.instagram}
+												className="flex gap-4 text-gray-400"
+											/>
 										</div>
 									</div>
 								</div>
