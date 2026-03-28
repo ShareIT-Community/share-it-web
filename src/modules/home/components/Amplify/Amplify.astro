@@ -3,29 +3,31 @@ import MemberCard from "./MemberCard.astro";
 
 const members = [
   {
-    name: "Alex Rivera",
-    role: "Frontend Developer",
+    name: "Jean Roa",
+    role: "Software Developer",
     photo: "/images/Frame.png",
-    profileUrl: "https://linkedin.com"
+    description: "Primeros pasos sólidos. Mentoría directa para quienes están rompiendo el hielo en el mundo IT.",
+    linkedin: "https://linkedin.com",
+    github: "https://github.com",
   },
   {
-    name: "Sofía Castro",
+    name: "Brooke",
     role: "UI/UX Designer",
     photo: "/images/Frame.png",
-    profileUrl: "https://linkedin.com"
+    description: "Primeros pasos sólidos. Mentoría directa para quienes están rompiendo el hielo en el mundo IT.",
+    linkedin: "https://linkedin.com",
+    twitter: "https://twitter.com",
+    instagram: "https://instagram.com",
   },
   {
-    name: "Mateo Ortiz",
-    role: "Backend Engineer",
+    name: "Kani",
+    role: "Data Engineer",
     photo: "/images/Frame.png",
-    profileUrl: "https://linkedin.com"
+    description: "Primeros pasos sólidos. Mentoría directa para quienes están rompiendo el hielo en el mundo IT.",
+    linkedin: "https://linkedin.com",
+    github: "https://github.com",
+    twitter: "https://twitter.com",
   },
-  {
-    name: "Lucía Méndez",
-    role: "Fullstack Developer",
-    photo: "/images/Frame.png",
-    profileUrl: "https://linkedin.com"
-  }
 ];
 
 
@@ -55,7 +57,7 @@ const sliderConfig = {
   </div>
   
   <div class="relative group/section max-w-sm mx-auto lg:max-w-none">
-    <div id="amplify-slider" class="flex lg:grid lg:grid-cols-4 gap-6 overflow-x-auto lg:overflow-x-visible pb-8 lg:pb-0 snap-x snap-mandatory scrollbar-hide lg:px-0">
+    <div id="amplify-slider" class="flex lg:grid lg:grid-cols-3 gap-4 overflow-x-auto lg:overflow-x-visible pb-8 lg:pb-0 snap-x snap-mandatory scrollbar-hide lg:px-0">
       {members.map((member) => (
         <div class="snap-center min-w-full lg:min-w-0 px-4 lg:px-0 h-full">
           <MemberCard {...member} />
