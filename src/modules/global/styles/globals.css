@@ -84,6 +84,21 @@
 	animation: float 5s ease-in-out infinite;
 }
 
+/**
+ * Subrayado corto bajo la primera palabra (o fragmento) del título.
+ * Uso: <h2>…<span class="section-heading__accent">Amplify</span> – resto</h2>
+ */
+@layer components {
+	.section-heading__accent {
+		@apply inline-block border-b-2 border-secondary pb-0.5;
+	}
+
+	/* Título ya en color secondary: línea contrastada */
+	.section-heading__accent-on-secondary {
+		@apply inline-block border-b-2 border-white pb-0.5;
+	}
+}
+
 /*Card title hover */
 .card-title {
 	transition-property: color, background-color, border-color,
