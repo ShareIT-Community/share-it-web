@@ -22,21 +22,21 @@ const socials = [
 ].filter(s => s.url);
 ---
 
-<div class="member-card flex flex-col p-6 rounded-2xl bg-[#1d2c49]/40 border border-[#314aa9]/30 transition-all duration-300 backdrop-blur-sm h-full w-full">
+<div class="member-card group flex flex-col flex-1 min-h-0 p-6 rounded-2xl bg-[#1d2c49]/50 border border-[#314aa9]/35 transition-all duration-300 backdrop-blur-sm w-full hover:border-secondary/35 hover:shadow-lg hover:shadow-black/30">
   <!-- Header: avatar + name/role side by side -->
-  <div class="flex items-center gap-4 mb-4">
-    <div class="w-14 h-14 rounded-xl overflow-hidden border-2 border-[#314aa9]/50 avatar-border transition-colors duration-300 flex-shrink-0">
+  <div class="flex items-center gap-4 mb-4 shrink-0">
+    <div class="w-14 h-14 rounded-xl overflow-hidden border-2 border-[#314aa9]/55 avatar-border transition-colors duration-300 flex-shrink-0 group-hover:border-secondary/45">
       <img
         src={photo}
         alt={name}
-        class="w-full h-full object-cover avatar-img transition-transform duration-500"
+        class="w-full h-full object-cover avatar-img transition-transform duration-500 group-hover:scale-[1.03]"
       />
     </div>
-    <div>
-      <h3 class="text-lg font-bold text-white name-text transition-colors duration-300 leading-tight">
+    <div class="min-w-0 text-left">
+      <h3 class="text-lg font-bold text-white name-text transition-colors duration-300 leading-snug">
         {name}
       </h3>
-      <p class="text-gray-400 text-sm font-medium">
+      <p class="text-gray-300/90 text-sm font-medium mt-0.5">
         {role}
       </p>
     </div>
@@ -44,21 +44,21 @@ const socials = [
 
   <!-- Description -->
   {description && (
-    <p class="text-gray-400 text-sm leading-relaxed flex-1 mb-28">
+    <p class="text-gray-300/95 text-sm leading-[1.65] flex-1 min-h-0 [text-wrap:pretty] mb-4">
       {description}
     </p>
   )}
 
   <!-- Social icons -->
   {socials.length > 0 && (
-    <div class="flex items-center gap-3 mt-auto pt-3 border-t border-[#314aa9]/20">
+    <div class="flex items-center gap-3.5 mt-auto pt-4 border-t border-white/[0.08] shrink-0">
       {socials.map(s => (
         <a
           href={s.url}
           target="_blank"
           rel="noopener noreferrer"
           aria-label={s.label}
-          class="social-icon text-gray-400 transition-colors duration-200 text-lg hover:scale-110 transition-transform"
+          class="social-icon text-gray-400/90 transition-all duration-200 text-lg hover:scale-110"
           style={`--hover-color: ${s.color}`}
         >
           <i class={s.icon}></i>
