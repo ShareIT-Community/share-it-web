@@ -32,14 +32,6 @@ export const SocialLinks: React.FC = () => {
 					ariaLabel={discord.title}
 					social='discord'
 				/>
-				<SocialContainer
-					description={socialLinks.github.description}
-					icon={socialLinks.github.icon}
-					onClick={() => window.open(socialLinks.github.url, '_blank')}
-					hoverColor={'#6b8cff'}
-					ariaLabel={socialLinks.github.title}
-					social='redes'
-				/>
 			</div>
 
 			{isFormOpen && typeof window !== 'undefined'
