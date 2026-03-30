@@ -15,6 +15,10 @@
 	);
 }
 
+.font-josefin-sans {
+	font-family: 'Josefin Sans';
+}
+
 @theme inline {
 	--color-primary: var(--primary);
 	--color-secondary: var(--secondary);

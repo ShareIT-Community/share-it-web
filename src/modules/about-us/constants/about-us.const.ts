@@ -57,11 +57,11 @@ export const admins = [
   {
     name: 'Elias Velázquez (Kani)',
     about: 'Fundador de la Comunidad',
-    role: 'Data Engineer | Fullstack Developer',
+    role: 'Data Engineer',
     avatar: '/images/kani-avatar.png',
     github: 'https://github.com/eliasvelazquezdev',
     linkedin: 'https://linkedin.com/in/eliassvelazquez',
-    website: 'http://evelazquez.dev/',
+    website: 'https://linktr.ee/elingenieroconsciente',
     twitter: 'https://x.com/esvdev',
   },
   {

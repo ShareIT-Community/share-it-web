@@ -1,0 +1,46 @@
+---
+import LevelCard from "./LevelCard.astro";
+
+const levels = [
+  {
+    title: "Inicial",
+    description: "Personas que están comenzando en tecnología o aprendiendo sus primeras herramientas.",
+    color: "[#4ade80]", // green-400
+    icon: `<i class="fa-solid fa-ribbon text-2xl"></i>`
+  },
+  {
+    title: "Intermedio",
+    description: "Personas que ya trabajan o estudian tecnología y buscan mejorar sus habilidades.",
+    color: "[#60a5fa]", // blue-400
+    icon: `<i class="fa-solid fa-medal text-2xl"></i>`
+  },
+  {
+    title: "Experiencia",
+    description: "Profesionales con trayectoria que desean compartir conocimiento y ayudar a otros.",
+    color: "[#a78bfa]", // purple-400
+    icon: `<i class="fa-solid fa-award text-2xl"></i>`
+  }
+];
+---
+
+<section class="mb-16">
+  <div class="mb-8 text-center">
+    <h2 class="text-3xl md:text-4xl font-bold mb-4 text-white">
+      Para Todos los Niveles
+    </h2>
+    <p class="text-gray-400 max-w-2xl mx-auto text-lg">
+      Nuestra comunidad es inclusiva y abierta a distintos niveles de experiencia. ¡Cualquier persona puede participar!
+    </p>
+  </div>
+  
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+    {levels.map((level) => (
+      <LevelCard 
+        title={level.title} 
+        description={level.description} 
+        icon={level.icon} 
+        color={level.color}
+      />
+    ))}
+  </div>
+</section>

@@ -1,0 +1,214 @@
+---
+import Layout from "src/modules/global/layouts/Layout.astro";
+import Events from "src/modules/resources/components/Events.astro";
+---
+
+<Layout title="ShareIT - Comunidad">
+	<section class="text-center py-10 mb-10">
+		<h1 class="text-4xl font-bold text-center mb-8 text-white">
+			Bienvenido a la comunidad
+		</h1>
+		<p class="text-gray-400 max-w-xl mx-auto text-lg">
+			Todo lo que necesitás saber para ser parte activa de Share IT: nuestros
+			canales, las reglas de convivencia y los próximos eventos.
+		</p>
+	</section>
+
+
+
+
+
+
+	<!-- CANALES -->
+	<section class="mb-16" id="canales">
+		<div class="flex items-center gap-3 mt-6 mb-2">
+			<span class="text-2xl">💬</span>
+			<h2 class="text-3xl font-bold text-white">Grupos de whatsapp</h2>
+		</div>
+		<p class="text-gray-400 mb-8 ml-1">
+			Disponemos de distintos grupos para que encuentres siempre
+			el lugar indicado.
+		</p>
+
+		<div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+			<!-- Card -->
+			<div class="relative block p-6 border rounded-lg border-[#368beb] hover:border-[#83D6E7] bg-gradient-to-br transition-all duration-300 from-[#1a1f2e] via-[#1e2332] to-[#2a2f3e] hover:from-[#1e2332] hover:via-[#2a2f3e] hover:to-[#314aa9]/20">
+				<div class="flex items-center gap-3 mb-3">
+					<div class="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center text-xl shrink-0">
+						🎨
+					</div>
+					<h3 class="font-semibold text-white text-lg">Frontend</h3>
+				</div>
+				<p class="text-gray-400 text-sm leading-relaxed">
+					Este grupo es para quienes están aprendiendo o trabajando en la parte visual de las aplicaciones. 
+
+                    Acá hablamos de cómo crear interfaces, mejorar la experiencia del usuario y usar herramientas y frameworks de frontend.
+				</p>
+			</div>
+
+			<div class="relative block p-6 border rounded-lg border-[#368beb] hover:border-[#83D6E7] bg-gradient-to-br transition-all duration-300 from-[#1a1f2e] via-[#1e2332] to-[#2a2f3e] hover:from-[#1e2332] hover:via-[#2a2f3e] hover:to-[#314aa9]/20">
+				<div class="flex items-center gap-3 mb-3">
+					<div class="w-10 h-10 rounded-xl bg-red-500/20 flex items-center justify-center text-xl shrink-0">
+						⚙️
+					</div>
+					<h3 class="font-semibold text-white text-lg">Backend</h3>
+				</div>
+				<p class="text-gray-400 text-sm leading-relaxed">
+					El espacio para entender y construir lo que pasa detrás de una app. 
+
+Charlamos sobre lógica, APIs, bases de datos y cómo conectar todo para que las cosas funcionen.
+				</p>
+				
+			</div>
+
+			<div class="relative block p-6 border rounded-lg border-[#368beb] hover:border-[#83D6E7] bg-gradient-to-br transition-all duration-300 from-[#1a1f2e] via-[#1e2332] to-[#2a2f3e] hover:from-[#1e2332] hover:via-[#2a2f3e] hover:to-[#314aa9]/20">
+				<div class="flex items-center gap-3 mb-3">
+					<div class="w-10 h-10 rounded-xl bg-purple-500/20 flex items-center justify-center text-xl shrink-0">
+						📊
+					</div>
+					<h3 class="font-semibold text-white text-lg">Data</h3>
+				</div>
+				<p class="text-gray-400 text-sm leading-relaxed">
+					Este grupo es para quienes están dando sus primeros pasos en:
+                    Datos, 
+                    Cloud, 
+                    ML,
+                    IA.
+
+                    Compartimos recursos, dudas, experiencias y ejemplos reales, con foco en aprender juntos y entender conceptos que a veces parecen más complejos de lo que realmente son.
+				</p>
+			</div>
+
+			<div class="relative block p-6 border rounded-lg border-[#368beb] hover:border-[#83D6E7] bg-gradient-to-br transition-all duration-300 from-[#1a1f2e] via-[#1e2332] to-[#2a2f3e] hover:from-[#1e2332] hover:via-[#2a2f3e] hover:to-[#314aa9]/20">
+				<div class="flex items-center gap-3 mb-3">
+					<div class="w-10 h-10 rounded-xl bg-yellow-500/20 flex items-center justify-center text-xl shrink-0">
+						🔐
+					</div>
+					<h3 class="font-semibold text-white text-lg">Ciberseguridad</h3>
+				</div>
+				<p class="text-gray-400 text-sm leading-relaxed">
+					El espacio para entender cómo se protegen los sistemas y cómo se vulneran. Charlamos sobre ataques, defensas, buenas prácticas y todo lo que hace que las cosas sean (o no sean) seguras.
+				</p>
+				<div class="mt-4 flex flex-wrap gap-2">
+					<span class="text-xs bg-gray-700/70 text-gray-400 px-2 py-1 rounded-md font-mono"># recursos</span>
+					<span class="text-xs bg-gray-700/70 text-gray-400 px-2 py-1 rounded-md font-mono"># libros</span>
+					<span class="text-xs bg-gray-700/70 text-gray-400 px-2 py-1 rounded-md font-mono"># cursos</span>
+				</div>
+			</div>
+
+			
+
+			
+		</div>
+
+		
+	</section>
+
+	
+	<div class="border-t border-gray-800 mb-16"></div>
+
+
+
+
+
+
+	<!-- REGLAS -->
+	<section class="mb-16" id="reglas">
+		<div class="flex items-center gap-3 mb-2">
+			<span class="text-2xl">📋</span>
+			<h2 class="text-3xl font-bold text-white">Reglas de convivencia</h2>
+		</div>
+		<p class="text-gray-400 mb-8 ml-1">
+			Para mantener un espacio sano, respetuoso y productivo para todos.
+		</p>
+
+		<div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+			<div class="p-6 flex items-start gap-4 bg-gray-800/40 border border-gray-700/60 rounded-2xl p-5 transition-all duration-200 hover:border-gray-600">
+				<div class="text-2xl font-extrabold text-gray-700 shrink-0 leading-none pt-0.5 select-none">01</div>
+				<div>
+					<h3 class="font-semibold text-white mb-1">Respeto ante todo</h3>
+					<p class="text-gray-400 text-sm">Tratá a los demás como te gustaría ser tratado/a. No se toleran insultos, discriminación ni actitudes hostiles.</p>
+				</div>
+			</div>
+			<div class="p-6 flex items-start gap-4 bg-gray-800/40 border border-gray-700/60 rounded-2xl p-5 transition-all duration-200 hover:border-gray-600">
+				<div class="text-2xl font-extrabold text-gray-700 shrink-0 leading-none pt-0.5 select-none">02</div>
+				<div>
+					<h3 class="font-semibold text-white mb-1">Canales correctos</h3>
+					<p class="text-gray-400 text-sm">Publicá en el canal que corresponde al tema. Esto ayuda a mantener las conversaciones ordenadas y fáciles de encontrar.</p>
+				</div>
+			</div>
+			<div class="p-6 flex items-start gap-4 bg-gray-800/40 border border-gray-700/60 rounded-2xl p-5 transition-all duration-200 hover:border-gray-600">
+				<div class="text-2xl font-extrabold text-gray-700 shrink-0 leading-none pt-0.5 select-none">03</div>
+				<div>
+					<h3 class="font-semibold text-white mb-1">Sin spam ni publicidad</h3>
+					<p class="text-gray-400 text-sm">Está prohibido el spam, la publicidad no solicitada y el envío masivo de mensajes privados a miembros sin su consentimiento.</p>
+				</div>
+			</div>
+			<div class="p-6 flex items-start gap-4 bg-gray-800/40 border border-gray-700/60 rounded-2xl p-5 transition-all duration-200 hover:border-gray-600">
+				<div class="text-2xl font-extrabold text-gray-700 shrink-0 leading-none pt-0.5 select-none">04</div>
+				<div>
+					<h3 class="font-semibold text-white mb-1">Contenido apropiado</h3>
+					<p class="text-gray-400 text-sm">No compartas contenido ofensivo, violento, pornográfico o ilegal. Mantén el ambiente seguro y adecuado para todos los miembros.</p>
+				</div>
+			</div>
+			<div class="p-6 flex items-start gap-4 bg-gray-800/40 border border-gray-700/60 rounded-2xl p-5 transition-all duration-200 hover:border-gray-600">
+				<div class="text-2xl font-extrabold text-gray-700 shrink-0 leading-none pt-0.5 select-none">05</div>
+				<div>
+					<h3 class="font-semibold text-white mb-1">Moderación final</h3>
+					<p class="text-gray-400 text-sm">Las decisiones del equipo de moderación son definitivas. Si tenés dudas, podés consultar en privado con los moderadores.</p>
+				</div>
+			</div>
+			<div class="p-6 flex items-start gap-4 bg-gray-800/40 border border-gray-700/60 rounded-2xl p-5 transition-all duration-200 hover:border-gray-600">
+				<div class="text-2xl font-extrabold text-gray-700 shrink-0 leading-none pt-0.5 select-none">06</div>
+				<div>
+					<h3 class="font-semibold text-white mb-1">Divertirse</h3>
+					<p class="text-gray-400 text-sm">¡Pasala bien! Share IT existe para aprender juntos, hacer networking y crecer. Sé positivo/a y suma a la comunidad.</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="mt-8 flex justify-center">
+			<a
+				href="/rules"
+				class="inline-flex items-center p-6 gap-2 border border-gray-600 hover:border-primary text-gray-300 hover:text-primary font-medium px-7 py-3 rounded-full transition-all duration-200 hover:-translate-y-0.5"
+			>
+				Ver reglas completas →
+			</a>
+		</div>
+	</section>
+
+	
+	<div class="border-t border-gray-800 mb-16"></div>
+
+	
+
+
+
+
+    
+	<section class="mb-12" id="eventos">
+		<div class="flex items-center gap-3 mb-2">
+			<span class="text-2xl">🗓️</span>
+			<h2 class="text-3xl font-bold text-white">Eventos</h2>
+		</div>
+		<p class="text-gray-400 mb-8 ml-1">
+			Charlas, workshops, espacios de networking y mucho más. ¡No te los pierdas!
+		</p>
+		<div class="p-6 bg-gray-800/40 border border-gray-700/60 rounded-2xl transition-all duration-200 hover:border-gray-600 mb-8">
+			<div class="flex items-center gap-3">
+				<p class="text-gray-400">Sin eventos próximos. Consulta la lista de eventos anteriores para ponerte al día.</p>
+			</div>
+		</div>
+
+		<h3 class="text-2xl font-bold text-white mb-4">Eventos pasados</h3>
+
+		<div class="space-y-4">
+			<Events />
+		</div>
+
+		<p class="text-center text-gray-500 text-sm mt-8">
+			Los eventos se coordinan a través de nuestro servidor de Discord.
+			<a href="https://discord.gg/shareit" target="_blank" rel="noopener noreferrer" class="text-primary hover:text-secondary transition-colors">¡Únete para no perderte ninguno!</a>
+		</p>
+	</section>
+</Layout>

@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "title": "Open Talk: Cómo conseguir tu primer trabajo en IT",
+    "description": "Charla abierta con miembros de la comunidad que comparten su experiencia en el proceso de búsqueda laboral.",
+    "date": "2025-04-12",
+    "time": "18:00 hs (ARG)",
+    "badge": "Destacado",
+    "tag": "Charla",
+    "style": "featured",
+    "month": "Abr",
+    "day": 12
+  },
+  {
+    "id": 2,
+    "title": "Workshop: Introducción a Git y GitHub",
+    "description": "Aprende los fundamentos del control de versiones y cómo colaborar en proyectos open source.",
+    "date": "2025-05-03",
+    "time": "19:00 hs (ARG)",
+    "badge": "Workshop",
+    "tag": "Workshop",
+    "style": "normal",
+    "month": "May",
+    "day": 3
+  },
+  {
+    "id": 3,
+    "title": "ShareIT Meetup virtual mensual",
+    "description": "Nuestro encuentro virtual mensual para conocernos, compartir novedades y conectar con otros miembros.",
+    "date": "2025-05-24",
+    "time": "18:30 hs (ARG)",
+    "badge": "Networking",
+    "tag": "Networking",
+    "style": "normal",
+    "month": "May",
+    "day": 24
+  }
+]

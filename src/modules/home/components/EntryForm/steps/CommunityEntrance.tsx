@@ -26,10 +26,10 @@ export const CommunityEntrance = () => {
   return (
     <div
       ref={containerRef}
-      className="2xl:w-auto rounded-2xl p-15 z-50 gap-5 border-2 border-[#94e7f8] mb-5 flex flex-col justify-center items-center backdrop-blur-3xl text-xl text-red-500 overflow-hidden"
+      className="2xl:w-auto w-full rounded-2xl p-6 md:p-15 z-50 gap-3 md:gap-5 border-2 border-[#94e7f8] mb-5 flex flex-col justify-center items-center backdrop-blur-3xl text-lg md:text-xl text-red-500 overflow-hidden"
     >
-      <h2 className="text-2xl font-bold text-white">¡Bienvenido a la comunidad!</h2>
-      <h3 className="font-semibold">Haz click en el botón para ingresar</h3>
+      <h2 className="text-xl md:text-2xl font-bold text-white text-center">¡Bienvenido a la comunidad!</h2>
+      <h3 className="font-semibold text-center text-sm md:text-base">Haz click en el botón para ingresar</h3>
       <a
         href="https://discord.gg/AKRcVdjSP8"
         target="_blank"

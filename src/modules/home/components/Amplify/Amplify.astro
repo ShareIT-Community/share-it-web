@@ -1,0 +1,288 @@
+---
+import MemberCard from "./MemberCard.astro";
+
+const members = [
+  {
+    name: "Virginia García",
+    role: "Analista Funcional",
+    photo: "/images/Virginia.jpg",
+    description: "Amplify me ayudó mucho con mi marca personal no solo el perder el miedo a publicar contenido sino también a tener ideas. En este grupo así como otros se puede ver día a día el lema de ShareIT \"Nadie despega solo\", porque si bien el crecimiento de la marca es personal, nos apoyamos todos para lograrlo!",
+    linkedin: "https://www.linkedin.com/in/garcia-virginia",
+    twitter: "https://x.com/virgini52904211",
+  },
+  {
+    name: "Nicolas Sena",
+    role: "Software Developer",
+    photo: "/images/Nicolas.jpg",
+    description: "Amplify es un espacio donde compartir posteos entre colegas mejoró notablemente mi forma de expresarme permitiéndome capturar mayor público y atraer propuestas laborales, además de conocer excelentes personas siempre dispuestas a darte una mano.",
+    linkedin: "https://www.linkedin.com/in/nicosena10",
+    github: "https://github.com/niic0o",
+  },
+  {
+    name: "Santiago Avilez",
+    role: "Full Stack Engineer",
+    photo: "/images/Santiago.jpg",
+    description: "Amplify me ayudó a darle más visibilidad a lo que hago y a animarme a compartir con más constancia. Estoy rodeado de gente en la misma sintonía, que suma, empuja y te eleva. Es un espacio que todos los días me motiva a seguir creando y mejorando.",
+    linkedin: "https://www.linkedin.com/in/santiago-avilez-ariza",
+    github: "https://github.com/santiagoavilez",
+    twitter: "https://x.com/santi_avilezdev",
+  },
+  {
+    name: "Javier Schettini",
+    role: "Full Stack Developer",
+    photo: "/images/Javier.jpg",
+    description: "Amplify me brindó el apoyo que necesitaba para dar el salto de publicar en redes, además de ser un lugar propicio para dar y recibir feedback acerca de las publicaciones y pensar estrategias conjuntas de visibilidad.",
+    linkedin: "https://www.linkedin.com/in/javier-schettini/",
+    github: "https://github.com/schjavier/",
+  },
+];
+---
+
+<section class="mb-16">
+  <div class="mb-8 text-center px-4">
+    <h2 class="text-3xl md:text-4xl font-bold mb-4 text-white">
+      Amplify – Marca Personal
+    </h2>
+    <p class="text-gray-400 max-w-2xl mx-auto text-lg">
+      Amplify es el espacio de la comunidad donde construimos y potenciamos nuestra presencia profesional en redes.
+    </p>
+    <p class="text-gray-400 max-w-2xl mx-auto text-lg mt-8">
+      Aquí compartimos publicaciones para recibir apoyo y feedback, revisamos perfiles profesionales, planificamos contenido y trabajamos nuestra marca personal a nuestro ritmo, aprendiendo de quienes crean de forma consistente.
+    </p>
+    <p class="text-gray-400 max-w-2xl mx-auto text-lg mt-8">
+      Estos son algunos de los perfiles que se han potenciado al participar de esta dinámica
+    </p>
+  </div>
+
+ 
+  <div class="slider-wrapper px-4">
+    <div class="slider-track" id="sliderTrack">
+      {members.map((member) => (
+        <div class="slider-slide">
+          <MemberCard {...member} />
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- Dots de navegación -->
+  <div class="slider-dots" id="sliderDots">
+    {members.map((_, i) => (
+      <button
+        class={`dot ${i === 0 ? "dot--active" : ""}`}
+        data-index={i}
+        aria-label={`Ir al integrante ${i + 1}`}
+      />
+    ))}
+  </div>
+</section>
+
+
+
+
+
+<style>
+  .slider-wrapper {
+    overflow: hidden;
+    cursor: grab;
+  }
+
+  .slider-wrapper:active {
+    cursor: grabbing;
+  }
+
+  .slider-track {
+    display: flex;
+    gap: 0.90rem;
+    transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+    user-select: none;
+  }
+
+  .slider-slide {
+    flex: 0 0 100%;
+    min-width: 0;
+    margin-bottom: 20px;
+    pointer-events: none; 
+  }
+
+  
+  .slider-slide :global(a), 
+  .slider-slide :global(button) {
+    pointer-events: auto;
+  }
+
+ 
+  .slider-slide > * {
+    width: 100%;
+  }
+
+  @media (min-width: 1024px) {
+    .slider-track {
+      gap: 0.75rem;
+    }
+
+    .slider-slide {
+      flex: 0 0 calc((100% - 1.5rem) / 3);
+    }
+  }
+
+  .slider-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1.75rem;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 9999px;
+    background-color: rgba(255, 255, 255, 0.25);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, width 0.3s ease;
+    padding: 0;
+  }
+
+  .dot--active {
+    background-color: white;
+    width: 24px;
+  }
+
+  .dot:hover:not(.dot--active) {
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+</style>
+
+<script>
+  const track = document.getElementById("sliderTrack") as HTMLElement;
+  const dotsContainer = document.getElementById("sliderDots") as HTMLElement;
+  const dots = dotsContainer.querySelectorAll<HTMLButtonElement>(".dot");
+
+  let currentIndex = 0;
+  let isDragging = false;
+  let startX = 0;
+  let currentTranslate = 0;
+  let prevTranslate = 0;
+
+  const totalSlides = dots.length;
+
+  function getVisibleCount(): number {
+    return window.innerWidth >= 1024 ? 3 : 1;
+  }
+
+  function maxIndex(): number {
+    return Math.max(0, totalSlides - getVisibleCount());
+  }
+
+  function getSlideWidth(): number {
+    const firstSlide = track.children[0] as HTMLElement;
+    return firstSlide ? firstSlide.offsetWidth + 12 : 0; // 12px gap
+  }
+
+  function setSliderPosition() {
+    track.style.transform = `translateX(${currentTranslate}px)`;
+  }
+
+  function updateDots() {
+    dots.forEach((dot, i) => {
+      dot.classList.toggle("dot--active", i === currentIndex);
+    });
+  }
+
+  function goTo(index: number, animate = true) {
+    currentIndex = Math.min(Math.max(index, 0), maxIndex());
+    currentTranslate = currentIndex * -getSlideWidth();
+    prevTranslate = currentTranslate;
+    
+    if (animate) {
+      track.style.transition = "transform 0.45s cubic-bezier(0.4, 0, 0.2, 1)";
+    } else {
+      track.style.transition = "none";
+    }
+    
+    setSliderPosition();
+    updateDots();
+  }
+
+ 
+
+  function onDragStart(clientX: number) {
+    isDragging = true;
+    startX = clientX;
+    track.style.transition = "none";
+  }
+
+  function onDragMove(clientX: number) {
+    if (!isDragging) return;
+    const currentX = clientX;
+    const diff = currentX - startX;
+    currentTranslate = prevTranslate + diff;
+
+    // Resistencia en bordes
+    const minTranslate = -maxIndex() * getSlideWidth();
+    if (currentTranslate > 0) {
+      currentTranslate = currentTranslate / 3;
+    } else if (currentTranslate < minTranslate) {
+      currentTranslate = minTranslate + (currentTranslate - minTranslate) / 3;
+    }
+
+    setSliderPosition();
+  }
+
+  function onDragEnd() {
+    if (!isDragging) return;
+    isDragging = false;
+    
+    const movedBy = currentTranslate - prevTranslate;
+    const threshold = getSlideWidth() / 6;
+
+    if (movedBy < -threshold && currentIndex < maxIndex()) {
+      currentIndex += 1;
+    } else if (movedBy > threshold && currentIndex > 0) {
+      currentIndex -= 1;
+    }
+
+    goTo(currentIndex);
+  }
+
+  // Mouse Events
+  track.addEventListener("mousedown", (e) => {
+    // Solo si no fue en un link o botón
+    const target = e.target as HTMLElement;
+    if (target.closest('a') || target.closest('button')) return;
+    
+    e.preventDefault();
+    onDragStart(e.clientX);
+  });
+
+  window.addEventListener("mousemove", (e) => onDragMove(e.clientX));
+  window.addEventListener("mouseup", onDragEnd);
+  
+  // Touch Events
+  track.addEventListener("touchstart", (e) => {
+    const target = e.target as HTMLElement;
+    if (target.closest('a') || target.closest('button')) return;
+    onDragStart(e.touches[0].clientX);
+  }, { passive: true });
+
+  track.addEventListener("touchmove", (e) => {
+    if (isDragging) {
+      onDragMove(e.touches[0].clientX);
+    }
+  }, { passive: true });
+
+  track.addEventListener("touchend", onDragEnd);
+
+  // Dots
+  dots.forEach((dot) => {
+    dot.addEventListener("click", () => {
+      goTo(Number(dot.dataset.index));
+    });
+  });
+
+  window.addEventListener("resize", () => {
+    goTo(Math.min(currentIndex, maxIndex()), false);
+  });
+</script>

@@ -20,22 +20,33 @@ export const SocialContainer: React.FC<SocialButtonProps> = ({
 }) => {
   const [isHovered, setIsHovered] = useState(false);
 
-  const borderColor = clsx({
-    'border-[#5865F2]': social === 'discord' && !isHovered,
-    'border-gray-300': social === 'github' && !isHovered,
-    'border-[#94e7f8]': social !== 'discord' && social !== 'github' && !isHovered,
-    'border-transparent': isHovered,
-  });
+  const borderColor = clsx(
+    social === 'discord'
+      ? isHovered
+        ? 'border-[#ff6900]'
+        : 'border-transparent'
+      : isHovered
+      ? 'border-transparent'
+      : social === 'github'
+      ? 'border-gray-300'
+      : 'border-[#94e7f8]'
+  );
 
-  const textColor = isHovered
-    ? 'text-white'
-    : clsx({
-        'text-[#94e7f8]': social === 'discord',
-        'text-[#6b8cff]': social === 'redes',
-        'text-white': social !== 'discord' && social !== 'redes',
-      });
+  const textColor = clsx(
+    social === 'discord'
+      ? isHovered
+        ? 'text-[#ff6900]'
+        : 'text-white'
+      : isHovered
+      ? 'text-white'
+      : social === 'redes'
+      ? 'text-[#6b8cff]'
+      : ''
+  );
 
-  const hoveredStyle = isHovered
+  const baseStyle = social === 'discord'
+    ? (isHovered ? { background: 'transparent' } : { background: '#ff6900' })
+    : isHovered
     ? { background: hoverColor ?? 'rgba(255, 255, 255, 0.1)' }
     : {};
 
@@ -46,7 +57,7 @@ export const SocialContainer: React.FC<SocialButtonProps> = ({
         borderColor,
         textColor
       )}
-      style={hoveredStyle}
+      style={baseStyle}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >

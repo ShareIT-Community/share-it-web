@@ -4,12 +4,14 @@ import Footer from "../components/Footer/Footer.astro";
 import "../styles/globals.css";
 import Header from "../components/Header/Header.astro";
 
+
 interface Props {
   title: string;
   showBackButton?: boolean;
+  fullWidth?: boolean;
 }
 
-const { title, showBackButton = false } = Astro.props;
+const { title, showBackButton = false, fullWidth = false } = Astro.props;
 ---
 
 <!doctype html>
@@ -21,16 +23,20 @@ const { title, showBackButton = false } = Astro.props;
       content="Share IT es una comunidad de Discord que reúne a personas de toda índole y de habla hispana, que forman parte o aspiran a formar parte de la industria IT. Somos una comunidad unida por el deseo de aprender, compartir conocimientos y crecer juntos en el ámbito tecnológico."
     />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/share-it-icon.png" />
+    <link rel="icon" type="image/png" href="/share-it-icon.png" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <ClientRouter />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
   </head>
 
   <body class="bg-gray-900 min-h-screen flex flex-col">
     <Header />
 
-    <main class="flex-grow container mx-auto px-4 py-8 max-w-4xl">
+    <main class:list={["flex-grow pt-20", !fullWidth && "container mx-auto px-4 py-8 max-w-4xl"]}>
       {
         showBackButton && (
           <button
