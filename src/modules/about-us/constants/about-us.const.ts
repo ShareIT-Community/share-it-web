@@ -62,7 +62,7 @@ export const admins = [
     github: 'https://github.com/eliasvelazquezdev',
     linkedin: 'https://linkedin.com/in/eliassvelazquez',
     website: 'https://linktr.ee/elingenieroconsciente',
-    twitter: 'https://x.com/esvdev',
+    twitter: 'https://x.com/ingeconsciente',
   },
   {
     name: 'Natalia Quevedo (Brooke)',
@@ -79,6 +79,7 @@ export const admins = [
     github: 'https://github.com/drakvyn',
     linkedin: 'https://www.linkedin.com/in/jeanmra/',
     website: 'https://jeanroa.dev/',
+    twitter: 'https://x.com/drakvynhost',
   },
 ]
 
