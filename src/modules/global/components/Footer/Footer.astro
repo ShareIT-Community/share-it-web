@@ -5,6 +5,10 @@ const currentYear = new Date().getFullYear();
 
 const TEAM_MEMBERS = [
 	{
+		name: 'Mauro Miguel',
+		social: 'https://www.linkedin.com/in/mauromiguel',
+	},
+	{
 		name: 'Victor Quiñones',
 		social: 'https://www.linkedin.com/in/victorqui',
 	},
@@ -17,36 +21,322 @@ const TEAM_MEMBERS = [
 		social: 'https://portafolio-justin.vercel.app/',
 	},
 ];
+
+const LEGAL_LINKS = [
+	{ label: 'Aviso Legal', href: '/legal' },
+	{ label: 'Política de Privacidad', href: '/privacy' },
+	{ label: 'Política de Cookies', href: '/cookies' },
+];
 ---
 
-<footer class='bg-gray-800 mt-auto p-8'>
-	<div class='container mx-auto px-4 max-w-5xl'>
-		<div
-			class='flex flex-col justify-center md:justify-between items-center gap-5'>
-			<div class='text-gray-400 text-center text-sm'>
-				© {currentYear} Share IT. Todos los derechos reservados.
+<footer class='footer-wrapper'>
+	
+	<div class='footer-divider'></div>
+
+	<div class='footer-inner'>
+		
+		<div class='footer-top'>
+			<div class='footer-brand'>
+				<img src='/images/logo.png' alt='Share-IT Logo' class='footer-logo' />
+				<div>
+					<span class='footer-brand-name font-josefin-sans'>ShareIT</span>
+					<p class='footer-brand-tagline'>Nadie despega solo</p>
+				</div>
 			</div>
-			<div class='flex flex-col sm:flex-row gap-2 text-sm'>
-				<p class='lg:mr-2'>Web desarrollada por:</p>
-				<ul class='flex flex-col sm:flex-row gap-2 list-disc sm:list-none'>
-					{
-						TEAM_MEMBERS.map(({ name, social }) => (
-							<li class='border p-1 sm:border-none sm:p-0 flex justify-center'>
-								<a
-									rel='noopener noreferrer'
-									target='_blank'
-									href={social}
-									class='text-gray-400 hover:text-secondary font-bold'>
-									{name}
-								</a>
+
+			<!-- Links útiles + Reglas -->
+			<nav class='footer-nav' aria-label='Links pie de página'>
+				<div class='footer-nav-group'>
+					<p class='footer-nav-label'>Legal </p>
+					<ul class='footer-nav-list'>
+						{LEGAL_LINKS.map(({ label, href }) => (
+							<li>
+								<a href={href} class='footer-link'>{label}</a>
 							</li>
-						))
-					}
+						))}
+					</ul>
+				</div>
+
+				<div class='footer-nav-group'>
+					<p class='footer-nav-label'>Comunidad <span class='footer-badge-important'>Importante</span></p>
+					<ul class='footer-nav-list'>
+						<li>
+							<a href='/rules' class='footer-link footer-link--rules'>
+								📋 Reglas de convivencia
+							</a>
+						</li>
+					</ul>
+					<p class='footer-rules-desc'>
+						Los valores de la comunidad y cómo interactuamos dentro de ella.
+					</p>
+				</div>
+			</nav>
+		</div>
+
+		<!-- Row 2: Social links + mensaje libre -->
+		<div class='footer-middle'>
+			<SocialLinksFooter />
+			<span class='footer-free-badge'>
+				🌐 Comunidad libre y gratuita
+			</span>
+		</div>
+
+		<!-- Row 3: Copyright + créditos -->
+		<div class='footer-bottom'>
+			<span class='footer-copy'>© {currentYear} Share IT. Todos los derechos reservados.</span>
+			<div class='footer-credits'>
+				<span>Web desarrollada por:</span>
+				<ul class='footer-credits-list'>
+					{TEAM_MEMBERS.map(({ name, social }) => (
+						<li>
+							<a
+								rel='noopener noreferrer'
+								target='_blank'
+								href={social}
+								class='footer-credit-link'
+							>
+								{name}
+							</a>
+						</li>
+					))}
 				</ul>
-			</div>
-			<div>
-				<SocialLinksFooter />
 			</div>
 		</div>
 	</div>
 </footer>
+
+<style>
+	/* ── Wrapper ─────────────────────────────────────────── */
+	.footer-wrapper {
+		background: #0d0f14;
+		margin-top: auto;
+		position: relative;
+	}
+
+	.footer-divider {
+		height: 2px;
+		background: linear-gradient(90deg, transparent, #368beb55, #83d6e7aa, #368beb55, transparent);
+	}
+
+	.footer-inner {
+		max-width: 56rem;
+		margin: 0 auto;
+		padding: 3rem 2rem 2rem;
+		display: flex;
+		flex-direction: column;
+		gap: 2.5rem;
+	}
+
+	/* ── Top: brand + nav ────────────────────────────────── */
+	.footer-top {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 2.5rem;
+		justify-content: space-between;
+		align-items: flex-start;
+	}
+
+	/* Brand */
+	.footer-brand {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+	}
+
+	.footer-logo {
+		width: 84px;
+		height: 84px;
+		object-fit: contain;
+		filter: drop-shadow(0 0 8px #368beb66);
+	}
+
+	.footer-brand-name {
+		display: block;
+		font-size: 1.35rem;
+		font-weight: 800;
+		background: linear-gradient(90deg, #368beb, #83d6e7);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+		letter-spacing: 0.04em;
+	}
+
+	.footer-brand-tagline {
+		font-size: 0.78rem;
+		color: #6b7280;
+		margin: 0;
+		font-style: italic;
+	}
+
+	/* Nav groups */
+	.footer-nav {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 2.5rem;
+	}
+
+	.footer-nav-group {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+		min-width: 160px;
+	}
+
+	.footer-nav-label {
+		font-size: 0.7rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		color: #9ca3af;
+		margin: 0 0 0.25rem 0;
+		display: flex;
+		align-items: center;
+		gap: 0.4rem;
+	}
+
+	.footer-badge-optional {
+		font-size: 0.58rem;
+		font-weight: 600;
+		padding: 0.1rem 0.4rem;
+		border-radius: 999px;
+		background: #374151;
+		color: #9ca3af;
+		text-transform: none;
+		letter-spacing: 0;
+	}
+
+	.footer-badge-important {
+		font-size: 0.58rem;
+		font-weight: 700;
+		padding: 0.1rem 0.4rem;
+		border-radius: 999px;
+		background: linear-gradient(90deg, #1e3a8a, #2563eb44);
+		color: #83d6e7;
+		border: 1px solid #368beb55;
+		text-transform: none;
+		letter-spacing: 0;
+	}
+
+	.footer-nav-list {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 0.35rem;
+	}
+
+	.footer-link {
+		font-size: 0.875rem;
+		color: #9ca3af;
+		text-decoration: none;
+		transition: color 0.2s ease;
+	}
+
+	.footer-link:hover {
+		color: #83d6e7;
+	}
+
+	.footer-link--rules {
+		color: #93c5fd;
+		font-weight: 600;
+	}
+
+	.footer-link--rules:hover {
+		color: #83d6e7;
+		text-shadow: 0 0 8px #83d6e755;
+	}
+
+	.footer-rules-desc {
+		font-size: 0.75rem;
+		color: #4b5563;
+		margin: 0.25rem 0 0 0;
+		max-width: 210px;
+		line-height: 1.4;
+	}
+
+	/* ── Middle: social + free badge ─────────────────────── */
+	.footer-middle {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		padding: 1.25rem 0;
+		border-top: 1px solid #1f2937;
+		border-bottom: 1px solid #1f2937;
+	}
+
+	.footer-free-badge {
+		font-size: 0.82rem;
+		font-weight: 600;
+		color: #83d6e7;
+		background: linear-gradient(135deg, #0d1b2a, #0f2740);
+		border: 1px solid #368beb44;
+		padding: 0.35rem 0.9rem;
+		border-radius: 999px;
+		letter-spacing: 0.03em;
+		box-shadow: 0 0 12px #368beb22;
+	}
+
+	/* ── Bottom: copyright + credits ─────────────────────── */
+	.footer-bottom {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.75rem;
+	}
+
+	.footer-copy {
+		font-size: 0.78rem;
+		color: #4b5563;
+	}
+
+	.footer-credits {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.4rem;
+		font-size: 0.78rem;
+		color: #4b5563;
+	}
+
+	.footer-credits-list {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+	}
+
+	.footer-credit-link {
+		color: #6b7280;
+		text-decoration: none;
+		font-weight: 600;
+		transition: color 0.2s ease;
+	}
+
+	.footer-credit-link:hover {
+		color: #83d6e7;
+	}
+
+	/* ── Responsive ───────────────────────────────────────── */
+	@media (max-width: 640px) {
+		.footer-top {
+			flex-direction: column;
+			align-items: flex-start;
+		}
+
+		.footer-bottom {
+			flex-direction: column;
+			align-items: flex-start;
+		}
+
+		.footer-middle {
+			flex-direction: column;
+			align-items: flex-start;
+		}
+	}
+</style>

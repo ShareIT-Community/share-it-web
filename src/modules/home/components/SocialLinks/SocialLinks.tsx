@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { socialLinks } from 'src/modules/about-us/constants/about-us.const';
 import { SocialContainer } from './SocialContainer';
 import { EntryForm } from '../EntryForm/EntryForm';
@@ -21,8 +22,8 @@ export const SocialLinks: React.FC = () => {
 	const discord = socialLinks.discord;
 
 	return (
-		<div className='flex flex-col justify-center gap-4 mt-2 w-full'>
-			<div className='flex justify-center gap-4 w-full flex-col'>
+		<div className='flex justify-center gap-4 mt-2 w-full'>
+			<div className='flex flex-row flex-wrap justify-center gap-4'>
 				<SocialContainer
 					description={discord.description}
 					icon={discord.icon}
@@ -41,13 +42,16 @@ export const SocialLinks: React.FC = () => {
 				/>
 			</div>
 
-			{isFormOpen && (
-				<section className=' left-0 top-0 backdrop-blur-3xl flex justify-center items-center rounded fixed h-full z-50 w-full shadow'>
-					<div className='bg-white-5 rounded-lg shadow-lg  '>
-						<EntryForm onClose={() => setIsFormOpen(false)} />
-					</div>
-				</section>
-			)}
+			{isFormOpen && typeof window !== 'undefined'
+				? createPortal(
+						<section className='left-0 top-0 backdrop-blur-3xl flex justify-center items-center rounded fixed h-[100dvh] w-[100vw] z-[999] shadow'>
+							<div className='bg-white-5 rounded-lg shadow-lg  '>
+								<EntryForm onClose={() => setIsFormOpen(false)} />
+							</div>
+						</section>,
+						document.body
+				  )
+				: null}
 		</div>
 	);
 };

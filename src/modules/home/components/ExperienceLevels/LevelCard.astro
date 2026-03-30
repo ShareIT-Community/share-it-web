@@ -1,0 +1,29 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  icon: string;
+  color: string;
+}
+
+const { title, description, icon, color } = Astro.props;
+---
+
+<div class={`group p-6 rounded-2xl bg-[#1d2c49]/40 border border-[#314aa9]/30 hover:border-${color} transition-all duration-300 hover:shadow-[0_0_30px_rgba(49,74,169,0.2)] hover:-translate-y-1 flex flex-col items-center text-center backdrop-blur-sm`}>
+  <div class={`w-16 h-16 rounded-full bg-gradient-to-br from-[#1d2c49] to-[#314aa9] flex items-center justify-center mb-6 border border-[#314aa9]/50 group-hover:scale-110 transition-transform duration-300`}>
+    <Fragment set:html={icon} />
+  </div>
+  <h3 class={`text-xl font-bold mb-3 text-white group-hover:text-${color} transition-colors duration-300`}>
+    {title}
+  </h3>
+  <p class="text-gray-400 text-sm leading-relaxed">
+    {description}
+  </p>
+</div>
+
+<style>
+  /* Base styles handled by Tailwind, but adding specific transitions if needed */
+  div {
+    will-change: transform, opacity;
+  }
+</style>

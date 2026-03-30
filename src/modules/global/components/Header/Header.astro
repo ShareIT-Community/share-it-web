@@ -1,32 +1,32 @@
 ---
 import { Image } from "astro:assets";
-import LogoWaves from "public/images/shareit_logo_waves.png";
+import Logo from "public/images/logo.png";
 import MobileMenu from "src/modules/global/components/MobileMenu/MobileMenu.astro";
+import { JoinButton } from "./JoinButton";
+import '@fontsource/josefin-sans';
 
 const navItems = [
   { href: "/", text: "Inicio" },
-  { href: "/rules", text: "Reglas" },
-  { href: "/articles", text: "Blog" },
-  { href: "/resources", text: "Recursos" },
+  { href: "/community", text: "Comunidad" },
   { href: "/aboutUs", text: "Sobre nosotros" },
 ];
 
 const currentPath = Astro.url.pathname;
 ---
 
-<header class="p-4">
+<header class="fixed top-0 left-0 right-0 z-50 p-4 bg-gray-900/95 backdrop-blur-sm transition-colors duration-300">
   <nav
     class="container mx-auto px-4 max-w-4xl flex items-center justify-between"
   >
     <a
       href="/"
-      class="font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#4b6ef8] via-primary to-[#94e7f8] text-xl inline-flex h-full flex-justify-center items-center gap-1"
+      class="font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#4b6ef8] via-primary to-[#94e7f8] text-xl inline-flex items-center gap-1"
     >
-      <Image src={LogoWaves} alt="ShareIT Logo Waves" class="size-4" />
-      <span>ShareIT</span>
+      <Image src={Logo} alt="ShareIT Logo" class="size-4 mb-2" />
+      <span class="font-josefin-sans">ShareIT</span>
     </a>
 
-    <ul class="flex gap-6" id="menu">
+    <ul class="flex gap-6 items-center" id="menu">
       {
         navItems.map((item) => (
           <li class="md:flex hidden">
@@ -45,7 +45,30 @@ const currentPath = Astro.url.pathname;
           </li>
         ))
       }
+
+      
+      <li class="hidden md:flex">
+        <JoinButton client:load />
+      </li>
     </ul>
+
     <MobileMenu navItems={navItems} />
   </nav>
 </header>
+
+<style>
+.scrolled {
+  background: rgba(31, 41, 55, 0.95);
+}
+</style>
+
+<script>
+document.addEventListener('scroll', () => {
+  const header = document.querySelector('header');
+  if (window.scrollY > 0) {
+    header.classList.add('scrolled');
+  } else {
+    header.classList.remove('scrolled');
+  }
+});
+</script>

@@ -1,17 +1,30 @@
 ---
-import CarouselAdmin from "src/modules/about-us/components/CarouselAdmin/CarouselAdmin";
-import GroupCard from "src/modules/about-us/components/GroupCard.astro";
-import { admins, groups } from "src/modules/about-us/constants/about-us.const";
+import { admins } from "src/modules/about-us/constants/about-us.const";
 import Layout from "src/modules/global/layouts/Layout.astro";
+import { SocialLinks } from "src/modules/about-us/components/CarouselAdmin/CustomLinks";
 
 const styledParagraph = "text-[1rem] text-gray-300 leading-relaxed";
 
-const OPTIONS = {
-	align: "start",
-	dragFree: true,
-	loop: true,
-	slidesToScroll: "auto",
-};
+const leaderDescriptions = [
+	[
+		"Buenas! Soy Elias (Kani)",
+		"Arranqué en IT en 2024 como Python/ETL Dev y fui evolucionando hacia Data Engineering, trabajando en la construcción de pipelines desde cero. Actualmente estoy profundizando mi formación para crecer en este rol.",
+		"Además de aprender, me gusta enseñar y compartir contenido en redes. También escribo una newsletter (El Ingeniero Consciente) donde mezclo reflexiones personales con recursos sobre Data Engineering y AWS.",
+		"Fuera del mundo tech, existen otras cosas que me encantan, como jugar en la PC, ver series, pelis, leer, caminar, la música (toco teclado y produzco desde 2014) y las buenas conversaciones.",
+		"Dentro de la comunidad, mi foco es impulsar la proactividad y el crecimiento colectivo. A veces puedo ser directo, pero siempre con la intención de que avancemos.",
+		"Si necesitan algo, estoy a un mensaje 👍",
+	],
+	[
+		"Hola! Soy Brooke. Mi camino en IT no ha sido lineal: pasé por QA, ciberseguridad, y diseño UX UI, hoy me dedico de lleno al soporte técnico LLM. Disfruto resolver problemas y guiar a otros, lo que me llevó a ser admin de este espacio y a trabajar actualmente en Solsteinn, gracias a una gran persona que conocí en esta misma comunidad.",
+		"Cuando apago la pantalla, mi mundo es 100% analógico. Me encontrás entre pinceles, telas y proyectos manuales; creo que esa creatividad artística es el cable a tierra ideal para mi faceta técnica y social. ¡Sigamos creciendo juntos!"
+	],
+	[
+		"Hallo, soy Jean Roa (Aka Drak), Venezolano en Chile, 29 años. Software Engineer con más de 12 años de experiencia en TI, donde reparé equipos, servidores, deploy, mantenimiento, desarrollo y ahora Hacking y Ciberseguridad.",
+		"He trabajado principalmente como contractor para empresas y equipos de todo el mundo, participando en el desarrollo de aplicaciones web, móviles y de escritorio, además de soluciones de automatización, scripting y mucho más.",
+		"Mi stack principal es Javascript/Typescript, React, React Native, Angular, Python (Flask y Django), SQL, y fanboy de Linux y la estética y2k.",
+		"Me gustan los idiomas, hablo inglés, portugués, español y noruego, me gusta dibujar, el anime, el manga, cocinar, leer, los jueguitos y pasar tiempo con mis hijos y familia.",
+	],
+];
 ---
 
 <Layout title="Acerca de | Share IT" showBackButton>
@@ -20,51 +33,126 @@ const OPTIONS = {
 			Acerca de Nosotros
 		</h1>
 		<p class=`${styledParagraph} mb-2`>
-			<span class="font-bold text-lg text-secondary">Share</span>
-			<span class="font-bold text-[#586ab1]">IT</span>
-			es una comunidad <span class="font-bold">hispanohablante</span> de personas
-			que trabajan o quieren trabajar en la industria IT. Nos reunimos en WhatsApp
-			y Discord para <span class="font-bold"
-				>aprender juntos, compartir conocimientos y acompañarnos en el
-				crecimiento profesional</span
-			>.<br /> <br /> Creemos en el poder de la colaboración. Por eso fomentamos un
-			ambiente donde puedes hacer preguntas sin miedo, recibir ayuda, aportar
-			lo que sabes y conectar con otros que están en tu mismo camino. Nuestro
-			propósito es simple: crear una red de apoyo real que ayude a cada miembro
-			a desarrollarse en tecnología de manera sostenible, humana y sin egos.
+			Entrar al mundo IT puede sentirse como avanzar sin mapa ni brújula, rodeado de información contradictoria y expectativas que generan más ansiedad que claridad.
+			<b class="text-white">
+				En ShareIT creemos que ese camino no debería recorrerse en soledad.
+			</b>
 			<br /> <br />
-			<span class="font-bold">Nadie despega solo </span>🚀
 		</p>
-		<h2 class="text-2xl mt-6 font-bold text-white">
-			¿Qué vas a encontrar en esta comunidad?
-		</h2>
-		<p class=`${styledParagraph} mt-2`>
-			La comunidad en WhatsApp está compuesta por los siguientes grupos,
-			cada uno con una dinámica distinta. Por favor asegúrate de leer la
-			descripción de cada uno para entender su propósito.
-		</p>
-		<div class="flex flex-col gap-4 my-3">
-			<div
-				class="grid h-full w-full gap-4 grid-cols-1 grid-rows-1 sm:grid-cols-2 lg:grid-cols-2"
-			>
-				{
-					groups.map((group) => (
-						<GroupCard
-							title={group.title}
-							description={group.description}
-							size={group.size}
-							span={group.span}
-							spanStyle={group.spanStyle}
-						/>
-					))
-				}
-			</div>
 
+		<p>
+			Somos una comunidad que nace con una idea simple: crecer en tecnología es más sostenible cuando se hace en conjunto. Acá no se trata solo de aprender herramientas o conseguir oportunidades, sino de construir un entorno donde las personas realmente se acompañan.
+			<br /> <br />
+		</p>
+
+
+		<p>
+			Nos caracterizamos por algo que no siempre es común en espacios tech: <b class="text-white">cercanía real</b>. Detrás de cada mensaje hay alguien que escucha, que recuerda, que pregunta cómo fue una entrevista o que se toma el tiempo para ayudar, incluso fuera de horario.
+			<br /> <br />
+		</p>
+
+		<p>
+			Fomentamos un espacio donde:
+
+			<ul class="list-disc ml-5 mt-6">
+				<li>Compartimos avances, dudas y frustraciones sin miedo.</li>
+				<li>Celebramos los logros, grandes o pequeños.</li>
+				<li>Nos ayudamos activamente entre quienes están empezando y quienes ya tienen experiencia.</li>
+				<li>Generamos vínculos que trascienden lo digital, también encontrándonos fuera de la pantalla.</li>
+			</ul>
+			<br /> <br />
+		</p>
+
+		<p class="mb-12">
+			Además de recursos, oportunidades laborales, talleres y charlas, lo que realmente define a ShareIT es su gente: <b class="text-white">personas con nombre, historia y ganas de aportar.</b>
+		</p>
+
+
+
+		
+
+		<div>
+			<h2 class="text-2xl mt-6 mb-6 font-bold text-white">
+				Nuestra cultura
+			</h2>
+
+			<p>
+				En ShareIT valoramos más la actitud que el currículum:
+			</p>
+
+			<ul class="list-disc ml-5 mt-6">
+				<li>Creemos en la colaboración por encima del ego.</li>
+				<li>Valoramos la presencia y la participación, incluso en lo cotidiano.</li>
+				<li>Fomentamos un ambiente respetuoso, sin competitividad innecesaria.</li>
+				<li>Esperamos que cada persona, en la medida de lo posible, contribuya al crecimiento colectivo.</li>
+			</ul>
+			<br /> <br />
+		</div>
+
+
+		<div class="mb-10">
+			<p class="">
+				Este no es un espacio para observar desde afuera.
+			</p>
+
+			<p class="">
+				Es un espacio para construir, compartir y estar presente.
+			</p>
+
+			<p class="font-bold text-white">
+				Porque nadie despega solo 🚀
+			</p>
+		</div>
+
+		
+		
+		
+		<div class="flex flex-col gap-4 my-3">
 			<div>
-				<h2 class="text-2xl mt-6 mb-4 font-bold text-white">
+				<h2 class="text-2xl mt-6 mb-6 font-bold text-white">
 					Conoce a los Líderes de Nuestra Comunidad
 				</h2>
-				<CarouselAdmin slides={admins} options={OPTIONS} client:load />
+
+				<div class="flex flex-col gap-8">
+					{
+						admins.map((admin, index) => (
+							<div class="bg-gray-800 rounded-lg p-6 md:p-8 flex flex-col md:flex-row gap-8 md:items-start w-full">
+								<div class="w-full md:w-[300px] text-center shrink-0">
+									<img
+										src={admin.avatar}
+										alt={admin.name}
+										draggable="false"
+										class="w-32 h-32 rounded-full mb-4 object-cover border-4 border-[#83D6E7] mx-auto"
+									/>
+									<div class="flex flex-col items-center mb-2">
+										<p class="text-lg font-bold text-white">{admin.name}</p>
+										<span class="text-sm font-bold text-secondary">{admin.role}</span>
+										<span class="text-gray-400 text-sm mt-1">{admin.about}</span>
+										
+										<div class="flex justify-center mt-3 text-xl">
+											<SocialLinks
+												github={admin.github}
+												linkedin={admin.linkedin}
+												website={admin.website}
+												twitter={admin.twitter}
+												instagram={admin.instagram}
+												className="flex gap-4 text-gray-400"
+											/>
+										</div>
+									</div>
+								</div>
+
+								<div class="flex-1 space-y-4 border-t border-gray-700 md:border-t-0 md:border-l md:border-gray-700 md:pl-8 pt-6 md:pt-0">
+									{
+										leaderDescriptions[index]?.map((paragraph) => (
+											<p class={styledParagraph}>{paragraph}</p>
+										))
+									}
+								</div>
+							</div>
+						))
+					}
+				</div>
 			</div>
 		</div>
 	</div>
