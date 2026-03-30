@@ -1,7 +1,7 @@
 ---
 import { AnimatedText } from "src/modules/home/components/AnimatedText/AnimatedText";
 import Layout from "src/modules/global/layouts/Layout.astro";
-import { Image } from "astro:assets";
+import ParticlesHero from "src/modules/global/components/Particles/ParticlesHero.astro";
 import { getCollection } from "astro:content";
 import { getTagNamesByEntries } from "@helpers/tag.helper";
 import { SocialLinks } from "src/modules/home/components/SocialLinks/SocialLinks";
@@ -24,9 +24,9 @@ const tagNamesByResources = await getTagNamesByEntries(latestResources);
 ---
 
 <Layout title="ShareIT - Nadie despega solo" fullWidth={true}>
-	<div class="relative flex items-center justify-center mb-12 min-h-[600px] overflow-hidden">
-		<div class="absolute inset-0 bg-[url('/images/Banner1.jpg')] bg-cover bg-center"></div>
-		<div class="absolute inset-0 bg-black/50"></div>
+	<div class="relative flex items-center justify-center mb-12 min-h-[600px] overflow-hidden bg-[#19243e]">
+		<ParticlesHero />
+		<div class="absolute inset-0 bg-black/35 z-[1] pointer-events-none"></div>
 		<div class="relative text-center px-8 py-12 z-10 font-josefin-sans container mx-auto">
 			<div class="max-w-3xl mx-auto">
 				<AnimatedText client:load />
@@ -61,7 +61,8 @@ const tagNamesByResources = await getTagNamesByEntries(latestResources);
 		<section class="mb-14">
 			<div class="mb-8">
 				<h2 class="text-3xl font-bold mb-4 text-center text-white">
-					🚀 Presentación en Nerdearla 2025
+					🚀 <span class="section-heading__accent">Presentación</span> en
+					Nerdearla 2025
 				</h2>
 				<p class="text-gray-300 text-center m-auto max-w-2xl">
 					Conoce más sobre nuestra visión como comunidad en la siguiente
