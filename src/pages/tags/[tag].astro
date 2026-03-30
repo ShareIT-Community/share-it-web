@@ -49,7 +49,9 @@ const contentItems = [
 		contentItems.length > 0 ? (
 			<div class='space-y-12'>
 				<section>
-					<h2 class='text-2xl font-bold mb-6 text-secondary'>Artículos</h2>
+					<h2 class='text-2xl font-bold mb-6 text-secondary'>
+						<span class='section-heading__accent-on-secondary'>Artículos</span>
+					</h2>
 					{articles.length > 0 ? (
 						<div class='grid grid-cols-1 md:grid-cols-2 gap-6'>
 							{articles.map((article) => (
@@ -70,7 +72,9 @@ const contentItems = [
 				</section>
 
 				<section>
-					<h2 class='text-2xl font-bold mb-6 text-secondary'>Recursos</h2>
+					<h2 class='text-2xl font-bold mb-6 text-secondary'>
+						<span class='section-heading__accent-on-secondary'>Recursos</span>
+					</h2>
 					{filteredResources.length > 0 ? (
 						<div class='grid grid-cols-1 md:grid-cols-2 gap-6'>
 							{filteredResources.map((resource) => (

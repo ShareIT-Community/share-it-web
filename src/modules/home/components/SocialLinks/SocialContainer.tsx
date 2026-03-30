@@ -53,9 +53,10 @@ export const SocialContainer: React.FC<SocialButtonProps> = ({
   return (
     <div
       className={clsx(
-        'flex items-center text-lg active:scale-95 h-12 justify-center cursor-pointer rounded-md w-full sm:w-auto font-semibold transition-all duration-200 border',
+        'flex items-center text-lg active:scale-95 h-12 justify-center cursor-pointer rounded-md w-full sm:w-auto font-semibold transition-all duration-200 border p-4',
         borderColor,
         textColor
+        
       )}
       style={baseStyle}
       onMouseEnter={() => setIsHovered(true)}
