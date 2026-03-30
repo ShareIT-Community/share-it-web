@@ -41,7 +41,7 @@ const members = [
 <section class="mb-16">
   <div class="mb-8 text-center px-4">
     <h2 class="text-3xl md:text-4xl font-bold mb-4 text-white">
-      Amplify – Marca Personal
+      <span class="section-heading__accent">Amplify</span> – Marca Personal
     </h2>
     <p class="text-gray-400 max-w-2xl mx-auto text-lg">
       Amplify es el espacio de la comunidad donde construimos y potenciamos nuestra presencia profesional en redes.
@@ -102,18 +102,22 @@ const members = [
   .slider-slide {
     flex: 0 0 100%;
     min-width: 0;
+    min-height: 0;
     margin-bottom: 20px;
-    pointer-events: none; 
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    align-self: stretch;
   }
 
-  
-  .slider-slide :global(a), 
+  .slider-slide :global(a),
   .slider-slide :global(button) {
     pointer-events: auto;
   }
 
- 
   .slider-slide > * {
+    flex: 1 1 auto;
+    min-height: 0;
     width: 100%;
   }
 
@@ -156,133 +160,161 @@ const members = [
 </style>
 
 <script>
-  const track = document.getElementById("sliderTrack") as HTMLElement;
-  const dotsContainer = document.getElementById("sliderDots") as HTMLElement;
-  const dots = dotsContainer.querySelectorAll<HTMLButtonElement>(".dot");
+  type Cleanup = () => void;
 
-  let currentIndex = 0;
-  let isDragging = false;
-  let startX = 0;
-  let currentTranslate = 0;
-  let prevTranslate = 0;
+  let amplifySliderCleanup: Cleanup | undefined;
 
-  const totalSlides = dots.length;
+  function initAmplifySlider() {
+    amplifySliderCleanup?.();
+    amplifySliderCleanup = undefined;
 
-  function getVisibleCount(): number {
-    return window.innerWidth >= 1024 ? 3 : 1;
-  }
+    const track = document.getElementById("sliderTrack") as HTMLElement | null;
+    const dotsContainer = document.getElementById("sliderDots") as HTMLElement | null;
+    if (!track || !dotsContainer) return;
 
-  function maxIndex(): number {
-    return Math.max(0, totalSlides - getVisibleCount());
-  }
+    const dots = dotsContainer.querySelectorAll<HTMLButtonElement>(".dot");
+    const totalSlides = dots.length;
+    if (totalSlides === 0) return;
 
-  function getSlideWidth(): number {
-    const firstSlide = track.children[0] as HTMLElement;
-    return firstSlide ? firstSlide.offsetWidth + 12 : 0; // 12px gap
-  }
+    let currentIndex = 0;
+    let isDragging = false;
+    let startX = 0;
+    let currentTranslate = 0;
+    let prevTranslate = 0;
 
-  function setSliderPosition() {
-    track.style.transform = `translateX(${currentTranslate}px)`;
-  }
+    function getVisibleCount(): number {
+      return window.innerWidth >= 1024 ? 3 : 1;
+    }
 
-  function updateDots() {
-    dots.forEach((dot, i) => {
-      dot.classList.toggle("dot--active", i === currentIndex);
+    function maxIndex(): number {
+      return Math.max(0, totalSlides - getVisibleCount());
+    }
+
+    function getSlideWidth(): number {
+      const firstSlide = track!.children[0] as HTMLElement;
+      return firstSlide ? firstSlide.offsetWidth + 12 : 0;
+    }
+
+    function setSliderPosition() {
+      track!.style.transform = `translateX(${currentTranslate}px)`;
+    }
+
+    function updateDots() {
+      dots.forEach((dot, i) => {
+        dot.classList.toggle("dot--active", i === currentIndex);
+      });
+    }
+
+    function goTo(index: number, animate = true) {
+      currentIndex = Math.min(Math.max(index, 0), maxIndex());
+      currentTranslate = currentIndex * -getSlideWidth();
+      prevTranslate = currentTranslate;
+
+      if (animate) {
+        track!.style.transition = "transform 0.45s cubic-bezier(0.4, 0, 0.2, 1)";
+      } else {
+        track!.style.transition = "none";
+      }
+
+      setSliderPosition();
+      updateDots();
+    }
+
+    function onDragStart(clientX: number) {
+      isDragging = true;
+      startX = clientX;
+      track!.style.transition = "none";
+    }
+
+    function onDragMove(clientX: number) {
+      if (!isDragging) return;
+      const diff = clientX - startX;
+      currentTranslate = prevTranslate + diff;
+
+      const minTranslate = -maxIndex() * getSlideWidth();
+      if (currentTranslate > 0) {
+        currentTranslate = currentTranslate / 3;
+      } else if (currentTranslate < minTranslate) {
+        currentTranslate = minTranslate + (currentTranslate - minTranslate) / 3;
+      }
+
+      setSliderPosition();
+    }
+
+    function onDragEnd() {
+      if (!isDragging) return;
+      isDragging = false;
+
+      const movedBy = currentTranslate - prevTranslate;
+      const threshold = getSlideWidth() / 6;
+
+      if (movedBy < -threshold && currentIndex < maxIndex()) {
+        currentIndex += 1;
+      } else if (movedBy > threshold && currentIndex > 0) {
+        currentIndex -= 1;
+      }
+
+      goTo(currentIndex);
+    }
+
+    const onTrackMouseDown = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (target.closest("a") || target.closest("button")) return;
+      e.preventDefault();
+      onDragStart(e.clientX);
+    };
+
+    const onWindowMouseMove = (e: MouseEvent) => onDragMove(e.clientX);
+
+    const onTrackTouchStart = (e: Event) => {
+      const te = e as TouchEvent;
+      const target = te.target as HTMLElement;
+      if (target.closest("a") || target.closest("button")) return;
+      onDragStart(te.touches[0].clientX);
+    };
+
+    const onTrackTouchMove = (e: Event) => {
+      if (!isDragging) return;
+      const te = e as TouchEvent;
+      onDragMove(te.touches[0].clientX);
+    };
+
+    const onResize = () => {
+      goTo(Math.min(currentIndex, maxIndex()), false);
+    };
+
+    track.addEventListener("mousedown", onTrackMouseDown);
+    window.addEventListener("mousemove", onWindowMouseMove);
+    window.addEventListener("mouseup", onDragEnd);
+
+    const touchOpts: AddEventListenerOptions = { passive: true };
+    track.addEventListener("touchstart", onTrackTouchStart, touchOpts);
+    track.addEventListener("touchmove", onTrackTouchMove, touchOpts);
+    track.addEventListener("touchend", onDragEnd);
+
+    const dotHandlers: Array<{ el: HTMLButtonElement; fn: () => void }> = [];
+    dots.forEach((dot) => {
+      const fn = () => goTo(Number(dot.dataset.index));
+      dot.addEventListener("click", fn);
+      dotHandlers.push({ el: dot, fn });
     });
+
+    window.addEventListener("resize", onResize);
+
+    goTo(0, false);
+
+    amplifySliderCleanup = () => {
+      track.removeEventListener("mousedown", onTrackMouseDown);
+      window.removeEventListener("mousemove", onWindowMouseMove);
+      window.removeEventListener("mouseup", onDragEnd);
+      track.removeEventListener("touchstart", onTrackTouchStart, touchOpts);
+      track.removeEventListener("touchmove", onTrackTouchMove, touchOpts);
+      track.removeEventListener("touchend", onDragEnd);
+      window.removeEventListener("resize", onResize);
+      dotHandlers.forEach(({ el, fn }) => el.removeEventListener("click", fn));
+    };
   }
 
-  function goTo(index: number, animate = true) {
-    currentIndex = Math.min(Math.max(index, 0), maxIndex());
-    currentTranslate = currentIndex * -getSlideWidth();
-    prevTranslate = currentTranslate;
-    
-    if (animate) {
-      track.style.transition = "transform 0.45s cubic-bezier(0.4, 0, 0.2, 1)";
-    } else {
-      track.style.transition = "none";
-    }
-    
-    setSliderPosition();
-    updateDots();
-  }
-
- 
-
-  function onDragStart(clientX: number) {
-    isDragging = true;
-    startX = clientX;
-    track.style.transition = "none";
-  }
-
-  function onDragMove(clientX: number) {
-    if (!isDragging) return;
-    const currentX = clientX;
-    const diff = currentX - startX;
-    currentTranslate = prevTranslate + diff;
-
-    // Resistencia en bordes
-    const minTranslate = -maxIndex() * getSlideWidth();
-    if (currentTranslate > 0) {
-      currentTranslate = currentTranslate / 3;
-    } else if (currentTranslate < minTranslate) {
-      currentTranslate = minTranslate + (currentTranslate - minTranslate) / 3;
-    }
-
-    setSliderPosition();
-  }
-
-  function onDragEnd() {
-    if (!isDragging) return;
-    isDragging = false;
-    
-    const movedBy = currentTranslate - prevTranslate;
-    const threshold = getSlideWidth() / 6;
-
-    if (movedBy < -threshold && currentIndex < maxIndex()) {
-      currentIndex += 1;
-    } else if (movedBy > threshold && currentIndex > 0) {
-      currentIndex -= 1;
-    }
-
-    goTo(currentIndex);
-  }
-
-  // Mouse Events
-  track.addEventListener("mousedown", (e) => {
-    // Solo si no fue en un link o botón
-    const target = e.target as HTMLElement;
-    if (target.closest('a') || target.closest('button')) return;
-    
-    e.preventDefault();
-    onDragStart(e.clientX);
-  });
-
-  window.addEventListener("mousemove", (e) => onDragMove(e.clientX));
-  window.addEventListener("mouseup", onDragEnd);
-  
-  // Touch Events
-  track.addEventListener("touchstart", (e) => {
-    const target = e.target as HTMLElement;
-    if (target.closest('a') || target.closest('button')) return;
-    onDragStart(e.touches[0].clientX);
-  }, { passive: true });
-
-  track.addEventListener("touchmove", (e) => {
-    if (isDragging) {
-      onDragMove(e.touches[0].clientX);
-    }
-  }, { passive: true });
-
-  track.addEventListener("touchend", onDragEnd);
-
-  // Dots
-  dots.forEach((dot) => {
-    dot.addEventListener("click", () => {
-      goTo(Number(dot.dataset.index));
-    });
-  });
-
-  window.addEventListener("resize", () => {
-    goTo(Math.min(currentIndex, maxIndex()), false);
-  });
+  document.addEventListener("astro:page-load", initAmplifySlider);
+  initAmplifySlider();
 </script>
