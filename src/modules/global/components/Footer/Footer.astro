@@ -5,6 +5,10 @@ const currentYear = new Date().getFullYear();
 
 const TEAM_MEMBERS = [
 	{
+		name: 'Mirta Gomez',
+		social: 'https://www.linkedin.com/in/mirta-gomez/',
+	},
+	{
 		name: 'Mauro Miguel',
 		social: 'https://www.linkedin.com/in/mauromiguel',
 	},
@@ -106,7 +110,6 @@ const LEGAL_LINKS = [
 </footer>
 
 <style>
-	/* ── Wrapper ─────────────────────────────────────────── */
 	.footer-wrapper {
 		background: #0d0f14;
 		margin-top: auto;
@@ -127,7 +130,7 @@ const LEGAL_LINKS = [
 		gap: 2.5rem;
 	}
 
-	/* ── Top: brand + nav ────────────────────────────────── */
+	
 	.footer-top {
 		display: flex;
 		flex-wrap: wrap;
@@ -308,18 +311,29 @@ const LEGAL_LINKS = [
 		margin: 0;
 		display: flex;
 		flex-wrap: wrap;
-		gap: 0.5rem;
+		gap: 0.4rem;
 	}
 
 	.footer-credit-link {
-		color: #6b7280;
+		font-size: 0.72rem;
+		font-weight: 700;
+		padding: 0.15rem 0.6rem;
+		border-radius: 999px;
+		background: linear-gradient(90deg, #1e3a8a, #2563eb44);
+		color: #83d6e7;
+		border: 1px solid #368beb55;
 		text-decoration: none;
-		font-weight: 600;
-		transition: color 0.2s ease;
+		transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+		display: inline-flex;
+		align-items: center;
 	}
 
 	.footer-credit-link:hover {
-		color: #83d6e7;
+		background: linear-gradient(90deg, #2563eb, #368beb);
+		color: #ffffff;
+		border-color: #83d6e7;
+		box-shadow: 0 0 12px rgba(54, 139, 235, 0.4);
+		transform: translateY(-1px);
 	}
 
 	/* ── Responsive ───────────────────────────────────────── */
