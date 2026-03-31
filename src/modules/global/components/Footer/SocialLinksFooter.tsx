@@ -12,7 +12,7 @@ export const SocialLinksFooter = () => {
 				<BsTwitterX />
 			</a>
 			<a
-				href='https://www.linkedin.com/company/shareitlat'
+				href='https://www.linkedin.com/company/shareit-tech'
 				target='_blank'
 				rel='noopener noreferrer'>
 				<FaLinkedinIn />
