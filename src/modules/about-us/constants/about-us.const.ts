@@ -11,7 +11,7 @@ export const socialLinks = {
   github: {
     title: 'GitHub de la comunidad',
     description: 'Nuestras redes',
-    url: 'https://bento.me/shareit',
+    url: 'https://linktr.ee/shareit_tech',
     icon: GoRocket,
   },
 }

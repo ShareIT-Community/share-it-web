@@ -6,7 +6,7 @@ export const SocialLinksFooter = () => {
 	return (
 		<div className='flex gap-5 [&_a]:text-[#83d6e7] [&_a]:hover:text-[#368beb] transition-all [&_a]:text-lg'>
 			<a
-				href='https://x.com/shareit_lat'
+				href='https://x.com/shareit_tech'
 				target='_blank'
 				rel='noopener noreferrer'>
 				<BsTwitterX />

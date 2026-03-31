@@ -20,6 +20,7 @@ export const SocialLinks: React.FC = () => {
 	}, [isFormOpen]);
 
 	const discord = socialLinks.discord;
+	const github = socialLinks.github;
 
 	return (
 		<div className='flex justify-center gap-4 mt-2 w-full'>
@@ -31,6 +32,14 @@ export const SocialLinks: React.FC = () => {
 					hoverColor={'#5865F2'}
 					ariaLabel={discord.title}
 					social='discord'
+				/>
+				<SocialContainer
+					description={github.description}
+					icon={github.icon}
+					url={github.url}
+					hoverColor={'#6b8cff'}
+					ariaLabel={github.title}
+					social='redes'
 				/>
 			</div>
 
