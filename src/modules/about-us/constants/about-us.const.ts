@@ -96,20 +96,4 @@ export const admins: Admin[] = [
       'Cuando apago la pantalla, mi mundo es 100% analógico. Me encontrás entre pinceles, telas y proyectos manuales; creo que esa creatividad artística es el cable a tierra ideal para mi faceta técnica y social. ¡Sigamos creciendo juntos!',
     ],
   },
-  {
-    name: 'Jean Roa (Drak)',
-    about: 'Admin',
-    role: 'Software Engineer | Cybersecurity',
-    avatar: '/images/jeanroa-avatar.jpeg',
-    github: 'https://github.com/drakvyn',
-    linkedin: 'https://www.linkedin.com/in/jeanmra/',
-    website: 'https://jeanroa.dev/',
-    twitter: 'https://x.com/drakvynhost',
-    description: [
-      'Hallo, soy Jean Roa (Aka Drak), Venezolano en Chile, 29 años. Software Engineer con más de 12 años de experiencia en TI, donde reparé equipos, servidores, deploy, mantenimiento, desarrollo y ahora Hacking y Ciberseguridad.',
-      'He trabajado principalmente como contractor para empresas y equipos de todo el mundo, participando en el desarrollo de aplicaciones web, móviles y de escritorio, además de soluciones de automatización, scripting y mucho más.',
-      'Mi stack principal es Javascript/Typescript, React, React Native, Angular, Python (Flask y Django), SQL, y fanboy de Linux y la estética y2k.',
-      'Me gustan los idiomas, hablo inglés, portugués, español y noruego, me gusta dibujar, el anime, el manga, cocinar, leer, los jueguitos y pasar tiempo con mis hijos y familia.',
-    ],
-  },
 ]
