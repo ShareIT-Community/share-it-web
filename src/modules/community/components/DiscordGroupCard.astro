@@ -1,0 +1,53 @@
+---
+interface Props {
+  title: string
+  description: string
+  icon: string
+  color?: string
+  index: number
+}
+
+const { title, description, icon, color = 'primary', index } = Astro.props
+---
+
+<div
+  class='group/card relative flex flex-col gap-4 p-5 rounded-2xl bg-gray-800/40 border border-gray-700/60 transition-all duration-200 hover:border-gray-600 hover:scale-[0.98]'
+  style={`animation-delay: ${index * 100}ms`}
+>
+  <!-- Individual Header-like top -->
+  <div class='flex items-center gap-3'>
+    <!-- <div
+      class='w-10 h-10 rounded-2xl shrink-0 bg-[#313338] flex items-center justify-center transition-all duration-300 group-hover/card:scale-110 group-hover/card:shadow-[0_0_15px_rgba(54,139,235,0.2)]'
+    >
+      <div class='w-6 h-6 text-primary' set:html={icon} />
+    </div> -->
+    <div class='flex flex-col'>
+      <div class='flex items-center gap-2 px-1'>
+        <span
+          class='text-xl font-black -tracking-wide text-[#83d6e7] group-hover/card:text-primary transition-colors'
+        >
+          {title}
+        </span>
+      </div>
+      <div
+        class='text-[9px] text-gray-400 font-medium px-1 flex items-center gap-1'
+      >
+        <span
+          class='w-1.5 h-1.5 rounded-full bg-green-500 shadow-[0_0_5px_rgba(34,197,94,0.5)]'
+        ></span>
+        <span>ACTIVO</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content Bubble -->
+  <div
+    class='relative p-4 rounded-3xl rounded-tl-none text-sm leading-relaxed bg-[#314aa9] text-white border border-white/10 group-hover/card:border-white/20 transition-all duration-300 shadow-[0_0_20px_rgba(54,139,235,0.15)] group-hover/card:shadow-[0_0_40px_rgba(54,139,235,0.25)] flex-grow flex flex-col'
+  >
+    <p
+      class='mb-4 text-white/90 leading-relaxed italic group-hover/card:text-white transition-colors flex-grow'
+    >
+      {description}
+    </p>
+  </div>
+</div>

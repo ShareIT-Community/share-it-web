@@ -1,245 +1,286 @@
 ---
-import Layout from "src/modules/global/layouts/Layout.astro";
-import Events from "src/modules/resources/components/Events.astro";
-import LevelCard from "src/modules/home/components/ExperienceLevels/LevelCard.astro";
-import { whatsappGroupIcons } from "src/modules/community/constants/whatsappGroupIcons";
+import Layout from 'src/modules/global/layouts/Layout.astro'
+import Events from 'src/modules/resources/components/Events.astro'
+import LevelCard from 'src/modules/home/components/ExperienceLevels/LevelCard.astro'
+import { whatsappGroupIcons } from 'src/modules/community/constants/whatsappGroupIcons'
+import DiscordGroupCard from 'src/modules/community/components/DiscordGroupCard.astro'
 
 const whatsappGroups = [
-	{
-		title: "General",
-		description:
-			"",
-		icon: whatsappGroupIcons.data,
-		color: "[#a78bfa]",
-	},
-	{
-		title: "Off Topic",
-		description:
-			"",
-		icon: whatsappGroupIcons.data,
-		color: "[#a78bfa]",
-	},
-	{
-		title: "Amplify",
-		description:
-			"",
-		icon: whatsappGroupIcons.data,
-		color: "[#a78bfa]",
-	},
-	{
-		title: "Data, Cloud, ML & AI",
-		description:
-			"Este grupo es para quienes están dando sus primeros pasos en datos, cloud, ML e IA. Compartimos recursos, dudas, experiencias y ejemplos reales, con foco en aprender juntos y entender conceptos que a veces parecen más complejos de lo que realmente son.",
-		icon: whatsappGroupIcons.data,
-		color: "[#a78bfa]",
-	},
-	{
-		title: "Ciberseguridad",
-		description:
-			"El espacio para entender cómo se protegen los sistemas y cómo se vulneran. Charlamos sobre ataques, defensas, buenas prácticas y todo lo que hace que las cosas sean (o no sean) seguras.",
-		icon: whatsappGroupIcons.security,
-		color: "[#fbbf24]",
-		tags: ["# recursos", "# libros", "# cursos"],
-	},
-];
+  {
+    title: 'General',
+    description:
+      'El punto de encuentro principal. Acá charlamos, compartimos novedades, ideas y reflexiones del día a día. Si querés presentarte o simplemente saludar, ¡este es el lugar!',
+    icon: whatsappGroupIcons.data,
+    color: '[#a78bfa]',
+  },
+  {
+    title: 'Off Topic',
+    description:
+      'Espacio para charlas fuera del mundo IT. Aquí puedes hablar de series, anime, películas, videojuegos, deportes o cualquier tema divertido y relajado. Ideal para conocernos mejor y compartir gustos personales sin distracciones técnicas.',
+    icon: whatsappGroupIcons.data,
+    color: '[#a78bfa]',
+  },
+  {
+    title: 'Amplify',
+    description:
+      'Amplify es el espacio de la comunidad dedicado a construir y potenciar nuestra presencia profesional en redes. Nace del Content Boost Challenge, donde un grupo de personas se acompañó para desarrollar su marca personal, encontrar su voz y crear contenido con propósito.',
+    icon: whatsappGroupIcons.data,
+    color: '[#a78bfa]',
+  },
+  {
+    title: 'Data, Cloud, ML & AI',
+    description:
+      'Este grupo es para quienes están dando sus primeros pasos en datos, cloud, ML e IA. Compartimos recursos, dudas, experiencias y ejemplos reales, con foco en aprender juntos y entender conceptos que a veces parecen más complejos de lo que realmente son.',
+    icon: whatsappGroupIcons.data,
+    color: '[#a78bfa]',
+  },
+  {
+    title: 'Ciberseguridad',
+    description:
+      'El espacio para entender cómo se protegen los sistemas y cómo se vulneran. Charlamos sobre ataques, defensas, buenas prácticas y todo lo que hace que las cosas sean (o no sean) seguras.',
+    icon: whatsappGroupIcons.security,
+    color: '[#fbbf24]',
+    tags: ['# recursos', '# libros', '# cursos'],
+  },
+]
 
 /** Vacía el array cuando no haya eventos próximos; el mensaje alternativo se muestra solo en ese caso. */
 const upcomingEvents = [
-	{
-		monthLabel: "Abr",
-		day: 18,
-		title: "Community Call Abril",
-		when: "Sábado 18/4 - 19hs",
-		description:
-			"Sumate a la llamada comunitaria que hacemos cada mes en nuestro server de Discord. No hay tema puntual. La idea es pasar un rato divertido, charlar y conocernos más entre todos.",
-	},
-];
+  {
+    monthLabel: 'Abr',
+    day: 11,
+    title: 'MeetUp Presencial Abril',
+    when: 'Sábado 11/4 - 18hs',
+    description:
+      'No todo tiene que quedar en lo virtual. Conocernos en persona es algo que nos gusta hacer, ya que trascender la pantalla es la mejor forma de construir relaciones, tanto personales como profesionales. No importa si llevas tiempo en la comunidad o sos nuevo/a, serás más que bienvenido/a. Traé las ganas de conocer gente copada, nosotros hacemos el resto.',
+  },
+  {
+    monthLabel: 'Abr',
+    day: 18,
+    title: 'Community Call Abril',
+    when: 'Sábado 18/4 - 19hs',
+    description:
+      'Sumate a la llamada comunitaria que hacemos cada mes en nuestro server de Discord. No hay tema puntual. La idea es pasar un rato divertido, charlar y conocernos más entre todos.',
+  },
+]
 ---
 
-<Layout title="ShareIT - Comunidad">
-	<section class="text-center py-10 mb-10">
-		<h1 class="text-4xl font-bold text-center mb-8 text-white">
-			Bienvenido a la comunidad
-		</h1>
-		<p class="text-gray-400 max-w-xl mx-auto text-lg">
-			Todo lo que necesitás saber para ser parte activa de Share IT: nuestros
-			canales, las reglas de convivencia y los próximos eventos.
-		</p>
-	</section>
+<Layout title='ShareIT - Comunidad'>
+  <section class='py-10 mb-16' id='canales'>
+    <div class='flex items-center gap-3 mt-6 mb-8'>
+      <span class='text-2xl'>💬</span>
+      <h2 class='text-3xl font-bold text-white'>
+        <span class='section-heading__accent'>Grupos</span> de WhatsApp
+      </h2>
+    </div>
 
+    <div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6'>
+      {
+        whatsappGroups.map((group, index) => (
+          <DiscordGroupCard
+            index={index}
+            title={group.title}
+            description={group.description}
+            icon={group.icon}
+          />
+        ))
+      }
+    </div>
+  </section>
 
+  <div class='border-t border-gray-800 mb-16'></div>
 
+  <!-- REGLAS -->
+  <section class='mb-16' id='reglas'>
+    <div class='flex items-center gap-3 mb-2'>
+      <span class='text-2xl'>📋</span>
+      <h2 class='text-3xl font-bold text-white'>
+        <span class='section-heading__accent'>Reglas</span> de convivencia
+      </h2>
+    </div>
+    <p class='text-gray-400 mb-8 ml-1'>
+      Para mantener un espacio sano, respetuoso y productivo para todos.
+    </p>
 
+    <div class='grid grid-cols-1 sm:grid-cols-2 gap-6'>
+      <div
+        class='group p-6 flex items-start gap-4 bg-gray-800/40 border border-gray-700/60 rounded-2xl transition-all duration-200 hover:border-gray-600 hover:scale-[1.02]'
+      >
+        <div
+          class='text-2xl font-extrabold text-gray-700 group-hover:text-white shrink-0 leading-none pt-0.5 select-none transition-colors duration-200'
+        >
+          01
+        </div>
+        <div>
+          <h3 class='font-semibold text-white mb-1'>Respeto ante todo</h3>
+          <p class='text-gray-400 text-sm'>
+            Tratá a los demás como te gustaría ser tratado/a. No se toleran
+            insultos, discriminación ni actitudes hostiles.
+          </p>
+        </div>
+      </div>
+      <div
+        class='group p-6 flex items-start gap-4 bg-gray-800/40 border border-gray-700/60 rounded-2xl transition-all duration-200 hover:border-gray-600 hover:scale-[1.02]'
+      >
+        <div
+          class='text-2xl font-extrabold text-gray-700 group-hover:text-white shrink-0 leading-none pt-0.5 select-none transition-colors duration-200'
+        >
+          02
+        </div>
+        <div>
+          <h3 class='font-semibold text-white mb-1'>Canales correctos</h3>
+          <p class='text-gray-400 text-sm'>
+            Publicá en el canal que corresponde al tema. Esto ayuda a mantener
+            las conversaciones ordenadas y fáciles de encontrar.
+          </p>
+        </div>
+      </div>
+      <div
+        class='group p-6 flex items-start gap-4 bg-gray-800/40 border border-gray-700/60 rounded-2xl transition-all duration-200 hover:border-gray-600 hover:scale-[1.02]'
+      >
+        <div
+          class='text-2xl font-extrabold text-gray-700 group-hover:text-white shrink-0 leading-none pt-0.5 select-none transition-colors duration-200'
+        >
+          03
+        </div>
+        <div>
+          <h3 class='font-semibold text-white mb-1'>Sin spam ni publicidad</h3>
+          <p class='text-gray-400 text-sm'>
+            Está prohibido el spam, la publicidad no solicitada y el envío
+            masivo de mensajes privados a miembros sin su consentimiento.
+          </p>
+        </div>
+      </div>
+      <div
+        class='group p-6 flex items-start gap-4 bg-gray-800/40 border border-gray-700/60 rounded-2xl transition-all duration-200 hover:border-gray-600 hover:scale-[1.02]'
+      >
+        <div
+          class='text-2xl font-extrabold text-gray-700 group-hover:text-white shrink-0 leading-none pt-0.5 select-none transition-colors duration-200'
+        >
+          04
+        </div>
+        <div>
+          <h3 class='font-semibold text-white mb-1'>Contenido apropiado</h3>
+          <p class='text-gray-400 text-sm'>
+            No compartas contenido ofensivo, violento, pornográfico o ilegal.
+            Mantén el ambiente seguro y adecuado para todos los miembros.
+          </p>
+        </div>
+      </div>
+      <div
+        class='group p-6 flex items-start gap-4 bg-gray-800/40 border border-gray-700/60 rounded-2xl transition-all duration-200 hover:border-gray-600 hover:scale-[1.02]'
+      >
+        <div
+          class='text-2xl font-extrabold text-gray-700 group-hover:text-white shrink-0 leading-none pt-0.5 select-none transition-colors duration-200'
+        >
+          05
+        </div>
+        <div>
+          <h3 class='font-semibold text-white mb-1'>Moderación final</h3>
+          <p class='text-gray-400 text-sm'>
+            Las decisiones del equipo de moderación son definitivas. Si tenés
+            dudas, podés consultar en privado con los moderadores.
+          </p>
+        </div>
+      </div>
+      <div
+        class='group p-6 flex items-start gap-4 bg-gray-800/40 border border-gray-700/60 rounded-2xl transition-all duration-200 hover:border-gray-600 hover:scale-[1.02]'
+      >
+        <div
+          class='text-2xl font-extrabold text-gray-700 group-hover:text-white shrink-0 leading-none pt-0.5 select-none transition-colors duration-200'
+        >
+          06
+        </div>
+        <div>
+          <h3 class='font-semibold text-white mb-1'>Divertirse</h3>
+          <p class='text-gray-400 text-sm'>
+            ¡Pasala bien! Share IT existe para aprender juntos, hacer networking
+            y crecer. Sé positivo/a y suma a la comunidad.
+          </p>
+        </div>
+      </div>
+    </div>
 
+    <div class='mt-8 flex justify-center'>
+      <a
+        href='/rules'
+        class='inline-flex items-center p-6 gap-2 border border-gray-600 hover:border-primary text-gray-300 hover:text-primary font-medium px-7 py-3 rounded-full transition-all duration-200 hover:-translate-y-0.5'
+      >
+        Ver reglas completas →
+      </a>
+    </div>
+  </section>
 
-	<!-- CANALES -->
-	<section class="mb-16" id="canales">
-		<div class="flex items-center gap-3 mt-6 mb-2">
-			<span class="text-2xl">💬</span>
-			<h2 class="text-3xl font-bold text-white">
-				<span class="section-heading__accent">Grupos</span> de WhatsApp
-			</h2>
-		</div>
-		<p class="text-gray-400 mb-8 ml-1">
-			Disponemos de distintos grupos para que encuentres siempre
-			el lugar indicado.
-		</p>
+  <div class='border-t border-gray-800 mb-16'></div>
 
-		<div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-			{
-				whatsappGroups.map((group) => (
-					<LevelCard
-						title={group.title}
-						description={group.description}
-						icon={group.icon}
-						color={group.color}
-						tags={group.tags}
-					/>
-				))
-			}
-		</div>
+  <section class='mb-12' id='eventos'>
+    <div class='flex items-center gap-3 mb-2'>
+      <span class='text-2xl'>🗓️</span>
+      <h2 class='text-3xl font-bold text-white'>
+        <span class='section-heading__accent'>Eventos</span>
+      </h2>
+    </div>
+    <p class='text-gray-400 mb-8 ml-1'>
+      Charlas, workshops, espacios de networking y mucho más. ¡No te los
+      pierdas!
+    </p>
+    {
+      upcomingEvents.length === 0 ? (
+        <div class='p-6 bg-gray-800/40 border border-gray-700/60 rounded-2xl transition-all duration-200 hover:border-gray-600 mb-8'>
+          <div class='flex items-center gap-3'>
+            <p class='text-gray-400'>
+              Sin eventos próximos. Consulta la lista de eventos anteriores para
+              ponerte al día.
+            </p>
+          </div>
+        </div>
+      ) : (
+        <div class='space-y-4 mb-8'>
+          {upcomingEvents.map((event) => (
+            <div class='p-6 bg-gray-800/40 border border-gray-700/60 rounded-2xl transition-all duration-200 hover:border-primary/30'>
+              <div class='flex flex-col sm:flex-row gap-6'>
+                <div
+                  class='flex h-fit shrink-0 flex-col items-center justify-center rounded-xl bg-primary/15 border border-primary/25 px-5 py-4 min-w-[5.5rem] self-start'
+                  aria-hidden='true'
+                >
+                  <span class='text-xs font-semibold uppercase tracking-wider text-primary'>
+                    {event.monthLabel}
+                  </span>
+                  <span class='text-3xl font-bold text-white leading-none mt-1'>
+                    {event.day}
+                  </span>
+                </div>
+                <div class='space-y-3 min-w-0'>
+                  <h3 class='text-xl font-bold text-white'>{event.title}</h3>
+                  <p class='text-sm font-medium text-primary'>{event.when}</p>
+                  <p class='text-gray-300 text-sm leading-relaxed'>
+                    {event.description}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )
+    }
 
-		
-	</section>
+    <h3 class='text-2xl font-bold text-white mb-4'>
+      <span class='section-heading__accent'>Eventos</span> pasados
+    </h3>
 
-	
-	<div class="border-t border-gray-800 mb-16"></div>
+    <div class='space-y-4'>
+      <Events />
+    </div>
 
-
-
-
-
-
-	<!-- REGLAS -->
-	<section class="mb-16" id="reglas">
-		<div class="flex items-center gap-3 mb-2">
-			<span class="text-2xl">📋</span>
-			<h2 class="text-3xl font-bold text-white">
-				<span class="section-heading__accent">Reglas</span> de convivencia
-			</h2>
-		</div>
-		<p class="text-gray-400 mb-8 ml-1">
-			Para mantener un espacio sano, respetuoso y productivo para todos.
-		</p>
-
-		<div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-			<div class="group p-6 flex items-start gap-4 bg-gray-800/40 border border-gray-700/60 rounded-2xl p-5 transition-all duration-200 hover:border-gray-600 hover:scale-[1.02]">
-				<div class="text-2xl font-extrabold text-gray-700 group-hover:text-white shrink-0 leading-none pt-0.5 select-none transition-colors duration-200">01</div>
-				<div>
-					<h3 class="font-semibold text-white mb-1">Respeto ante todo</h3>
-					<p class="text-gray-400 text-sm">Tratá a los demás como te gustaría ser tratado/a. No se toleran insultos, discriminación ni actitudes hostiles.</p>
-				</div>
-			</div>
-			<div class="group p-6 flex items-start gap-4 bg-gray-800/40 border border-gray-700/60 rounded-2xl p-5 transition-all duration-200 hover:border-gray-600 hover:scale-[1.02]">
-				<div class="text-2xl font-extrabold text-gray-700 group-hover:text-white shrink-0 leading-none pt-0.5 select-none transition-colors duration-200">02</div>
-				<div>
-					<h3 class="font-semibold text-white mb-1">Canales correctos</h3>
-					<p class="text-gray-400 text-sm">Publicá en el canal que corresponde al tema. Esto ayuda a mantener las conversaciones ordenadas y fáciles de encontrar.</p>
-				</div>
-			</div>
-			<div class="group p-6 flex items-start gap-4 bg-gray-800/40 border border-gray-700/60 rounded-2xl p-5 transition-all duration-200 hover:border-gray-600 hover:scale-[1.02]">
-				<div class="text-2xl font-extrabold text-gray-700 group-hover:text-white shrink-0 leading-none pt-0.5 select-none transition-colors duration-200">03</div>
-				<div>
-					<h3 class="font-semibold text-white mb-1">Sin spam ni publicidad</h3>
-					<p class="text-gray-400 text-sm">Está prohibido el spam, la publicidad no solicitada y el envío masivo de mensajes privados a miembros sin su consentimiento.</p>
-				</div>
-			</div>
-			<div class="group p-6 flex items-start gap-4 bg-gray-800/40 border border-gray-700/60 rounded-2xl p-5 transition-all duration-200 hover:border-gray-600 hover:scale-[1.02]">
-				<div class="text-2xl font-extrabold text-gray-700 group-hover:text-white shrink-0 leading-none pt-0.5 select-none transition-colors duration-200">04</div>
-				<div>
-					<h3 class="font-semibold text-white mb-1">Contenido apropiado</h3>
-					<p class="text-gray-400 text-sm">No compartas contenido ofensivo, violento, pornográfico o ilegal. Mantén el ambiente seguro y adecuado para todos los miembros.</p>
-				</div>
-			</div>
-			<div class="group p-6 flex items-start gap-4 bg-gray-800/40 border border-gray-700/60 rounded-2xl p-5 transition-all duration-200 hover:border-gray-600 hover:scale-[1.02]">
-				<div class="text-2xl font-extrabold text-gray-700 group-hover:text-white shrink-0 leading-none pt-0.5 select-none transition-colors duration-200">05</div>
-				<div>
-					<h3 class="font-semibold text-white mb-1">Moderación final</h3>
-					<p class="text-gray-400 text-sm">Las decisiones del equipo de moderación son definitivas. Si tenés dudas, podés consultar en privado con los moderadores.</p>
-				</div>
-			</div>
-			<div class="group p-6 flex items-start gap-4 bg-gray-800/40 border border-gray-700/60 rounded-2xl p-5 transition-all duration-200 hover:border-gray-600 hover:scale-[1.02]">
-				<div class="text-2xl font-extrabold text-gray-700 group-hover:text-white shrink-0 leading-none pt-0.5 select-none transition-colors duration-200">06</div>
-				<div>
-					<h3 class="font-semibold text-white mb-1">Divertirse</h3>
-					<p class="text-gray-400 text-sm">¡Pasala bien! Share IT existe para aprender juntos, hacer networking y crecer. Sé positivo/a y suma a la comunidad.</p>
-				</div>
-			</div>
-		</div>
-
-		<div class="mt-8 flex justify-center">
-			<a
-				href="/rules"
-				class="inline-flex items-center p-6 gap-2 border border-gray-600 hover:border-primary text-gray-300 hover:text-primary font-medium px-7 py-3 rounded-full transition-all duration-200 hover:-translate-y-0.5"
-			>
-				Ver reglas completas →
-			</a>
-		</div>
-	</section>
-
-	
-	<div class="border-t border-gray-800 mb-16"></div>
-
-	
-
-
-
-
-    
-	<section class="mb-12" id="eventos">
-		<div class="flex items-center gap-3 mb-2">
-			<span class="text-2xl">🗓️</span>
-			<h2 class="text-3xl font-bold text-white">
-				<span class="section-heading__accent">Eventos</span>
-			</h2>
-		</div>
-		<p class="text-gray-400 mb-8 ml-1">
-			Charlas, workshops, espacios de networking y mucho más. ¡No te los pierdas!
-		</p>
-		{
-			upcomingEvents.length === 0 ? (
-				<div class="p-6 bg-gray-800/40 border border-gray-700/60 rounded-2xl transition-all duration-200 hover:border-gray-600 mb-8">
-					<div class="flex items-center gap-3">
-						<p class="text-gray-400">
-							Sin eventos próximos. Consulta la lista de eventos anteriores para ponerte al día.
-						</p>
-					</div>
-				</div>
-			) : (
-				<div class="space-y-4 mb-8">
-					{upcomingEvents.map((event) => (
-						<div class="p-6 bg-gray-800/40 border border-gray-700/60 rounded-2xl transition-all duration-200 hover:border-primary/30">
-							<div class="flex flex-col sm:flex-row gap-6">
-								<div
-									class="flex h-fit shrink-0 flex-col items-center justify-center rounded-xl bg-primary/15 border border-primary/25 px-5 py-4 min-w-[5.5rem] self-start"
-									aria-hidden="true"
-								>
-									<span class="text-xs font-semibold uppercase tracking-wider text-primary">
-										{event.monthLabel}
-									</span>
-									<span class="text-3xl font-bold text-white leading-none mt-1">{event.day}</span>
-								</div>
-								<div class="space-y-3 min-w-0">
-									<h3 class="text-xl font-bold text-white">{event.title}</h3>
-									<p class="text-sm font-medium text-primary">{event.when}</p>
-									<p class="text-gray-300 text-sm leading-relaxed">{event.description}</p>
-								</div>
-							</div>
-						</div>
-					))}
-				</div>
-			)
-		}
-
-		<h3 class="text-2xl font-bold text-white mb-4">Eventos pasados</h3>
-
-		<div class="space-y-4">
-			<Events />
-		</div>
-
-		<p class="text-center text-gray-500 text-sm mt-8">
-			Los eventos se coordinan a través de nuestro servidor de Discord.
-			<a href="https://discord.gg/shareit" target="_blank" rel="noopener noreferrer" class="text-primary hover:text-secondary transition-colors">¡Únete para no perderte ninguno!</a>
-		</p>
-	</section>
+    <p class='text-center text-gray-500 text-sm mt-8'>
+      Los eventos se coordinan a través de nuestro servidor de Discord.
+      <a
+        href='https://discord.gg/shareit'
+        target='_blank'
+        rel='noopener noreferrer'
+        class='text-primary hover:text-secondary transition-colors'
+        >¡Únete para no perderte ninguno!</a
+      >
+    </p>
+  </section>
 </Layout>
