@@ -158,7 +158,7 @@ const upcomingEvents = [
     </div>
 
     <div class='mt-8 flex justify-center'>
-      
+      <a
         href='/rules'
         class='inline-flex items-center p-6 gap-2 border border-gray-600 hover:border-primary text-gray-300 hover:text-primary font-medium px-7 py-3 rounded-full transition-all duration-200 hover:-translate-y-0.5'
       >
@@ -208,10 +208,10 @@ const upcomingEvents = [
                   </span>
                 </div>
                 <div class='space-y-3 min-w-0'>
-                  <div class='flex justify-between items-start gap-3 min-w-0'>
+                  <div class='flex flex-col sm:flex-row sm:justify-between items-start gap-2 sm:gap-3 min-w-0'>
                     <h3 class='text-xl font-bold text-white min-w-0'>{event.title}</h3>
                     {event.titleMeta ? (
-                      <span class='inline-flex shrink-0 items-center rounded-full border border-[#368beb55] bg-[linear-gradient(90deg,#1e3a8a,#2563eb44)] px-[0.6rem] py-[0.15rem] text-[0.72rem] font-bold leading-tight text-[#83d6e7]'>
+                      <span class='inline-flex self-start sm:shrink-0 items-center rounded-full border border-[#368beb55] bg-[linear-gradient(90deg,#1e3a8a,#2563eb44)] px-[0.6rem] py-[0.15rem] text-[0.72rem] font-bold leading-tight text-[#83d6e7]'>
                         {event.titleMeta}
                       </span>
                     ) : null}
@@ -236,13 +236,14 @@ const upcomingEvents = [
 
     <p class='text-center text-gray-500 text-sm mt-8'>
       Los eventos se coordinan a través de nuestro servidor de Discord.
-      
+      <a
         href='https://discord.gg/shareit'
         target='_blank'
         rel='noopener noreferrer'
         class='text-primary hover:text-secondary transition-colors'
-        >¡Únete para no perderte ninguno!</a
       >
+        ¡Únete para no perderte ninguno!
+      </a>
     </p>
   </section>
 </Layout>
