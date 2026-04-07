@@ -44,12 +44,12 @@ const whatsappGroups = [
   },
 ]
 
-/** Vacía el array cuando no haya eventos próximos; el mensaje alternativo se muestra solo en ese caso. */
 const upcomingEvents = [
   {
     monthLabel: 'Abr',
     day: 11,
     title: 'MeetUp Presencial Abril',
+    titleMeta: 'CABA, Argentina',
     when: 'Sábado 11/4 - 16hs',
     description:
       'No todo tiene que quedar en lo virtual. Conocernos en persona es algo que nos gusta hacer, ya que trascender la pantalla es la mejor forma de construir relaciones, tanto personales como profesionales. No importa si llevas tiempo en la comunidad o sos nuevo/a, serás más que bienvenido/a. Traé las ganas de conocer gente copada, nosotros hacemos el resto.',
@@ -58,6 +58,7 @@ const upcomingEvents = [
     monthLabel: 'Abr',
     day: 18,
     title: 'Community Call Abril',
+    titleMeta: 'Server Discord - ShareIT',
     when: 'Sábado 18/4 - 19hs',
     description:
       'Sumate a la llamada comunitaria que hacemos cada mes en nuestro server de Discord. No hay tema puntual. La idea es pasar un rato divertido, charlar y conocernos más entre todos.',
@@ -112,100 +113,46 @@ const upcomingEvents = [
     </p>
 
     <div class='grid grid-cols-1 sm:grid-cols-2 gap-6'>
-      <div
-        class='group p-6 flex items-start gap-4 bg-gray-800/40 border border-gray-700/60 rounded-2xl transition-all duration-200 hover:border-gray-600 hover:scale-[1.02]'
-      >
-        <div
-          class='text-2xl font-extrabold text-gray-700 group-hover:text-white shrink-0 leading-none pt-0.5 select-none transition-colors duration-200'
-        >
-          01
-        </div>
+      <div class='group p-6 flex items-start gap-4 bg-gray-800/40 border border-gray-700/60 rounded-2xl transition-all duration-200 hover:border-gray-600 hover:scale-[1.02]'>
+        <div class='text-2xl font-extrabold text-gray-700 group-hover:text-white shrink-0 leading-none pt-0.5 select-none transition-colors duration-200'>01</div>
         <div>
           <h3 class='font-semibold text-white mb-1'>Respeto ante todo</h3>
-          <p class='text-gray-400 text-sm'>
-            Tratá a los demás como te gustaría ser tratado/a. No se toleran
-            insultos, discriminación ni actitudes hostiles.
-          </p>
+          <p class='text-gray-400 text-sm'>Tratá a los demás como te gustaría ser tratado/a. No se toleran insultos, discriminación ni actitudes hostiles.</p>
         </div>
       </div>
-      <div
-        class='group p-6 flex items-start gap-4 bg-gray-800/40 border border-gray-700/60 rounded-2xl transition-all duration-200 hover:border-gray-600 hover:scale-[1.02]'
-      >
-        <div
-          class='text-2xl font-extrabold text-gray-700 group-hover:text-white shrink-0 leading-none pt-0.5 select-none transition-colors duration-200'
-        >
-          02
-        </div>
+      <div class='group p-6 flex items-start gap-4 bg-gray-800/40 border border-gray-700/60 rounded-2xl transition-all duration-200 hover:border-gray-600 hover:scale-[1.02]'>
+        <div class='text-2xl font-extrabold text-gray-700 group-hover:text-white shrink-0 leading-none pt-0.5 select-none transition-colors duration-200'>02</div>
         <div>
           <h3 class='font-semibold text-white mb-1'>Canales correctos</h3>
-          <p class='text-gray-400 text-sm'>
-            Publicá en el canal que corresponde al tema. Esto ayuda a mantener
-            las conversaciones ordenadas y fáciles de encontrar.
-          </p>
+          <p class='text-gray-400 text-sm'>Publicá en el canal que corresponde al tema. Esto ayuda a mantener las conversaciones ordenadas y fáciles de encontrar.</p>
         </div>
       </div>
-      <div
-        class='group p-6 flex items-start gap-4 bg-gray-800/40 border border-gray-700/60 rounded-2xl transition-all duration-200 hover:border-gray-600 hover:scale-[1.02]'
-      >
-        <div
-          class='text-2xl font-extrabold text-gray-700 group-hover:text-white shrink-0 leading-none pt-0.5 select-none transition-colors duration-200'
-        >
-          03
-        </div>
+      <div class='group p-6 flex items-start gap-4 bg-gray-800/40 border border-gray-700/60 rounded-2xl transition-all duration-200 hover:border-gray-600 hover:scale-[1.02]'>
+        <div class='text-2xl font-extrabold text-gray-700 group-hover:text-white shrink-0 leading-none pt-0.5 select-none transition-colors duration-200'>03</div>
         <div>
           <h3 class='font-semibold text-white mb-1'>Sin spam ni publicidad</h3>
-          <p class='text-gray-400 text-sm'>
-            Está prohibido el spam, la publicidad no solicitada y el envío
-            masivo de mensajes privados a miembros sin su consentimiento.
-          </p>
+          <p class='text-gray-400 text-sm'>Está prohibido el spam, la publicidad no solicitada y el envío masivo de mensajes privados a miembros sin su consentimiento.</p>
         </div>
       </div>
-      <div
-        class='group p-6 flex items-start gap-4 bg-gray-800/40 border border-gray-700/60 rounded-2xl transition-all duration-200 hover:border-gray-600 hover:scale-[1.02]'
-      >
-        <div
-          class='text-2xl font-extrabold text-gray-700 group-hover:text-white shrink-0 leading-none pt-0.5 select-none transition-colors duration-200'
-        >
-          04
-        </div>
+      <div class='group p-6 flex items-start gap-4 bg-gray-800/40 border border-gray-700/60 rounded-2xl transition-all duration-200 hover:border-gray-600 hover:scale-[1.02]'>
+        <div class='text-2xl font-extrabold text-gray-700 group-hover:text-white shrink-0 leading-none pt-0.5 select-none transition-colors duration-200'>04</div>
         <div>
           <h3 class='font-semibold text-white mb-1'>Contenido apropiado</h3>
-          <p class='text-gray-400 text-sm'>
-            No compartas contenido ofensivo, violento, pornográfico o ilegal.
-            Mantén el ambiente seguro y adecuado para todos los miembros.
-          </p>
+          <p class='text-gray-400 text-sm'>No compartas contenido ofensivo, violento, pornográfico o ilegal. Mantén el ambiente seguro y adecuado para todos los miembros.</p>
         </div>
       </div>
-      <div
-        class='group p-6 flex items-start gap-4 bg-gray-800/40 border border-gray-700/60 rounded-2xl transition-all duration-200 hover:border-gray-600 hover:scale-[1.02]'
-      >
-        <div
-          class='text-2xl font-extrabold text-gray-700 group-hover:text-white shrink-0 leading-none pt-0.5 select-none transition-colors duration-200'
-        >
-          05
-        </div>
+      <div class='group p-6 flex items-start gap-4 bg-gray-800/40 border border-gray-700/60 rounded-2xl transition-all duration-200 hover:border-gray-600 hover:scale-[1.02]'>
+        <div class='text-2xl font-extrabold text-gray-700 group-hover:text-white shrink-0 leading-none pt-0.5 select-none transition-colors duration-200'>05</div>
         <div>
           <h3 class='font-semibold text-white mb-1'>Moderación final</h3>
-          <p class='text-gray-400 text-sm'>
-            Las decisiones del equipo de moderación son definitivas. Si tenés
-            dudas, podés consultar en privado con los moderadores.
-          </p>
+          <p class='text-gray-400 text-sm'>Las decisiones del equipo de moderación son definitivas. Si tenés dudas, podés consultar en privado con los moderadores.</p>
         </div>
       </div>
-      <div
-        class='group p-6 flex items-start gap-4 bg-gray-800/40 border border-gray-700/60 rounded-2xl transition-all duration-200 hover:border-gray-600 hover:scale-[1.02]'
-      >
-        <div
-          class='text-2xl font-extrabold text-gray-700 group-hover:text-white shrink-0 leading-none pt-0.5 select-none transition-colors duration-200'
-        >
-          06
-        </div>
+      <div class='group p-6 flex items-start gap-4 bg-gray-800/40 border border-gray-700/60 rounded-2xl transition-all duration-200 hover:border-gray-600 hover:scale-[1.02]'>
+        <div class='text-2xl font-extrabold text-gray-700 group-hover:text-white shrink-0 leading-none pt-0.5 select-none transition-colors duration-200'>06</div>
         <div>
           <h3 class='font-semibold text-white mb-1'>Divertirse</h3>
-          <p class='text-gray-400 text-sm'>
-            ¡Pasala bien! Share IT existe para aprender juntos, hacer networking
-            y crecer. Sé positivo/a y suma a la comunidad.
-          </p>
+          <p class='text-gray-400 text-sm'>¡Pasala bien! Share IT existe para aprender juntos, hacer networking y crecer. Sé positivo/a y suma a la comunidad.</p>
         </div>
       </div>
     </div>
@@ -229,17 +176,18 @@ const upcomingEvents = [
         <span class='section-heading__accent'>Eventos</span>
       </h2>
     </div>
-    <p class='text-gray-400 mb-8 ml-1'>
-      Charlas, workshops, espacios de networking y mucho más. ¡No te los
-      pierdas!
+    <p class='text-gray-400 mb-4 ml-1'>
+      Charlas, workshops, espacios de networking y mucho más. ¡No te los pierdas!
+    </p>
+    <p class='text-gray-400 text-xs mb-8 ml-1'>
+      Para más información de los distintos eventos planificados te invitamos a sumarte a la comunidad y consultar con los administradores
     </p>
     {
       upcomingEvents.length === 0 ? (
         <div class='p-6 bg-gray-800/40 border border-gray-700/60 rounded-2xl transition-all duration-200 hover:border-gray-600 mb-8'>
           <div class='flex items-center gap-3'>
             <p class='text-gray-400'>
-              Sin eventos próximos. Consulta la lista de eventos anteriores para
-              ponerte al día.
+              Sin eventos próximos. Consulta la lista de eventos anteriores para ponerte al día.
             </p>
           </div>
         </div>
@@ -260,11 +208,16 @@ const upcomingEvents = [
                   </span>
                 </div>
                 <div class='space-y-3 min-w-0'>
-                  <h3 class='text-xl font-bold text-white'>{event.title}</h3>
+                  <div class='flex flex-col sm:flex-row sm:justify-between items-start gap-2 sm:gap-3 min-w-0'>
+                    <h3 class='text-xl font-bold text-white min-w-0'>{event.title}</h3>
+                    {event.titleMeta ? (
+                      <span class='inline-flex self-start sm:shrink-0 items-center rounded-full border border-[#368beb55] bg-[linear-gradient(90deg,#1e3a8a,#2563eb44)] px-[0.6rem] py-[0.15rem] text-[0.72rem] font-bold leading-tight text-[#83d6e7]'>
+                        {event.titleMeta}
+                      </span>
+                    ) : null}
+                  </div>
                   <p class='text-sm font-medium text-primary'>{event.when}</p>
-                  <p class='text-gray-300 text-sm leading-relaxed'>
-                    {event.description}
-                  </p>
+                  <p class='text-gray-300 text-sm leading-relaxed'>{event.description}</p>
                 </div>
               </div>
             </div>
@@ -288,8 +241,9 @@ const upcomingEvents = [
         target='_blank'
         rel='noopener noreferrer'
         class='text-primary hover:text-secondary transition-colors'
-        >¡Únete para no perderte ninguno!</a
       >
+        ¡Únete para no perderte ninguno!
+      </a>
     </p>
   </section>
 </Layout>
