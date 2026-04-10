@@ -1,74 +1,122 @@
 ---
-import { EVENTS } from 'src/modules/global/constants/events.const';
+import type { ShareITEvent } from 'src/modules/global/constants/events.const';
+
+interface Props {
+  events: ShareITEvent[];
+}
+
+const { events } = Astro.props;
 ---
 
 <div class='flex flex-col gap-6'>
   {
-    EVENTS.map((event) => (
-      <article class='group p-4 sm:p-6 bg-gray-800/40 border border-gray-700/60 rounded-2xl transition-all duration-300 hover:border-primary/30 hover:bg-gray-800/60 shadow-lg hover:shadow-primary/5'>
+    events.map((event) => (
+      <article class={`group p-4 sm:p-6 border rounded-2xl transition-all duration-300 shadow-lg ${event.type === 'meetup' ? 'bg-gray-900/40 border-gray-800/40 opacity-60 grayscale-[0.3]' : 'bg-gray-800/40 border-gray-700/60 hover:border-primary/30 hover:bg-gray-800/60 hover:shadow-primary/5'}`}>
         <div class='flex flex-col sm:flex-row gap-6 items-center sm:items-start'>
-          <!-- Left side: Media (Video/Thumbnail) -->
-          <div class='shrink-0 w-full sm:max-w-[16rem] aspect-video rounded-xl overflow-hidden shadow-lg border border-gray-700/50 transition-transform duration-300 group-hover:scale-[1.02]'>
-            {event.type === 'video' ? (
-              <iframe
-                class='w-full h-full'
-                src={event.media}
-                title={event.title}
-                loading="lazy"
-                frameborder='0'
-                allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
-                allowfullscreen
-              />
+          <!-- Left side: Media (Video/Thumbnail/Placeholder) -->
+          <div class='shrink-0 w-full sm:max-w-[16rem] aspect-video rounded-xl overflow-hidden shadow-lg border border-gray-700/50 transition-transform duration-300 group-hover:scale-[1.02] bg-gray-900/50 flex items-center justify-center'>
+            {event.media ? (
+              event.media.includes('youtube.com') || 
+              event.media.includes('youtu.be') || 
+              event.media.includes('drive.google.com') ? (
+                <iframe
+                  class='w-full h-full'
+                  src={event.media}
+                  title={event.title}
+                  loading="lazy"
+                  frameborder='0'
+                  allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+                  allowfullscreen
+                />
+              ) : (
+                <img
+                  src={event.media}
+                  alt={event.title}
+                  class='w-full h-full object-cover'
+                  loading="lazy"
+                />
+              )
             ) : (
-              <img
-                src={event.media}
-                alt={event.title}
-                class='w-full h-full object-cover'
-                loading="lazy"
-              />
+              <div class="flex flex-col items-center justify-center gap-3 p-8">
+                <img 
+                  src="/images/logo.png" 
+                  alt="ShareIT Placeholder" 
+                  class={`w-16 h-16 object-contain transition-all duration-300 ${event.type === 'workshop' ? 'opacity-80' : 'opacity-10 grayscale brightness-200'}`}
+                />
+                <span class={`text-[10px] font-bold uppercase tracking-[0.3em] ${event.type === 'workshop' ? 'text-primary/40' : 'text-white/5'}`}>{event.type}</span>
+              </div>
             )}
           </div>
 
           <!-- Right side: Content Details -->
           <div class='flex-1 flex flex-col space-y-3 min-w-0 py-1 w-full'>
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 w-full">
-              <h3 class='text-xl font-bold text-white group-hover:text-primary transition-colors whitespace-normal'>
-                {event.title}
-              </h3>
+              <div class="flex items-center gap-3 flex-wrap">
+                <h3 class='text-xl font-bold text-white group-hover:text-primary transition-colors whitespace-normal'>
+                  {event.title}
+                </h3>
+                {!event.media && (
+                  <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-gray-700/50 text-gray-400 border border-gray-600/50 uppercase tracking-wider">
+                    Finalizada
+                  </span>
+                )}
+              </div>
             </div>
             
             <p class='text-sm font-medium text-primary flex items-center gap-2'>
-              {event.site ? (
-                <a
-                  href={`https://${event.site}`}
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  class='hover:underline hover:text-white transition-all'>
-                  Por {event.speaker}
-                </a>
-              ) : (
-                `Por ${event.speaker}`
-              )}
+              {
+                event.speaker ? (
+                  event.site ? (
+                    <a
+                      href={`https://${event.site}`}
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      class='hover:underline hover:text-white transition-all'
+                    >
+                      Por {event.speaker}
+                    </a>
+                  ) : (
+                    `Por ${event.speaker}`
+                  )
+                ) : (
+                  <span
+                    class='text-gray-400 capitalize'
+                    data-event-date={event.startDate}
+                  >
+                    {new Date(event.startDate).toLocaleDateString('es-ES', {
+                      month: 'long',
+                      day: 'numeric',
+                      year: 'numeric',
+                      timeZone: 'America/Argentina/Buenos_Aires',
+                    })}
+                  </span>
+                )
+              }
             </p>
 
             <p class='text-gray-300 text-sm leading-relaxed line-clamp-3 group-hover:text-white/90 transition-colors'>
               {event.description}
             </p>
 
-            {event.repository && (
-              <div class="pt-2">
+            <div class="flex flex-wrap gap-2 pt-1">
+              {event.repository && (
                 <a
                   href={event.repository}
                   target='_blank'
                   rel='noopener noreferrer'
                   class='inline-flex items-center text-xs font-bold text-primary hover:text-white bg-primary/10 hover:bg-primary px-3 py-1.5 rounded-lg transition-all duration-200 border border-primary/20'>
-                  Ver repositorio
+                  Repositorio
                   <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="ml-1.5">
                     <path d="M5 12h14m-7-7 7 7-7 7"/>
                   </svg>
                 </a>
-              </div>
-            )}
+              )}
+              {event.location && (
+                <span class="inline-flex items-center text-[10px] font-medium text-gray-400 bg-gray-800/50 px-2 py-1 rounded border border-gray-700/50">
+                  📍 {event.location}
+                </span>
+              )}
+            </div>
           </div>
         </div>
       </article>

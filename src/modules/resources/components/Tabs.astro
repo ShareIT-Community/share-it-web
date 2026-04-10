@@ -1,24 +1,25 @@
 ---
-import Events from "./Events.astro";
-import Repositories from "./Repositories.astro";
+import Events from './Events.astro'
+import Repositories from './Repositories.astro'
+import { EVENTS } from 'src/modules/global/constants/events.const'
 ---
 
-<div x-data="{ tab: 'repositories' }" class="w-full">
+<div x-data="{ tab: 'repositories' }" class='w-full'>
   <ul
-    class="flex items-center justify-center mb-8 text-sm font-medium text-center text-gray-400"
+    class='flex items-center justify-center mb-8 text-sm font-medium text-center text-gray-400'
   >
-    <li class="me-2">
+    <li class='me-2'>
       <button
-        class="inline-flex items-center justify-center p-4 border-b-2 rounded-t-lg font-semibold cursor-pointer transition-colors duration-200"
+        class='inline-flex items-center justify-center p-4 border-b-2 rounded-t-lg font-semibold cursor-pointer transition-colors duration-200'
         :class="tab === 'repositories' ? 'text-cyan-300 border-cyan-300' : 'hover:text-cyan-300 hover:border-cyan-300 border-transparent'"
         @click="tab = 'repositories'"
       >
         Repositorios
       </button>
     </li>
-    <li class="me-2">
+    <li class='me-2'>
       <button
-        class="inline-flex items-center justify-center p-4 border-b-2 rounded-t-lg font-semibold cursor-pointer transition-colors duration-200"
+        class='inline-flex items-center justify-center p-4 border-b-2 rounded-t-lg font-semibold cursor-pointer transition-colors duration-200'
         :class="tab === 'events' ? 'text-cyan-300 border-cyan-300' : 'hover:text-cyan-300 hover:border-cyan-300 border-transparent'"
         @click="tab = 'events'"
       >
@@ -31,10 +32,10 @@ import Repositories from "./Repositories.astro";
     <Repositories />
   </div>
   <div x-show="tab === 'events'" x-transition>
-    <Events />
+    <Events events={EVENTS} />
   </div>
 </div>
 
 <script
   is:inline
-  src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  src='https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js'></script>
