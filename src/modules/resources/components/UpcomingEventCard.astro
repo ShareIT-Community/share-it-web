@@ -1,0 +1,95 @@
+---
+import type { ShareITEvent } from 'src/modules/global/constants/events.const'
+import {
+  formatEventDate,
+  getEventStatus,
+  type EventStatus,
+} from 'src/modules/global/utils/events.utils'
+
+interface Props {
+  event: ShareITEvent
+  showProximo?: boolean
+}
+
+const { event, showProximo = false } = Astro.props
+const { month, day, weekday, time } = formatEventDate(event.startDate)
+const status: EventStatus = getEventStatus(event)
+const isLive = status === 'live'
+---
+
+<div
+  class={`p-6 bg-gray-800/40 border transition-all duration-200 rounded-2xl ${isLive ? 'border-primary/50 bg-primary/5 shadow-[0_0_20px_rgba(59,130,246,0.1)]' : 'border-gray-700/60 hover:border-primary/30'}`}
+>
+  <div class='flex flex-col sm:flex-row gap-6'>
+    <!-- Date badge -->
+    <div
+      class={`flex h-fit shrink-0 flex-col items-center justify-center rounded-xl border px-5 py-4 min-w-[5.5rem] self-start ${isLive ? 'bg-primary/20 border-primary/40' : 'bg-primary/15 border-primary/25'}`}
+      aria-hidden='true'
+    >
+      <span class='text-xs font-semibold uppercase tracking-wider text-primary'
+        >{month}</span
+      >
+      <span class='text-3xl font-bold text-white leading-none mt-1'>{day}</span>
+    </div>
+
+    <!-- Content -->
+    <div class='space-y-3 min-w-0 flex-1'>
+      <div
+        class='flex flex-col lg:flex-row lg:justify-between items-start gap-2 lg:gap-3 min-w-0'
+      >
+        <div class='flex items-center gap-3 flex-wrap'>
+          <h4 class='text-xl font-bold text-white'>{event.title}</h4>
+
+          {
+            isLive && (
+              <span class='inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-primary/20 text-primary border border-primary/30 animate-pulse'>
+                <span class='w-2 h-2 rounded-full bg-primary shadow-[0_0_8px_rgba(59,130,246,0.8)]' />
+                EN CURSO
+              </span>
+            )
+          }
+
+          {
+            showProximo && !isLive && (
+              <span class='inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-black bg-white/10 text-white border border-white/20 uppercase tracking-widest'>
+                Próximamente
+              </span>
+            )
+          }
+        </div>
+
+        {
+          event.location && (
+            <span class='inline-flex self-start sm:shrink-0 items-center rounded-full border border-[#368beb55] bg-[linear-gradient(90deg,#1e3a8a,#2563eb44)] px-[0.6rem] py-[0.15rem] text-[0.72rem] font-bold leading-tight text-[#83d6e7]'>
+              {event.location}
+            </span>
+          )
+        }
+      </div>
+
+      <p
+        class='text-sm font-medium text-primary capitalize'
+        data-event-date={event.startDate}
+      >
+        {weekday}
+        {time} (ARG)
+      </p>
+
+      <p class='text-gray-300 text-sm leading-relaxed'>{event.description}</p>
+      <p class='text-sm font-medium text-primary flex items-center gap-2'>
+        {
+          event.speaker && (
+            <a
+              href={`https://${event.site}`}
+              target='_blank'
+              rel='noopener noreferrer'
+              class='hover:underline hover:text-white transition-all'
+            >
+              Hosteado por {event.speaker}
+            </a>
+          )
+        }
+      </p>
+    </div>
+  </div>
+</div>
