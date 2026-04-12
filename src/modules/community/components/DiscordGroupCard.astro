@@ -3,11 +3,12 @@ interface Props {
   title: string
   description: string
   icon: string
+  image?: string
   color?: string
   index: number
 }
 
-const { title, description, icon, color = 'primary', index } = Astro.props
+const { title, description, icon, image, color = 'primary', index } = Astro.props
 ---
 
 <div
@@ -16,11 +17,17 @@ const { title, description, icon, color = 'primary', index } = Astro.props
 >
   <!-- Individual Header-like top -->
   <div class='flex items-center gap-3'>
-    <!-- <div
-      class='w-10 h-10 rounded-2xl shrink-0 bg-[#313338] flex items-center justify-center transition-all duration-300 group-hover/card:scale-110 group-hover/card:shadow-[0_0_15px_rgba(54,139,235,0.2)]'
-    >
-      <div class='w-6 h-6 text-primary' set:html={icon} />
-    </div> -->
+    {
+      image && (
+        <div class='w-12 h-12 rounded-full overflow-hidden shrink-0 border-2 border-primary/20 group-hover/card:border-primary/50 transition-all duration-300 group-hover/card:scale-105 group-hover/card:shadow-[0_0_15px_rgba(54,139,235,0.2)]'>
+          <img
+            src={image}
+            alt={title}
+            class='w-full h-full object-cover'
+          />
+        </div>
+      )
+    }
     <div class='flex flex-col'>
       <div class='flex items-center gap-2 px-1'>
         <span
