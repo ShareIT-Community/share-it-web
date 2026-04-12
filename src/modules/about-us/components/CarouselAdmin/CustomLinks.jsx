@@ -44,7 +44,7 @@ export const SocialLinks = ({
             href={url}
             target='_blank'
             rel='noopener noreferrer'
-            className='hover:text-secondary transition-colors'
+            className='text-inherit hover:text-secondary transition-colors'
             aria-label={label}
           >
             {ICONS[key]}
