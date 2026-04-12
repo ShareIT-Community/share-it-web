@@ -36,7 +36,7 @@ export const EVENTS: ShareITEvent[] = [
   {
     title: 'Community Call Abril',
     description:
-      'No todo tiene que quedar en lo virtual. Conocernos en persona es algo que nos gusta hacer, ya que trascender la pantalla es la mejor forma de construir relaciones, tanto personales como profesionales. No importa si llevas tiempo en la comunidad o sos nuevo/a, serás más que bienvenido/a. Traé las ganas de conocer gente copada, nosotros hacemos el resto.',
+      'Sumate a la llamada comunitaria que hacemos cada mes en nuestro server de Discord. No hay tema puntual. La idea es pasar un rato divertido, charlar y conocernos más entre todos.',
     startDate: '2026-04-18T19:00:00-03:00',
     endDate: '2026-04-18T21:00:00-03:00',
     location: 'Server Discord - ShareIT',
