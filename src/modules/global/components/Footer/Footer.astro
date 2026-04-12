@@ -5,24 +5,34 @@ const currentYear = new Date().getFullYear();
 
 const TEAM_MEMBERS = [
 	{
+		name: 'Jean Roa',
+		social: 'https://jeanroa.dev',
+		image: '/images/Drak.jpg',
+	},
+	{
 		name: 'Mirta Gomez',
 		social: 'https://www.linkedin.com/in/mirta-gomez/',
+		image: '/images/Mirty.png',
 	},
 	{
 		name: 'Mauro Miguel',
 		social: 'https://www.linkedin.com/in/mauromiguel',
+		image: '/images/Mauro.jpg',
 	},
 	{
 		name: 'Victor Quiñones',
 		social: 'https://www.linkedin.com/in/victorqui',
+		image: '/images/Victor.jpg',
 	},
 	{
 		name: 'Azariel Moreno',
-		social: 'https://azzadesignsweb.vercel.app/',
+		social: 'https://www.linkedin.com/in/azariel-moreno',
+		image: '/images/Azariel.png',
 	},
 	{
 		name: 'Justin Huertas',
 		social: 'https://portafolio-justin.vercel.app/',
+		image: '/images/Frame.png',
 	},
 ];
 
@@ -80,9 +90,9 @@ const LEGAL_LINKS = [
 		<div class='footer-bottom'>
 			<span class='footer-copy'>© {currentYear} Share IT. Todos los derechos reservados.</span>
 			<div class='footer-credits'>
-				<span>Web desarrollada por:</span>
+				<span>Profesionales que colaboraron en el desarrollo de esta web</span>
 				<ul class='footer-credits-list'>
-					{TEAM_MEMBERS.map(({ name, social }) => (
+					{TEAM_MEMBERS.map(({ name, social, image }) => (
 						<li>
 							<a
 								rel='noopener noreferrer'
@@ -90,7 +100,7 @@ const LEGAL_LINKS = [
 								href={social}
 								class='footer-credit-link'
 							>
-								{name}
+								<img src={image} alt={name} class='footer-credit-img' title={name} />
 							</a>
 						</li>
 					))}
@@ -276,10 +286,10 @@ const LEGAL_LINKS = [
 	/* ── Bottom: copyright + credits ─────────────────────── */
 	.footer-bottom {
 		display: flex;
-		flex-wrap: wrap;
-		align-items: center;
-		justify-content: space-between;
-		gap: 0.75rem;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 1.25rem;
+		text-align: left;
 	}
 
 	.footer-copy {
@@ -289,9 +299,9 @@ const LEGAL_LINKS = [
 
 	.footer-credits {
 		display: flex;
-		flex-wrap: wrap;
-		align-items: center;
-		gap: 0.4rem;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 0.6rem;
 		font-size: 0.78rem;
 		color: #4b5563;
 	}
@@ -302,29 +312,29 @@ const LEGAL_LINKS = [
 		margin: 0;
 		display: flex;
 		flex-wrap: wrap;
-		gap: 0.4rem;
+		justify-content: flex-start;
+		gap: 0.6rem;
 	}
 
 	.footer-credit-link {
-		font-size: 0.72rem;
-		font-weight: 700;
-		padding: 0.15rem 0.6rem;
-		border-radius: 999px;
-		background: linear-gradient(90deg, #1e3a8a, #2563eb44);
-		color: #83d6e7;
-		border: 1px solid #368beb55;
-		text-decoration: none;
-		transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 		display: inline-flex;
 		align-items: center;
+		text-decoration: none;
+		transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.footer-credit-img {
+		width: 32px;
+		height: 32px;
+		border-radius: 50%;
+		object-fit: cover;
+		border: 2px solid #f97316;
+		background: #1f2937;
 	}
 
 	.footer-credit-link:hover {
-		background: linear-gradient(90deg, #2563eb, #368beb);
-		color: #ffffff;
-		border-color: #83d6e7;
-		box-shadow: 0 0 12px rgba(54, 139, 235, 0.4);
-		transform: translateY(-1px);
+		transform: translateY(-2px);
+		filter: brightness(1.1);
 	}
 
 	/* ── Responsive ───────────────────────────────────────── */
