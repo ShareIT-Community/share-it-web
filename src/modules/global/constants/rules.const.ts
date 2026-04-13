@@ -73,3 +73,42 @@ export const COMMUNITY_RULES_GROUPS = [
       "Tal como lo indica el título y descripción del grupo, no está permitido debatir/opinar/consultar sobre las ofertas que se comparten. El grupo es solamente para compartir ofertas y nada más. De ese modo se evita que el grupo sea difícil de leer.",
   },
 ];
+
+export const COMMUNITY_RULES = [
+  {
+    number: '01',
+    title: 'Respeto ante todo',
+    description:
+      'Tratá a los demás como te gustaría ser tratado/a. No se toleran insultos, discriminación ni actitudes hostiles.',
+  },
+  {
+    number: '02',
+    title: 'Canales correctos',
+    description:
+      'Publicá en el canal que corresponde al tema. Esto ayuda a mantener las conversaciones ordenadas y fáciles de encontrar.',
+  },
+  {
+    number: '03',
+    title: 'Sin spam ni publicidad',
+    description:
+      'Está prohibido el spam, la publicidad no solicitada y el envío masivo de mensajes privados a miembros sin su consentimiento.',
+  },
+  {
+    number: '04',
+    title: 'Contenido apropiado',
+    description:
+      'No compartas contenido ofensivo, violento, pornográfico o ilegal. Mantén el ambiente seguro y adecuado para todos los miembros.',
+  },
+  {
+    number: '05',
+    title: 'Moderación final',
+    description:
+      'Las decisiones del equipo de moderación son definitivas. Si tenés dudas, podés consultar en privado con los moderadores.',
+  },
+  {
+    number: '06',
+    title: 'Divertirse',
+    description:
+      '¡Pasala bien! Share IT existe para aprender juntos, hacer networking y crecer. Sé positivo/a y suma a la comunidad.',
+  },
+]

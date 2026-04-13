@@ -4,6 +4,7 @@ import Events from 'src/modules/resources/components/Events.astro'
 import UpcomingEventCard from 'src/modules/resources/components/UpcomingEventCard.astro'
 import DiscordGroupCard from 'src/modules/community/components/DiscordGroupCard.astro'
 import { whatsappGroups } from 'src/modules/global/constants/channels.const'
+import { COMMUNITY_RULES } from 'src/modules/global/constants/rules.const'
 import { EVENTS } from 'src/modules/global/constants/events.const'
 import { getGroupedEvents } from 'src/modules/global/utils/events.utils'
 
@@ -59,102 +60,19 @@ const { upcomingCommunity, pastCommunity, upcomingLearning, pastLearning } =
     </p>
 
     <div class='grid grid-cols-1 sm:grid-cols-2 gap-6'>
-      <div
-        class='group p-6 flex items-start gap-4 bg-gray-800/40 border border-gray-700/60 rounded-2xl transition-all duration-200 hover:border-gray-600 hover:scale-[1.02]'
-      >
-        <div
-          class='text-2xl font-extrabold text-gray-700 group-hover:text-white shrink-0 leading-none pt-0.5 select-none transition-colors duration-200'
-        >
-          01
-        </div>
-        <div>
-          <h3 class='font-semibold text-white mb-1'>Respeto ante todo</h3>
-          <p class='text-gray-400 text-sm'>
-            Tratá a los demás como te gustaría ser tratado/a. No se toleran
-            insultos, discriminación ni actitudes hostiles.
-          </p>
-        </div>
-      </div>
-      <div
-        class='group p-6 flex items-start gap-4 bg-gray-800/40 border border-gray-700/60 rounded-2xl transition-all duration-200 hover:border-gray-600 hover:scale-[1.02]'
-      >
-        <div
-          class='text-2xl font-extrabold text-gray-700 group-hover:text-white shrink-0 leading-none pt-0.5 select-none transition-colors duration-200'
-        >
-          02
-        </div>
-        <div>
-          <h3 class='font-semibold text-white mb-1'>Canales correctos</h3>
-          <p class='text-gray-400 text-sm'>
-            Publicá en el canal que corresponde al tema. Esto ayuda a mantener
-            las conversaciones ordenadas y fáciles de encontrar.
-          </p>
-        </div>
-      </div>
-      <div
-        class='group p-6 flex items-start gap-4 bg-gray-800/40 border border-gray-700/60 rounded-2xl transition-all duration-200 hover:border-gray-600 hover:scale-[1.02]'
-      >
-        <div
-          class='text-2xl font-extrabold text-gray-700 group-hover:text-white shrink-0 leading-none pt-0.5 select-none transition-colors duration-200'
-        >
-          03
-        </div>
-        <div>
-          <h3 class='font-semibold text-white mb-1'>Sin spam ni publicidad</h3>
-          <p class='text-gray-400 text-sm'>
-            Está prohibido el spam, la publicidad no solicitada y el envío
-            masivo de mensajes privados a miembros sin su consentimiento.
-          </p>
-        </div>
-      </div>
-      <div
-        class='group p-6 flex items-start gap-4 bg-gray-800/40 border border-gray-700/60 rounded-2xl transition-all duration-200 hover:border-gray-600 hover:scale-[1.02]'
-      >
-        <div
-          class='text-2xl font-extrabold text-gray-700 group-hover:text-white shrink-0 leading-none pt-0.5 select-none transition-colors duration-200'
-        >
-          04
-        </div>
-        <div>
-          <h3 class='font-semibold text-white mb-1'>Contenido apropiado</h3>
-          <p class='text-gray-400 text-sm'>
-            No compartas contenido ofensivo, violento, pornográfico o ilegal.
-            Mantén el ambiente seguro y adecuado para todos los miembros.
-          </p>
-        </div>
-      </div>
-      <div
-        class='group p-6 flex items-start gap-4 bg-gray-800/40 border border-gray-700/60 rounded-2xl transition-all duration-200 hover:border-gray-600 hover:scale-[1.02]'
-      >
-        <div
-          class='text-2xl font-extrabold text-gray-700 group-hover:text-white shrink-0 leading-none pt-0.5 select-none transition-colors duration-200'
-        >
-          05
-        </div>
-        <div>
-          <h3 class='font-semibold text-white mb-1'>Moderación final</h3>
-          <p class='text-gray-400 text-sm'>
-            Las decisiones del equipo de moderación son definitivas. Si tenés
-            dudas, podés consultar en privado con los moderadores.
-          </p>
-        </div>
-      </div>
-      <div
-        class='group p-6 flex items-start gap-4 bg-gray-800/40 border border-gray-700/60 rounded-2xl transition-all duration-200 hover:border-gray-600 hover:scale-[1.02]'
-      >
-        <div
-          class='text-2xl font-extrabold text-gray-700 group-hover:text-white shrink-0 leading-none pt-0.5 select-none transition-colors duration-200'
-        >
-          06
-        </div>
-        <div>
-          <h3 class='font-semibold text-white mb-1'>Divertirse</h3>
-          <p class='text-gray-400 text-sm'>
-            ¡Pasala bien! Share IT existe para aprender juntos, hacer networking
-            y crecer. Sé positivo/a y suma a la comunidad.
-          </p>
-        </div>
-      </div>
+      {
+        COMMUNITY_RULES.map((rule) => (
+          <div class='group p-6 flex items-start gap-4 bg-gray-800/40 border border-gray-700/60 rounded-2xl transition-all duration-200 hover:border-gray-600 hover:scale-[1.02]'>
+            <div class='text-2xl font-extrabold text-gray-700 group-hover:text-white shrink-0 leading-none pt-0.5 select-none transition-colors duration-200'>
+              {rule.number}
+            </div>
+            <div>
+              <h3 class='font-semibold text-white mb-1'>{rule.title}</h3>
+              <p class='text-gray-400 text-sm'>{rule.description}</p>
+            </div>
+          </div>
+        ))
+      }
     </div>
 
     <div class='mt-8 flex justify-center'>
@@ -399,8 +317,10 @@ const { upcomingCommunity, pastCommunity, upcomingLearning, pastLearning } =
     })
   }
 
-  // Run on load
-  setupTabs()
-  handleExpiredEvents()
-  updateLocalTimes()
+  // Run on initial load and after every Astro client-side navigation
+  document.addEventListener('astro:page-load', () => {
+    setupTabs()
+    handleExpiredEvents()
+    updateLocalTimes()
+  })
 </script>
