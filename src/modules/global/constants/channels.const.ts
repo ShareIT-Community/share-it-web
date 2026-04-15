@@ -29,6 +29,15 @@ export const whatsappGroups = [
     color: '[#a78bfa]',
   },
   {
+    title: 'Desarrollo Web',
+    order: 3,
+    description:
+      'Grupo pensado para compartir conocimientos, resolver dudas y conversar sobre buenas prácticas, herramientas y experiencias reales del día a día relacionadas a desarrollo web. La idea es mantener un espacio colaborativo y profesional, pero también cercano, donde todos puedan aportar y aprender en conjunto.',
+    icon: whatsappGroupIcons.data,
+    image: '/images/groups/WEBDEVELOPMENT.jpg',
+    color: '[#a78bfa]',
+  },
+  {
     title: 'Data, Cloud, ML & AI',
     order: 4,
     description:
