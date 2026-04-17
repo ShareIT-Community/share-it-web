@@ -1,0 +1,152 @@
+---
+interface Props {
+	side: "left" | "right";
+}
+
+const { side } = Astro.props;
+---
+
+<div
+	class:list={[
+		"absolute top-0 bottom-0 w-1/3 z-0 pointer-events-none opacity-40",
+		side === "left" ? "left-0" : "right-0",
+	]}
+>
+	<svg
+		viewBox="0 0 400 800"
+		fill="none"
+		xmlns="http://www.w3.org/2000/svg"
+		class="w-full h-full"
+		preserveAspectRatio="xMidYMid slice"
+	>
+		{
+			side === "left" ? (
+				<g transform="translate(-50, 0)">
+					{/* Branch 1 - Orange */}
+					<path
+						class="animated-path orange"
+						d="M0 200 L100 200 L150 150 L250 150"
+						stroke="#ff6900"
+						stroke-width="8"
+						stroke-linecap="round"
+					/>
+					<circle class="node orange p1" cx="150" cy="150" r="12" fill="#ff6900" />
+					<circle class="node orange p2" cx="250" cy="150" r="10" fill="#ff6900" />
+
+					{/* Branch 2 - Cyan */}
+					<path
+						class="animated-path cyan"
+						d="M0 400 L120 400 L180 460 L180 550 L240 610"
+						stroke="#00e5ff"
+						stroke-width="8"
+						stroke-linecap="round"
+					/>
+					<circle class="node cyan p1" cx="120" cy="400" r="12" fill="#00e5ff" />
+					<circle class="node cyan p2" cx="180" cy="550" r="10" fill="#00e5ff" />
+					<circle class="node cyan p3" cx="240" cy="610" r="12" fill="#00e5ff" />
+
+					{/* Branch 3 - Orange */}
+					<path
+						class="animated-path orange"
+						d="M0 600 L80 600 L140 540"
+						stroke="#ff6900"
+						stroke-width="6"
+						stroke-linecap="round"
+					/>
+					<circle class="node orange p1" cx="140" cy="540" r="8" fill="#ff6900" />
+				</g>
+			) : (
+				<g transform="translate(450, 0) scale(-1, 1)">
+					{/* Branch 1 - Orange */}
+					<path
+						class="animated-path orange"
+						d="M0 250 L120 250 L180 310 L180 400"
+						stroke="#ff6900"
+						stroke-width="8"
+						stroke-linecap="round"
+					/>
+					<circle class="node orange p1" cx="120" cy="250" r="12" fill="#ff6900" />
+					<circle class="node orange p2" cx="180" cy="400" r="10" fill="#ff6900" />
+
+					{/* Branch 2 - Cyan */}
+					<path
+						class="animated-path cyan"
+						d="M0 500 L100 500 L150 450 L250 450"
+						stroke="#00e5ff"
+						stroke-width="8"
+						stroke-linecap="round"
+					/>
+					<circle class="node cyan p1" cx="150" cy="450" r="12" fill="#00e5ff" />
+					<circle class="node cyan p2" cx="250" cy="450" r="10" fill="#00e5ff" />
+
+					{/* Branch 3 - Cyan */}
+					<path
+						class="animated-path cyan"
+						d="M0 700 L80 700 L140 640"
+						stroke="#00e5ff"
+						stroke-width="6"
+						stroke-linecap="round"
+					/>
+					<circle class="node cyan p1" cx="140" cy="640" r="8" fill="#00e5ff" />
+				</g>
+			)
+		}
+	</svg>
+</div>
+
+<style>
+	.node {
+		transform-box: fill-box;
+		transform-origin: center;
+		animation: pulse-node 4s infinite ease-in-out;
+	}
+
+	.node.p1 { animation-delay: 0s; }
+	.node.p2 { animation-delay: 1.5s; }
+	.node.p3 { animation-delay: 3s; }
+
+	.node.orange {
+		filter: drop-shadow(0 0 8px rgba(255, 105, 0, 0.6));
+	}
+
+	.node.cyan {
+		filter: drop-shadow(0 0 8px rgba(0, 229, 255, 0.6));
+	}
+
+	.animated-path {
+		stroke-dasharray: 1000;
+		stroke-dashoffset: 1000;
+		animation: flow-path 15s linear infinite;
+		opacity: 0.6;
+	}
+
+	.animated-path.orange {
+		animation-duration: 12s;
+	}
+
+	.animated-path.cyan {
+		animation-duration: 18s;
+		animation-direction: reverse;
+	}
+
+	@keyframes pulse-node {
+		0%, 100% {
+			transform: scale(1);
+			opacity: 0.7;
+		}
+		50% {
+			transform: scale(1.4);
+			opacity: 1;
+		}
+	}
+
+	@keyframes flow-path {
+		from {
+			stroke-dashoffset: 2000;
+		}
+		to {
+			stroke-dashoffset: 0;
+		}
+	}
+</style>
+

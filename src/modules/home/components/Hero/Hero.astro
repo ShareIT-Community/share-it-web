@@ -1,0 +1,87 @@
+---
+import NetworkGraphics from './NetworkGraphics.astro'
+import '@fontsource/josefin-sans'
+import { SocialLinks } from 'src/modules/home/components/SocialLinks/SocialLinks'
+---
+
+<section
+  class='relative bg-[#0a0f1d] min-h-[700px] flex items-center justify-center overflow-hidden font-josefin-sans'
+>
+  {/* Background Gradient */}
+  <div
+    class='absolute inset-0 bg-gradient-to-b from-[#0a0f1d] via-[#11192e] to-[#0a0f1d] -z-10'
+  >
+  </div>
+
+  {/* Network Graphics */}
+  <NetworkGraphics side='left' />
+  <NetworkGraphics side='right' />
+
+  <div class='container mx-auto px-6 relative z-10 text-center max-w-4xl'>
+    <h1 class='text-white text-5xl md:text-7xl font-bold leading-tight mb-6'>
+      ¡Bienvenidos a ShareIT!<br />
+      Nadie <span class='text-[#ff6900]'>despega</span>
+      <span class='text-[#00e5ff]'>solo</span>.
+    </h1>
+
+    <p
+      class='text-gray-300 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed'
+    >
+      Aquí encontrarás un espacio para conectar con otros entusiastas de la
+      tecnología. Aprendemos, compartimos conocimiento y crecemos juntos en
+      comunidad.
+    </p>
+
+    <div class='flex flex-col items-center gap-6 cta-container'>
+      <div class='flex justify-center gap-4 mt-8'>
+        <SocialLinks client:load />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  section {
+    mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+  }
+
+  h1 {
+    text-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    animation: fadeInDown 1s ease-out;
+  }
+
+  p {
+    animation: fadeInUp 1s ease-out 0.2s both;
+  }
+
+  .cta-container {
+    animation: fadeInUp 1s ease-out 0.4s both;
+  }
+
+  .sparkle {
+    animation: pulse 3s infinite ease-in-out;
+  }
+
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
