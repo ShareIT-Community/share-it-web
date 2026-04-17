@@ -1,58 +1,64 @@
 ---
-import ValueCard from "./ValueCard.astro";
+import ValueCard from './ValueCard.astro'
 
 const values = [
   {
-    title: "Calor humano",
-    description: "Un ambiente respetuoso y cercano donde todos pueden preguntar sin miedo.",
-    color: "[#fb7185]",
-    icon: `<i class="fa-solid fa-people-carry-box text-2xl"></i>`
+    title: 'Calor humano',
+    description:
+      'Un ambiente respetuoso y cercano donde todos pueden preguntar sin miedo.',
+    color: '#ff6900',
+    icon: `<i class="fa-solid fa-people-carry-box text-2xl"></i>`,
   },
   {
-    title: "Comunidad real",
-    description: "Personas ayudando a personas, compartiendo conocimiento y experiencias.",
-    color: "[#38bdf8]",
-    icon: `<i class="fa-solid fa-people-roof text-2xl"></i>
-`
+    title: 'Comunidad real',
+    description:
+      'Personas ayudando a personas, compartiendo conocimiento y experiencias.',
+    color: '#00e5ff',
+    icon: `<i class="fa-solid fa-people-roof text-2xl"></i>`,
   },
   {
-    title: "Oportunidades laborales",
-    description: "Espacios donde se comparten búsquedas, recomendaciones y contactos profesionales.",
-    color: "[#fbbf24]",
-    icon: `<i class="fa-solid fa-briefcase text-2xl"></i>`
+    title: 'Oportunidades laborales',
+    description:
+      'Espacios donde se comparten búsquedas, recomendaciones y contactos profesionales.',
+    color: '#ff6900',
+    icon: `<i class="fa-solid fa-briefcase text-2xl"></i>`,
   },
   {
-    title: "Charlas + Workshops",
-    description: "Actividades de aprendizaje organizadas por la comunidad:",
-    color: "[#818cf8]",
+    title: 'Charlas + Workshops',
+    description: 'Actividades de aprendizaje organizadas por la comunidad:',
+    color: '#00e5ff',
     icon: `<i class="fa-solid fa-person-chalkboard text-2xl"></i>`,
     bullets: [
-      "Charlas: presentaciones sobre temas tecnológicos, experiencias profesionales o tendencias.",
-      "Workshops: talleres prácticos donde los participantes aprenden haciendo."
-    ]
-  }
-];
+      'Charlas: presentaciones sobre temas tecnológicos, experiencias profesionales o tendencias.',
+      'Workshops: talleres prácticos donde los participantes aprenden haciendo.',
+    ],
+  },
+]
 ---
 
-<section class="mb-16">
-  <div class="mb-8 text-center">
-    <h2 class="text-3xl md:text-4xl font-bold mb-4 text-white">
-      <span class="section-heading__accent">Lo</span> que nos hace diferentes
+<section>
+  <div class='mb-8 text-center'>
+    <h2 class='text-3xl md:text-4xl font-bold mb-4 text-white'>
+      <span class='section-heading__accent'>Lo</span> que nos hace <span
+        class='text-orange-500'>diferentes</span
+      >
     </h2>
-    <p class="text-gray-400 max-w-2xl mx-auto text-lg">
+    <p class='text-gray-400 max-w-2xl mx-auto text-lg'>
       Nuestra esencia se basa en el apoyo mutuo y el crecimiento compartido.
     </p>
   </div>
-  
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-    {values.map((value) => (
-      <ValueCard 
-        title={value.title} 
-        description={value.description} 
-        icon={value.icon} 
-        color={value.color}
-        bullets={value.bullets}
-      />
-    ))}
+
+  <div class='grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8'>
+    {
+      values.map((value) => (
+        <ValueCard
+          title={value.title}
+          description={value.description}
+          icon={value.icon}
+          color={value.color}
+          bullets={value.bullets}
+        />
+      ))
+    }
   </div>
 </section>

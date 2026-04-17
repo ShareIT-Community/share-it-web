@@ -1,30 +1,35 @@
 ---
 interface Props {
-  title: string;
-  description: string;
-  icon: string;
-  color: string;
-  tags?: string[];
+  title: string
+  description: string
+  icon: string
+  color: string
+  tags?: string[]
 }
 
-const { title, description, icon, color, tags } = Astro.props;
+const { title, description, icon, color, tags } = Astro.props
 ---
 
-<div class={`group p-6 rounded-2xl bg-[#1d2c49]/40 border border-[#314aa9]/30 hover:border-${color} transition-all duration-300 hover:shadow-[0_0_30px_rgba(49,74,169,0.2)] hover:-translate-y-1 flex flex-col items-center text-center backdrop-blur-sm`}>
-  <div class={`w-16 h-16 rounded-full bg-gradient-to-br from-[#1d2c49] to-[#314aa9] flex items-center justify-center mb-6 border border-[#314aa9]/50 group-hover:scale-110 transition-transform duration-300`}>
+<div
+  class="group p-6 rounded-2xl bg-[#1d2c49]/40 border border-[#314aa9]/30 transition-all duration-300 hover:-translate-y-1 flex flex-col items-center text-center backdrop-blur-sm"
+  style={`--accent-color: ${color}; --shadow-color: ${color}33;`}
+>
+  <div
+    class="w-16 h-16 rounded-full bg-gradient-to-br from-[#1d2c49] to-[#314aa9] flex items-center justify-center mb-6 border border-[#314aa9]/50 group-hover:scale-110 transition-all duration-300 text-white icon-container"
+  >
     <Fragment set:html={icon} />
   </div>
-  <h3 class={`text-xl font-bold mb-3 text-white group-hover:text-${color} transition-colors duration-300`}>
+  <h3 class="text-xl font-bold mb-3 text-white transition-colors duration-300">
     {title}
   </h3>
-  <p class="text-gray-400 text-sm leading-relaxed">
+  <p class='text-gray-400 text-sm leading-relaxed'>
     {description}
   </p>
   {
     tags && tags.length > 0 && (
-      <div class="mt-4 flex flex-wrap gap-2 justify-center">
+      <div class='mt-4 flex flex-wrap gap-2 justify-center'>
         {tags.map((tag) => (
-          <span class="text-xs bg-gray-700/70 text-gray-400 px-2 py-1 rounded-md font-mono">
+          <span class='text-xs bg-gray-700/70 text-gray-400 px-2 py-1 rounded-md font-mono'>
             {tag}
           </span>
         ))}
@@ -34,8 +39,20 @@ const { title, description, icon, color, tags } = Astro.props;
 </div>
 
 <style>
-  /* Base styles handled by Tailwind, but adding specific transitions if needed */
   div {
     will-change: transform, opacity;
+  }
+
+  .group:hover {
+    box-shadow: 0 0 30px var(--shadow-color);
+  }
+
+  .group:hover h3 {
+    color: var(--accent-color);
+  }
+
+  .group:hover .icon-container {
+    color: var(--accent-color);
+    filter: drop-shadow(0 0 2px var(--accent-color));
   }
 </style>
