@@ -8,7 +8,6 @@ import { whatsappGroups } from 'src/modules/global/constants/channels.const'
 import { COMMUNITY_RULES } from 'src/modules/global/constants/rules.const'
 import { EVENTS } from 'src/modules/global/constants/events.const'
 import { getGroupedEvents } from 'src/modules/global/utils/events.utils'
-import '@fontsource/josefin-sans'
 
 const { upcomingCommunity, pastCommunity, upcomingLearning, pastLearning } =
   getGroupedEvents(EVENTS)
@@ -16,7 +15,7 @@ const { upcomingCommunity, pastCommunity, upcomingLearning, pastLearning } =
 
 <Layout title='Comunidad | ShareIT' fullWidth={true}>
   <section class='relative py-20 px-4 overflow-hidden'>
-    <div class='max-w-4xl mx-auto relative z-10 text-center font-josefin-sans'>
+    <div class='max-w-4xl mx-auto relative z-10 text-center'>
       <h1
         class='text-5xl md:text-6xl font-extrabold mb-8 text-white tracking-tight'
       >
@@ -29,7 +28,7 @@ const { upcomingCommunity, pastCommunity, upcomingLearning, pastLearning } =
     </div>
   </section>
 
-  <main class='font-josefin-sans bg-gray-900'>
+  <main class='bg-gray-900'>
     <section id='canales'>
       <div class='container mx-auto px-6 max-w-6xl'>
         <div class='text-center mb-16'>

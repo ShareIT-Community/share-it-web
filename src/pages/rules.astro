@@ -2,7 +2,6 @@
 import { RulesTimelines } from 'src/modules/rules/components/RulesTimelines'
 import Layout from 'src/modules/global/layouts/Layout.astro'
 import SectionDivider from 'src/modules/home/components/SectionDivider.astro'
-import '@fontsource/josefin-sans'
 ---
 
 <Layout title='Reglas | ShareIT' fullWidth={true}>
@@ -13,7 +12,7 @@ import '@fontsource/josefin-sans'
     >
     </div>
 
-    <div class='max-w-4xl mx-auto relative z-10 text-center font-josefin-sans'>
+    <div class='max-w-4xl mx-auto relative z-10 text-center'>
       <h1
         class='text-5xl md:text-6xl font-extrabold mb-8 text-white tracking-tight'
       >
@@ -28,7 +27,7 @@ import '@fontsource/josefin-sans'
     </div>
   </section>
 
-  <main class='font-josefin-sans bg-gray-900 py-20'>
+  <main class='bg-gray-900 py-20'>
     <div class='max-w-4xl mx-auto px-6'>
       <RulesTimelines client:load />
     </div>

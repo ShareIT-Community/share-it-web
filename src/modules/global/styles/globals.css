@@ -13,10 +13,18 @@
     rgb(var(--accent-light)) 30%,
     white 60%
   );
+
+  /* Typography System */
+  --font-heading: 'Josefin Sans', sans-serif;
+  --font-body: 'Outfit', sans-serif;
 }
 
 .font-josefin-sans {
-  font-family: 'Josefin Sans';
+  font-family: var(--font-heading);
+}
+
+.font-outfit {
+  font-family: var(--font-body);
 }
 
 @theme inline {
@@ -30,9 +38,11 @@
 
 @layer base {
   html {
-    font-family: system-ui, sans-serif;
+    font-family: var(--font-body);
     background: #13151a;
     color: #ffffff;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   code {
@@ -53,16 +63,22 @@
   h4,
   h5,
   h6 {
+    font-family: var(--font-heading);
     color: #ffffff;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
   }
 
   p {
     color: #e5e7eb;
     margin-bottom: 0;
+    line-height: 1.6;
+    font-weight: 400;
   }
 
   a {
     color: #a78bfa;
+    transition: color 0.3s ease;
   }
 
   a:hover {
@@ -71,7 +87,8 @@
 
   b,
   strong {
-    color: #b5bafd;
+    color: #ffffff;
+    font-weight: 700;
   }
 }
 
