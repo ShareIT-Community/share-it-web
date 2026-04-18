@@ -11,15 +11,15 @@ const { title, description, icon, color, tags } = Astro.props
 ---
 
 <div
-  class="group p-6 rounded-2xl bg-[#1d2c49]/40 border border-[#314aa9]/30 transition-all duration-300 hover:-translate-y-1 flex flex-col items-center text-center backdrop-blur-sm"
+  class='group p-6 rounded-2xl bg-[#1d2c49]/40 border border-[#314aa9]/30 transition-all duration-300 hover:-translate-y-1 flex flex-col items-center text-center backdrop-blur-sm'
   style={`--accent-color: ${color}; --shadow-color: ${color}33;`}
 >
   <div
-    class="w-16 h-16 rounded-full bg-gradient-to-br from-[#1d2c49] to-[#314aa9] flex items-center justify-center mb-6 border border-[#314aa9]/50 group-hover:scale-110 transition-all duration-300 text-white icon-container"
+    class='w-16 h-16 rounded-full bg-gradient-to-br from-[#1d2c49] to-[#314aa9] flex items-center justify-center mb-6 border border-[#314aa9]/50 group-hover:scale-110 transition-all duration-300 text-white icon-container'
   >
     <Fragment set:html={icon} />
   </div>
-  <h3 class="text-xl font-bold mb-3 text-white transition-colors duration-300">
+  <h3 class='text-xl font-bold mb-3 text-white transition-colors duration-300'>
     {title}
   </h3>
   <p class='text-gray-400 text-sm leading-relaxed'>
