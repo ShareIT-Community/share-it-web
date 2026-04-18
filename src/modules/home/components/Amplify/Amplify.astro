@@ -95,6 +95,7 @@ const members = [
   .slider-wrapper {
     overflow: hidden;
     cursor: grab;
+    touch-action: pan-y;
   }
 
   .slider-wrapper:active {
@@ -206,7 +207,9 @@ const members = [
 
     function getSlideWidth(): number {
       const firstSlide = track!.children[0] as HTMLElement
-      return firstSlide ? firstSlide.offsetWidth + 12 : 0
+      if (!firstSlide) return 0
+      const gap = parseFloat(window.getComputedStyle(track!).gap) || 0
+      return firstSlide.offsetWidth + gap
     }
 
     function setSliderPosition() {
@@ -305,6 +308,7 @@ const members = [
     track.addEventListener('touchstart', onTrackTouchStart, touchOpts)
     track.addEventListener('touchmove', onTrackTouchMove, touchOpts)
     track.addEventListener('touchend', onDragEnd)
+    track.addEventListener('touchcancel', onDragEnd)
 
     const dotHandlers: Array<{ el: HTMLButtonElement; fn: () => void }> = []
     dots.forEach((dot) => {
@@ -324,6 +328,7 @@ const members = [
       track.removeEventListener('touchstart', onTrackTouchStart, touchOpts)
       track.removeEventListener('touchmove', onTrackTouchMove, touchOpts)
       track.removeEventListener('touchend', onDragEnd)
+      track.removeEventListener('touchcancel', onDragEnd)
       window.removeEventListener('resize', onResize)
       dotHandlers.forEach(({ el, fn }) => el.removeEventListener('click', fn))
     }

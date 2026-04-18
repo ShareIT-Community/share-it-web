@@ -76,10 +76,12 @@ const { upcomingCommunity, pastCommunity, upcomingLearning, pastLearning } =
           </p>
         </div>
 
-        <div class='grid grid-cols-1 sm:grid-cols-2 gap-8'>
+        <div
+          class='flex overflow-x-auto snap-x snap-mandatory sm:grid sm:grid-cols-2 gap-6 sm:gap-8 pb-8 -mx-6 px-6 sm:mx-0 sm:px-0 sm:pb-0 custom-scrollbar'
+        >
           {
             COMMUNITY_RULES.map((rule) => (
-              <div class='group relative p-8 bg-[#0a0f1d]/60 border border-white/5 rounded-3xl transition-all duration-500 hover:shadow-[0_0_40px_rgba(255,105,0,0.08)] hover:-translate-y-1 backdrop-blur-md overflow-hidden'>
+              <div class='snap-center shrink-0 w-[85vw] sm:w-auto group relative p-8 bg-[#0a0f1d]/60 border border-white/5 rounded-3xl transition-all duration-500 hover:shadow-[0_0_40px_rgba(255,105,0,0.08)] hover:-translate-y-1 backdrop-blur-md overflow-hidden'>
                 <div class='absolute -right-10 -bottom-10 w-32 h-32 bg-[#ff6900]/5 rounded-full blur-2xl group-hover:bg-[#ff6900]/10 transition-colors' />
 
                 <div class='relative z-10 flex items-start gap-6'>
@@ -100,7 +102,13 @@ const { upcomingCommunity, pastCommunity, upcomingLearning, pastLearning } =
           }
         </div>
 
-        <div class='mt-16 flex justify-center'>
+        <div
+          class='flex justify-end items-center sm:hidden animate-pulse mb-8 pr-2 gap-2 text-[#00e5ff] text-sm font-medium opacity-80'
+        >
+          Desliza para ver más <i class='fa-solid fa-arrow-right-long'></i>
+        </div>
+
+        <div class='mt-8 sm:mt-16 flex justify-center'>
           <a
             href='/rules'
             class='group relative px-10 py-4 bg-[#ff6900] text-white font-bold rounded-2xl transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(255,105,0,0.4)] overflow-hidden'
