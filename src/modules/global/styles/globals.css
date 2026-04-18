@@ -104,6 +104,13 @@
   .section-heading__accent-on-secondary {
     @apply inline-block border-b-2 border-white pb-0.5;
   }
+
+  .section-heading__accent_doble {
+    @apply relative inline-block;
+  }
+  .section-heading__accent_doble::after {
+    @apply content-[''] absolute bottom-[-4px] left-0 w-[60%] h-[4px] bg-[#ff6900] rounded-sm;
+  }
 }
 
 /*Card title hover */
