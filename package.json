@@ -1,7 +1,8 @@
 {
   "name": "share-it-web",
   "type": "module",
-  "version": "0.0.1",
+  "version": "3.0.0",
+  "packageManager": "pnpm@10.32.0",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
@@ -19,6 +20,8 @@
     "@astrojs/node": "^9.5.0",
     "@astrojs/react": "^4.4.0",
     "@fontsource/josefin-sans": "^5.2.8",
+    "@fontsource/outfit": "^5.2.8",
+    "@fortawesome/fontawesome-free": "^7.2.0",
     "@gsap/react": "^2.1.2",
     "@hookform/resolvers": "^5.2.0",
     "@tailwindcss/vite": "^4.1.5",
@@ -29,6 +32,7 @@
     "embla-carousel-autoplay": "^8.5.2",
     "embla-carousel-react": "^8.5.2",
     "gsap": "^3.13.0",
+    "particles.js": "^2.0.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-hook-form": "^7.60.0",

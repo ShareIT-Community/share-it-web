@@ -17,7 +17,7 @@ export const SocialContainer: React.FC<SocialButtonProps> = ({
   onClick,
   url,
   hoverColor,
-  ariaLabel = 'social-button',
+  ariaLabel = 'Acción de red social',
   social = 'default',
 }) => {
   const [isHovered, setIsHovered] = useState(false)
@@ -70,9 +70,11 @@ export const SocialContainer: React.FC<SocialButtonProps> = ({
         : {}
 
   return (
-    <div
+    <button
+      type="button"
+      aria-label={ariaLabel}
       className={clsx(
-        'flex items-center text-lg active:scale-95 h-12 justify-center cursor-pointer rounded-md w-full sm:w-auto font-semibold transition-all duration-200 border p-4',
+        'flex items-center text-lg active:scale-95 min-h-[48px] justify-center cursor-pointer rounded-md w-full sm:w-auto font-semibold transition-all duration-200 border p-4 lg:px-10',
         borderColor,
         textColor,
       )}
@@ -81,13 +83,10 @@ export const SocialContainer: React.FC<SocialButtonProps> = ({
       onMouseLeave={() => setIsHovered(false)}
       onClick={handleClick}
     >
-      <button
-        aria-label={ariaLabel}
-        className='flex items-center gap-2 w-full justify-center cursor-pointer lg:px-10 h-full border-none bg-transparent'
-      >
+      <span className="flex items-center gap-2 w-full justify-center">
         {description}
-        <Icon className='lg:w-15 lg:h-7' />
-      </button>
-    </div>
+        <Icon className="lg:w-15 lg:h-7" aria-hidden />
+      </span>
+    </button>
   )
 }

@@ -36,10 +36,10 @@ const currentPath = Astro.url.pathname
             <a
               href={item.href}
               class:list={[
-                `relative font-medium transition-all duration-300 py-1 before:content-[""] before:absolute before:bottom-0 before:left-0 before:right-0 before:h-[2px] before:bg-[#00e5ff] before:transition-all before:duration-300`,
+                `relative font-medium transition-all duration-300 min-h-[44px] min-w-[44px] inline-flex items-center justify-center px-1 before:content-[""] before:absolute before:bottom-0 before:left-0 before:right-0 before:h-[2px] before:bg-[#7dd3fc] before:transition-all before:duration-300`,
                 currentPath === item.href ||
                 (item.href !== '/' && currentPath.startsWith(item.href))
-                  ? `text-[#00e5ff] before:scale-x-100`
+                  ? `text-[#7dd3fc] before:scale-x-100`
                   : `text-gray-300 hover:text-white before:scale-x-0 hover:before:scale-x-100`,
               ]}
             >
@@ -50,7 +50,7 @@ const currentPath = Astro.url.pathname
       }
 
       <li class='hidden md:flex'>
-        <JoinButton client:load />
+        <JoinButton client:idle />
       </li>
     </ul>
 

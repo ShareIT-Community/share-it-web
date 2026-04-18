@@ -38,7 +38,8 @@
 }
 
 .prose code {
-  @apply px-1.5 py-0.5 rounded bg-gray-800 text-[#00e5ff] font-mono text-sm;
+  @apply px-1.5 py-0.5 rounded bg-gray-800 font-mono text-sm;
+  color: #7dd3fc;
 }
 
 .prose pre {
@@ -58,5 +59,6 @@
 }
 
 .prose a {
-  @apply text-[#00e5ff] hover:text-white underline underline-offset-4 transition-all;
+  @apply hover:text-white underline underline-offset-4 transition-all;
+  color: #7dd3fc;
 }

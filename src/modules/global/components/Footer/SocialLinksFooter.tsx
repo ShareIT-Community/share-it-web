@@ -8,17 +8,24 @@ export const SocialLinksFooter = () => {
 			<a
 				href='https://x.com/shareit_tech'
 				target='_blank'
-				rel='noopener noreferrer'>
-				<BsTwitterX />
+				rel='noopener noreferrer'
+				aria-label='ShareIT en X (Twitter)'
+			>
+				<BsTwitterX aria-hidden />
 			</a>
 			<a
 				href='https://www.linkedin.com/company/shareit-tech'
 				target='_blank'
-				rel='noopener noreferrer'>
-				<FaLinkedinIn />
+				rel='noopener noreferrer'
+				aria-label='ShareIT en LinkedIn'
+			>
+				<FaLinkedinIn aria-hidden />
 			</a>
-			<a href='mailto:shareit.1124@gmail.com'>
-				<SiGmail />
+			<a
+				href='mailto:shareit.1124@gmail.com'
+				aria-label='Enviar correo a ShareIT'
+			>
+				<SiGmail aria-hidden />
 			</a>
 		</div>
 	);

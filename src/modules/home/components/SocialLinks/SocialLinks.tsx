@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { lazy, Suspense, useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { socialLinks } from 'src/modules/about-us/constants/about-us.const'
 import { SocialContainer } from './SocialContainer'
-import { EntryForm } from '../EntryForm/EntryForm'
+
+const EntryForm = lazy(() =>
+  import('../EntryForm/EntryForm').then((m) => ({ default: m.EntryForm })),
+)
 
 export const SocialLinks: React.FC = () => {
   const [isFormOpen, setIsFormOpen] = useState(false)
@@ -45,9 +48,16 @@ export const SocialLinks: React.FC = () => {
 
       {isFormOpen && typeof window !== 'undefined'
         ? createPortal(
-            <section className='left-0 top-0 backdrop-blur-3xl flex justify-center items-center rounded fixed h-[100dvh] w-[100vw] z-[999] shadow'>
+            <section
+              className='left-0 top-0 backdrop-blur-3xl flex justify-center items-center rounded fixed h-[100dvh] w-[100vw] z-[999] shadow'
+              role='dialog'
+              aria-modal='true'
+              aria-labelledby='entry-form-title'
+            >
               <div className='bg-white-5 rounded-lg shadow-lg  '>
-                <EntryForm onClose={() => setIsFormOpen(false)} />
+                <Suspense fallback={null}>
+                  <EntryForm onClose={() => setIsFormOpen(false)} />
+                </Suspense>
               </div>
             </section>,
             document.body,

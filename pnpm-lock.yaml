@@ -20,6 +20,12 @@ importers:
       '@fontsource/josefin-sans':
         specifier: ^5.2.8
         version: 5.2.8
+      '@fontsource/outfit':
+        specifier: ^5.2.8
+        version: 5.2.8
+      '@fortawesome/fontawesome-free':
+        specifier: ^7.2.0
+        version: 7.2.0
       '@gsap/react':
         specifier: ^2.1.2
         version: 2.1.2(gsap@3.13.0)(react@19.1.1)
@@ -50,6 +56,9 @@ importers:
       gsap:
         specifier: ^3.13.0
         version: 3.13.0
+      particles.js:
+        specifier: ^2.0.0
+        version: 2.0.0
       react:
         specifier: ^19.1.0
         version: 19.1.1
@@ -578,6 +587,13 @@ packages:
 
   '@fontsource/josefin-sans@5.2.8':
     resolution: {integrity: sha512-bGY9VWF01JQc5pAOF3+tLlm75dpwJrRhd5CzY3/oyksvdZQbtwOHSDuu20VGxbBDx2/JQdllNvSJFgqI4QGGqg==}
+
+  '@fontsource/outfit@5.2.8':
+    resolution: {integrity: sha512-rXC6g0MqD7cOBjht0bMqc43qM6lRqDLML9KXsmg9uykz0wLQhy8Z/ajrMG6iyoT3NJR+MYgU+OEHp7uHoTb+Yw==}
+
+  '@fortawesome/fontawesome-free@7.2.0':
+    resolution: {integrity: sha512-3DguDv/oUE+7vjMeTSOjCSG+KeawgVQOHrKRnvUuqYh1mfArrh7s+s8hXW3e4RerBA1+Wh+hBqf8sJNpqNrBWg==}
+    engines: {node: '>=6'}
 
   '@gsap/react@2.1.2':
     resolution: {integrity: sha512-JqliybO1837UcgH2hVOM4VO+38APk3ECNrsuSM4MuXp+rbf+/2IG2K1YJiqfTcXQHH7XlA0m3ykniFYstfq0Iw==}
@@ -3001,6 +3017,9 @@ packages:
   parse5@7.3.0:
     resolution: {integrity: sha512-IInvU7fabl34qmi9gY8XOVxhYyMyuH2xUNpb2q8/Y+7552KlejkRvqvD19nMoUW/uQGGbqNpA6Tufu5FL5BZgw==}
 
+  particles.js@2.0.0:
+    resolution: {integrity: sha512-8e0JIqkRbMMPlFBnF9f+92hX1s07jdkd3tqB8uHE9L+cwGGjIYjQM7QLgt0FQ5MZp6SFFYYDm/Y48pqK3ZvJOQ==}
+
   path-exists@5.0.0:
     resolution: {integrity: sha512-RjhtfwJOxzcFmNOi6ltcbcu4Iu+FL3zEj83dk4kAS+fVpTxXLO1b38RvJgT/0QwvV/L3aY9TAnyv0EOqW4GoMQ==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
@@ -4404,6 +4423,10 @@ snapshots:
   '@fastify/busboy@3.2.0': {}
 
   '@fontsource/josefin-sans@5.2.8': {}
+
+  '@fontsource/outfit@5.2.8': {}
+
+  '@fortawesome/fontawesome-free@7.2.0': {}
 
   '@gsap/react@2.1.2(gsap@3.13.0)(react@19.1.1)':
     dependencies:
@@ -7233,6 +7256,8 @@ snapshots:
   parse5@7.3.0:
     dependencies:
       entities: 6.0.1
+
+  particles.js@2.0.0: {}
 
   path-exists@5.0.0: {}
 

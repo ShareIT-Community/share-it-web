@@ -1,27 +1,11 @@
 ---
-import { AnimatedText } from 'src/modules/home/components/AnimatedText/AnimatedText'
 import Layout from 'src/modules/global/layouts/Layout.astro'
-import ParticlesHero from 'src/modules/global/components/Particles/ParticlesHero.astro'
-import { getCollection } from 'astro:content'
-import { getTagNamesByEntries } from '@helpers/tag.helper'
-import { SocialLinks } from 'src/modules/home/components/SocialLinks/SocialLinks'
 import { ToastProvider } from 'src/modules/global/components/Toast/toast'
-import {
-  tagNamesByArticles,
-  latestArticles,
-} from 'src/modules/blog/utils/articles.utils'
 import Hero from 'src/modules/home/components/Hero/Hero.astro'
 import SectionDivider from 'src/modules/home/components/SectionDivider.astro'
 import ExperienceLevels from 'src/modules/home/components/ExperienceLevels/ExperienceLevels.astro'
 import CommunityValues from 'src/modules/home/components/CommunityValues/CommunityValues.astro'
 import Amplify from 'src/modules/home/components/Amplify/Amplify.astro'
-
-const resources = await getCollection('resources')
-
-const latestResources = resources
-  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
-  .slice(0, 2)
-const tagNamesByResources = await getTagNamesByEntries(latestResources)
 ---
 
 <Layout title='ShareIT - Nadie despega solo' fullWidth={true}>
@@ -59,7 +43,7 @@ const tagNamesByResources = await getTagNamesByEntries(latestResources)
             class='text-4xl md:text-5xl font-bold mb-6 text-center text-white'
           >
             🚀 <span class='section-heading__accent'>Presentación</span> en Nerdearla
-            <span class='text-[#00e5ff]'>2025</span>
+            <span class='text-[#7dd3fc]'>2025</span>
           </h2>
           <p
             class='text-gray-400 text-center m-auto max-w-2xl text-lg leading-relaxed'
@@ -73,7 +57,8 @@ const tagNamesByResources = await getTagNamesByEntries(latestResources)
           <div class='aspect-video w-full max-w-4xl'>
             <iframe
               src='https://www.youtube.com/embed/muNVy6tuGNg'
-              title='YouTube video player'
+              title='Lightning Talk de ShareIT en Nerdearla 2025 (YouTube)'
+              loading='lazy'
               allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
               allowfullscreen
               class='rounded-2xl shadow-2xl w-full h-full border border-white/5'
@@ -84,5 +69,5 @@ const tagNamesByResources = await getTagNamesByEntries(latestResources)
     </section>
   </main>
 
-  <ToastProvider client:load />
+  <ToastProvider client:idle />
 </Layout>
