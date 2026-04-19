@@ -20,7 +20,7 @@ export const GROUP_REFERENTS: GroupReferent[] = [
 		rol: 'Referente técnico',
 		descripcion: ['Ingeniero de software, con 9 años de experiencia y Fundador de OpenLabs. Mis principales habilidades son Frontend, Backend, Gestión de proyectos end to end.',
 			'He asumido roles de Frontend Developer, Frontend Architect, Full Stack y Technical Leader de manera efectiva.Me gusta enseñar y disfruto de sacar el potencial de las personas.'],
-		image: '/images/fabri.webp',
+		image: '/images/Edwin.webp',
 		web: 'https://openlablatam.com/',
 	},
 	{
@@ -45,7 +45,7 @@ export const GROUP_REFERENTS: GroupReferent[] = [
 		rol: 'Referente técnico',
 		descripcion: ['SR Backend developer en Mercado Libre con amplia experiencia en el diseño de arquitecturas escalables y la resolución de problemas técnicos complejos en entornos de alta exigencia. ', 
 'Me destaco por combinar la excelencia en ingeniería con un rol activo en la formación de talento - habiendo mentorizado a decenas de desarrolladores- y por integrar herramientas de IA de vanguardia para optimizar procesos de desarrollo y productividad'],
-		image: '/images/fabri.webp',
+		image: '/images/Nahuel.webp',
 		web: 'https://nahuelgomez.ar/',
 	},
 ]
