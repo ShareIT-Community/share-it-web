@@ -48,6 +48,7 @@ export const whatsappGroups: WhatsappGroup[] = [
 		icon: whatsappGroupIcons.data,
 		image: '/images/groups/WEBDEVELOPMENT.jpg',
 		color: '[#a78bfa]',
+		referrals: ['edwin-deza','jean-roa','nahuel-gomez'],
 	},
 	{
 		title: 'Data, Cloud, ML & AI',

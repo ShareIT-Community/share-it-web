@@ -21,12 +21,14 @@ function referentDescripcionToDisplay(
 	referents.map((r) => {
 		const dlgId = `referent-dlg-${cardUid}-${r.id}`
 		const dialogBio = referentDescripcionToDisplay(r.descripcion)
-		const redesSinWeb = r.web
-			? r.redes.filter(
-					(s) =>
-						s.url.replace(/\/$/, '') !== r.web?.replace(/\/$/, ''),
-				)
-			: r.redes
+		const redes = r.redes ?? []
+		let redesSinWeb = redes
+		if (r.web) {
+			const webNorm = r.web.replace(/\/$/, '')
+			redesSinWeb = redes.filter(
+				(s) => s.url.replace(/\/$/, '') !== webNorm,
+			)
+		}
 		return (
 			<dialog
 				id={dlgId}

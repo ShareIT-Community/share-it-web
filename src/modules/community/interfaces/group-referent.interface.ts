@@ -11,7 +11,7 @@ export interface GroupReferent {
 	rol: string
 	descripcion: string | string[]
 	image: string
-	redes: GroupReferentSocial[]
+	redes?: GroupReferentSocial[]
 	/** Sitio web personal o portfolio (opcional) */
 	web?: string
 }
