@@ -1,0 +1,69 @@
+---
+const styledParagraph = 'text-lg text-gray-300 leading-relaxed mb-6'
+---
+
+<section class='py-16 md:py-24'>
+  <div class='max-w-4xl mx-auto relative z-10 text-center'>
+    <h1
+      class='text-5xl md:text-6xl font-extrabold mb-8 text-white font-josefin-sans tracking-tight'
+    >
+      <span class='section-heading__accent_doble'>Acerca de</span>
+      <span class='text-[#00e5ff]'>Nosotros</span>
+    </h1>
+  </div>
+  <div class='max-w-4xl mx-auto px-6'>
+    <p class={styledParagraph}>
+      Entrar al mundo IT puede sentirse como avanzar sin mapa ni brújula,
+      rodeado de información contradictoria y expectativas que generan más
+      ansiedad que claridad.
+      <b class='text-[#00e5ff] font-semibold'>
+        En ShareIT creemos que ese camino no debería recorrerse en soledad.
+      </b>
+    </p>
+
+    <p class={styledParagraph}>
+      Somos una comunidad que nace con una idea simple: crecer en tecnología es
+      más sostenible cuando se hace en conjunto. Acá no se trata solo de
+      aprender herramientas o conseguir oportunidades, sino de construir un
+      entorno donde las personas realmente se acompañan.
+    </p>
+
+    <p class={styledParagraph}>
+      Nos caracterizamos por algo que no siempre es común en espacios tech: <b
+        class='text-[#ff6900] font-semibold'>cercanía real</b
+      >. Detrás de cada mensaje hay alguien que escucha, que recuerda, que
+      pregunta cómo fue una entrevista o que se toma el tiempo para ayudar,
+      incluso fuera de horario.
+    </p>
+
+    <div
+      class='bg-[#1d2c49]/20 border border-[#314aa9]/20 rounded-2xl p-8 my-12 backdrop-blur-sm'
+    >
+      <h2 class='text-2xl font-bold text-white mb-6'>
+        Fomentamos un espacio donde:
+      </h2>
+      <ul class='space-y-4'>
+        {
+          [
+            'Compartimos avances, dudas y frustraciones sin miedo.',
+            'Celebramos los logros, grandes o pequeños.',
+            'Nos ayudamos activamente entre quienes están empezando y quienes ya tienen experiencia.',
+            'Generamos vínculos que trascienden lo digital, también encontrándonos fuera de la pantalla.',
+          ].map((item) => (
+            <li class='flex items-start gap-4 text-gray-300'>
+              <span class='text-[#00e5ff] mt-1.5 font-bold'>✓</span>
+              <span>{item}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <p class='text-xl text-white font-medium italic text-center px-4'>
+      "Además de recursos, oportunidades laborales, talleres y charlas, lo que
+      realmente define a ShareIT es su gente: <span class='text-[#ff6900]'
+        >personas con nombre, historia y ganas de aportar."</span
+      >
+    </p>
+  </div>
+</section>

@@ -9,7 +9,7 @@ export const socialLinks = {
     icon: FaDiscord,
   },
   github: {
-    title: 'GitHub de la comunidad',
+    title: 'Nuestras redes (Linktree)',
     description: 'Nuestras redes',
     url: 'https://linktr.ee/shareit_tech',
     icon: GoRocket,
@@ -71,7 +71,7 @@ export const admins: Admin[] = [
     name: 'Elias Velázquez (Kani)',
     about: 'Fundador de la Comunidad',
     role: 'Data Engineer',
-    avatar: '/images/kani-avatar.png',
+    avatar: '/images/kani.webp',
     github: 'https://github.com/eliasvelazquezdev',
     linkedin: 'https://linkedin.com/in/eliassvelazquez',
     website: 'https://linktr.ee/elingenieroconsciente',
@@ -89,7 +89,7 @@ export const admins: Admin[] = [
     name: 'Natalia Quevedo (Brooke)',
     about: 'Admin',
     role: 'UX/UI Designer',
-    avatar: '/images/naty-avatar.jpg',
+    avatar: '/images/naty-avatar.webp',
     linkedin: 'https://www.linkedin.com/in/natalia-a-quevedo/',
     description: [
       'Hola! Soy Brooke. Mi camino en IT no ha sido lineal: pasé por QA, ciberseguridad, y diseño UX UI, hoy me dedico de lleno al soporte técnico LLM. Disfruto resolver problemas y guiar a otros, lo que me llevó a ser admin de este espacio y a trabajar actualmente en Solsteinn, gracias a una gran persona que conocí en esta misma comunidad.',

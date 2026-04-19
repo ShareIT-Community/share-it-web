@@ -1,58 +1,52 @@
 .popup {
+  /* Hamburguesa: líneas más finas como antes del redesign (cd1f9b0) */
   --burger-line-width: 1.125em;
   --burger-line-height: 0.125em;
-  --burger-offset: 0.625em;
-  --burger-color: #f1f1f1;
+  /* Espacio entre rayas (respecto al centro del botón; queda más compacto que top/bottom en em) */
+  --burger-lines-gap: 3px;
+  --burger-color: #e5e7eb;
   --burger-line-border-radius: 0.1875em;
   --burger-diameter: 2.125em;
-  --burger-btn-border-radius: calc(var(--burger-diameter) / 2);
+  --burger-btn-border-radius: 50%;
   --burger-line-transition: 0.3s;
+  /* Misma transición suave y corta en panel + botón (antes del “spring” 0.3s) */
   --burger-transition: all 0.1s ease-in-out;
   --burger-hover-scale: 1.1;
   --burger-active-scale: 0.95;
-  --burger-enable-outline-color: var(--burger-bg);
-  --burger-enable-outline-width: 0.125em;
-  --burger-enable-outline-offset: var(--burger-enable-outline-width);
-  /* nav */
-  --nav-padding-x: 0.25em;
-  --nav-padding-y: 0.625em;
-  --nav-border-radius: 0.375em;
-  --nav-border-color: #ccc;
-  --nav-border-width: 0.0625em;
-  --nav-shadow-color: rgba(0, 0, 0, 0.2);
-  --nav-shadow-width: 0 1px 5px;
-  --nav-bg: #111827;
-  --nav-font-family: Menlo, Roboto Mono, monospace;
+
+  /* nav window */
+  --nav-padding-x: 0.75rem;
+  --nav-padding-y: 1rem;
+  --nav-border-radius: 1.25rem;
+  --nav-border-color: rgba(255, 255, 255, 0.1);
+  --nav-border-width: 1px;
+  --nav-shadow-color: rgba(0, 0, 0, 0.3);
+  --nav-shadow-width: 0 10px 40px;
+  --nav-bg: rgb(10, 15, 29);
+  --nav-font-family: var(--font-body);
   --nav-default-scale: 0.8;
   --nav-active-scale: 1;
-  --nav-position-left: 0;
-  --nav-position-right: unset;
-  /* if you want to change sides just switch one property */
-  /* from properties to "unset" and the other to 0 */
-  /* title */
-  --nav-title-size: 0.725em;
-  --nav-title-color: #777;
-  --nav-title-padding-x: 1rem;
-  --nav-title-padding-y: 0.25em;
-  /* nav button */
-  --nav-button-padding-x: 1rem;
-  --nav-button-padding-y: 0.375em;
-  --nav-button-border-radius: 0.375em;
-  --nav-button-font-size: 14px;
-  --nav-button-hover-bg: #6495ed;
-  --nav-button-hover-text-color: #fff;
-  --nav-button-distance: 0.875em;
-  /* underline */
-  --underline-border-width: 0.0625em;
-  --underline-border-color: #ccc;
-  --underline-margin-y: 0.3125em;
-}
+  --burger-hit: max(2.75rem, var(--burger-diameter));
 
-/* popup settings 👆 */
+  /* title */
+  --nav-title-size: 0.8rem;
+  --nav-title-color: rgba(255, 255, 255, 0.5);
+  --nav-title-padding-x: 1rem;
+  --nav-title-padding-y: 0.5rem;
+
+  /* nav links */
+  --nav-button-padding-x: 1rem;
+  --nav-button-padding-y: 0.75rem;
+  --nav-button-border-radius: 0.75rem;
+  --nav-button-font-size: 1.1rem;
+  --nav-button-hover-bg: rgba(0, 229, 255, 0.1);
+  --nav-button-hover-text-color: #00e5ff;
+}
 
 .popup {
   text-rendering: optimizeLegibility;
   position: relative;
+  z-index: 100;
 }
 
 .popup input {
@@ -64,18 +58,18 @@
   position: relative;
   align-items: center;
   justify-content: center;
-  width: var(--burger-diameter);
-  height: var(--burger-diameter);
+  /* Área táctil mínima sin agrandar las rayas del icono */
+  width: var(--burger-hit);
+  height: var(--burger-hit);
   border-radius: var(--burger-btn-border-radius);
   border: none;
   cursor: pointer;
   overflow: hidden;
   transition: var(--burger-transition);
-  outline: var(--burger-enable-outline-width) solid transparent;
-  outline-offset: 0;
 }
 
 .burger span {
+  left: 50%;
   height: var(--burger-line-height);
   width: var(--burger-line-width);
   background: var(--burger-color);
@@ -84,82 +78,86 @@
   transition: var(--burger-line-transition);
 }
 
+/* Tres rayas agrupadas al centro (superior, centro, inferior en pantalla) */
 .burger span:nth-child(1) {
-  top: var(--burger-offset);
+  top: calc(50% - 1.5 * var(--burger-line-height) - var(--burger-lines-gap));
+  transform: translateX(-50%);
 }
 
 .burger span:nth-child(2) {
-  bottom: var(--burger-offset);
+  top: calc(50% + 0.5 * var(--burger-line-height) + var(--burger-lines-gap));
+  bottom: auto;
+  transform: translateX(-50%);
 }
 
 .burger span:nth-child(3) {
   top: 50%;
-  transform: translateY(-50%);
+  transform: translate(-50%, -50%);
 }
 
 .popup-window {
+  /* Solo escala + opacidad como antes (sin translate ni easing con rebote) */
   transform: scale(var(--nav-default-scale));
+  transform-origin: top right;
   visibility: hidden;
   opacity: 0;
   position: absolute;
-  z-index: 10;
   padding: var(--nav-padding-y) var(--nav-padding-x);
   background: var(--nav-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   font-family: var(--nav-font-family);
-  color: var(--nav-text-color);
   border-radius: var(--nav-border-radius);
   box-shadow: var(--nav-shadow-width) var(--nav-shadow-color);
   border: var(--nav-border-width) solid var(--nav-border-color);
-  top: calc(
-    var(--burger-diameter) + var(--burger-enable-outline-width) +
-      var(--burger-enable-outline-offset)
-  );
-  left: -120px;
-  right: var(--nav-position-right);
+  top: calc(var(--burger-hit) + 10px);
+  right: 0;
+  min-width: 220px;
   transition: var(--burger-transition);
 }
 
-.popup-window legend {
+.popup-nav-title {
   padding: var(--nav-title-padding-y) var(--nav-title-padding-x);
   margin: 0;
   color: var(--nav-title-color);
   font-size: var(--nav-title-size);
   text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.1em;
 }
 
 .popup-window ul {
   margin: 0;
   padding: 0;
   list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
 }
 
 .popup-window ul a {
   outline: none;
   width: 100%;
   border: none;
-  background: none;
+  background: transparent;
   display: flex;
   align-items: center;
-  color: #f1f1f1;
+  min-height: 44px;
+  color: #e5e7eb;
   font-size: var(--nav-button-font-size);
+  font-weight: 500;
   padding: var(--nav-button-padding-y) var(--nav-button-padding-x);
-  white-space: nowrap;
   border-radius: var(--nav-button-border-radius);
   cursor: pointer;
-  column-gap: var(--nav-button-distance);
+  transition: all 0.2s ease;
 }
-
-.popup-window hr {
-  margin: var(--underline-margin-y) 0;
-  border: none;
-  border-bottom: var(--underline-border-width) solid
-    var(--underline-border-color);
-}
-
-/* actions */
 
 .popup-window ul a:hover,
-.popup-window ul a:focus-visible,
+.popup-window ul a:focus-visible {
+  color: var(--nav-button-hover-text-color);
+  background: var(--nav-button-hover-bg);
+}
+
 .burger:hover {
   transform: scale(var(--burger-hover-scale));
 }
@@ -168,25 +166,21 @@
   transform: scale(var(--burger-active-scale));
 }
 
-.burger:focus:not(:hover) {
-  outline-color: var(--burger-enable-outline-color);
-  outline-offset: var(--burger-enable-outline-offset);
-}
-
 .popup input:checked + .burger span:nth-child(1) {
   top: 50%;
-  transform: translateY(-50%) rotate(45deg);
+  transform: translate(-50%, -50%) rotate(45deg);
+  background-color: #00e5ff;
 }
 
 .popup input:checked + .burger span:nth-child(2) {
-  bottom: 50%;
-  transform: translateY(50%) rotate(-45deg);
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(-45deg);
+  background-color: #00e5ff;
 }
 
 .popup input:checked + .burger span:nth-child(3) {
-  transform: translateX(
-    calc(var(--burger-diameter) * -1 - var(--burger-line-width))
-  );
+  transform: translate(-50%, -50%)
+    translateX(calc(var(--burger-hit) * -1 - var(--burger-line-width)));
 }
 
 .popup input:checked ~ nav {

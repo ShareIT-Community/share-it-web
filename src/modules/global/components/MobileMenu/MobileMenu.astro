@@ -9,15 +9,15 @@ interface Props {
 const { navItems } = Astro.props
 ---
 
-<label class='popup md:hidden inline-block'>
+<label class='popup md:hidden inline-block' aria-label='Abrir o cerrar menú de navegación'>
   <input type='checkbox' />
-  <div class='burger' tabindex='0'>
+  <div class='burger' tabindex='-1'>
     <span></span>
     <span></span>
     <span></span>
   </div>
-  <nav class='popup-window'>
-    <legend>Menu</legend>
+  <nav class='popup-window' aria-label='Navegación principal'>
+    <p class='popup-nav-title'>Menú</p>
     <ul>
       {
         navItems.map((item) => (
@@ -29,7 +29,7 @@ const { navItems } = Astro.props
         ))
       }
       <li class='mt-3 flex px-2 pb-2'>
-        <JoinButton client:load />
+        <JoinButton client:idle />
       </li>
     </ul>
   </nav>

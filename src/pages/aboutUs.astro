@@ -1,161 +1,21 @@
 ---
-import { admins } from 'src/modules/about-us/constants/about-us.const'
 import Layout from 'src/modules/global/layouts/Layout.astro'
-import { SocialLinks } from 'src/modules/about-us/components/CarouselAdmin/CustomLinks'
-
-const styledParagraph = 'text-[1rem] text-gray-300 leading-relaxed'
-const leaderBioParagraph =
-  'text-[1rem] text-gray-300/95 leading-[1.7] [text-wrap:pretty]'
+import SectionDivider from 'src/modules/home/components/SectionDivider.astro'
+import AboutUsInfo from 'src/modules/about-us/components/AboutUsInfo.astro'
+import OurCulture from 'src/modules/about-us/components/OurCulture.astro'
+import AdminsInfo from 'src/modules/about-us/components/AdminsInfo.astro'
 ---
 
-<Layout title='Acerca de | Share IT' showBackButton>
-  <div class='max-w-4xl mx-auto cursor-default'>
-    <h1 class='text-4xl font-bold text-center mb-8 text-white'>
-      Acerca de Nosotros
-    </h1>
-    <p class=`${styledParagraph} mb-2`>
-      Entrar al mundo IT puede sentirse como avanzar sin mapa ni brújula,
-      rodeado de información contradictoria y expectativas que generan más
-      ansiedad que claridad.
-      <b class='text-white'>
-        En ShareIT creemos que ese camino no debería recorrerse en soledad.
-      </b>
-      <br />
-      <br />
-    </p>
+<Layout title='Acerca de | Share IT' fullWidth={true}>
+  <main class='bg-gray-900'>
+    <AboutUsInfo />
 
-    <p>
-      Somos una comunidad que nace con una idea simple: crecer en tecnología es
-      más sostenible cuando se hace en conjunto. Acá no se trata solo de
-      aprender herramientas o conseguir oportunidades, sino de construir un
-      entorno donde las personas realmente se acompañan.
-      <br />
-      <br />
-    </p>
+    <SectionDivider />
 
-    <p>
-      Nos caracterizamos por algo que no siempre es común en espacios tech: <b
-        class='text-white'>cercanía real</b
-      >. Detrás de cada mensaje hay alguien que escucha, que recuerda, que
-      pregunta cómo fue una entrevista o que se toma el tiempo para ayudar,
-      incluso fuera de horario.
-      <br />
-      <br />
-    </p>
+    <OurCulture />
 
-    <p>
-      Fomentamos un espacio donde:
+    <SectionDivider />
 
-      <ul class='list-disc ml-5 mt-6'>
-        <li>Compartimos avances, dudas y frustraciones sin miedo.</li>
-        <li>Celebramos los logros, grandes o pequeños.</li>
-        <li>
-          Nos ayudamos activamente entre quienes están empezando y quienes ya
-          tienen experiencia.
-        </li>
-        <li>
-          Generamos vínculos que trascienden lo digital, también encontrándonos
-          fuera de la pantalla.
-        </li>
-      </ul>
-      <br />
-      <br />
-    </p>
-
-    <p class='mb-12'>
-      Además de recursos, oportunidades laborales, talleres y charlas, lo que
-      realmente define a ShareIT es su gente: <b class='text-white'
-        >personas con nombre, historia y ganas de aportar.</b
-      >
-    </p>
-
-    <div>
-      <h2 class='text-2xl mt-6 mb-6 font-bold text-white'>
-        <span class='section-heading__accent'>Nuestra</span> Cultura
-      </h2>
-
-      <p>En ShareIT valoramos más la actitud que el currículum:</p>
-
-      <ul class='list-disc ml-5 mt-6'>
-        <li>Creemos en la colaboración por encima del ego.</li>
-        <li>
-          Valoramos la presencia y la participación, incluso en lo cotidiano.
-        </li>
-        <li>
-          Fomentamos un ambiente respetuoso, sin competitividad innecesaria.
-        </li>
-        <li>
-          Esperamos que cada persona, en la medida de lo posible, contribuya al
-          crecimiento colectivo.
-        </li>
-      </ul>
-      <br />
-      <br />
-    </div>
-
-    <div class='mb-10'>
-      <p class=''>Este no es un espacio para observar desde afuera.</p>
-
-      <p class=''>Es un espacio para construir, compartir y estar presente.</p>
-
-      <p class='font-bold text-white'>Porque nadie despega solo 🚀</p>
-    </div>
-
-    <div class='flex flex-col gap-4 my-3'>
-      <div>
-        <h2 class='text-2xl mt-6 mb-6 font-bold text-white'>
-          <span class='section-heading__accent'>Conoce</span> a los Líderes de
-          Nuestra Comunidad
-        </h2>
-
-        <div class='flex flex-col gap-8'>
-          {
-            admins.map((admin, index) => (
-              <div class='relative overflow-hidden rounded-xl border border-white/[0.08] bg-gray-800/90 p-6 shadow-lg shadow-black/20 md:p-8 flex flex-col md:flex-row gap-8 md:gap-0 md:items-stretch w-full'>
-                <div class='w-full md:w-[280px] text-center shrink-0 md:pr-8'>
-                  <img
-                    src={admin.avatar}
-                    alt={admin.name}
-                    draggable='false'
-                    class='w-32 h-32 rounded-full mb-5 object-cover mx-auto ring-offset-4 ring-offset-gray-800 border-[3px] border-[#83D6E7]'
-                  />
-                  <div class='flex flex-col items-center gap-1'>
-                    <p class='text-lg font-bold text-white tracking-tight'>
-                      {admin.name}
-                    </p>
-                    <span class='text-sm font-semibold text-secondary'>
-                      {admin.role}
-                    </span>
-                    <span class='text-gray-400 text-sm'>{admin.about}</span>
-
-                    <div class='flex justify-center mt-4 text-xl'>
-                      <SocialLinks
-                        github={admin.github}
-                        linkedin={admin.linkedin}
-                        website={admin.website}
-                        twitter={admin.twitter}
-                        instagram={admin.instagram}
-                        className='flex gap-4 text-orange-500'
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <div
-                  class='hidden md:block w-px shrink-0 self-stretch bg-gradient-to-b from-transparent via-gray-600/70 to-transparent my-2'
-                  aria-hidden='true'
-                />
-
-                <div class='flex-1 min-w-0 max-w-prose space-y-5 border-t border-gray-600/50 pt-6 md:border-t-0 md:pt-0 md:pl-8'>
-                  {admin.description?.map((paragraph) => (
-                    <p class={leaderBioParagraph}>{paragraph}</p>
-                  ))}
-                </div>
-              </div>
-            ))
-          }
-        </div>
-      </div>
-    </div>
-  </div>
+    <AdminsInfo />
+  </main>
 </Layout>

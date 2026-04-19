@@ -1,23 +1,48 @@
 ---
-import { RulesTimelines } from 'src/modules/rules/components/RulesTimelines';
-import Layout from 'src/modules/global/layouts/Layout.astro';
+import { RulesTimelines } from 'src/modules/rules/components/RulesTimelines'
+import Layout from 'src/modules/global/layouts/Layout.astro'
+import SectionDivider from 'src/modules/home/components/SectionDivider.astro'
 ---
 
-<Layout
-	title='Reglas de | Share IT'
-	showBackButton>
-	<div class='space-y-10'>
-		<div class='flex flex-col items-center gap-2 mb-5'>
-			<h1 class='text-4xl font-bold text-center text-white mb-1'>Reglas</h1>
-			<span class='md:text-lg text-center text-gray-400'
-				>Estas son las reglas de la comunidad que facilitan una sana y
-				productiva convivencia entre los miembros de la misma. Por favor lee
-				atentamente cada una de ellas ya que su incumplimiento puede derivar en
-				sanciones o incluso la expulsion del grupo en cuestion o la misma
-				comunidad. 🚀
-			</span>
-		</div>
+<Layout title='Reglas | ShareIT' fullWidth={true}>
+  <section class='relative bg-gray-900 pt-20 overflow-hidden'>
+    {/* Background Glow */}
+    <div
+      class='absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-full bg-[#ff6900]/5 blur-[120px] -z-10'
+    >
+    </div>
 
-		<RulesTimelines client:load />
-	</div>
+    <div class='max-w-4xl mx-auto relative z-10 text-center'>
+      <h1
+        class='text-5xl md:text-6xl font-extrabold mb-8 text-white tracking-tight'
+      >
+        Reglas de la <span class='text-[#00e5ff]'>Comunidad</span>
+      </h1>
+      <p class='text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed'>
+        Estas son las reglas de la comunidad que facilitan una sana y productiva
+        convivencia entre los miembros de la misma. Por favor lee atentamente
+        cada una de ellas ya que su incumplimiento puede derivar en sanciones o
+        incluso la expulsion del grupo en cuestion o la misma comunidad. 🚀
+      </p>
+    </div>
+  </section>
+
+  <main class='bg-gray-900 py-20'>
+    <div class='max-w-4xl mx-auto px-6'>
+      <RulesTimelines client:load />
+    </div>
+  </main>
 </Layout>
+
+<style>
+  .section-divider {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 105, 0, 0.3),
+      transparent
+    );
+    margin: 4rem 0;
+  }
+</style>
