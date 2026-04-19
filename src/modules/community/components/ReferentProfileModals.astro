@@ -1,0 +1,367 @@
+---
+import type { GroupReferent } from '../interfaces/group-referent.interface'
+
+interface Props {
+	referents: GroupReferent[]
+	cardUid: string
+}
+
+const { referents, cardUid } = Astro.props
+
+function referentDescripcionToDisplay(
+	d: string | string[],
+): { text: string; multiline: boolean } {
+	const multiline = Array.isArray(d)
+	const text = multiline ? d.join('\n\n') : d
+	return { text, multiline }
+}
+---
+
+{
+	referents.map((r) => {
+		const dlgId = `referent-dlg-${cardUid}-${r.id}`
+		const dialogBio = referentDescripcionToDisplay(r.descripcion)
+		const redes = r.redes ?? []
+		let redesSinWeb = redes
+		if (r.web) {
+			const webNorm = r.web.replace(/\/$/, '')
+			redesSinWeb = redes.filter(
+				(s) => s.url.replace(/\/$/, '') !== webNorm,
+			)
+		}
+		return (
+			<dialog
+				id={dlgId}
+				class='referent-dialog'
+				data-referent-dialog
+			>
+				<div class='referent-dialog-panel'>
+					<header class='referent-dialog-header'>
+						<div class='referent-dialog-identity'>
+							<img
+								src={r.image}
+								alt=''
+								class='referent-dialog-avatar'
+								width='88'
+								height='88'
+							/>
+							<div class='referent-dialog-titles'>
+								<h4 class='referent-dialog-name'>{r.nombre}</h4>
+								<p class='referent-dialog-role'>{r.rol}</p>
+							</div>
+						</div>
+						<div class='referent-dialog-close-wrap'>
+							<button
+								type='button'
+								class='referent-dialog-close'
+								data-referent-close
+								aria-label='Cerrar'
+							>
+								×
+							</button>
+						</div>
+					</header>
+
+					<p
+						class:list={[
+							'referent-dialog-bio',
+							{ 'whitespace-pre-line': dialogBio.multiline },
+						]}
+					>
+						{dialogBio.text}
+					</p>
+
+					<footer class='referent-dialog-actions'>
+						{r.web && (
+							<a
+								href={r.web}
+								target='_blank'
+								rel='noopener noreferrer'
+								class='referent-dialog-btn referent-dialog-btn--primary'
+							>
+								Sitio web
+							</a>
+						)}
+						{
+							redesSinWeb.length > 0 &&
+								redesSinWeb.map((s) => (
+									<a
+										href={s.url}
+										target='_blank'
+										rel='noopener noreferrer'
+										class='referent-dialog-btn referent-dialog-btn--ghost'
+									>
+										{s.label}
+									</a>
+								))
+						}
+					</footer>
+				</div>
+			</dialog>
+		)
+	})
+}
+
+<script is:inline>
+	;(function () {
+		var w = typeof window !== 'undefined' ? window : null
+		if (!w || w.__SHAREIT_REFERENT_DLG__) return
+		w.__SHAREIT_REFERENT_DLG__ = true
+
+		function closeWithAnimation(dlg) {
+			if (!dlg || dlg.dataset.animating === '1') return
+			dlg.dataset.animating = '1'
+			dlg.classList.add('referent-dialog--closing')
+			var finished = false
+			function done() {
+				if (finished) return
+				finished = true
+				dlg.close()
+				dlg.classList.remove('referent-dialog--closing')
+				dlg.dataset.animating = ''
+				dlg.removeEventListener('transitionend', onEnd)
+			}
+			function onEnd(e) {
+				if (e.target === dlg && e.propertyName === 'opacity') done()
+			}
+			dlg.addEventListener('transitionend', onEnd)
+			setTimeout(done, 360)
+		}
+
+		document.addEventListener('click', function (e) {
+			var t = e.target
+			if (!t || !t.closest) return
+			var openBtn = t.closest('[data-referent-open]')
+			if (openBtn) {
+				var id = openBtn.getAttribute('data-referent-open')
+				var dlg = id && document.getElementById(id)
+				if (dlg && dlg.showModal) {
+					dlg.classList.remove('referent-dialog--closing')
+					dlg.showModal()
+				}
+				return
+			}
+			var closeBtn = t.closest('[data-referent-close]')
+			if (closeBtn) {
+				var dlgClose = closeBtn.closest('.referent-dialog')
+				if (dlgClose) closeWithAnimation(dlgClose)
+				return
+			}
+			var dlgBackdrop = t.closest('[data-referent-dialog]')
+			if (
+				dlgBackdrop &&
+				t === dlgBackdrop &&
+				dlgBackdrop.classList.contains('referent-dialog')
+			) {
+				closeWithAnimation(dlgBackdrop)
+			}
+		})
+	})()
+</script>
+
+<style>
+	/* Dialog fuera del subtree con transform → fixed respecto al viewport */
+	.referent-dialog {
+		position: fixed;
+		inset: 0;
+		width: min(calc(100vw - 2rem), 26rem);
+		max-width: calc(100vw - 2rem);
+		max-height: min(90vh, 38rem);
+		margin: auto;
+		padding: 0;
+		border: 1px solid rgba(255, 255, 255, 0.12);
+		border-radius: 1.25rem;
+		background: #0d1117;
+		color: #fff;
+		box-shadow:
+			0 25px 50px -12px rgba(0, 0, 0, 0.65),
+			0 0 0 1px rgba(0, 229, 255, 0.06);
+		overflow: hidden;
+		opacity: 0;
+		transform: scale(0.94) translateY(12px);
+		transition:
+			opacity 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+			transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+	.referent-dialog[open] {
+		opacity: 1;
+		transform: scale(1) translateY(0);
+	}
+
+	@starting-style {
+		.referent-dialog[open] {
+			opacity: 0;
+			transform: scale(0.94) translateY(12px);
+		}
+	}
+
+	.referent-dialog.referent-dialog--closing {
+		opacity: 0;
+		transform: scale(0.96) translateY(8px);
+		pointer-events: none;
+	}
+
+	.referent-dialog::backdrop {
+		background: rgba(0, 0, 0, 0.72);
+		opacity: 0;
+		transition: opacity 0.28s ease;
+	}
+
+	.referent-dialog[open]::backdrop {
+		opacity: 1;
+	}
+
+	@starting-style {
+		.referent-dialog[open]::backdrop {
+			opacity: 0;
+		}
+	}
+
+	.referent-dialog.referent-dialog--closing::backdrop {
+		opacity: 0;
+		transition: opacity 0.26s ease;
+	}
+
+	.referent-dialog-panel {
+		padding: 1.5rem 1.5rem 1.75rem;
+		max-height: min(90vh, 38rem);
+		overflow-y: auto;
+	}
+
+	@media (min-width: 640px) {
+		.referent-dialog-panel {
+			padding: 1.75rem 2rem 2rem;
+		}
+	}
+
+	.referent-dialog-header {
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+		gap: 1rem;
+		padding-bottom: 1.25rem;
+		margin-bottom: 1.25rem;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+	}
+
+	.referent-dialog-identity {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		min-width: 0;
+		flex: 1;
+	}
+
+	.referent-dialog-avatar {
+		width: 5.5rem;
+		height: 5.5rem;
+		border-radius: 1rem;
+		object-fit: cover;
+		border: 2px solid #f97316;
+		flex-shrink: 0;
+		box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+	}
+
+	.referent-dialog-titles {
+		min-width: 0;
+		text-align: left;
+	}
+
+	.referent-dialog-name {
+		margin: 0;
+		font-size: 1.375rem;
+		font-weight: 700;
+		line-height: 1.2;
+		letter-spacing: -0.02em;
+	}
+
+	.referent-dialog-role {
+		margin: 0.35rem 0 0;
+		font-size: 0.875rem;
+		font-weight: 600;
+		color: #7dd3fc;
+	}
+
+	.referent-dialog-close-wrap {
+		margin: 0;
+		padding: 0;
+		flex-shrink: 0;
+	}
+
+	.referent-dialog-close {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 2.25rem;
+		height: 2.25rem;
+		border: none;
+		border-radius: 9999px;
+		background: rgba(239, 68, 68, 0.95);
+		color: #fff;
+		font-size: 1.35rem;
+		line-height: 1;
+		cursor: pointer;
+		transition: background 0.15s ease, transform 0.15s ease;
+	}
+
+	.referent-dialog-close:hover {
+		background: #dc2626;
+		transform: scale(1.05);
+	}
+
+	.referent-dialog-bio {
+		margin: 0;
+		font-size: 0.9375rem;
+		line-height: 1.65;
+		color: #d1d5db;
+		text-align: left;
+	}
+
+	.referent-dialog-actions {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.5rem;
+		margin-top: 1.5rem;
+		padding-top: 1.25rem;
+		border-top: 1px solid rgba(255, 255, 255, 0.08);
+	}
+
+	.referent-dialog-btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0.5rem 1rem;
+		font-size: 0.8125rem;
+		font-weight: 600;
+		border-radius: 0.625rem;
+		text-decoration: none;
+		transition:
+			background 0.15s ease,
+			border-color 0.15s ease,
+			color 0.15s ease;
+	}
+
+	.referent-dialog-btn--primary {
+		background: linear-gradient(135deg, #ff6900, #ea580c);
+		color: #fff;
+		border: 1px solid transparent;
+	}
+
+	.referent-dialog-btn--primary:hover {
+		filter: brightness(1.08);
+	}
+
+	.referent-dialog-btn--ghost {
+		background: rgba(255, 255, 255, 0.06);
+		color: #e5e7eb;
+		border: 1px solid rgba(255, 255, 255, 0.12);
+	}
+
+	.referent-dialog-btn--ghost:hover {
+		border-color: rgba(0, 229, 255, 0.35);
+		color: #fff;
+		background: rgba(0, 229, 255, 0.08);
+	}
+</style>

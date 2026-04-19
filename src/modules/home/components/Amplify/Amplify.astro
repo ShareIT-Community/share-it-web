@@ -1,90 +1,101 @@
 ---
-import MemberCard from "./MemberCard.astro";
+import MemberCard from './MemberCard.astro'
 
 const members = [
   {
-    name: "Virginia García",
-    role: "Analista Funcional",
-    photo: "/images/Virginia.jpg",
-    description: "Amplify me ayudó mucho con mi marca personal no solo el perder el miedo a publicar contenido sino también a tener ideas. En este grupo así como otros se puede ver día a día el lema de ShareIT \"Nadie despega solo\", porque si bien el crecimiento de la marca es personal, nos apoyamos todos para lograrlo!",
-    linkedin: "https://www.linkedin.com/in/garcia-virginia",
-    twitter: "https://x.com/virgini52904211",
+    name: 'Virginia García',
+    role: 'Analista Funcional',
+    photo: '/images/Virginia.webp',
+    description:
+      'Amplify me ayudó mucho con mi marca personal no solo el perder el miedo a publicar contenido sino también a tener ideas. En este grupo así como otros se puede ver día a día el lema de ShareIT "Nadie despega solo", porque si bien el crecimiento de la marca es personal, nos apoyamos todos para lograrlo!',
+    linkedin: 'https://www.linkedin.com/in/garcia-virginia',
+    twitter: 'https://x.com/virgini52904211',
   },
   {
-    name: "Nicolas Sena",
-    role: "Software Developer",
-    photo: "/images/Nicolas.jpg",
-    description: "Amplify es un espacio donde compartir posteos entre colegas mejoró notablemente mi forma de expresarme permitiéndome capturar mayor público y atraer propuestas laborales, además de conocer excelentes personas siempre dispuestas a darte una mano.",
-    linkedin: "https://www.linkedin.com/in/nicosena10",
-    github: "https://github.com/niic0o",
+    name: 'Nicolas Sena',
+    role: 'Software Developer',
+    photo: '/images/Nicolas.webp',
+    description:
+      'Amplify es un espacio donde compartir posteos entre colegas mejoró notablemente mi forma de expresarme permitiéndome capturar mayor público y atraer propuestas laborales, además de conocer excelentes personas siempre dispuestas a darte una mano.',
+    linkedin: 'https://www.linkedin.com/in/nicosena10',
+    github: 'https://github.com/niic0o',
   },
   {
-    name: "Santiago Avilez",
-    role: "Full Stack Engineer",
-    photo: "/images/Santiago.jpg",
-    description: "Amplify me ayudó a darle más visibilidad a lo que hago y a animarme a compartir con más constancia. Estoy rodeado de gente en la misma sintonía, que suma, empuja y te eleva. Es un espacio que todos los días me motiva a seguir creando y mejorando.",
-    linkedin: "https://www.linkedin.com/in/santiago-avilez-ariza",
-    github: "https://github.com/santiagoavilez",
-    twitter: "https://x.com/santi_avilezdev",
+    name: 'Santiago Avilez',
+    role: 'Full Stack Engineer',
+    photo: '/images/Santiago.webp',
+    description:
+      'Amplify me ayudó a darle más visibilidad a lo que hago y a animarme a compartir con más constancia. Estoy rodeado de gente en la misma sintonía, que suma, empuja y te eleva. Es un espacio que todos los días me motiva a seguir creando y mejorando.',
+    linkedin: 'https://www.linkedin.com/in/santiago-avilez-ariza',
+    github: 'https://github.com/santiagoavilez',
+    twitter: 'https://x.com/santi_avilezdev',
   },
   {
-    name: "Javier Schettini",
-    role: "Full Stack Developer",
-    photo: "/images/Javier.jpg",
-    description: "Amplify me brindó el apoyo que necesitaba para dar el salto de publicar en redes, además de ser un lugar propicio para dar y recibir feedback acerca de las publicaciones y pensar estrategias conjuntas de visibilidad.",
-    linkedin: "https://www.linkedin.com/in/javier-schettini/",
-    github: "https://github.com/schjavier/",
+    name: 'Javier Schettini',
+    role: 'Full Stack Developer',
+    photo: '/images/Javier.webp',
+    description:
+      'Amplify me brindó el apoyo que necesitaba para dar el salto de publicar en redes, además de ser un lugar propicio para dar y recibir feedback acerca de las publicaciones y pensar estrategias conjuntas de visibilidad.',
+    linkedin: 'https://www.linkedin.com/in/javier-schettini/',
+    github: 'https://github.com/schjavier/',
   },
-];
+]
 ---
 
-<section class="mb-16">
-  <div class="mb-8 text-center px-4">
-    <h2 class="text-3xl md:text-4xl font-bold mb-4 text-white">
-      <span class="section-heading__accent">Amplify</span> – Marca Personal
+<section>
+  <div class='mb-8 text-center px-4'>
+    <h2 class='text-3xl md:text-4xl font-bold mb-4 text-white'>
+      <span class='section-heading__accent'>Amplify</span> – Donde tu marca <span
+        class='text-[#00e5ff]'>Crece</span
+      >
     </h2>
-    <p class="text-gray-400 max-w-2xl mx-auto text-lg">
-      Amplify es el espacio de la comunidad donde construimos y potenciamos nuestra presencia profesional en redes.
+    <p class='text-gray-400 max-w-2xl mx-auto text-lg'>
+      Amplify es el espacio de la comunidad donde construimos y potenciamos
+      nuestra presencia profesional en redes.
     </p>
-    <p class="text-gray-400 max-w-2xl mx-auto text-lg mt-8">
-      Aquí compartimos publicaciones para recibir apoyo y feedback, revisamos perfiles profesionales, planificamos contenido y trabajamos nuestra marca personal a nuestro ritmo, aprendiendo de quienes crean de forma consistente.
+    <p class='text-gray-400 max-w-2xl mx-auto text-lg mt-8'>
+      Aquí compartimos publicaciones para recibir apoyo y feedback, revisamos
+      perfiles profesionales, planificamos contenido y trabajamos nuestra marca
+      personal a nuestro ritmo, aprendiendo de quienes crean de forma
+      consistente.
     </p>
-    <p class="text-gray-400 max-w-2xl mx-auto text-lg mt-8">
-      Estos son algunos de los perfiles que se han potenciado al participar de esta dinámica
+    <p class='text-gray-400 max-w-2xl mx-auto text-lg mt-8'>
+      Estos son algunos de los perfiles que se han potenciado al participar de
+      esta dinámica
     </p>
   </div>
 
- 
-  <div class="slider-wrapper px-4">
-    <div class="slider-track" id="sliderTrack">
-      {members.map((member) => (
-        <div class="slider-slide">
-          <MemberCard {...member} />
-        </div>
-      ))}
+  <div class='slider-wrapper px-4'>
+    <div class='slider-track' id='sliderTrack'>
+      {
+        members.map((member) => (
+          <div class='slider-slide'>
+            <MemberCard {...member} />
+          </div>
+        ))
+      }
     </div>
   </div>
 
   <!-- Dots de navegación -->
-  <div class="slider-dots" id="sliderDots">
-    {members.map((_, i) => (
-      <button
-        class={`dot ${i === 0 ? "dot--active" : ""}`}
-        data-index={i}
-        aria-label={`Ir al integrante ${i + 1}`}
-      />
-    ))}
+  <div class='slider-dots' id='sliderDots'>
+    {
+      members.map((_, i) => (
+        <button
+          class={`dot ${i === 0 ? 'dot--active' : ''}`}
+          data-index={i}
+          aria-label={`Ir al integrante ${i + 1}`}
+        />
+      ))
+    }
   </div>
 </section>
-
-
-
-
 
 <style>
   .slider-wrapper {
     overflow: hidden;
     cursor: grab;
+    touch-action: pan-y;
   }
 
   .slider-wrapper:active {
@@ -93,7 +104,7 @@ const members = [
 
   .slider-track {
     display: flex;
-    gap: 0.90rem;
+    gap: 0.9rem;
     transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: transform;
     user-select: none;
@@ -145,7 +156,9 @@ const members = [
     background-color: rgba(255, 255, 255, 0.25);
     border: none;
     cursor: pointer;
-    transition: background-color 0.3s ease, width 0.3s ease;
+    transition:
+      background-color 0.3s ease,
+      width 0.3s ease;
     padding: 0;
   }
 
@@ -160,161 +173,167 @@ const members = [
 </style>
 
 <script>
-  type Cleanup = () => void;
+  type Cleanup = () => void
 
-  let amplifySliderCleanup: Cleanup | undefined;
+  let amplifySliderCleanup: Cleanup | undefined
 
   function initAmplifySlider() {
-    amplifySliderCleanup?.();
-    amplifySliderCleanup = undefined;
+    amplifySliderCleanup?.()
+    amplifySliderCleanup = undefined
 
-    const track = document.getElementById("sliderTrack") as HTMLElement | null;
-    const dotsContainer = document.getElementById("sliderDots") as HTMLElement | null;
-    if (!track || !dotsContainer) return;
+    const track = document.getElementById('sliderTrack') as HTMLElement | null
+    const dotsContainer = document.getElementById(
+      'sliderDots',
+    ) as HTMLElement | null
+    if (!track || !dotsContainer) return
 
-    const dots = dotsContainer.querySelectorAll<HTMLButtonElement>(".dot");
-    const totalSlides = dots.length;
-    if (totalSlides === 0) return;
+    const dots = dotsContainer.querySelectorAll<HTMLButtonElement>('.dot')
+    const totalSlides = dots.length
+    if (totalSlides === 0) return
 
-    let currentIndex = 0;
-    let isDragging = false;
-    let startX = 0;
-    let currentTranslate = 0;
-    let prevTranslate = 0;
+    let currentIndex = 0
+    let isDragging = false
+    let startX = 0
+    let currentTranslate = 0
+    let prevTranslate = 0
 
     function getVisibleCount(): number {
-      return window.innerWidth >= 1024 ? 3 : 1;
+      return window.innerWidth >= 1024 ? 3 : 1
     }
 
     function maxIndex(): number {
-      return Math.max(0, totalSlides - getVisibleCount());
+      return Math.max(0, totalSlides - getVisibleCount())
     }
 
     function getSlideWidth(): number {
-      const firstSlide = track!.children[0] as HTMLElement;
-      return firstSlide ? firstSlide.offsetWidth + 12 : 0;
+      const firstSlide = track!.children[0] as HTMLElement
+      if (!firstSlide) return 0
+      const gap = parseFloat(window.getComputedStyle(track!).gap) || 0
+      return firstSlide.offsetWidth + gap
     }
 
     function setSliderPosition() {
-      track!.style.transform = `translateX(${currentTranslate}px)`;
+      track!.style.transform = `translateX(${currentTranslate}px)`
     }
 
     function updateDots() {
       dots.forEach((dot, i) => {
-        dot.classList.toggle("dot--active", i === currentIndex);
-      });
+        dot.classList.toggle('dot--active', i === currentIndex)
+      })
     }
 
     function goTo(index: number, animate = true) {
-      currentIndex = Math.min(Math.max(index, 0), maxIndex());
-      currentTranslate = currentIndex * -getSlideWidth();
-      prevTranslate = currentTranslate;
+      currentIndex = Math.min(Math.max(index, 0), maxIndex())
+      currentTranslate = currentIndex * -getSlideWidth()
+      prevTranslate = currentTranslate
 
       if (animate) {
-        track!.style.transition = "transform 0.45s cubic-bezier(0.4, 0, 0.2, 1)";
+        track!.style.transition = 'transform 0.45s cubic-bezier(0.4, 0, 0.2, 1)'
       } else {
-        track!.style.transition = "none";
+        track!.style.transition = 'none'
       }
 
-      setSliderPosition();
-      updateDots();
+      setSliderPosition()
+      updateDots()
     }
 
     function onDragStart(clientX: number) {
-      isDragging = true;
-      startX = clientX;
-      track!.style.transition = "none";
+      isDragging = true
+      startX = clientX
+      track!.style.transition = 'none'
     }
 
     function onDragMove(clientX: number) {
-      if (!isDragging) return;
-      const diff = clientX - startX;
-      currentTranslate = prevTranslate + diff;
+      if (!isDragging) return
+      const diff = clientX - startX
+      currentTranslate = prevTranslate + diff
 
-      const minTranslate = -maxIndex() * getSlideWidth();
+      const minTranslate = -maxIndex() * getSlideWidth()
       if (currentTranslate > 0) {
-        currentTranslate = currentTranslate / 3;
+        currentTranslate = currentTranslate / 3
       } else if (currentTranslate < minTranslate) {
-        currentTranslate = minTranslate + (currentTranslate - minTranslate) / 3;
+        currentTranslate = minTranslate + (currentTranslate - minTranslate) / 3
       }
 
-      setSliderPosition();
+      setSliderPosition()
     }
 
     function onDragEnd() {
-      if (!isDragging) return;
-      isDragging = false;
+      if (!isDragging) return
+      isDragging = false
 
-      const movedBy = currentTranslate - prevTranslate;
-      const threshold = getSlideWidth() / 6;
+      const movedBy = currentTranslate - prevTranslate
+      const threshold = getSlideWidth() / 6
 
       if (movedBy < -threshold && currentIndex < maxIndex()) {
-        currentIndex += 1;
+        currentIndex += 1
       } else if (movedBy > threshold && currentIndex > 0) {
-        currentIndex -= 1;
+        currentIndex -= 1
       }
 
-      goTo(currentIndex);
+      goTo(currentIndex)
     }
 
     const onTrackMouseDown = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      if (target.closest("a") || target.closest("button")) return;
-      e.preventDefault();
-      onDragStart(e.clientX);
-    };
+      const target = e.target as HTMLElement
+      if (target.closest('a') || target.closest('button')) return
+      e.preventDefault()
+      onDragStart(e.clientX)
+    }
 
-    const onWindowMouseMove = (e: MouseEvent) => onDragMove(e.clientX);
+    const onWindowMouseMove = (e: MouseEvent) => onDragMove(e.clientX)
 
     const onTrackTouchStart = (e: Event) => {
-      const te = e as TouchEvent;
-      const target = te.target as HTMLElement;
-      if (target.closest("a") || target.closest("button")) return;
-      onDragStart(te.touches[0].clientX);
-    };
+      const te = e as TouchEvent
+      const target = te.target as HTMLElement
+      if (target.closest('a') || target.closest('button')) return
+      onDragStart(te.touches[0].clientX)
+    }
 
     const onTrackTouchMove = (e: Event) => {
-      if (!isDragging) return;
-      const te = e as TouchEvent;
-      onDragMove(te.touches[0].clientX);
-    };
+      if (!isDragging) return
+      const te = e as TouchEvent
+      onDragMove(te.touches[0].clientX)
+    }
 
     const onResize = () => {
-      goTo(Math.min(currentIndex, maxIndex()), false);
-    };
+      goTo(Math.min(currentIndex, maxIndex()), false)
+    }
 
-    track.addEventListener("mousedown", onTrackMouseDown);
-    window.addEventListener("mousemove", onWindowMouseMove);
-    window.addEventListener("mouseup", onDragEnd);
+    track.addEventListener('mousedown', onTrackMouseDown)
+    window.addEventListener('mousemove', onWindowMouseMove)
+    window.addEventListener('mouseup', onDragEnd)
 
-    const touchOpts: AddEventListenerOptions = { passive: true };
-    track.addEventListener("touchstart", onTrackTouchStart, touchOpts);
-    track.addEventListener("touchmove", onTrackTouchMove, touchOpts);
-    track.addEventListener("touchend", onDragEnd);
+    const touchOpts: AddEventListenerOptions = { passive: true }
+    track.addEventListener('touchstart', onTrackTouchStart, touchOpts)
+    track.addEventListener('touchmove', onTrackTouchMove, touchOpts)
+    track.addEventListener('touchend', onDragEnd)
+    track.addEventListener('touchcancel', onDragEnd)
 
-    const dotHandlers: Array<{ el: HTMLButtonElement; fn: () => void }> = [];
+    const dotHandlers: Array<{ el: HTMLButtonElement; fn: () => void }> = []
     dots.forEach((dot) => {
-      const fn = () => goTo(Number(dot.dataset.index));
-      dot.addEventListener("click", fn);
-      dotHandlers.push({ el: dot, fn });
-    });
+      const fn = () => goTo(Number(dot.dataset.index))
+      dot.addEventListener('click', fn)
+      dotHandlers.push({ el: dot, fn })
+    })
 
-    window.addEventListener("resize", onResize);
+    window.addEventListener('resize', onResize)
 
-    goTo(0, false);
+    goTo(0, false)
 
     amplifySliderCleanup = () => {
-      track.removeEventListener("mousedown", onTrackMouseDown);
-      window.removeEventListener("mousemove", onWindowMouseMove);
-      window.removeEventListener("mouseup", onDragEnd);
-      track.removeEventListener("touchstart", onTrackTouchStart, touchOpts);
-      track.removeEventListener("touchmove", onTrackTouchMove, touchOpts);
-      track.removeEventListener("touchend", onDragEnd);
-      window.removeEventListener("resize", onResize);
-      dotHandlers.forEach(({ el, fn }) => el.removeEventListener("click", fn));
-    };
+      track.removeEventListener('mousedown', onTrackMouseDown)
+      window.removeEventListener('mousemove', onWindowMouseMove)
+      window.removeEventListener('mouseup', onDragEnd)
+      track.removeEventListener('touchstart', onTrackTouchStart, touchOpts)
+      track.removeEventListener('touchmove', onTrackTouchMove, touchOpts)
+      track.removeEventListener('touchend', onDragEnd)
+      track.removeEventListener('touchcancel', onDragEnd)
+      window.removeEventListener('resize', onResize)
+      dotHandlers.forEach(({ el, fn }) => el.removeEventListener('click', fn))
+    }
   }
 
-  document.addEventListener("astro:page-load", initAmplifySlider);
-  initAmplifySlider();
+  document.addEventListener('astro:page-load', initAmplifySlider)
+  initAmplifySlider()
 </script>

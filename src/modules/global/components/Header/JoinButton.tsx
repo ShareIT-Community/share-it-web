@@ -1,6 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { lazy, Suspense, useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { EntryForm } from 'src/modules/home/components/EntryForm/EntryForm';
+
+const EntryForm = lazy(() =>
+	import('../../../home/components/EntryForm/EntryForm').then((m) => ({
+		default: m.EntryForm,
+	})),
+);
 
 export const JoinButton: React.FC = () => {
 	const [isFormOpen, setIsFormOpen] = useState(false);
@@ -16,8 +21,9 @@ export const JoinButton: React.FC = () => {
 	return (
 		<>
 			<button
+				type="button"
 				onClick={() => setIsFormOpen(true)}
-				className="flex items-center justify-center gap-2 w-full md:w-auto px-4 py-2 rounded-md bg-orange-500 text-white font-semibold hover:opacity-90 transition-all cursor-pointer"
+				className="flex items-center justify-center gap-2 w-full md:w-auto min-h-[44px] px-4 py-2 rounded-md bg-orange-500 text-white font-semibold hover:opacity-90 transition-all cursor-pointer"
 			>
 				<span>Únete</span>
 
@@ -32,9 +38,16 @@ export const JoinButton: React.FC = () => {
 
 			{isFormOpen && typeof window !== 'undefined'
 				? createPortal(
-						<section className="left-0 top-0 backdrop-blur-3xl flex justify-center items-center rounded fixed h-[100dvh] w-[100vw] z-[999] shadow">
+						<section
+							className="left-0 top-0 backdrop-blur-3xl flex justify-center items-center rounded fixed h-[100dvh] w-[100vw] z-[999] shadow"
+							role="dialog"
+							aria-modal="true"
+							aria-labelledby="entry-form-title"
+						>
 							<div className="bg-white-5 rounded-lg shadow-lg">
-								<EntryForm onClose={() => setIsFormOpen(false)} />
+								<Suspense fallback={null}>
+									<EntryForm onClose={() => setIsFormOpen(false)} />
+								</Suspense>
 							</div>
 						</section>,
 						document.body

@@ -1,0 +1,47 @@
+<section class='py-16 md:py-24 bg-gray-900/30'>
+  <div class='max-w-4xl mx-auto px-6'>
+    <h2 class='text-4xl font-bold text-white mb-10 text-center md:text-left'>
+      <span class='section-heading__accent_doble'>Nuestra</span>
+      <span class='text-[#00e5ff]'>Cultura</span>
+    </h2>
+
+    <div class='grid md:grid-cols-2 gap-8 text-lg'>
+      <div class='space-y-6'>
+        <p class='text-gray-300'>
+          En ShareIT valoramos más la <span
+            class='text-white font-semibold underline decoration-[#ff6900] underline-offset-4'
+            >actitud</span
+          > que el currículum:
+        </p>
+        <ul class='space-y-4 text-gray-400'>
+          {
+            [
+              'Creemos en la colaboración por encima del ego.',
+              'Valoramos la presencia y la participación, incluso en lo cotidiano.',
+              'Fomentamos un ambiente respetuoso, sin competitividad innecesaria.',
+              'Esperamos que cada persona contribuya al crecimiento colectivo.',
+            ].map((item) => (
+              <li class='flex items-center gap-3'>
+                <div class='w-2 h-2 rounded-full bg-[#ff6900]' />
+                <span>{item}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div
+        class='bg-[#0a0f1d]/40 border border-white/5 p-8 rounded-2xl flex flex-col justify-center items-center text-center'
+      >
+        <p class='text-white text-xl mb-4 italic'>
+          Este no es un espacio para observar desde afuera.
+        </p>
+        <p class='text-[#00e5ff] text-2xl font-bold'>
+          Es un espacio para construir, compartir y estar presente.
+        </p>
+        <p class='mt-6 text-[#ff6900] font-black text-3xl tracking-wider'>
+          PORQUE NADIE DESPEGA SOLO 🚀
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

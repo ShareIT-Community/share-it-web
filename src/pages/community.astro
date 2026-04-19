@@ -3,7 +3,9 @@ import Layout from 'src/modules/global/layouts/Layout.astro'
 import Events from 'src/modules/resources/components/Events.astro'
 import UpcomingEventCard from 'src/modules/resources/components/UpcomingEventCard.astro'
 import DiscordGroupCard from 'src/modules/community/components/DiscordGroupCard.astro'
+import SectionDivider from 'src/modules/home/components/SectionDivider.astro'
 import { whatsappGroups } from 'src/modules/global/constants/channels.const'
+import { getGroupReferentsByIds } from 'src/modules/community/constants/group-referents.const'
 import { COMMUNITY_RULES } from 'src/modules/global/constants/rules.const'
 import { EVENTS } from 'src/modules/global/constants/events.const'
 import { getGroupedEvents } from 'src/modules/global/utils/events.utils'
@@ -12,202 +14,267 @@ const { upcomingCommunity, pastCommunity, upcomingLearning, pastLearning } =
   getGroupedEvents(EVENTS)
 ---
 
-<Layout title='ShareIT - Comunidad'>
-  <section class='text-center py-10 mb-6'>
-    <h1 class='text-4xl font-bold text-center mb-8 text-white'>
-      Bienvenido a la comunidad
-    </h1>
-    <p class='text-gray-400 max-w-xl mx-auto text-lg'>
-      Todo lo que necesitás saber para ser parte activa de ShareIT: nuestros
-      canales, las reglas de convivencia y los próximos eventos.
-    </p>
-  </section>
-  <section class='pb-10 mb-16' id='canales'>
-    <div class='flex items-center gap-3 mt-6 mb-8'>
-      <span class='text-2xl'>💬</span>
-      <h2 class='text-3xl font-bold text-white'>
-        <span class='section-heading__accent'>Grupos</span> de WhatsApp
-      </h2>
-    </div>
-
-    <div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6'>
-      {
-        whatsappGroups
-          .sort((a, b) => a.order - b.order)
-          .map((group, index) => (
-            <DiscordGroupCard
-              index={index}
-              title={group.title}
-              description={group.description}
-              icon={group.icon}
-              image={group.image}
-            />
-          ))
-      }
+<Layout title='Comunidad | ShareIT' fullWidth={true}>
+  <section class='relative py-20 px-4 overflow-hidden'>
+    <div class='max-w-4xl mx-auto relative z-10 text-center'>
+      <h1
+        class='text-5xl md:text-6xl font-extrabold mb-8 text-white tracking-tight'
+      >
+        Nuestra <span class='text-[#00e5ff]'>Comunidad</span>
+      </h1>
+      <p class='text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed'>
+        Todo lo que necesitás saber para ser parte activa de ShareIT: nuestros
+        canales, las reglas de convivencia y los próximos eventos.
+      </p>
     </div>
   </section>
 
-  <div class='border-t border-gray-800 mb-16'></div>
+  <main class='bg-gray-900'>
+    <section id='canales'>
+      <div class='container mx-auto px-6 max-w-6xl'>
+        <div class='text-center mb-16'>
+          <h2 class='text-4xl font-bold text-white'>
+            <span class='section-heading__accent_doble'>Grupos</span> de <span
+              class='text-[#ff6900]'>WhatsApp</span
+            >
+          </h2>
+          <p class='text-gray-400 mt-4 text-lg'>
+            Únete a los espacios donde sucede la magia día a día.
+          </p>
+        </div>
 
-  <!-- REGLAS -->
-  <section class='mb-16' id='reglas'>
-    <div class='flex items-center gap-3 mb-2'>
-      <span class='text-2xl'>📋</span>
-      <h2 class='text-3xl font-bold text-white'>
-        <span class='section-heading__accent'>Reglas</span> de convivencia
-      </h2>
-    </div>
-    <p class='text-gray-400 mb-8 ml-1'>
-      Para mantener un espacio sano, respetuoso y productivo para todos.
-    </p>
+        <div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8'>
+          {
+            whatsappGroups
+              .sort((a, b) => a.order - b.order)
+              .map((group, index) => (
+                <DiscordGroupCard
+                  index={index}
+                  title={group.title}
+                  description={group.description}
+                  icon={group.icon}
+                  image={group.image}
+                  referents={getGroupReferentsByIds(group.referrals)}
+                />
+              ))
+          }
+        </div>
+      </div>
+    </section>
 
-    <div class='grid grid-cols-1 sm:grid-cols-2 gap-6'>
-      {
-        COMMUNITY_RULES.map((rule) => (
-          <div class='group p-6 flex items-start gap-4 bg-gray-800/40 border border-gray-700/60 rounded-2xl transition-all duration-200 hover:border-gray-600 hover:scale-[1.02]'>
-            <div class='text-2xl font-extrabold text-gray-700 group-hover:text-white shrink-0 leading-none pt-0.5 select-none transition-colors duration-200'>
-              {rule.number}
+    <SectionDivider />
+
+    <!-- REGLAS -->
+    <section class='py-20 md:py-32 bg-gray-900/30' id='reglas'>
+      <div class='container mx-auto px-6 max-w-5xl'>
+        <div class='text-center mb-16'>
+          <h2 class='text-4xl font-bold text-white mb-4'>
+            <span class='section-heading__accent_doble'>Reglas</span> de <span
+              class='text-[#00e5ff]'>Convivencia</span
+            >
+          </h2>
+          <p class='text-xl text-gray-400 max-w-2xl mx-auto'>
+            Para mantener un espacio sano, respetuoso y productivo para todos.
+          </p>
+        </div>
+
+        <div
+          class='flex overflow-x-auto snap-x snap-mandatory sm:grid sm:grid-cols-2 gap-6 sm:gap-8 pb-8 -mx-6 px-6 sm:mx-0 sm:px-0 sm:pb-0 custom-scrollbar'
+        >
+          {
+            COMMUNITY_RULES.map((rule) => (
+              <div class='snap-center shrink-0 w-[85vw] sm:w-auto group relative p-8 bg-[#0a0f1d]/60 border border-white/5 rounded-3xl transition-all duration-500 hover:shadow-[0_0_40px_rgba(255,105,0,0.08)] hover:-translate-y-1 backdrop-blur-md overflow-hidden'>
+                <div class='absolute -right-10 -bottom-10 w-32 h-32 bg-[#ff6900]/5 rounded-full blur-2xl group-hover:bg-[#ff6900]/10 transition-colors' />
+
+                <div class='relative z-10 flex items-start gap-6'>
+                  <div class='text-5xl font-black text-white/5 group-hover:text-[#ff6900]/20 shrink-0 leading-none select-none transition-colors duration-500'>
+                    {rule.number}
+                  </div>
+                  <div>
+                    <h3 class='text-xl font-bold text-white mb-2 group-hover:text-[#ff6900] transition-colors'>
+                      {rule.title}
+                    </h3>
+                    <p class='text-gray-400 text-lg leading-relaxed'>
+                      {rule.description}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+
+        <div
+          class='flex justify-end items-center sm:hidden animate-pulse mb-8 pr-2 gap-2 text-[#00e5ff] text-sm font-medium opacity-80'
+        >
+          Desliza para ver más <i class='fa-solid fa-arrow-right-long'></i>
+        </div>
+
+        <div class='mt-8 sm:mt-16 flex justify-center'>
+          <a
+            href='/rules'
+            class='group relative px-10 py-4 bg-[#ff6900] text-white font-bold rounded-2xl transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(255,105,0,0.4)] overflow-hidden'
+          >
+            <span class='relative z-10 flex items-center gap-2'>
+              Ver reglas completas <i class='fa-solid fa-arrow-right text-sm'
+              ></i>
+            </span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <SectionDivider />
+
+    <section class='py-20 md:py-32' id='eventos'>
+      <div class='container mx-auto px-6 max-w-5xl'>
+        <div class='text-center mb-16'>
+          <h2 class='text-4xl font-bold text-white mb-4'>
+            <span class='section-heading__accent_doble'>Eventos</span> y <span
+              class='text-[#00e5ff]'>Workshops</span
+            >
+          </h2>
+          <p class='text-xl text-gray-400 max-w-2xl mx-auto'>
+            Explora nuestros encuentros comunitarios y espacios de aprendizaje.
+          </p>
+        </div>
+
+        <!-- Tabs Header -->
+        <div class='flex justify-center mb-12'>
+          <div
+            class='inline-flex p-1.5 bg-white/5 border border-white/10 rounded-2xl backdrop-blur-md'
+          >
+            <button
+              id='btn-tab-community'
+              class='tab-btn px-8 py-3 rounded-xl text-md font-bold transition-all duration-300 bg-[#00e5ff] text-[#0a0f1d] shadow-xl shadow-[#00e5ff]/20'
+              data-tab='community'
+            >
+              Comunidad
+            </button>
+            <button
+              id='btn-tab-learning'
+              class='tab-btn px-8 py-3 rounded-xl text-md font-bold transition-all duration-300 text-gray-400 hover:text-white'
+              data-tab='learning'
+            >
+              Workshops
+            </button>
+          </div>
+        </div>
+
+        <div class='relative min-h-[400px]'>
+          <!-- Tab Content: COMMUNITY -->
+          <div
+            id='tab-community'
+            class='space-y-16 block transition-all duration-500 animate-fadeIn'
+          >
+            <div
+              class='bg-[#1d2c49]/10 border border-[#314aa9]/10 rounded-3xl p-8 md:p-12'
+            >
+              <h3
+                class='text-2xl font-bold text-white mb-8 flex items-center gap-4'
+              >
+                <div
+                  class='w-3 h-3 rounded-full bg-[#00e5ff] shadow-[0_0_15px_#00e5ff]'
+                >
+                </div>
+                Próximos Encuentros
+              </h3>
+
+              {
+                upcomingCommunity.length === 0 ? (
+                  <p class='text-gray-500 italic text-center py-10 bg-[#0a0f1d]/40 rounded-2xl border border-white/5'>
+                    No hay encuentros programados por ahora. ¡Vuelve pronto!
+                  </p>
+                ) : (
+                  <div class='space-y-6'>
+                    {upcomingCommunity.map((event) => (
+                      <div class='transform transition-all hover:scale-[1.01]'>
+                        <UpcomingEventCard event={event} />
+                      </div>
+                    ))}
+                  </div>
+                )
+              }
             </div>
+
+            {
+              pastCommunity.length > 0 && (
+                <div>
+                  <h3 class='text-2xl font-bold text-white mb-8 px-4'>
+                    Recientes
+                  </h3>
+                  <div class='bg-gray-900/40 rounded-3xl p-8 border border-white/5'>
+                    <Events events={pastCommunity} />
+                  </div>
+                </div>
+              )
+            }
+          </div>
+
+          <!-- Tab Content: LEARNING -->
+          <div
+            id='tab-learning'
+            class='space-y-16 hidden transition-all duration-500 animate-fadeIn'
+          >
+            <div
+              class='bg-[#ff6900]/5 border border-[#ff6900]/10 rounded-3xl p-8 md:p-12'
+            >
+              <h3
+                class='text-2xl font-bold text-white mb-8 flex items-center gap-4'
+              >
+                <div
+                  class='w-3 h-3 rounded-full bg-[#ff6900] shadow-[0_0_15px_#ff6900]'
+                >
+                </div>
+                Próximas Sesiones
+              </h3>
+
+              {
+                upcomingLearning.length === 0 ? (
+                  <p class='text-gray-500 italic text-center py-10 bg-[#0a0f1d]/40 rounded-2xl border border-white/5'>
+                    No hay workshops próximos. ¡Mira nuestro historial!
+                  </p>
+                ) : (
+                  <div class='space-y-6'>
+                    {upcomingLearning.map((event) => (
+                      <div class='transform transition-all hover:scale-[1.01]'>
+                        <UpcomingEventCard event={event} showProximo={true} />
+                      </div>
+                    ))}
+                  </div>
+                )
+              }
+            </div>
+
             <div>
-              <h3 class='font-semibold text-white mb-1'>{rule.title}</h3>
-              <p class='text-gray-400 text-sm'>{rule.description}</p>
+              <h3 class='text-2xl font-bold text-white mb-8 px-4'>
+                Workshops Anteriores
+              </h3>
+              <div class='bg-gray-900/40 rounded-3xl p-8 border border-white/5'>
+                <Events events={pastLearning} />
+              </div>
             </div>
           </div>
-        ))
-      }
-    </div>
+        </div>
 
-    <div class='mt-8 flex justify-center'>
-      <a
-        href='/rules'
-        class='inline-flex items-center p-6 gap-2 border border-gray-600 hover:border-primary text-gray-300 hover:text-primary font-medium px-7 py-3 rounded-full transition-all duration-200 hover:-translate-y-0.5'
-      >
-        Ver reglas completas →
-      </a>
-    </div>
-  </section>
-
-  <div class='border-t border-gray-800 mb-16'></div>
-
-  <section class='mb-12' id='eventos'>
-    <div class='flex items-center gap-3 mb-2'>
-      <span class='text-2xl'>🗓️</span>
-      <h2 class='text-3xl font-bold text-white'>
-        <span class='section-heading__accent'>Eventos</span> y Workshops
-      </h2>
-    </div>
-    <p class='text-gray-400 mb-8 ml-1'>
-      Explora nuestros encuentros comunitarios y espacios de aprendizaje.
-    </p>
-
-    <!-- Tabs Header -->
-    <div
-      class='flex flex-wrap justify-center gap-2 mb-10 p-1 bg-gray-900/50 border border-gray-800 rounded-2xl w-fit mx-auto'
-    >
-      <button
-        id='btn-tab-community'
-        class='tab-btn px-6 py-2.5 rounded-xl text-sm font-bold transition-all duration-300 bg-primary text-white shadow-lg shadow-primary/20'
-        data-tab='community'
-      >
-        Comunidad
-      </button>
-      <button
-        id='btn-tab-learning'
-        class='tab-btn px-6 py-2.5 rounded-xl text-sm font-bold transition-all duration-300 text-gray-400 hover:text-white hover:bg-gray-800'
-        data-tab='learning'
-      >
-        Workshops
-      </button>
-    </div>
-
-    <!-- Tab Content: COMMUNITY -->
-    <div
-      id='tab-community'
-      class='space-y-12 block transition-opacity duration-300'
-    >
-      <div>
-        <h3 class='text-xl font-bold text-white mb-6 flex items-center gap-2'>
-          <span class='w-2 h-2 rounded-full bg-primary'></span>
-          Próximos Encuentros
-        </h3>
-        <p
-          class='empty-state hidden text-gray-500 italic p-6 border border-gray-800/50 rounded-2xl bg-gray-900/20'
+        <div
+          class='mt-24 p-8 bg-gradient-to-r from-[#1d2c49]/20 to-transparent border-l-4 border-[#00e5ff] rounded-r-2xl'
         >
-          No hay encuentros programados por ahora. ¡Vuelve pronto!
-        </p>
-        {
-          upcomingCommunity.length === 0 ? (
-            <p class='text-gray-500 italic p-6 border border-gray-800/50 rounded-2xl bg-gray-900/20'>
-              No hay encuentros programados por ahora. ¡Vuelve pronto!
-            </p>
-          ) : (
-            <div class='space-y-4'>
-              {upcomingCommunity.map((event) => (
-                <UpcomingEventCard event={event} />
-              ))}
-            </div>
-          )
-        }
+          <p class='text-white text-lg font-medium'>
+            Los eventos se coordinan a través de nuestro servidor de Discord.
+            <a
+              href='https://discord.gg/shareit'
+              target='_blank'
+              rel='noopener noreferrer'
+              class='text-[#ff6900] hover:text-[#ff8533] transition-colors font-bold ml-1'
+            >
+              ¡Únete para no perderte ninguno!
+            </a>
+          </p>
+        </div>
       </div>
-
-      {
-        pastCommunity.length > 0 && (
-          <div>
-            <h3 class='text-xl font-bold text-white mb-6'>Recientes</h3>
-            <Events events={pastCommunity} />
-          </div>
-        )
-      }
-    </div>
-
-    <!-- Tab Content: LEARNING -->
-    <div
-      id='tab-learning'
-      class='space-y-12 hidden transition-opacity duration-300'
-    >
-      <div>
-        <h3 class='text-xl font-bold text-white mb-6 flex items-center gap-2'>
-          <span class='w-2 h-2 rounded-full bg-secondary'></span>
-          Próximas Sesiones
-        </h3>
-        <p
-          class='empty-state hidden text-gray-500 italic p-6 border border-gray-800/50 rounded-2xl bg-gray-900/20'
-        >
-          No hay workshops próximos. ¡Mira nuestro historial!
-        </p>
-        {
-          upcomingLearning.length === 0 ? (
-            <p class='text-gray-500 italic p-6 border border-gray-800/50 rounded-2xl bg-gray-900/20'>
-              No hay workshops próximos. ¡Mira nuestro historial!
-            </p>
-          ) : (
-            <div class='space-y-4'>
-              {upcomingLearning.map((event) => (
-                <UpcomingEventCard event={event} showProximo={true} />
-              ))}
-            </div>
-          )
-        }
-      </div>
-
-      <div>
-        <h3 class='text-xl font-bold text-white mb-6'>Workshops Anteriores</h3>
-        <Events events={pastLearning} />
-      </div>
-    </div>
-
-    <p class='text-center text-gray-500 text-sm mt-16'>
-      Los eventos se coordinan a través de nuestro servidor de Discord.
-      <a
-        href='https://discord.gg/shareit'
-        target='_blank'
-        rel='noopener noreferrer'
-        class='text-primary hover:text-secondary transition-colors'
-      >
-        ¡Únete para no perderte ninguno!
-      </a>
-    </p>
-  </section>
+    </section>
+  </main>
 </Layout>
 
 <script is:inline>
@@ -218,6 +285,8 @@ const { upcomingCommunity, pastCommunity, upcomingLearning, pastLearning } =
       learning: document.getElementById('tab-learning'),
     }
 
+    if (!btns.length) return
+
     btns.forEach((btn) => {
       btn.addEventListener('click', () => {
         const target = btn.getAttribute('data-tab')
@@ -225,28 +294,20 @@ const { upcomingCommunity, pastCommunity, upcomingLearning, pastLearning } =
         // Update buttons
         btns.forEach((b) => {
           b.classList.remove(
-            'bg-primary',
-            'text-white',
-            'shadow-lg',
-            'shadow-primary/20',
+            'bg-[#00e5ff]',
+            'text-[#0a0f1d]',
+            'shadow-xl',
+            'shadow-[#00e5ff]/20',
           )
-          b.classList.add(
-            'text-gray-400',
-            'hover:text-white',
-            'hover:bg-gray-800',
-          )
+          b.classList.add('text-gray-400', 'hover:text-white')
         })
         btn.classList.add(
-          'bg-primary',
-          'text-white',
-          'shadow-lg',
-          'shadow-primary/20',
+          'bg-[#00e5ff]',
+          'text-[#0a0f1d]',
+          'shadow-xl',
+          'shadow-[#00e5ff]/20',
         )
-        btn.classList.remove(
-          'text-gray-400',
-          'hover:text-white',
-          'hover:bg-gray-800',
-        )
+        btn.classList.remove('text-gray-400', 'hover:text-white')
 
         // Update tabs
         Object.keys(tabs).forEach((key) => {
@@ -278,13 +339,11 @@ const { upcomingCommunity, pastCommunity, upcomingLearning, pastLearning } =
       }
     })
 
-    // Check if containers are now empty
     containers.forEach((container) => {
       const visibleCards = container.querySelectorAll(
         '.upcoming-event-card:not([style*="display: none"])',
       )
       if (visibleCards.length === 0) {
-        // Show empty state if it exists, or create one
         const emptyState = container.parentElement.querySelector('.empty-state')
         if (emptyState) {
           emptyState.classList.remove('hidden')
@@ -303,30 +362,42 @@ const { upcomingCommunity, pastCommunity, upcomingLearning, pastLearning } =
       if (!dateStr) return
       const date = new Date(dateStr)
 
-      // Get Argentina Time for comparison
       const argTime = date.toLocaleString('es-ES', {
         hour: '2-digit',
         minute: '2-digit',
         timeZone: argZone,
       })
 
-      // Get Local Time
       const localTime = date.toLocaleString('es-ES', {
         hour: '2-digit',
         minute: '2-digit',
       })
 
-      // If different, append local time
       if (argTime !== localTime) {
         el.innerHTML += ` / <span class="text-white/40 normal-case font-normal">tu hora local: ${localTime}hs</span>`
       }
     })
   }
 
-  // Run on initial load and after every Astro client-side navigation
   document.addEventListener('astro:page-load', () => {
     setupTabs()
     handleExpiredEvents()
     updateLocalTimes()
   })
 </script>
+
+<style>
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .animate-fadeIn {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+</style>

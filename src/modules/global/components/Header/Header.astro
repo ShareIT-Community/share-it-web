@@ -1,43 +1,46 @@
 ---
-import { Image } from "astro:assets";
-import Logo from "public/images/logo.png";
-import MobileMenu from "src/modules/global/components/MobileMenu/MobileMenu.astro";
-import { JoinButton } from "./JoinButton";
-import '@fontsource/josefin-sans';
+import { Image } from 'astro:assets'
+import Logo from 'public/images/shareit_logo_waves.png'
+import MobileMenu from 'src/modules/global/components/MobileMenu/MobileMenu.astro'
+import { JoinButton } from './JoinButton'
 
 const navItems = [
-  { href: "/", text: "Inicio" },
-  { href: "/community", text: "Comunidad" },
-  { href: "/aboutUs", text: "Sobre nosotros" },
-];
+  { href: '/', text: 'Inicio' },
+  { href: '/community', text: 'Comunidad' },
+  { href: '/aboutUs', text: 'Sobre nosotros' },
+]
 
-const currentPath = Astro.url.pathname;
+const currentPath = Astro.url.pathname
 ---
 
-<header class="fixed top-0 left-0 right-0 z-50 p-4 bg-gray-900/95 backdrop-blur-sm transition-colors duration-300">
+<header class='fixed top-0 left-0 right-0 z-50 p-4 transition-all duration-300'>
   <nav
-    class="container mx-auto px-4 max-w-4xl flex items-center justify-between"
+    class='container mx-auto px-4 max-w-6xl flex items-center justify-between'
   >
     <a
-      href="/"
-      class="font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#4b6ef8] via-primary to-[#94e7f8] text-xl inline-flex items-center gap-1"
+      href='/'
+      class='font-bold text-white text-xl inline-flex items-center gap-2 group'
     >
-      <Image src={Logo} alt="ShareIT Logo" class="size-4 mb-2" />
-      <span class="font-josefin-sans">ShareIT</span>
+      <Image
+        src={Logo}
+        alt='ShareIT Logo'
+        class='w-8 h-8 transition-transform group-hover:scale-110'
+      />
+      <span class='font-josefin-sans tracking-tight'>ShareIT</span>
     </a>
 
-    <ul class="flex gap-6 items-center" id="menu">
+    <ul class='flex gap-8 items-center' id='menu'>
       {
         navItems.map((item) => (
-          <li class="md:flex hidden">
+          <li class='md:flex hidden'>
             <a
               href={item.href}
               class:list={[
-                `relative font-medium transition-colors before:content-[""] before:absolute before:bottom-0 before:w-full before:bg-secondary before:h-0.5`,
+                `relative font-medium transition-all duration-300 min-h-[44px] min-w-[44px] inline-flex items-center justify-center px-1 before:content-[""] before:absolute before:bottom-0 before:left-0 before:right-0 before:h-[2px] before:bg-[#7dd3fc] before:transition-all before:duration-300`,
                 currentPath === item.href ||
-                currentPath.startsWith(item.href + "/")
-                  ? `text-secondary before:scale-100`
-                  : `text-gray-300 hover:text-secondary before:transition-all before:duration-500 before:ease-in-out before:scale-0 hover:before:scale-100 before:origin-left`,
+                (item.href !== '/' && currentPath.startsWith(item.href))
+                  ? `text-[#7dd3fc] before:scale-x-100`
+                  : `text-gray-300 hover:text-white before:scale-x-0 hover:before:scale-x-100`,
               ]}
             >
               {item.text}
@@ -46,9 +49,8 @@ const currentPath = Astro.url.pathname;
         ))
       }
 
-      
-      <li class="hidden md:flex">
-        <JoinButton client:load />
+      <li class='hidden md:flex'>
+        <JoinButton client:idle />
       </li>
     </ul>
 
@@ -57,18 +59,25 @@ const currentPath = Astro.url.pathname;
 </header>
 
 <style>
-.scrolled {
-  background: rgba(31, 41, 55, 0.95);
-}
+  header {
+    border-bottom: 1px solid transparent;
+  }
+
+  .scrolled {
+    background: rgba(10, 15, 29, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
 </style>
 
 <script>
-document.addEventListener('scroll', () => {
-  const header = document.querySelector('header');
-  if (window.scrollY > 0) {
-    header.classList.add('scrolled');
-  } else {
-    header.classList.remove('scrolled');
-  }
-});
+  document.addEventListener('scroll', () => {
+    const header = document.querySelector('header')
+    if (header && window.scrollY > 0) {
+      header.classList.add('scrolled')
+    } else if (header) {
+      header.classList.remove('scrolled')
+    }
+  })
 </script>

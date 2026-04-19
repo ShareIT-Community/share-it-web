@@ -7,40 +7,35 @@ const TEAM_MEMBERS = [
 	{
 		name: 'Jean Roa',
 		social: 'https://jeanroa.dev',
-		image: '/images/Drak.jpg',
+		image: '/images/Drak.webp',
 	},
 	{
 		name: 'Mirta Gomez',
 		social: 'https://www.linkedin.com/in/mirta-gomez/',
-		image: '/images/Mirty.png',
+		image: '/images/Mirty.webp',
 	},
 	{
 		name: 'Mauro Miguel',
 		social: 'https://www.linkedin.com/in/mauromiguel',
-		image: '/images/Mauro.jpg',
+		image: '/images/Mauro.webp',
 	},
 	{
 		name: 'Victor Quiñones',
 		social: 'https://www.linkedin.com/in/victorqui',
-		image: '/images/Victor.jpg',
+		image: '/images/Victor.webp',
 	},
 	{
 		name: 'Azariel Moreno',
 		social: 'https://www.linkedin.com/in/azariel-moreno',
-		image: '/images/Azariel.png',
+		image: '/images/Azariel.webp',
 	},
 	{
 		name: 'Justin Huertas',
 		social: 'https://portafolio-justin.vercel.app/',
-		image: '/images/Frame.png',
+		image: '/images/justin-avatar.jpg',
 	},
 ];
 
-const LEGAL_LINKS = [
-	{ label: 'Aviso Legal', href: '/legal' },
-	{ label: 'Política de Privacidad', href: '/privacy' },
-	{ label: 'Política de Cookies', href: '/cookies' },
-];
 ---
 
 <footer class='footer-wrapper'>
@@ -51,7 +46,7 @@ const LEGAL_LINKS = [
 		
 		<div class='footer-top'>
 			<div class='footer-brand'>
-				<img src='/images/logo.png' alt='Share-IT Logo' class='footer-logo' />
+				<img src='/images/logo.webp' alt='Share-IT Logo' class='footer-logo' />
 				<div>
 					<span class='footer-brand-name font-josefin-sans'>ShareIT</span>
 					<p class='footer-brand-tagline'>Nadie despega solo</p>
@@ -99,8 +94,9 @@ const LEGAL_LINKS = [
 								target='_blank'
 								href={social}
 								class='footer-credit-link'
+								aria-label={`Ver perfil y sitio web de ${name} (se abre en una pestaña nueva)`}
 							>
-								<img src={image} alt={name} class='footer-credit-img' title={name} />
+								<img src={image} alt='' class='footer-credit-img' />
 							</a>
 						</li>
 					))}

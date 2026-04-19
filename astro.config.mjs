@@ -6,10 +6,14 @@ import netlify from '@astrojs/netlify';
 
 // https://astro.build/config
 export default defineConfig({
+  compressHTML: true,
   site: 'https://share-it.tech',
   integrations: [react()],
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [tailwindcss()],
+    build: {
+      cssMinify: true,
+    },
   },
   markdown: {
     syntaxHighlight: 'shiki',
