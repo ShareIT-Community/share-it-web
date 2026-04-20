@@ -50,7 +50,7 @@ export const GROUP_REFERENTS: GroupReferent[] = [
 	},
 	{
 		id: 'nataya-dev',
-		nombre: 'Nataya',
+		nombre: 'Nataya Flores',
 		rol: 'Referente técnica',
 		descripcion: ['Hola, soy Nata (@natayadev). Trabajo como ingeniera de datos y desarrolladora hace seis años, me especializo en Cloud y me estoy preparando para ser bioinformática en la UNQ. También tengo un poco de conocimiento en gobernanza y privacidad de datos, en bioquímica y en marketing. Hincha de Boca, me gusta el mate amargo y el rock en todas sus formas. A veces hago divulgación científica, o eso lo intento.'],
 		image: '/images/Nataya.jpg',
@@ -64,7 +64,7 @@ export const GROUP_REFERENTS: GroupReferent[] = [
 	{
 		id: 'brigitte',
 		nombre: 'Brigitte',
-		rol: 'Referente técnica',
+		rol: 'Referente de marca',
 		descripcion: ['Soy asesora, speaker y creadora de contenidos enfocada en potenciar a personas de trabajo con herramientas clave en: empleabilidad, autoconocimiento, marca personal y redes sociales, estrategias de networking, armado de CV y uso de LinkedIn. En 2023 creé Emplea Habilidad, la marca registrada en la materia con el propósito de instalar la empleabilidad en la agenda de HR para facilitar el encuentro entre personas y organizaciones. Por mi aporte a la conversación global sobre el futuro del trabajo fui reconocida como Top HR Influencer y Top Career Coach en Argentina.'],
 		image: '/images/Brigitte.jpg',
 		web: 'https://own.page/empleabilidad',
