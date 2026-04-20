@@ -39,6 +39,7 @@ export const whatsappGroups: WhatsappGroup[] = [
 		icon: whatsappGroupIcons.data,
 		image: '/images/groups/AMPLIFY.jpg',
 		color: '[#a78bfa]',
+		referrals: ['brigitte'],
 	},
 	{
 		title: 'Desarrollo Web',
@@ -58,7 +59,7 @@ export const whatsappGroups: WhatsappGroup[] = [
 		icon: whatsappGroupIcons.data,
 		image: '/images/groups/DATA.jpg',
 		color: '[#a78bfa]',
-		referrals: ['omar-valdez', 'fabri-lennart'],
+		referrals: ['omar-valdez', 'fabri-lennart', 'nataya-dev'],
 	},
 	{
 		title: 'Ciberseguridad',
