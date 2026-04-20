@@ -72,28 +72,40 @@ function referentDescripcionToDisplay(
 					</p>
 
 					<footer class='referent-dialog-actions'>
-						{r.web && (
-							<a
-								href={r.web}
-								target='_blank'
-								rel='noopener noreferrer'
-								class='referent-dialog-btn referent-dialog-btn--primary'
-							>
-								Sitio web
-							</a>
-						)}
+						{
+							r.web && (
+								<a
+									href={r.web}
+									target='_blank'
+									rel='noopener noreferrer'
+									class='referent-dialog-btn referent-dialog-btn--primary'
+								>
+									Sitio web
+								</a>
+							)
+						}
 						{
 							redesSinWeb.length > 0 &&
-								redesSinWeb.map((s) => (
-									<a
-										href={s.url}
-										target='_blank'
-										rel='noopener noreferrer'
-										class='referent-dialog-btn referent-dialog-btn--ghost'
-									>
-										{s.label}
-									</a>
-								))
+								redesSinWeb.map((s) => {
+									const isOrange =
+										s.label.toLowerCase().includes('youtube') ||
+										s.label.toLowerCase().includes('sitio web')
+									return (
+										<a
+											href={s.url}
+											target='_blank'
+											rel='noopener noreferrer'
+											class:list={[
+												'referent-dialog-btn',
+												isOrange
+													? 'referent-dialog-btn--primary'
+													: 'referent-dialog-btn--ghost',
+											]}
+										>
+											{s.label}
+										</a>
+									)
+								})
 						}
 					</footer>
 				</div>
@@ -117,6 +129,7 @@ function referentDescripcionToDisplay(
 				if (finished) return
 				finished = true
 				dlg.close()
+				document.body.classList.remove('no-scroll')
 				dlg.classList.remove('referent-dialog--closing')
 				dlg.dataset.animating = ''
 				dlg.removeEventListener('transitionend', onEnd)
@@ -137,7 +150,15 @@ function referentDescripcionToDisplay(
 				var dlg = id && document.getElementById(id)
 				if (dlg && dlg.showModal) {
 					dlg.classList.remove('referent-dialog--closing')
+					document.body.classList.add('no-scroll')
 					dlg.showModal()
+
+					if (!dlg.dataset.closeListener) {
+						dlg.dataset.closeListener = '1'
+						dlg.addEventListener('close', function () {
+							document.body.classList.remove('no-scroll')
+						})
+					}
 				}
 				return
 			}
@@ -160,6 +181,10 @@ function referentDescripcionToDisplay(
 </script>
 
 <style>
+	:global(body.no-scroll) {
+		overflow: hidden;
+	}
+
 	/* Dialog fuera del subtree con transform → fixed respecto al viewport */
 	.referent-dialog {
 		position: fixed;
