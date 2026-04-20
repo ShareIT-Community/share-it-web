@@ -89,7 +89,8 @@ function referentDescripcionToDisplay(
 								redesSinWeb.map((s) => {
 									const isOrange =
 										s.label.toLowerCase().includes('youtube') ||
-										s.label.toLowerCase().includes('sitio web')
+										s.label.toLowerCase().includes('sitio web') ||
+										s.label.toLowerCase().includes('linkedin')
 									return (
 										<a
 											href={s.url}
