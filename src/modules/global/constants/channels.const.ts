@@ -39,7 +39,7 @@ export const whatsappGroups: WhatsappGroup[] = [
 		icon: whatsappGroupIcons.data,
 		image: '/images/groups/AMPLIFY.jpg',
 		color: '[#a78bfa]',
-		referrals: ['brigitte'],
+		referrals: ['brigitte', 'franco-antuna'],
 	},
 	{
 		title: 'Desarrollo Web',

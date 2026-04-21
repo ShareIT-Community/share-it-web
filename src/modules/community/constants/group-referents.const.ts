@@ -63,11 +63,27 @@ export const GROUP_REFERENTS: GroupReferent[] = [
 	},
 	{
 		id: 'brigitte',
-		nombre: 'Brigitte',
+		nombre: 'Brigitte Bergery',
 		rol: 'Referente de marca',
 		descripcion: ['Soy asesora, speaker y creadora de contenidos enfocada en potenciar a personas de trabajo con herramientas clave en: empleabilidad, autoconocimiento, marca personal y redes sociales, estrategias de networking, armado de CV y uso de LinkedIn. En 2023 creé Emplea Habilidad, la marca registrada en la materia con el propósito de instalar la empleabilidad en la agenda de HR para facilitar el encuentro entre personas y organizaciones. Por mi aporte a la conversación global sobre el futuro del trabajo fui reconocida como Top HR Influencer y Top Career Coach en Argentina.'],
 		image: '/images/Brigitte.jpg',
 		web: 'https://own.page/empleabilidad',
+	},
+	{
+		id: 'franco-antuna',
+		nombre: 'Franco Antuna',
+		rol: 'Referente Amplify',
+		descripcion: [
+			'Ex-proyectista mecánico, ex-chapista, ex-luthier, ex-ingeniero en casi todo, hoy lidero el desarrollo de productos de Computer Vision para salud y productividad laboral como AI Engineer. Entiendo la tecnología como una disciplina de rigor, pero mi paso por ShareIT me enseñó que el crecimiento real no es solo técnico: se trata de conocerse a uno mismo, entender la empleabilidad desde lo humano y animarse a compartir historias para inspirar a otros en el camino.',
+			'Soy de Rosario, fanático del motorsport y convencido de que la mejor ingeniería es la que se construye en equipo. Si querés charlar sobre AI, cómo potenciar tu perfil profesional o simplemente de autitos, acá estoy!',
+		],
+		image: '/images/Franco.jpg',
+		redes: [
+			{
+				label: 'Linkedin',
+				url: 'https://www.linkedin.com/in/franco-antuna',
+			},
+		],
 	},
 ]
 
