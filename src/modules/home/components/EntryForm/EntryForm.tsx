@@ -18,7 +18,7 @@ export const EntryForm: React.FC<EntryFormProps> = ({ onClose }) => {
 			style={{ boxSizing: 'border-box' }}>	
 			<h2
 				id='entry-form-title'
-				className='mb-2 md:mb-5 text-2xl md:text-3xl font-bold flex text-center justify-center items-center pr-8 md:pr-0'>
+				className='mb-2 md:mb-5 text-2xl md:text-3xl font-bold flex text-center justify-center items-center px-16 md:px-0'>
 				¡Bienvenido a la comunidad!
 			</h2>
 
