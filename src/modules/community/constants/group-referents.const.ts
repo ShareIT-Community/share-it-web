@@ -72,7 +72,7 @@ export const GROUP_REFERENTS: GroupReferent[] = [
 	{
 		id: 'franco-antuna',
 		nombre: 'Franco Antuna',
-		rol: 'Referente Amplify',
+		rol: 'Referente técnico',
 		descripcion: [
 			'Ex-proyectista mecánico, ex-chapista, ex-luthier, ex-ingeniero en casi todo, hoy lidero el desarrollo de productos de Computer Vision para salud y productividad laboral como AI Engineer. Entiendo la tecnología como una disciplina de rigor, pero mi paso por ShareIT me enseñó que el crecimiento real no es solo técnico: se trata de conocerse a uno mismo, entender la empleabilidad desde lo humano y animarse a compartir historias para inspirar a otros en el camino.',
 			'Soy de Rosario, fanático del motorsport y convencido de que la mejor ingeniería es la que se construye en equipo. Si querés charlar sobre AI, cómo potenciar tu perfil profesional o simplemente de autitos, acá estoy!',
