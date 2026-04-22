@@ -65,275 +65,45 @@ const members = [
     </p>
   </div>
 
-  <div class='slider-wrapper px-4'>
-    <div class='slider-track' id='sliderTrack'>
+  <div class='container mx-auto px-6 max-w-7xl'>
+    <div
+      class='flex items-stretch overflow-x-auto snap-x snap-mandatory lg:grid lg:grid-cols-2 xl:grid-cols-4 gap-6 sm:gap-8 pb-8 -mx-6 px-6 sm:mx-0 sm:px-0 sm:pb-0 custom-scrollbar'
+    >
       {
         members.map((member) => (
-          <div class='slider-slide'>
+          <div class='snap-center shrink-0 w-[85vw] lg:w-auto flex flex-col'>
             <MemberCard {...member} />
           </div>
         ))
       }
     </div>
-  </div>
 
-  <!-- Dots de navegación -->
-  <div class='slider-dots' id='sliderDots'>
-    {
-      members.map((_, i) => (
-        <button
-          class={`dot ${i === 0 ? 'dot--active' : ''}`}
-          data-index={i}
-          aria-label={`Ir al integrante ${i + 1}`}
-        />
-      ))
-    }
+    <!-- Indicador de scroll para mobile -->
+    <div
+      class='flex justify-end items-center lg:hidden animate-pulse mb-8 pr-2 gap-2 text-[#00e5ff] text-sm font-medium opacity-80'
+    >
+      Desliza para ver más <i class='fa-solid fa-arrow-right-long'></i>
+    </div>
   </div>
 </section>
 
 <style>
-  .slider-wrapper {
-    overflow: hidden;
-    cursor: grab;
-    touch-action: pan-y;
+  /* Custom scrollbar para el scroll horizontal en mobile */
+  .custom-scrollbar::-webkit-scrollbar {
+    height: 3px;
   }
-
-  .slider-wrapper:active {
-    cursor: grabbing;
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
   }
-
-  .slider-track {
-    display: flex;
-    gap: 0.9rem;
-    transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
-    will-change: transform;
-    user-select: none;
-  }
-
-  .slider-slide {
-    flex: 0 0 100%;
-    min-width: 0;
-    min-height: 0;
-    margin-bottom: 20px;
-    pointer-events: none;
-    display: flex;
-    flex-direction: column;
-    align-self: stretch;
-  }
-
-  .slider-slide :global(a),
-  .slider-slide :global(button) {
-    pointer-events: auto;
-  }
-
-  .slider-slide > * {
-    flex: 1 1 auto;
-    min-height: 0;
-    width: 100%;
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(0, 229, 255, 0.3);
+    border-radius: 10px;
   }
 
   @media (min-width: 1024px) {
-    .slider-track {
-      gap: 0.75rem;
+    .custom-scrollbar {
+      overflow: visible;
     }
-
-    .slider-slide {
-      flex: 0 0 calc((100% - 1.5rem) / 3);
-    }
-  }
-
-  .slider-dots {
-    display: flex;
-    justify-content: center;
-    gap: 0.5rem;
-    margin-top: 1.75rem;
-  }
-
-  .dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 9999px;
-    background-color: rgba(255, 255, 255, 0.25);
-    border: none;
-    cursor: pointer;
-    transition:
-      background-color 0.3s ease,
-      width 0.3s ease;
-    padding: 0;
-  }
-
-  .dot--active {
-    background-color: white;
-    width: 24px;
-  }
-
-  .dot:hover:not(.dot--active) {
-    background-color: rgba(255, 255, 255, 0.5);
   }
 </style>
-
-<script>
-  type Cleanup = () => void
-
-  let amplifySliderCleanup: Cleanup | undefined
-
-  function initAmplifySlider() {
-    amplifySliderCleanup?.()
-    amplifySliderCleanup = undefined
-
-    const track = document.getElementById('sliderTrack') as HTMLElement | null
-    const dotsContainer = document.getElementById(
-      'sliderDots',
-    ) as HTMLElement | null
-    if (!track || !dotsContainer) return
-
-    const dots = dotsContainer.querySelectorAll<HTMLButtonElement>('.dot')
-    const totalSlides = dots.length
-    if (totalSlides === 0) return
-
-    let currentIndex = 0
-    let isDragging = false
-    let startX = 0
-    let currentTranslate = 0
-    let prevTranslate = 0
-
-    function getVisibleCount(): number {
-      return window.innerWidth >= 1024 ? 3 : 1
-    }
-
-    function maxIndex(): number {
-      return Math.max(0, totalSlides - getVisibleCount())
-    }
-
-    function getSlideWidth(): number {
-      const firstSlide = track!.children[0] as HTMLElement
-      if (!firstSlide) return 0
-      const gap = parseFloat(window.getComputedStyle(track!).gap) || 0
-      return firstSlide.offsetWidth + gap
-    }
-
-    function setSliderPosition() {
-      track!.style.transform = `translateX(${currentTranslate}px)`
-    }
-
-    function updateDots() {
-      dots.forEach((dot, i) => {
-        dot.classList.toggle('dot--active', i === currentIndex)
-      })
-    }
-
-    function goTo(index: number, animate = true) {
-      currentIndex = Math.min(Math.max(index, 0), maxIndex())
-      currentTranslate = currentIndex * -getSlideWidth()
-      prevTranslate = currentTranslate
-
-      if (animate) {
-        track!.style.transition = 'transform 0.45s cubic-bezier(0.4, 0, 0.2, 1)'
-      } else {
-        track!.style.transition = 'none'
-      }
-
-      setSliderPosition()
-      updateDots()
-    }
-
-    function onDragStart(clientX: number) {
-      isDragging = true
-      startX = clientX
-      track!.style.transition = 'none'
-    }
-
-    function onDragMove(clientX: number) {
-      if (!isDragging) return
-      const diff = clientX - startX
-      currentTranslate = prevTranslate + diff
-
-      const minTranslate = -maxIndex() * getSlideWidth()
-      if (currentTranslate > 0) {
-        currentTranslate = currentTranslate / 3
-      } else if (currentTranslate < minTranslate) {
-        currentTranslate = minTranslate + (currentTranslate - minTranslate) / 3
-      }
-
-      setSliderPosition()
-    }
-
-    function onDragEnd() {
-      if (!isDragging) return
-      isDragging = false
-
-      const movedBy = currentTranslate - prevTranslate
-      const threshold = getSlideWidth() / 6
-
-      if (movedBy < -threshold && currentIndex < maxIndex()) {
-        currentIndex += 1
-      } else if (movedBy > threshold && currentIndex > 0) {
-        currentIndex -= 1
-      }
-
-      goTo(currentIndex)
-    }
-
-    const onTrackMouseDown = (e: MouseEvent) => {
-      const target = e.target as HTMLElement
-      if (target.closest('a') || target.closest('button')) return
-      e.preventDefault()
-      onDragStart(e.clientX)
-    }
-
-    const onWindowMouseMove = (e: MouseEvent) => onDragMove(e.clientX)
-
-    const onTrackTouchStart = (e: Event) => {
-      const te = e as TouchEvent
-      const target = te.target as HTMLElement
-      if (target.closest('a') || target.closest('button')) return
-      onDragStart(te.touches[0].clientX)
-    }
-
-    const onTrackTouchMove = (e: Event) => {
-      if (!isDragging) return
-      const te = e as TouchEvent
-      onDragMove(te.touches[0].clientX)
-    }
-
-    const onResize = () => {
-      goTo(Math.min(currentIndex, maxIndex()), false)
-    }
-
-    track.addEventListener('mousedown', onTrackMouseDown)
-    window.addEventListener('mousemove', onWindowMouseMove)
-    window.addEventListener('mouseup', onDragEnd)
-
-    const touchOpts: AddEventListenerOptions = { passive: true }
-    track.addEventListener('touchstart', onTrackTouchStart, touchOpts)
-    track.addEventListener('touchmove', onTrackTouchMove, touchOpts)
-    track.addEventListener('touchend', onDragEnd)
-    track.addEventListener('touchcancel', onDragEnd)
-
-    const dotHandlers: Array<{ el: HTMLButtonElement; fn: () => void }> = []
-    dots.forEach((dot) => {
-      const fn = () => goTo(Number(dot.dataset.index))
-      dot.addEventListener('click', fn)
-      dotHandlers.push({ el: dot, fn })
-    })
-
-    window.addEventListener('resize', onResize)
-
-    goTo(0, false)
-
-    amplifySliderCleanup = () => {
-      track.removeEventListener('mousedown', onTrackMouseDown)
-      window.removeEventListener('mousemove', onWindowMouseMove)
-      window.removeEventListener('mouseup', onDragEnd)
-      track.removeEventListener('touchstart', onTrackTouchStart, touchOpts)
-      track.removeEventListener('touchmove', onTrackTouchMove, touchOpts)
-      track.removeEventListener('touchend', onDragEnd)
-      track.removeEventListener('touchcancel', onDragEnd)
-      window.removeEventListener('resize', onResize)
-      dotHandlers.forEach(({ el, fn }) => el.removeEventListener('click', fn))
-    }
-  }
-
-  document.addEventListener('astro:page-load', initAmplifySlider)
-  initAmplifySlider()
-</script>
