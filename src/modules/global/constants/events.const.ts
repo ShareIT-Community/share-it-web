@@ -32,6 +32,15 @@ export const EVENTS: ShareITEvent[] = [
     type: 'workshop',
   },
   {
+    title: 'Llamada Comunitaria de Mayo',
+    description:
+      'Un encuentro relajado para charlar, compartir y conectar con otros miembros de la comunidad. Sin agenda fija: vení a pasar un buen rato.',
+    startDate: '2026-05-24T18:00:00-03:00',
+    endDate: '2026-05-24T20:00:00-03:00',
+    location: 'Server Discord - ShareIT',
+    type: 'meetup',
+  },
+  {
     title: 'MeetUp Presencial Abril',
     description:
       'No todo tiene que quedar en lo virtual. Conocernos en persona es algo que nos gusta hacer, ya que trascender la pantalla es la mejor forma de construir relaciones, tanto personales como profesionales.',
