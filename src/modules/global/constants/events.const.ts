@@ -14,6 +14,24 @@ export interface ShareITEvent {
 export const EVENTS: ShareITEvent[] = [
   // --- Upcoming Events ---
   {
+    title: 'Simulación de Entrevistas',
+    description:
+      'Sumate a una nueva simulación de entrevistas pensada para perfiles Full Stack + IA, donde vas a poder presenciar en vivo cómo se desarrolla tanto la instancia de Recursos Humanos como la entrevista técnica, con foco en habilidades clave, comunicación y toma de decisiones.',
+    startDate: '2026-05-10T18:00:00-03:00',
+    endDate: '2026-05-10T20:00:00-03:00',
+    location: 'Server Discord - ShareIT',
+    type: 'workshop',
+  },
+  {
+    title: 'Charla de Empleabilidad + Revisión de CV/LinkedIn con Brigitte Bergery',
+    description:
+      'Un espacio para entender qué buscan las empresas hoy y cómo mejorar tu empleabilidad con recomendaciones prácticas. Se revisarán en vivo los perfiles de 3 candidatos, compartiendo consejos que podrás aplicar directamente en tu CV y LinkedIn.',
+    startDate: '2026-05-16T17:00:00-03:00',
+    endDate: '2026-05-16T19:00:00-03:00',
+    location: 'Server Discord - ShareIT',
+    type: 'workshop',
+  },
+  {
     title: 'MeetUp Presencial Abril',
     description:
       'No todo tiene que quedar en lo virtual. Conocernos en persona es algo que nos gusta hacer, ya que trascender la pantalla es la mejor forma de construir relaciones, tanto personales como profesionales.',
