@@ -1,18 +1,18 @@
 ---
-import Layout from 'src/modules/global/layouts/Layout.astro';
-import Events from 'src/modules/resources/components/Events.astro';
-import UpcomingEventCard from 'src/modules/resources/components/UpcomingEventCard.astro';
-import DiscordGroupCard from 'src/modules/community/components/DiscordGroupCard.astro';
-import SectionDivider from 'src/modules/home/components/SectionDivider.astro';
-import { whatsappGroups } from 'src/modules/global/constants/channels.const';
-import { getGroupReferentsByIds } from 'src/modules/community/constants/group-referents.const';
-import { COMMUNITY_RULES } from 'src/modules/global/constants/rules.const';
-import { EVENTS } from 'src/modules/global/constants/events.const';
-import { getGroupedEvents } from 'src/modules/global/utils/events.utils';
-import { JoinLinkButton } from 'src/modules/global/components/Header/JoinButton';
+import Layout from 'src/modules/global/layouts/Layout.astro'
+import Events from 'src/modules/resources/components/Events.astro'
+import UpcomingEventCard from 'src/modules/resources/components/UpcomingEventCard.astro'
+import DiscordGroupCard from 'src/modules/community/components/DiscordGroupCard.astro'
+import SectionDivider from 'src/modules/home/components/SectionDivider.astro'
+import { whatsappGroups } from 'src/modules/global/constants/channels.const'
+import { getGroupReferentsByIds } from 'src/modules/community/constants/group-referents.const'
+import { COMMUNITY_RULES } from 'src/modules/global/constants/rules.const'
+import { EVENTS } from 'src/modules/global/constants/events.const'
+import { getGroupedEvents } from 'src/modules/global/utils/events.utils'
+import { JoinLinkButton } from 'src/modules/global/components/Header/JoinButton'
 
 const { upcomingCommunity, pastCommunity, upcomingLearning, pastLearning } =
-  getGroupedEvents(EVENTS);
+  getGroupedEvents(EVENTS)
 ---
 
 <Layout title='Comunidad | ShareIT' fullWidth={true}>
@@ -354,17 +354,17 @@ const { upcomingCommunity, pastCommunity, upcomingLearning, pastLearning } =
 
 <script is:inline>
   function setupTabs() {
-    const btns = document.querySelectorAll('.tab-btn');
+    const btns = document.querySelectorAll('.tab-btn')
     const tabs = {
       community: document.getElementById('tab-community'),
-      learning: document.getElementById('tab-learning'),
-    };
+      learning: document.getElementById('tab-learning')
+    }
 
-    if (!btns.length) return;
+    if (!btns.length) return
 
     btns.forEach((btn) => {
       btn.addEventListener('click', () => {
-        const target = btn.getAttribute('data-tab');
+        const target = btn.getAttribute('data-tab')
 
         // Update buttons
         btns.forEach((b) => {
@@ -373,93 +373,92 @@ const { upcomingCommunity, pastCommunity, upcomingLearning, pastLearning } =
             'text-[#0a0f1d]',
             'shadow-xl',
             'shadow-[#00e5ff]/20'
-          );
-          b.classList.add('text-gray-400', 'hover:text-white');
-        });
+          )
+          b.classList.add('text-gray-400', 'hover:text-white')
+        })
         btn.classList.add(
           'bg-[#00e5ff]',
           'text-[#0a0f1d]',
           'shadow-xl',
           'shadow-[#00e5ff]/20'
-        );
-        btn.classList.remove('text-gray-400', 'hover:text-white');
+        )
+        btn.classList.remove('text-gray-400', 'hover:text-white')
 
         // Update tabs
         Object.keys(tabs).forEach((key) => {
           if (key === target) {
-            tabs[key].classList.remove('hidden');
-            tabs[key].classList.add('block');
+            tabs[key].classList.remove('hidden')
+            tabs[key].classList.add('block')
           } else {
-            tabs[key].classList.add('hidden');
-            tabs[key].classList.remove('block');
+            tabs[key].classList.add('hidden')
+            tabs[key].classList.remove('block')
           }
-        });
-      });
-    });
+        })
+      })
+    })
   }
 
   function handleExpiredEvents() {
-    const now = new Date();
-    const upcomingCards = document.querySelectorAll('.upcoming-event-card');
-    const containers = new Set();
+    const now = new Date()
+    const upcomingCards = document.querySelectorAll('.upcoming-event-card')
+    const containers = new Set()
 
     upcomingCards.forEach((card) => {
-      const endStr = card.getAttribute('data-event-end');
-      if (!endStr || endStr.trim() === '') return;
+      const endStr = card.getAttribute('data-event-end')
+      if (!endStr || endStr.trim() === '') return
 
-      const endDate = new Date(endStr);
+      const endDate = new Date(endStr)
       if (now > endDate) {
-        card.style.display = 'none';
-        containers.add(card.parentElement);
+        card.style.display = 'none'
+        containers.add(card.parentElement)
       }
-    });
+    })
 
     containers.forEach((container) => {
       const visibleCards = container.querySelectorAll(
         '.upcoming-event-card:not([style*="display: none"])'
-      );
+      )
       if (visibleCards.length === 0) {
-        const emptyState =
-          container.parentElement.querySelector('.empty-state');
+        const emptyState = container.parentElement.querySelector('.empty-state')
         if (emptyState) {
-          emptyState.classList.remove('hidden');
-          container.style.display = 'none';
+          emptyState.classList.remove('hidden')
+          container.style.display = 'none'
         }
       }
-    });
+    })
   }
 
   function updateLocalTimes() {
-    const timeElements = document.querySelectorAll('[data-event-date]');
-    const argZone = 'America/Argentina/Buenos_Aires';
+    const timeElements = document.querySelectorAll('[data-event-date]')
+    const argZone = 'America/Argentina/Buenos_Aires'
 
     timeElements.forEach((el) => {
-      const dateStr = el.getAttribute('data-event-date');
-      if (!dateStr) return;
-      const date = new Date(dateStr);
+      const dateStr = el.getAttribute('data-event-date')
+      if (!dateStr) return
+      const date = new Date(dateStr)
 
       const argTime = date.toLocaleString('es-ES', {
         hour: '2-digit',
         minute: '2-digit',
-        timeZone: argZone,
-      });
+        timeZone: argZone
+      })
 
       const localTime = date.toLocaleString('es-ES', {
         hour: '2-digit',
-        minute: '2-digit',
-      });
+        minute: '2-digit'
+      })
 
       if (argTime !== localTime) {
-        el.innerHTML += ` / <span class="text-white/40 normal-case font-normal">tu hora local: ${localTime}hs</span>`;
+        el.innerHTML += ` / <span class="text-white/40 normal-case font-normal">tu hora local: ${localTime}hs</span>`
       }
-    });
+    })
   }
 
   document.addEventListener('astro:page-load', () => {
-    setupTabs();
-    handleExpiredEvents();
-    updateLocalTimes();
-  });
+    setupTabs()
+    handleExpiredEvents()
+    updateLocalTimes()
+  })
 </script>
 
 <style>
