@@ -15,6 +15,11 @@
 
 @import './typography.css';
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
 :root {
   --primary: #368beb;
   --secondary: #83d6e7;

@@ -17,8 +17,8 @@ export const EVENTS: ShareITEvent[] = [
     title: 'Simulación de Entrevistas',
     description:
       'Sumate a una nueva simulación de entrevistas pensada para perfiles Full Stack + IA, donde vas a poder presenciar en vivo cómo se desarrolla tanto la instancia de Recursos Humanos como la entrevista técnica, con foco en habilidades clave, comunicación y toma de decisiones.',
-    startDate: '2026-05-10T18:00:00-03:00',
-    endDate: '2026-05-10T20:00:00-03:00',
+    startDate: '2026-05-17T18:00:00-03:00',
+    endDate: '2026-05-17T20:00:00-03:00',
     location: 'Server Discord - ShareIT',
     type: 'workshop',
   },
@@ -26,8 +26,8 @@ export const EVENTS: ShareITEvent[] = [
     title: 'Charla de Empleabilidad + Revisión de CV/LinkedIn con Brigitte Bergery',
     description:
       'Un espacio para entender qué buscan las empresas hoy y cómo mejorar tu empleabilidad con recomendaciones prácticas. Se revisarán en vivo los perfiles de 3 candidatos, compartiendo consejos que podrás aplicar directamente en tu CV y LinkedIn.',
-    startDate: '2026-05-16T17:00:00-03:00',
-    endDate: '2026-05-16T19:00:00-03:00',
+    startDate: '2026-05-23T17:00:00-03:00',
+    endDate: '2026-05-23T19:00:00-03:00',
     location: 'Server Discord - ShareIT',
     type: 'workshop',
   },
@@ -35,8 +35,8 @@ export const EVENTS: ShareITEvent[] = [
     title: 'Llamada Comunitaria de Mayo',
     description:
       'Un encuentro relajado para charlar, compartir y conectar con otros miembros de la comunidad. Sin agenda fija: vení a pasar un buen rato.',
-    startDate: '2026-05-24T18:00:00-03:00',
-    endDate: '2026-05-24T20:00:00-03:00',
+    startDate: '2026-05-31T18:00:00-03:00',
+    endDate: '2026-05-31T20:00:00-03:00',
     location: 'Server Discord - ShareIT',
     type: 'meetup',
   },
