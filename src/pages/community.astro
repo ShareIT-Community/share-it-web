@@ -357,7 +357,7 @@ const { upcomingCommunity, pastCommunity, upcomingLearning, pastLearning } =
     const btns = document.querySelectorAll('.tab-btn')
     const tabs = {
       community: document.getElementById('tab-community'),
-      learning: document.getElementById('tab-learning')
+      learning: document.getElementById('tab-learning'),
     }
 
     if (!btns.length) return
@@ -440,12 +440,12 @@ const { upcomingCommunity, pastCommunity, upcomingLearning, pastLearning } =
       const argTime = date.toLocaleString('es-ES', {
         hour: '2-digit',
         minute: '2-digit',
-        timeZone: argZone
+        timeZone: argZone,
       })
 
       const localTime = date.toLocaleString('es-ES', {
         hour: '2-digit',
-        minute: '2-digit'
+        minute: '2-digit',
       })
 
       if (argTime !== localTime) {
