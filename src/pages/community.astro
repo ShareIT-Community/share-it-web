@@ -31,7 +31,7 @@ const { upcomingCommunity, pastCommunity, upcomingLearning, pastLearning } =
   </section>
 
   <main class='bg-gray-900'>
-    <section id='canales'>
+    <section id='channels'>
       <div class='container mx-auto px-6 max-w-6xl'>
         <div class='text-center mb-16'>
           <h2 class='text-4xl font-bold text-white'>
@@ -133,8 +133,8 @@ const { upcomingCommunity, pastCommunity, upcomingLearning, pastLearning } =
                 ShareIT – Oportunidades Laborales
               </p>
               <p class='text-white text-base leading-relaxed'>
-                Si estás buscando trabajo disponemos de un canal de WhatsApp donde
-                compartimos ofertas todas las semanas.
+                Si estás buscando trabajo disponemos de un canal de WhatsApp
+                donde compartimos ofertas todas las semanas.
               </p>
             </div>
           </div>
@@ -144,8 +144,8 @@ const { upcomingCommunity, pastCommunity, upcomingLearning, pastLearning } =
 
     <SectionDivider />
 
-    <!-- REGLAS -->
-    <section class='py-20 md:py-32 bg-gray-900/30' id='reglas'>
+    <!-- Rules -->
+    <section class='py-20 md:py-32 bg-gray-900/30' id='rules'>
       <div class='container mx-auto px-6 max-w-5xl'>
         <div class='text-center mb-16'>
           <h2 class='text-4xl font-bold text-white mb-4'>
@@ -206,7 +206,7 @@ const { upcomingCommunity, pastCommunity, upcomingLearning, pastLearning } =
 
     <SectionDivider />
 
-    <section class='py-20 md:py-32' id='eventos-y-workshops'>
+    <section class='py-20 md:py-32' id='events'>
       <div class='container mx-auto px-6 max-w-5xl'>
         <div class='text-center mb-16'>
           <h2 class='text-4xl font-bold text-white mb-4'>
@@ -370,7 +370,7 @@ const { upcomingCommunity, pastCommunity, upcomingLearning, pastLearning } =
             'bg-[#00e5ff]',
             'text-[#0a0f1d]',
             'shadow-xl',
-            'shadow-[#00e5ff]/20',
+            'shadow-[#00e5ff]/20'
           )
           b.classList.add('text-gray-400', 'hover:text-white')
         })
@@ -378,7 +378,7 @@ const { upcomingCommunity, pastCommunity, upcomingLearning, pastLearning } =
           'bg-[#00e5ff]',
           'text-[#0a0f1d]',
           'shadow-xl',
-          'shadow-[#00e5ff]/20',
+          'shadow-[#00e5ff]/20'
         )
         btn.classList.remove('text-gray-400', 'hover:text-white')
 
@@ -414,7 +414,7 @@ const { upcomingCommunity, pastCommunity, upcomingLearning, pastLearning } =
 
     containers.forEach((container) => {
       const visibleCards = container.querySelectorAll(
-        '.upcoming-event-card:not([style*="display: none"])',
+        '.upcoming-event-card:not([style*="display: none"])'
       )
       if (visibleCards.length === 0) {
         const emptyState = container.parentElement.querySelector('.empty-state')
