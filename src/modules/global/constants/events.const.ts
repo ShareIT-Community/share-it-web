@@ -14,6 +14,14 @@ export interface ShareITEvent {
 export const EVENTS: ShareITEvent[] = [
   // --- Upcoming Events ---
   {
+    title: 'Q&A - El Futuro del Desarrollador en la Era de la IA',
+    description: 'Raúl Goycoolea Seoane, con más de 30 años de trayectoria en consultoría de negocios y tecnología, y desde la experiencia de liderar la Arquitectura de Datos y Enterprise en Grupo Coppel, nos compartirá una visión cruda y necesaria sobre la reconfiguración del rol del desarrollador. Exploraremos temas cruciales como: la transición al "Product Engineer", La Paradoja de la Productividad y el cambio del bucle interno (escribir) al bucle externo (validar y diseñar)',
+    startDate: '2026-05-13T21:00:00-03:00',
+    endDate: '2026-05-13T23:00:00-03:00',
+    location: 'Server Discord - ShareIT',
+    type: 'workshop',
+  },
+  {
     title: 'Simulación de Entrevistas',
     description:
       'Sumate a una nueva simulación de entrevistas pensada para perfiles Full Stack + IA, donde vas a poder presenciar en vivo cómo se desarrolla tanto la instancia de Recursos Humanos como la entrevista técnica, con foco en habilidades clave, comunicación y toma de decisiones.',
