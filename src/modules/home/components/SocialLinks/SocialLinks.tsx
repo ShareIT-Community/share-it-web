@@ -3,6 +3,8 @@ import { createPortal } from 'react-dom'
 import { socialLinks } from 'src/modules/about-us/constants/about-us.const'
 import { SocialContainer } from './SocialContainer'
 
+import { FaWhatsapp } from 'react-icons/fa6'
+
 const EntryForm = lazy(() =>
   import('../EntryForm/EntryForm').then((m) => ({ default: m.EntryForm })),
 )
@@ -30,11 +32,11 @@ export const SocialLinks: React.FC = () => {
       <div className='flex flex-row flex-wrap justify-center gap-4'>
         <SocialContainer
           description={discord.description}
-          icon={discord.icon}
+          icon={FaWhatsapp}
           onClick={openForm}
-          hoverColor={'#5865F2'}
+          hoverColor={'#25D366'}
           ariaLabel={discord.title}
-          social='discord'
+          social='whatsapp'
         />
         <SocialContainer
           description={github.description}
