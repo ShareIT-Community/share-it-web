@@ -33,7 +33,7 @@ export const SocialLinks: React.FC = () => {
         <SocialContainer
           description={discord.description}
           icon={FaWhatsapp}
-          url='https://chat.whatsapp.com/LGhn2qgdiy8H0Dym10LEZN'
+          onClick={openForm}
           hoverColor={'#25D366'}
           ariaLabel={discord.title}
           social='whatsapp'

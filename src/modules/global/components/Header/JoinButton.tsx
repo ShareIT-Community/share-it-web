@@ -79,15 +79,13 @@ export const JoinButton: React.FC = () => {
 
 export const JoinLinkButton: React.FC = () => {
   return (
-    <JoinFormWrapper
-      renderTrigger={(openForm) => (
-        <button
-          className='text-[#ff6900] hover:text-[#ff8533] transition-colors font-bold ml-1 bg-none border-none cursor-pointer inline-block'
-          onClick={openForm}
-        >
-          ¡Únete para no perderte ninguno!
-        </button>
-      )}
-    />
+    <a
+      href='https://discord.gg/bqRttzC4YB'
+      target='_blank'
+      rel='noopener noreferrer'
+      className='text-[#ff6900] hover:text-[#ff8533] transition-colors font-bold ml-1 bg-none border-none cursor-pointer inline-block'
+    >
+      ¡Únete para no perderte ninguno!
+    </a>
   )
 }
