@@ -1,11 +1,11 @@
-import { FaDiscord } from 'react-icons/fa6'
+import { FaDiscord, FaWhatsapp } from 'react-icons/fa6'
 import { GoRocket } from 'react-icons/go'
 
 export const socialLinks = {
   discord: {
     title: 'Discord de la comunidad',
     description: 'Únete a la comunidad',
-    url: 'https://discord.gg/AKRcVdjSP8',
+    url: 'https://discord.gg/bqRttzC4YB',
     icon: FaDiscord,
   },
   github: {

@@ -82,7 +82,7 @@ export const JoinLinkButton: React.FC = () => {
     <JoinFormWrapper
       renderTrigger={(openForm) => (
         <button
-          className='text-[#ff6900] hover:text-[#ff8533] transition-colors font-bold ml-1b bg-none border-none cursor-pointer inline-block'
+          className='text-[#ff6900] hover:text-[#ff8533] transition-colors font-bold ml-1 bg-none border-none cursor-pointer inline-block'
           onClick={openForm}
         >
           ¡Únete para no perderte ninguno!

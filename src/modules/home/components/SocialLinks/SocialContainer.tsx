@@ -31,7 +31,7 @@ export const SocialContainer: React.FC<SocialButtonProps> = ({
   }
 
   const borderColor = clsx(
-    social === 'discord'
+    social === 'discord' || social === 'whatsapp'
       ? isHovered
         ? 'border-[#ff6900]'
         : 'border-transparent'
@@ -47,7 +47,7 @@ export const SocialContainer: React.FC<SocialButtonProps> = ({
   )
 
   const textColor = clsx(
-    social === 'discord'
+    social === 'discord' || social === 'whatsapp'
       ? isHovered
         ? 'text-[#ff6900]'
         : 'text-white'
@@ -61,7 +61,7 @@ export const SocialContainer: React.FC<SocialButtonProps> = ({
   )
 
   const baseStyle =
-    social === 'discord'
+    social === 'discord' || social === 'whatsapp'
       ? isHovered
         ? { background: 'transparent' }
         : { background: '#ff6900' }
