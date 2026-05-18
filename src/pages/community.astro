@@ -142,68 +142,8 @@ const { upcomingCommunity, pastCommunity, upcomingLearning, pastLearning } =
       </div>
     </section>
 
-    <SectionDivider />
 
-    <!-- Rules -->
-    <section class='py-20 md:py-32 bg-gray-900/30' id='rules'>
-      <div class='container mx-auto px-6 max-w-5xl'>
-        <div class='text-center mb-16'>
-          <h2 class='text-4xl font-bold text-white mb-4'>
-            <span class='section-heading__accent_doble'>Reglas</span> de <span
-              class='text-[#00e5ff]'>Convivencia</span
-            >
-          </h2>
-          <p class='text-xl text-gray-400 max-w-2xl mx-auto'>
-            Para mantener un espacio sano, respetuoso y productivo para todos.
-          </p>
-        </div>
-
-        <div
-          class='flex overflow-x-auto snap-x snap-mandatory sm:grid sm:grid-cols-2 gap-6 sm:gap-8 pb-8 -mx-6 px-6 sm:mx-0 sm:px-0 sm:pb-0 custom-scrollbar'
-        >
-          {
-            COMMUNITY_RULES.map((rule) => (
-              <div class='snap-center shrink-0 w-[85vw] sm:w-auto group relative p-8 bg-[#0a0f1d]/60 border border-white/5 rounded-3xl transition-all duration-500 hover:shadow-[0_0_40px_rgba(255,105,0,0.08)] hover:-translate-y-1 backdrop-blur-md overflow-hidden'>
-                <div class='absolute -right-10 -bottom-10 w-32 h-32 bg-[#ff6900]/5 rounded-full blur-2xl group-hover:bg-[#ff6900]/10 transition-colors' />
-
-                <div class='relative z-10 flex items-start gap-6'>
-                  <div class='text-5xl font-black text-white/5 group-hover:text-[#ff6900]/20 shrink-0 leading-none select-none transition-colors duration-500'>
-                    {rule.number}
-                  </div>
-                  <div>
-                    <h3 class='text-xl font-bold text-white mb-2 group-hover:text-[#ff6900] transition-colors'>
-                      {rule.title}
-                    </h3>
-                    <p class='text-gray-400 text-lg leading-relaxed'>
-                      {rule.description}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))
-          }
-        </div>
-
-        <div
-          class='flex justify-end items-center sm:hidden animate-pulse mb-8 pr-2 gap-2 text-[#00e5ff] text-sm font-medium opacity-80'
-        >
-          Desliza para ver más <i class='fa-solid fa-arrow-right-long'></i>
-        </div>
-
-        <div class='mt-8 sm:mt-16 flex justify-center'>
-          <a
-            href='/rules'
-            class='group relative px-10 py-4 bg-[#ff6900] text-white font-bold rounded-2xl transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(255,105,0,0.4)] overflow-hidden'
-          >
-            <span class='relative z-10 flex items-center gap-2'>
-              Ver reglas completas <i class='fa-solid fa-arrow-right text-sm'
-              ></i>
-            </span>
-          </a>
-        </div>
-      </div>
-    </section>
-
+  
     <SectionDivider />
 
     <section class='py-20 md:py-32' id='events'>
@@ -215,7 +155,7 @@ const { upcomingCommunity, pastCommunity, upcomingLearning, pastLearning } =
             >
           </h2>
           <p class='text-xl text-gray-400 max-w-2xl mx-auto'>
-            Explora nuestros encuentros comunitarios y espacios de aprendizaje.
+            Explora nuestros encuentros comunitarios y espacios de aprendizaje. A menos que se indique lo contrario, todos los eventos se realizan en nuestro Discord. <JoinLinkButton client:idle />
           </p>
         </div>
 
@@ -229,7 +169,7 @@ const { upcomingCommunity, pastCommunity, upcomingLearning, pastLearning } =
               class='tab-btn px-8 py-3 rounded-xl text-md font-bold transition-all duration-300 bg-[#00e5ff] text-[#0a0f1d] shadow-xl shadow-[#00e5ff]/20'
               data-tab='community'
             >
-              Comunidad
+              Eventos
             </button>
             <button
               id='btn-tab-learning'
@@ -337,16 +277,12 @@ const { upcomingCommunity, pastCommunity, upcomingLearning, pastLearning } =
           </div>
         </div>
 
-        <div
-          class='mt-24 p-8 bg-gradient-to-r from-[#1d2c49]/20 to-transparent border-l-4 border-[#00e5ff] rounded-r-2xl'
-        >
-          <p class='text-white text-lg font-medium'>
-            Los eventos se coordinan a través de nuestro servidor de Discord.
-            <JoinLinkButton client:idle />
-          </p>
-        </div>
+       
       </div>
     </section>
+
+    <SectionDivider />
+  
   </main>
 </Layout>
 
