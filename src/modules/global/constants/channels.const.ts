@@ -16,8 +16,11 @@ export const whatsappGroups: WhatsappGroup[] = [
   {
     title: 'General',
     order: 1,
-    description:
-      'El punto de encuentro principal. Acá charlamos, compartimos novedades, ideas y reflexiones del día a día. Si querés presentarte o simplemente saludar, ¡este es el lugar!',
+    description: [
+      'La columna vertebral de la comunidad. El punto de encuentro donde se siente la calidad humana de este espacio.',
+      'Acá nos conocemos, debatimos, compartimos dilemas reales y nos apoyamos entre todos, más allá del rol técnico de cada uno.',
+      '🚀 Antes que la tecnología, están las personas. Pasá, presentate y sé parte de la conversación que mueve a ShareIT.',
+    ],
     icon: whatsappGroupIcons.data,
     image: '/images/groups/GENERAL.jpg',
     color: '[#a78bfa]',

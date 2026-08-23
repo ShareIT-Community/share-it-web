@@ -15,8 +15,10 @@ interface Props {
 const { title, description, icon, image, color = 'primary', index, referents } =
 	Astro.props
 
-const descriptionIsMultiline = Array.isArray(description)
-const descriptionText = descriptionIsMultiline
+const descriptionIsMultiline =
+	Array.isArray(description) ||
+	(typeof description === 'string' && description.includes('\n'))
+const descriptionText = Array.isArray(description)
 	? description.join('\n\n')
 	: description
 
@@ -80,10 +82,7 @@ const cardUid = `wg-${index}`
 				class:list={[
 					'text-gray-300 leading-relaxed italic group-hover/card:text-white transition-colors flex-grow [text-wrap:pretty]',
 					{ 'whitespace-pre-line': descriptionIsMultiline },
-				]}
-			>
-				"{descriptionText}"
-			</p>
+				]}>"{descriptionText}"</p>
 
 			{
 				referents && referents.length > 0 && (
