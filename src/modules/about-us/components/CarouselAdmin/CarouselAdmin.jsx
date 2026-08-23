@@ -32,9 +32,9 @@ const EmblaCarouselAdmin = ({ slides, options }) => {
                   <span className="text-gray-400 text-sm">{item.about}</span>
                 </div>
                 <SocialLinks
-                  github={item.github}
                   linkedin={item.linkedin}
                   website={item.website}
+                  github={item.github}
                   twitter={item.twitter}
                   instagram={item.instagram}
                 />

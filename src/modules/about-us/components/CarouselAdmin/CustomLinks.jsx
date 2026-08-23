@@ -15,14 +15,14 @@ const ICONS = {
 }
 
 export const SocialLinks = ({
-  github,
   linkedin,
   website,
+  github,
   twitter,
   instagram,
   className = 'flex gap-3 text-gray-400',
 }) => {
-  const links = { github, linkedin, website, twitter, instagram }
+  const links = { linkedin, website, github, twitter, instagram }
 
   return (
     <div className={className}>

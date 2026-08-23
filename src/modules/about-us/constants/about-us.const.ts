@@ -58,9 +58,9 @@ export interface Admin {
   about: string
   role: string
   avatar: string
-  github?: string
   linkedin: string
   website?: string
+  github?: string
   twitter?: string
   instagram?: string
   description?: string[]
@@ -72,17 +72,14 @@ export const admins: Admin[] = [
     about: 'Fundador de la Comunidad',
     role: 'Data Engineer',
     avatar: '/images/kani.webp',
-    github: 'https://github.com/eliasvelazquezdev',
     linkedin: 'https://linkedin.com/in/eliassvelazquez',
     website: 'https://linktr.ee/elingenieroconsciente',
-    twitter: 'https://x.com/ingeconsciente',
+    github: 'https://github.com/eliasvelazquezdev',
     description: [
-      'Buenas! Soy Elias (Kani)',
-      'Arranqué en IT en 2024 como Python/ETL Dev y fui evolucionando hacia Data Engineering, trabajando en la construcción de pipelines desde cero. Actualmente estoy profundizando mi formación para crecer en este rol.',
-      'Además de aprender, me gusta enseñar y compartir contenido en redes. También escribo una newsletter (El Ingeniero Consciente) donde mezclo reflexiones personales con recursos sobre Data Engineering y AWS.',
-      'Fuera del mundo tech, existen otras cosas que me encantan, como jugar en la PC, ver series, pelis, leer, caminar, la música (toco teclado y produzco desde 2014) y las buenas conversaciones.',
-      'Dentro de la comunidad, mi foco es impulsar la proactividad y el crecimiento colectivo. A veces puedo ser directo, pero siempre con la intención de que avancemos.',
-      'Si necesitan algo, estoy a un mensaje 👍',
+      '¡Buenas! Soy Elias (Kani), Data Engineer. Construyo pipelines de datos y sigo en constante formación.',
+      'Además de aprender, me gusta enseñar y por eso comparto contenido en LinkedIn y escribo "El Ingeniero Consciente", mi newsletter donde mezclo reflexiones personales con recursos sobre Data Engineering y AWS.',
+      'Fuera del mundo tech me gusta hacer de todo un poco: jugar fichines, ver series, pelis, leer, escribir, caminar y andar en bici, la música (toco teclado y produzco desde 2014), y las buenas conversaciones.',
+      'En la comunidad busco impulsar la proactividad y el crecimiento colectivo. ¡A un mensaje para lo que necesiten!',
     ],
   },
   {
