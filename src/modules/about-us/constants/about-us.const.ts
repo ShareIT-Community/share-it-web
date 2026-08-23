@@ -73,7 +73,7 @@ export const admins: Admin[] = [
     role: 'Data Engineer',
     avatar: '/images/kani.webp',
     linkedin: 'https://linkedin.com/in/eliassvelazquez',
-    website: 'https://linktr.ee/elingenieroconsciente',
+    website: 'https://elingenieroconsciente.com',
     github: 'https://github.com/eliasvelazquezdev',
     description: [
       '¡Buenas! Soy Elias (Kani), Data Engineer. Construyo pipelines de datos y sigo en constante formación.',
