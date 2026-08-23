@@ -93,4 +93,14 @@ export const admins: Admin[] = [
       'Cuando apago la pantalla, mi mundo es 100% analógico. Me encontrás entre pinceles, telas y proyectos manuales; creo que esa creatividad artística es el cable a tierra ideal para mi faceta técnica y social. ¡Sigamos creciendo juntos!',
     ],
   },
+  {
+    name: 'Nataya Flores',
+    about: 'Admin',
+    role: 'Data Engineer',
+    avatar: '/images/Nataya.jpg',
+    linkedin: 'https://www.linkedin.com/in/natayadev',
+    description: [
+      'Hola, soy Nata (@natayadev). Trabajo como ingeniera de datos y desarrolladora hace seis años, me especializo en Cloud y me estoy preparando para ser bioinformática en la UNQ. También tengo un poco de conocimiento en gobernanza y privacidad de datos, en bioquímica y en marketing. Hincha de Boca, me gusta el mate amargo y el rock en todas sus formas. A veces hago divulgación científica, o eso lo intento.',
+    ],
+  },
 ]
