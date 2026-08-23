@@ -9,8 +9,8 @@ export const socialLinks = {
     icon: FaDiscord,
   },
   github: {
-    title: 'Nuestras redes (Linktree)',
-    description: 'Nuestras redes',
+    title: 'Nuestro Discord y otras redes (Linktree)',
+    description: 'Nuestro Discord y otras redes',
     url: 'https://linktr.ee/shareit_tech',
     icon: GoRocket,
   },
