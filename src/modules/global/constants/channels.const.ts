@@ -43,7 +43,7 @@ export const whatsappGroups: WhatsappGroup[] = [
     icon: whatsappGroupIcons.data,
     image: '/images/groups/DATA.jpg',
     color: '[#a78bfa]',
-    referrals: ['omar-valdez', 'fabri-lennart', 'nataya-dev', 'franco-antuna'],
+    referrals: ['omar-valdez', 'fabri-lennart', 'nataya-dev', 'franco-antuna', 'elias-velazquez'],
   },
   {
     title: 'Inglés - Práctica y Consultas',
