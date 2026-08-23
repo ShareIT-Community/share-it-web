@@ -58,7 +58,7 @@ export interface Admin {
   about: string
   role: string
   avatar: string
-  linkedin: string
+  linkedin?: string
   website?: string
   github?: string
   twitter?: string
@@ -71,7 +71,7 @@ export const admins: Admin[] = [
     name: 'Elias Velázquez (Kani)',
     about: 'Fundador de la Comunidad',
     role: 'Data Engineer',
-    avatar: '/images/kani.webp',
+    avatar: '/images/Kani.jpg',
     linkedin: 'https://linkedin.com/in/eliassvelazquez',
     website: 'https://elingenieroconsciente.com',
     github: 'https://github.com/eliasvelazquezdev',
@@ -101,6 +101,17 @@ export const admins: Admin[] = [
     linkedin: 'https://www.linkedin.com/in/natayadev',
     description: [
       'Hola, soy Nata (@natayadev). Trabajo como ingeniera de datos y desarrolladora hace seis años, me especializo en Cloud y me estoy preparando para ser bioinformática en la UNQ. También tengo un poco de conocimiento en gobernanza y privacidad de datos, en bioquímica y en marketing. Hincha de Boca, me gusta el mate amargo y el rock en todas sus formas. A veces hago divulgación científica, o eso lo intento.',
+    ],
+  },
+  {
+    name: 'Nahuel Gomez',
+    about: 'Admin',
+    role: 'SR Backend Developer',
+    avatar: '/images/Nahuel.webp',
+    website: 'https://nahuelgomez.ar',
+    description: [
+      'SR Backend developer en Mercado Libre con amplia experiencia en el diseño de arquitecturas escalables y la resolución de problemas técnicos complejos en entornos de alta exigencia.',
+      'Me destaco por combinar la excelencia en ingeniería con un rol activo en la formación de talento - habiendo mentorizado a decenas de desarrolladores- y por integrar herramientas de IA de vanguardia para optimizar procesos de desarrollo y productividad',
     ],
   },
 ]
