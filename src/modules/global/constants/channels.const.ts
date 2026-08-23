@@ -55,4 +55,15 @@ export const whatsappGroups: WhatsappGroup[] = [
     color: '[#a78bfa]',
     referrals: ['omar-valdez', 'fabri-lennart', 'nataya-dev', 'franco-antuna'],
   },
+  {
+    title: 'Inglés - Práctica y Consultas',
+    order: 5,
+    description: [
+      'El espacio donde los miembros pueden mejorar sus habilidades comunicativas en inglés, mientras comparten recursos, resuelven dudas y se ayudan mutuamente en el proceso de aprendizaje.',
+      'No es necesario tener un nivel avanzado para participar. Quienes estén dando sus primeros pasos pueden realizar consultas y pedir orientación, mientras que quienes tengan mayor dominio pueden practicar conversaciones y colaborar con otros miembros.',
+    ],
+    icon: whatsappGroupIcons.data,
+    image: '/images/groups/ENGLISH.jpg',
+    color: '[#a78bfa]',
+  },
 ]
