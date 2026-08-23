@@ -9,8 +9,8 @@ export const socialLinks = {
     icon: FaDiscord,
   },
   github: {
-    title: 'Nuestras redes (Linktree)',
-    description: 'Nuestras redes',
+    title: 'Nuestro Discord y más! (Linktree)',
+    description: 'Nuestro Discord y más!',
     url: 'https://linktr.ee/shareit_tech',
     icon: GoRocket,
   },
@@ -58,9 +58,9 @@ export interface Admin {
   about: string
   role: string
   avatar: string
-  github?: string
-  linkedin: string
+  linkedin?: string
   website?: string
+  github?: string
   twitter?: string
   instagram?: string
   description?: string[]
@@ -71,18 +71,15 @@ export const admins: Admin[] = [
     name: 'Elias Velázquez (Kani)',
     about: 'Fundador de la Comunidad',
     role: 'Data Engineer',
-    avatar: '/images/kani.webp',
-    github: 'https://github.com/eliasvelazquezdev',
+    avatar: '/images/Kani.jpg',
     linkedin: 'https://linkedin.com/in/eliassvelazquez',
-    website: 'https://linktr.ee/elingenieroconsciente',
-    twitter: 'https://x.com/ingeconsciente',
+    website: 'https://elingenieroconsciente.com',
+    github: 'https://github.com/eliasvelazquezdev',
     description: [
-      'Buenas! Soy Elias (Kani)',
-      'Arranqué en IT en 2024 como Python/ETL Dev y fui evolucionando hacia Data Engineering, trabajando en la construcción de pipelines desde cero. Actualmente estoy profundizando mi formación para crecer en este rol.',
-      'Además de aprender, me gusta enseñar y compartir contenido en redes. También escribo una newsletter (El Ingeniero Consciente) donde mezclo reflexiones personales con recursos sobre Data Engineering y AWS.',
-      'Fuera del mundo tech, existen otras cosas que me encantan, como jugar en la PC, ver series, pelis, leer, caminar, la música (toco teclado y produzco desde 2014) y las buenas conversaciones.',
-      'Dentro de la comunidad, mi foco es impulsar la proactividad y el crecimiento colectivo. A veces puedo ser directo, pero siempre con la intención de que avancemos.',
-      'Si necesitan algo, estoy a un mensaje 👍',
+      '¡Buenas! Soy Elias (Kani), Data Engineer. Construyo pipelines de datos y sigo en constante formación.',
+      'Además de aprender, me gusta enseñar y por eso comparto contenido en LinkedIn y escribo "El Ingeniero Consciente", mi newsletter donde mezclo reflexiones personales con recursos sobre Data Engineering y AWS.',
+      'Fuera del mundo tech me gusta hacer de todo un poco: jugar fichines, ver series, pelis, leer, escribir, caminar y andar en bici, la música (toco teclado y produzco desde 2014), y las buenas conversaciones.',
+      'En la comunidad busco impulsar la proactividad y el crecimiento colectivo. ¡A un mensaje para lo que necesiten!',
     ],
   },
   {
@@ -94,6 +91,27 @@ export const admins: Admin[] = [
     description: [
       'Hola! Soy Brooke. Mi camino en IT no ha sido lineal: pasé por QA, ciberseguridad, y diseño UX UI, hoy me dedico de lleno al soporte técnico LLM. Disfruto resolver problemas y guiar a otros, lo que me llevó a ser admin de este espacio y a trabajar actualmente en Solsteinn, gracias a una gran persona que conocí en esta misma comunidad.',
       'Cuando apago la pantalla, mi mundo es 100% analógico. Me encontrás entre pinceles, telas y proyectos manuales; creo que esa creatividad artística es el cable a tierra ideal para mi faceta técnica y social. ¡Sigamos creciendo juntos!',
+    ],
+  },
+  {
+    name: 'Nataya Flores',
+    about: 'Admin',
+    role: 'Data Engineer',
+    avatar: '/images/Nataya.jpg',
+    linkedin: 'https://www.linkedin.com/in/natayadev',
+    description: [
+      'Hola, soy Nata (@natayadev). Trabajo como ingeniera de datos y desarrolladora hace seis años, me especializo en Cloud y me estoy preparando para ser bioinformática en la UNQ. También tengo un poco de conocimiento en gobernanza y privacidad de datos, en bioquímica y en marketing. Hincha de Boca, me gusta el mate amargo y el rock en todas sus formas. A veces hago divulgación científica, o eso lo intento.',
+    ],
+  },
+  {
+    name: 'Nahuel Gomez',
+    about: 'Admin',
+    role: 'SR Backend Developer',
+    avatar: '/images/Nahuel.webp',
+    website: 'https://nahuelgomez.ar',
+    description: [
+      'SR Backend developer en Mercado Libre con amplia experiencia en el diseño de arquitecturas escalables y la resolución de problemas técnicos complejos en entornos de alta exigencia.',
+      'Me destaco por combinar la excelencia en ingeniería con un rol activo en la formación de talento - habiendo mentorizado a decenas de desarrolladores- y por integrar herramientas de IA de vanguardia para optimizar procesos de desarrollo y productividad',
     ],
   },
 ]

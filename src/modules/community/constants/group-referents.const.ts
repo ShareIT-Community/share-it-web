@@ -85,6 +85,15 @@ export const GROUP_REFERENTS: GroupReferent[] = [
 			},
 		],
 	},
+	{
+		id: 'elias-velazquez',
+		nombre: 'Elias Velazquez',
+		rol: 'Referente técnico',
+		descripcion:
+			'Data Engineer con más de 2 años de experiencia especializado en la nube de AWS. Diseño e implemento pipelines de datos de alto rendimiento, convencido de que la comunicación clara es tan fundamental como el código limpio para el éxito de un proyecto. Además, comparto mi pasión por la tecnología en "El Ingeniero Consciente", mi blog y newsletter donde simplifico conceptos complejos de ingeniería de datos para inspirar y aportar valor a la comunidad.',
+		image: '/images/Kani.jpg',
+		web: 'https://evelazquez.dev',
+	},
 ]
 
 export function getGroupReferentsByIds(

@@ -16,8 +16,11 @@ export const whatsappGroups: WhatsappGroup[] = [
   {
     title: 'General',
     order: 1,
-    description:
-      'El punto de encuentro principal. Acá charlamos, compartimos novedades, ideas y reflexiones del día a día. Si querés presentarte o simplemente saludar, ¡este es el lugar!',
+    description: [
+      'La columna vertebral de la comunidad. El punto de encuentro donde se siente la calidad humana de este espacio.',
+      'Acá nos conocemos, debatimos, compartimos dilemas reales y nos apoyamos entre todos, más allá del rol técnico de cada uno.',
+      '🚀 Antes que la tecnología, están las personas. Pasá, presentate y sé parte de la conversación que mueve a ShareIT.',
+    ],
     icon: whatsappGroupIcons.data,
     image: '/images/groups/GENERAL.jpg',
     color: '[#a78bfa]',
@@ -33,23 +36,24 @@ export const whatsappGroups: WhatsappGroup[] = [
     referrals: ['brigitte'],
   },
   {
-    title: 'Desarrollo Web',
-    order: 3,
-    description:
-      'Grupo pensado para compartir conocimientos, resolver dudas y conversar sobre buenas prácticas, herramientas y experiencias reales del día a día relacionadas a desarrollo web. La idea es mantener un espacio colaborativo y profesional, pero también cercano, donde todos puedan aportar y aprender en conjunto.',
-    icon: whatsappGroupIcons.data,
-    image: '/images/groups/WEBDEVELOPMENT.jpg',
-    color: '[#a78bfa]',
-    referrals: ['edwin-deza', 'jean-roa', 'nahuel-gomez'],
-  },
-  {
     title: 'Data, Cloud, ML & AI',
-    order: 4,
+    order: 3,
     description:
       'Este grupo es para quienes están dando sus primeros pasos en datos, cloud, ML e IA. Compartimos recursos, dudas, experiencias y ejemplos reales, con foco en aprender juntos y entender conceptos que a veces parecen más complejos de lo que realmente son.',
     icon: whatsappGroupIcons.data,
     image: '/images/groups/DATA.jpg',
     color: '[#a78bfa]',
-    referrals: ['omar-valdez', 'fabri-lennart', 'nataya-dev', 'franco-antuna'],
+    referrals: ['omar-valdez', 'fabri-lennart', 'nataya-dev', 'franco-antuna', 'elias-velazquez'],
+  },
+  {
+    title: 'Inglés - Práctica y Consultas',
+    order: 4,
+    description: [
+      'El espacio donde los miembros pueden mejorar sus habilidades comunicativas en inglés, mientras comparten recursos, resuelven dudas y se ayudan mutuamente en el proceso de aprendizaje.',
+      'No es necesario tener un nivel avanzado para participar. Quienes estén dando sus primeros pasos pueden realizar consultas y pedir orientación, mientras que quienes tengan mayor dominio pueden practicar conversaciones y colaborar con otros miembros.',
+    ],
+    icon: whatsappGroupIcons.data,
+    image: '/images/groups/ENGLISH.jpg',
+    color: '[#a78bfa]',
   },
 ]
