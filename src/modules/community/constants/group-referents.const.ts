@@ -64,7 +64,7 @@ export const GROUP_REFERENTS: GroupReferent[] = [
 	{
 		id: 'brigitte',
 		nombre: 'Brigitte Bergery',
-		rol: 'Referente de marca',
+		rol: 'Referente de marca personal y empleabilidad',
 		descripcion: ['Soy asesora, speaker y creadora de contenidos enfocada en potenciar a personas de trabajo con herramientas clave en: empleabilidad, autoconocimiento, marca personal y redes sociales, estrategias de networking, armado de CV y uso de LinkedIn. En 2023 creé Emplea Habilidad, la marca registrada en la materia con el propósito de instalar la empleabilidad en la agenda de HR para facilitar el encuentro entre personas y organizaciones. Por mi aporte a la conversación global sobre el futuro del trabajo fui reconocida como Top HR Influencer y Top Career Coach en Argentina.'],
 		image: '/images/Brigitte.jpg',
 		web: 'https://own.page/empleabilidad',
@@ -93,6 +93,24 @@ export const GROUP_REFERENTS: GroupReferent[] = [
 			'Data Engineer con más de 2 años de experiencia especializado en la nube de AWS. Diseño e implemento pipelines de datos de alto rendimiento, convencido de que la comunicación clara es tan fundamental como el código limpio para el éxito de un proyecto. Además, comparto mi pasión por la tecnología en "El Ingeniero Consciente", mi blog y newsletter donde simplifico conceptos complejos de ingeniería de datos para inspirar y aportar valor a la comunidad.',
 		image: '/images/Kani.jpg',
 		web: 'https://evelazquez.dev',
+	},
+	{
+		id: 'francisca-casas',
+		nombre: 'Francisca Casas',
+		rol: 'Referente de marca personal y empleabilidad',
+		descripcion: [
+			'Soy hija de Dios, psicóloga, IT Recruiter, Coach de Empleabilidad y fundadora de Deploy Your Career, un programa creado para acompañar a profesionales IT en el camino hacia nuevas oportunidades laborales.',
+			'Me considero una persona muy creativa, curiosa y siempre en búsqueda de nuevos desafíos. La monotonía definitivamente no es lo mío. Mi gran deseo es poder vivir rodeada de tecnología, ciencia y personas apasionadas por lo que hacen.',
+			'Fuera de lo laboral, soy fan del anime, los K-dramas, la comida, los libros y, por supuesto, los animales.',
+			'Siempre busco aportar desde mi experiencia, mi empatía y —probablemente mi mayor superpoder— mi tenacidad para acompañar a profesionales hasta que logren convertir su talento en una oportunidad laboral, o inventarse un trabajo como freelancer.',
+		],
+		image: '/images/Francisca.jpeg',
+		redes: [
+			{
+				label: 'Instagram',
+				url: 'https://www.instagram.com/deploy.yourcareer/',
+			},
+		],
 	},
 ]
 
