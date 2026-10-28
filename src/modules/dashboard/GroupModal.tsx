@@ -100,7 +100,7 @@ export default function GroupModal({ group, defaultOrder, onSubmit, onDelete, on
 				</div>
 				<label className={label}>
 					Ícono
-					<select className={input} name='icon' defaultValue={group?.icon ?? ''}>
+					<select className={`${input} scheme-dark [&_option]:bg-gray-900`} name='icon' defaultValue={group?.icon ?? ''}>
 						<option value=''>(ninguno)</option>
 						{Object.keys(whatsappGroupIcons).map((k) => (
 							<option key={k} value={k}>
