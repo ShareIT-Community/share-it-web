@@ -125,6 +125,7 @@ Para añadir artículos debes ser parte de nuestra comunidad. El contenido es re
 
 - [Share IT Community](https://github.com/ShareIT-Community)
 - [Elias Velazquez 👨🏻‍💻](https://github.com/eliasvelazquezdev)
+- [Guía E2E del dashboard (local)](docs/dashboard-e2e.md)
 - [Documentación de Astro](https://docs.astro.build)
 
 ---
