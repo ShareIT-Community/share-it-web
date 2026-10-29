@@ -1,12 +1,10 @@
 import { useState } from 'react'
 import EventCard from './EventCard'
 import EventModal from './EventModal'
+import { DashboardHeading, DashboardState, DashboardToolbar, type DashboardLoadState } from './DashboardShell'
+import { normalizeSearch } from './search'
+import { useCrud } from './useCrud'
 import type { EventBody, EventItem } from './types'
-
-const API = import.meta.env.PUBLIC_API_URL ?? 'http://localhost:8000/api/v1'
-
-const btn =
-	'cursor-pointer rounded-xl px-5 py-2 font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00e5ff] focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900'
 
 interface Props {
 	token: string
@@ -14,72 +12,38 @@ interface Props {
 	setEvents: React.Dispatch<React.SetStateAction<EventItem[]>>
 	notify: (msg: string) => void
 	onUnauthorized: () => void
+	loadState: DashboardLoadState
+	onRetry: () => void
 }
 
-/** FastAPI `detail` is a string for business errors and a list of {loc, msg} for 422 validation errors. */
-const detailText = (detail: unknown, fallback: string) =>
-	typeof detail === 'string'
-		? detail
-		: Array.isArray(detail) && detail.length
-			? detail.map((d) => d.msg).join('. ')
-			: fallback
+export default function EventsPanel({ token, events, setEvents, notify, onUnauthorized, loadState, onRetry }: Props) {
+	const { editing, setEditing, submit, remove } = useCrud<EventItem, EventBody>({
+		resource: 'events',
+		token,
+		setItems: setEvents,
+		notify,
+		onUnauthorized,
+		itemName: (e) => e.title,
+		deletedMessage: 'evento borrado',
+	})
+	const [query, setQuery] = useState('')
 
-export default function EventsPanel({ token, events, setEvents, notify, onUnauthorized }: Props) {
-	// undefined = closed, null = creating, EventItem = editing
-	const [editing, setEditing] = useState<EventItem | null | undefined>(undefined)
-
-	/** Shared fetch for writes; returns an error message for the modal, undefined on success. */
-	async function write(path: string, method: string, body?: EventBody): Promise<{ ok?: boolean; error?: string; data?: EventItem }> {
-		try {
-			const res = await fetch(`${API}/events${path}`, {
-				method,
-				headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-				body: body && JSON.stringify(body),
-			})
-			if (res.status === 401) {
-				onUnauthorized()
-				return {}
-			}
-			if (!res.ok) {
-				const { detail } = await res.json().catch(() => ({}))
-				return { error: detailText(detail, `Error al guardar (${res.status})`) }
-			}
-			return { ok: true, data: res.status === 204 ? undefined : await res.json() }
-		} catch {
-			return { error: 'No se pudo conectar' }
-		}
-	}
-
-	async function submit(body: EventBody): Promise<string | undefined> {
-		const id = editing?.id
-		const { error, data } = await write(id ? `/${id}` : '', id ? 'PATCH' : 'POST', body)
-		if (!data) return error
-		setEvents((es) => (id ? es.map((x) => (x.id === id ? data : x)) : [...es, data]))
-		notify(`Guardado: ${data.title}`)
-		setEditing(undefined)
-	}
-
-	async function remove(): Promise<string | undefined> {
-		const id = editing?.id
-		const { ok, error } = await write(`/${id}`, 'DELETE')
-		if (!ok) return error
-		setEvents((es) => es.filter((x) => x.id !== id))
-		notify('Guardado: evento borrado')
-		setEditing(undefined)
-	}
+	const search = normalizeSearch(query)
+	// Newest first
+	const visibleEvents = events
+		.filter((e) => normalizeSearch(`${e.title} ${e.speaker ?? ''} ${e.location ?? ''}`).includes(search))
+		.sort((a, b) => b.start_at.localeCompare(a.start_at))
 
 	return (
 		<>
-			<button onClick={() => setEditing(null)} className={`${btn} mb-6 bg-[#00e5ff] text-gray-900 hover:brightness-110`}>
-				+ Agregar evento
-			</button>
-			<div className='grid grid-cols-1 gap-6 md:grid-cols-2'>
-				{[...events]
-					.sort((a, b) => b.start_at.localeCompare(a.start_at))
-					.map((e) => (
-						<EventCard key={e.id} e={e} onEdit={() => setEditing(e)} />
-					))}
-			</div>
+			<DashboardHeading title='Eventos' description='Administra los meetups y talleres de la comunidad.' action='Agregar evento' onAdd={() => setEditing(null)} />
+			<DashboardToolbar query={query} onQueryChange={setQuery} placeholder='Buscar por título, orador o lugar…' resultLabel={loadState === 'ready' ? `${search ? `${visibleEvents.length} de ` : ''}${events.length} ${events.length === 1 ? 'evento' : 'eventos'}` : ''} />
+			{loadState === 'loading' ? <DashboardState title='Cargando eventos…' loading />
+				: loadState === 'error' ? <DashboardState title='No se pudieron cargar los eventos' description='Comprueba la conexión e inténtalo de nuevo.' onRetry={onRetry} />
+				: events.length === 0 ? <DashboardState title='Aún no hay eventos' description='Agrega el primer meetup o taller de la comunidad.' />
+				: visibleEvents.length === 0 ? <DashboardState title='No se encontraron eventos' description='Prueba con otro título, orador o lugar.' />
+				: <div className='dashboard-grid'>{visibleEvents.map((e) => <EventCard key={e.id} e={e} onEdit={() => setEditing(e)} />)}</div>
+			}
 			{editing !== undefined && (
 				<EventModal
 					key={editing?.id ?? 'new'}

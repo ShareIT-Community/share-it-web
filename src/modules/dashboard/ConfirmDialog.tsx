@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import { useBackdropClose } from './useBackdropClose'
 
 interface Props {
 	title: string
@@ -15,6 +16,7 @@ const btn =
 /** Small native alert dialog; mount it to open it. Cancel has the default focus. */
 export default function ConfirmDialog({ title, text, confirmLabel = 'Borrar', onConfirm, onClose }: Props) {
 	const ref = useRef<HTMLDialogElement>(null)
+	const backdropClose = useBackdropClose(ref)
 	useEffect(() => {
 		ref.current?.showModal()
 	}, [])
@@ -25,7 +27,7 @@ export default function ConfirmDialog({ title, text, confirmLabel = 'Borrar', on
 			aria-labelledby='confirm-title'
 			aria-describedby='confirm-text'
 			onClose={onClose}
-			onClick={(e) => e.target === ref.current && ref.current?.close()}
+			{...backdropClose}
 			className='m-auto w-[calc(100%-2rem)] max-w-sm rounded-2xl border border-white/10 bg-[#0a0f1d] p-6 text-white backdrop:bg-black/70'
 		>
 			<h2 id='confirm-title' className='font-[Josefin_Sans] text-xl font-bold break-words'>

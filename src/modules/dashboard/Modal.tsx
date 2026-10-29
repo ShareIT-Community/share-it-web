@@ -1,18 +1,16 @@
 import { useEffect, useRef, useState, type FormEvent, type ReactNode } from 'react'
 import { FiTrash2, FiX } from 'react-icons/fi'
 import ConfirmDialog from './ConfirmDialog'
+import { useBackdropClose } from './useBackdropClose'
 
 const iconBtn =
 	'flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00e5ff] focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900'
 
 interface Props {
 	title: string
-	/** Name shown in the delete confirmation. */
 	itemName?: string
 	children: ReactNode
-	/** Return an error message, or undefined on success. */
 	onSubmit: (data: FormData) => Promise<string | undefined>
-	/** Delete is hidden when missing (create mode). Returns an error message, or undefined on success. */
 	onDelete?: () => Promise<string | undefined>
 	onClose: () => void
 }
@@ -23,6 +21,7 @@ export default function Modal({ title, itemName, children, onSubmit, onDelete, o
 	const [error, setError] = useState('')
 	const [busy, setBusy] = useState(false)
 	const [confirming, setConfirming] = useState(false)
+	const backdropClose = useBackdropClose(ref)
 
 	useEffect(() => {
 		const opener = document.activeElement as HTMLElement | null
@@ -47,11 +46,11 @@ export default function Modal({ title, itemName, children, onSubmit, onDelete, o
 	return (
 		<dialog
 			ref={ref}
-			onClose={onClose}
-			onClick={(e) => e.target === ref.current && ref.current?.close()}
+			onClose={(event) => { if (event.target === event.currentTarget) onClose() }}
+			{...backdropClose}
 			aria-labelledby='modal-title'
 			aria-modal='true'
-			className='m-auto w-[calc(100%-2rem)] max-w-lg overflow-hidden rounded-3xl border border-white/10 bg-[#0a0f1d] p-0 text-white backdrop:bg-black/70 open:flex open:max-h-[90dvh] open:flex-col'
+			className='dashboard-dialog m-auto w-[calc(100%-2rem)] max-w-lg overflow-hidden rounded-3xl border border-white/10 bg-[#0a0f1d] p-0 text-white backdrop:bg-black/70 open:flex open:max-h-[90dvh] open:flex-col'
 		>
 			<form onSubmit={submit} className='flex min-h-0 flex-1 flex-col'>
 				<div className='flex items-start justify-between gap-3 px-6 pt-5 pb-2'>
