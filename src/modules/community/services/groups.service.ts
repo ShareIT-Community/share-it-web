@@ -1,4 +1,5 @@
 import { whatsappGroupIcons } from 'src/modules/community/constants/whatsappGroupIcons'
+import type { GroupReferent } from 'src/modules/community/interfaces/group-referent.interface'
 import {
 	whatsappGroups,
 	type WhatsappGroup,
@@ -7,6 +8,24 @@ import {
 export const API_URL: string =
 	import.meta.env.PUBLIC_API_URL ?? 'http://localhost:8000/api/v1'
 
+interface ApiReferent {
+	id: number
+	name: string
+	role: string
+	description: string
+	image_url: string | null
+	links: { label: string; url: string }[]
+}
+
+const toReferent = (r: ApiReferent): GroupReferent => ({
+	id: String(r.id),
+	nombre: r.name,
+	rol: r.role,
+	descripcion: r.description.split(/\n\n+/),
+	image: r.image_url ?? '',
+	redes: r.links,
+})
+
 interface ApiGroup {
 	title: string
 	order: number
@@ -14,7 +33,7 @@ interface ApiGroup {
 	image_url: string | null
 	color: string | null
 	icon: string | null
-	referents: { slug: string }[]
+	referents: ApiReferent[]
 }
 
 /** Groups from the API mapped to the local shape; falls back to constants on any failure. */
@@ -34,7 +53,7 @@ export async function fetchGroups(): Promise<WhatsappGroup[]> {
 				whatsappGroupIcons.data,
 			image: g.image_url ?? '',
 			color: g.color ?? undefined,
-			referrals: g.referents.map((r) => r.slug),
+			referents: g.referents.map(toReferent),
 		}))
 	} catch {
 		return whatsappGroups

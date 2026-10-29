@@ -1,4 +1,5 @@
 import { whatsappGroupIcons } from 'src/modules/community/constants/whatsappGroupIcons'
+import type { GroupReferent } from 'src/modules/community/interfaces/group-referent.interface'
 
 export interface WhatsappGroup {
   title: string
@@ -10,6 +11,8 @@ export interface WhatsappGroup {
   tags?: string[]
   /** IDs de `GROUP_REFERENTS` — opcional */
   referrals?: string[]
+  /** Referentes ya resueltos (vienen de la API); tienen prioridad sobre `referrals` */
+  referents?: GroupReferent[]
 }
 
 export const whatsappGroups: WhatsappGroup[] = [

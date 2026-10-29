@@ -58,7 +58,7 @@ const { upcomingCommunity, pastCommunity, upcomingLearning, pastLearning } =
                   description={group.description}
                   icon={group.icon}
                   image={group.image}
-                  referents={getGroupReferentsByIds(group.referrals)}
+                  referents={group.referents ?? getGroupReferentsByIds(group.referrals)}
                 />
               ))
           }
