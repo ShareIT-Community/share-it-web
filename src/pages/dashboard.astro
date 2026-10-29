@@ -1,0 +1,20 @@
+---
+import GroupsPanel from 'src/modules/dashboard/GroupsPanel'
+import '../modules/global/styles/globals.css'
+
+export const prerender = false
+---
+
+<!doctype html>
+<html lang='es'>
+  <head>
+    <meta charset='UTF-8' />
+    <meta name='viewport' content='width=device-width' />
+    <meta name='robots' content='noindex, nofollow' />
+    <link rel='icon' type='image/png' href='/share-it-icon.png' />
+    <title>Panel</title>
+  </head>
+  <body class='bg-gray-900 text-gray-200 min-h-screen'>
+    <GroupsPanel client:only='react' />
+  </body>
+</html>

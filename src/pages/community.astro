@@ -4,13 +4,16 @@ import Events from 'src/modules/resources/components/Events.astro'
 import UpcomingEventCard from 'src/modules/resources/components/UpcomingEventCard.astro'
 import DiscordGroupCard from 'src/modules/community/components/DiscordGroupCard.astro'
 import SectionDivider from 'src/modules/home/components/SectionDivider.astro'
-import { whatsappGroups } from 'src/modules/global/constants/channels.const'
+import { fetchGroups } from 'src/modules/community/services/groups.service'
 import { getGroupReferentsByIds } from 'src/modules/community/constants/group-referents.const'
 import { COMMUNITY_RULES } from 'src/modules/global/constants/rules.const'
 import { EVENTS } from 'src/modules/global/constants/events.const'
 import { getGroupedEvents } from 'src/modules/global/utils/events.utils'
 import { JoinLinkButton } from 'src/modules/global/components/Header/JoinButton'
 
+export const prerender = false
+
+const groups = await fetchGroups()
 const { upcomingCommunity, pastCommunity, upcomingLearning, pastLearning } =
   getGroupedEvents(EVENTS)
 ---
@@ -46,7 +49,7 @@ const { upcomingCommunity, pastCommunity, upcomingLearning, pastLearning } =
 
         <div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8'>
           {
-            whatsappGroups
+            groups
               .sort((a, b) => a.order - b.order)
               .map((group, index) => (
                 <DiscordGroupCard
@@ -55,7 +58,7 @@ const { upcomingCommunity, pastCommunity, upcomingLearning, pastLearning } =
                   description={group.description}
                   icon={group.icon}
                   image={group.image}
-                  referents={getGroupReferentsByIds(group.referrals)}
+                  referents={group.referents ?? getGroupReferentsByIds(group.referrals)}
                 />
               ))
           }
