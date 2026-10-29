@@ -19,7 +19,8 @@ export default function GroupsPanel() {
 	const [tab, setTab] = useState<DashboardSection>('groups')
 	const [query, setQuery] = useState('')
 	const [groupsState, setGroupsState] = useState<DashboardLoadState>('loading')
-	const [referents' | 'eventsState, setReferentsState] = useState<DashboardLoadState>('loading')
+	const [referentsState, setReferentsState] = useState<DashboardLoadState>('loading')
+	const [eventsState, setEventsState] = useState<DashboardLoadState>('loading')
 	const [reload, setReload] = useState(0)
 	const [events, setEvents] = useState<EventItem[]>([])
 	const [msg, setMsg] = useState('')
@@ -47,6 +48,7 @@ export default function GroupsPanel() {
 		let active = true
 		setGroupsState('loading')
 		setReferentsState('loading')
+		setEventsState('loading')
 		fetch(`${API}/groups`)
 			.then((r) => (r.ok ? r.json() : Promise.reject()))
 			.then((data: Group[]) => {
@@ -57,19 +59,20 @@ export default function GroupsPanel() {
 			.catch(() => { if (active) setGroupsState('error') })
 		fetch(`${API}/referents`)
 			.then((r) => (r.ok ? r.json() : Promise.reject()))
-			.then(setReferents)
-			.catch(() => setMsg('No se pudieron cargar los referentes'))
-		fetch(`${API}/events`)
-			.then((r) => (r.ok ? r.json() : Promise.reject()))
-			.then(setEvents)
-			.catch(() => setMsg('No se pudieron cargar los eventos'))
-	}, [token])
 			.then((data: Referent[]) => {
 				if (!active) return
 				setReferents(data)
 				setReferentsState('ready')
 			})
 			.catch(() => { if (active) setReferentsState('error') })
+		fetch(`${API}/events`)
+			.then((r) => (r.ok ? r.json() : Promise.reject()))
+			.then((data: EventItem[]) => {
+				if (!active) return
+				setEvents(data)
+				setEventsState('ready')
+			})
+			.catch(() => { if (active) setEventsState('error') })
 		return () => { active = false }
 	}, [token, reload])
 
@@ -145,13 +148,17 @@ export default function GroupsPanel() {
 	const retry = () => setReload((value) => value + 1)
 
 	return (
-		<DashboardShell section={tab} onSectionChange={(section) => { setTab(section); setQuery(''); setMsg('') }} onLogout={() => logout()} groupCount={groupsState === 'ready' ? groups.length : undefined} referentCount={referentsState === 'ready' ? referents.length : undefined}>
+		<DashboardShell section={tab} onSectionChange={(section) => { setTab(section); setQuery(''); setMsg('') }} onLogout={() => logout()} groupCount={groupsState === 'ready' ? groups.length : undefined} referentCount={referentsState === 'ready' ? referents.length : undefined} eventCount={eventsState === 'ready' ? events.length : undefined}>
 			{msg && (
 				<div className={`dashboard-notice ${ok ? 'dashboard-notice--success' : ''}`} role='status'>
 					<p>{msg}</p><button type='button' onClick={() => setMsg('')} aria-label='Cerrar mensaje'><FiX aria-hidden='true' /></button>
 				</div>
 			)}
-			{tab === 'referents' ? (
+			{tab === 'events' ? (
+				eventsState === 'loading' ? <DashboardState title='Cargando eventos…' loading />
+					: eventsState === 'error' ? <DashboardState title='No se pudieron cargar los eventos' description='Comprueba la conexión e inténtalo de nuevo.' onRetry={retry} />
+					: <EventsPanel token={token} events={events} setEvents={setEvents} notify={setMsg} onUnauthorized={() => logout('Sesión vencida')} />
+			) : tab === 'referents' ? (
 				<ReferentsPanel token={token} referents={referents} setReferents={setReferents} notify={setMsg} onUnauthorized={() => logout('Sesión vencida')} loadState={referentsState} onRetry={retry} />
 			) : (
 				<>
@@ -163,52 +170,6 @@ export default function GroupsPanel() {
 						: visibleGroups.length === 0 ? <DashboardState title='No se encontraron grupos' description='Prueba con otro nombre o una palabra de la descripción.' />
 						: <div className='dashboard-grid'>{visibleGroups.map((g) => <GroupCard key={g.id} g={g} onEdit={() => setEditing(g)} />)}</div>
 					}
-					<div role='tablist' className='mb-6 inline-flex rounded-xl border border-white/10 p-1 mr-2'>
-						{(['groups', 'referents', 'events'] as const).map((t) => (
-							<button
-								key={t}
-								role='tab'
-								aria-selected={tab === t}
-								onClick={() => setTab(t)}
-								className={`${btn} py-1.5 ${tab === t ? 'bg-white/10 text-white' : 'text-gray-400 hover:text-white'}`}
-							>
-								{{ groups: 'Grupos', referents: 'Referentes', events: 'Eventos' }[t]}
-							</button>
-						))}
-					</div>
-					{tab === 'events' ? (
-						<EventsPanel
-							token={token}
-							events={events}
-							setEvents={setEvents}
-							notify={setMsg}
-							onUnauthorized={() => logout('Sesión vencida')}
-						/>
-					) : tab === 'referents' ? (
-						<ReferentsPanel
-							token={token}
-							referents={referents}
-							setReferents={setReferents}
-							notify={setMsg}
-							onUnauthorized={() => logout('Sesión vencida')}
-						/>
-					) : (
-						<>
-							<button
-								onClick={() => setEditing(null)}
-								className={`${btn} mb-6 bg-[#00e5ff] text-gray-900 hover:brightness-110`}
-							>
-								+ Agregar grupo
-							</button>
-							<div className='grid grid-cols-1 gap-8 md:grid-cols-2'>
-								{[...groups]
-									.sort((a, b) => a.order - b.order)
-									.map((g) => (
-										<GroupCard key={g.id} g={g} onEdit={() => setEditing(g)} />
-									))}
-							</div>
-						</>
-					)}
 				</>
 			)}
 			{editing !== undefined && (

@@ -1,8 +1,8 @@
 import type { ReactNode } from 'react'
-import { FiAlertCircle, FiArrowUpRight, FiGrid, FiInbox, FiLogOut, FiPlus, FiSearch, FiUsers } from 'react-icons/fi'
+import { FiAlertCircle, FiArrowUpRight, FiCalendar, FiGrid, FiInbox, FiLogOut, FiPlus, FiSearch, FiUsers } from 'react-icons/fi'
 import './Dashboard.css'
 
-export type DashboardSection = 'groups' | 'referents'
+export type DashboardSection = 'groups' | 'referents' | 'events'
 export type DashboardLoadState = 'loading' | 'ready' | 'error'
 
 interface Props {
@@ -11,13 +11,15 @@ interface Props {
 	onLogout: () => void
 	groupCount?: number
 	referentCount?: number
+	eventCount?: number
 	children: ReactNode
 }
 
-export default function DashboardShell({ section, onSectionChange, onLogout, groupCount, referentCount, children }: Props) {
+export default function DashboardShell({ section, onSectionChange, onLogout, groupCount, referentCount, eventCount, children }: Props) {
 	const sections = [
 		{ id: 'groups' as const, label: 'Grupos', icon: FiGrid, count: groupCount },
 		{ id: 'referents' as const, label: 'Referentes', icon: FiUsers, count: referentCount },
+		{ id: 'events' as const, label: 'Eventos', icon: FiCalendar, count: eventCount },
 	]
 
 	return (
