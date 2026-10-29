@@ -44,6 +44,7 @@ export async function fetchGroups(): Promise<WhatsappGroup[]> {
 		})
 		if (!res.ok) return whatsappGroups
 		const data = (await res.json()) as ApiGroup[]
+		if (data.length === 0) return whatsappGroups
 		return data.map((g) => ({
 			title: g.title,
 			order: g.order,
