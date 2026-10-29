@@ -1,7 +1,8 @@
 import { useEffect, useState, type FormEvent } from 'react'
 import GroupCard from './GroupCard'
 import GroupModal from './GroupModal'
-import type { Group, GroupBody } from './types'
+import ReferentsPanel from './ReferentsPanel'
+import type { Group, GroupBody, Referent } from './types'
 
 const API = import.meta.env.PUBLIC_API_URL ?? 'http://localhost:8000/api/v1'
 const KEY = 'panel_token'
@@ -16,6 +17,8 @@ const card = 'rounded-3xl bg-[#0a0f1d]/60 border border-white/5 backdrop-blur-md
 export default function GroupsPanel() {
 	const [token, setToken] = useState<string | null>(null)
 	const [groups, setGroups] = useState<Group[]>([])
+	const [referents, setReferents] = useState<Referent[]>([])
+	const [tab, setTab] = useState<'groups' | 'referents'>('groups')
 	const [msg, setMsg] = useState('')
 	// undefined = closed, null = creating, Group = editing
 	const [editing, setEditing] = useState<Group | null | undefined>(undefined)
@@ -24,6 +27,7 @@ export default function GroupsPanel() {
 		sessionStorage.removeItem(KEY)
 		setToken(null)
 		setGroups([])
+		setReferents([])
 		setEditing(undefined)
 		setMsg(m)
 	}
@@ -38,6 +42,10 @@ export default function GroupsPanel() {
 			.then((r) => (r.ok ? r.json() : Promise.reject()))
 			.then(setGroups)
 			.catch(() => setMsg('No se pudieron cargar los grupos'))
+		fetch(`${API}/referents`)
+			.then((r) => (r.ok ? r.json() : Promise.reject()))
+			.then(setReferents)
+			.catch(() => setMsg('No se pudieron cargar los referentes'))
 	}, [token])
 
 	async function login(e: FormEvent<HTMLFormElement>) {
@@ -108,7 +116,7 @@ export default function GroupsPanel() {
 	return (
 		<main className='mx-auto w-full max-w-6xl px-4 py-10'>
 			<div className='mb-6 flex items-center justify-between gap-4'>
-				<h1 className='font-[Josefin_Sans] text-3xl font-bold text-white'>Panel de grupos</h1>
+				<h1 className='font-[Josefin_Sans] text-3xl font-bold text-white'>Panel</h1>
 				{token && (
 					<button onClick={() => logout()} className={`${btn} border border-white/20 text-gray-200 hover:bg-white/10`}>
 						Salir
@@ -139,25 +147,51 @@ export default function GroupsPanel() {
 				</form>
 			) : (
 				<>
-					<button
-						onClick={() => setEditing(null)}
-						className={`${btn} mb-6 bg-[#00e5ff] text-gray-900 hover:brightness-110`}
-					>
-						+ Agregar grupo
-					</button>
-					<div className='grid grid-cols-1 gap-8 md:grid-cols-2'>
-						{[...groups]
-							.sort((a, b) => a.order - b.order)
-							.map((g) => (
-								<GroupCard key={g.id} g={g} onEdit={() => setEditing(g)} />
-							))}
+					<div role='tablist' className='mb-6 inline-flex rounded-xl border border-white/10 p-1'>
+						{(['groups', 'referents'] as const).map((t) => (
+							<button
+								key={t}
+								role='tab'
+								aria-selected={tab === t}
+								onClick={() => setTab(t)}
+								className={`${btn} py-1.5 ${tab === t ? 'bg-white/10 text-white' : 'text-gray-400 hover:text-white'}`}
+							>
+								{t === 'groups' ? 'Grupos' : 'Referentes'}
+							</button>
+						))}
 					</div>
+					{tab === 'referents' ? (
+						<ReferentsPanel
+							token={token}
+							referents={referents}
+							setReferents={setReferents}
+							notify={setMsg}
+							onUnauthorized={() => logout('Sesión vencida')}
+						/>
+					) : (
+						<>
+							<button
+								onClick={() => setEditing(null)}
+								className={`${btn} mb-6 bg-[#00e5ff] text-gray-900 hover:brightness-110`}
+							>
+								+ Agregar grupo
+							</button>
+							<div className='grid grid-cols-1 gap-8 md:grid-cols-2'>
+								{[...groups]
+									.sort((a, b) => a.order - b.order)
+									.map((g) => (
+										<GroupCard key={g.id} g={g} onEdit={() => setEditing(g)} />
+									))}
+							</div>
+						</>
+					)}
 				</>
 			)}
 			{editing !== undefined && (
 				<GroupModal
 					key={editing?.id ?? 'new'}
 					group={editing}
+					referents={referents}
 					defaultOrder={Math.max(0, ...groups.map((g) => g.order)) + 1}
 					onSubmit={submit}
 					onDelete={remove}
