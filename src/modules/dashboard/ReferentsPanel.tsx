@@ -1,12 +1,11 @@
 import { useState } from 'react'
 import ReferentCard from './ReferentCard'
 import ReferentModal from './ReferentModal'
+import { DashboardHeading, DashboardState, DashboardToolbar, type DashboardLoadState } from './DashboardShell'
+import { normalizeSearch } from './search'
 import type { Referent, ReferentBody } from './types'
 
 const API = import.meta.env.PUBLIC_API_URL ?? 'http://localhost:8000/api/v1'
-
-const btn =
-	'cursor-pointer rounded-xl px-5 py-2 font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00e5ff] focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900'
 
 interface Props {
 	token: string
@@ -14,11 +13,14 @@ interface Props {
 	setReferents: React.Dispatch<React.SetStateAction<Referent[]>>
 	notify: (msg: string) => void
 	onUnauthorized: () => void
+	loadState: DashboardLoadState
+	onRetry: () => void
 }
 
-export default function ReferentsPanel({ token, referents, setReferents, notify, onUnauthorized }: Props) {
+export default function ReferentsPanel({ token, referents, setReferents, notify, onUnauthorized, loadState, onRetry }: Props) {
 	// undefined = closed, null = creating, Referent = editing
 	const [editing, setEditing] = useState<Referent | null | undefined>(undefined)
+	const [query, setQuery] = useState('')
 
 	/** Shared fetch for writes; returns an error message for the modal, undefined on success. */
 	async function write(path: string, method: string, body?: ReferentBody): Promise<{ ok?: boolean; error?: string; data?: Referent }> {
@@ -60,16 +62,19 @@ export default function ReferentsPanel({ token, referents, setReferents, notify,
 		setEditing(undefined)
 	}
 
+	const search = normalizeSearch(query)
+	const visibleReferents = referents.filter((r) => normalizeSearch(`${r.name} ${r.role}`).includes(search))
+
 	return (
 		<>
-			<button onClick={() => setEditing(null)} className={`${btn} mb-6 bg-[#00e5ff] text-gray-900 hover:brightness-110`}>
-				+ Agregar referente
-			</button>
-			<div className='grid grid-cols-1 gap-6 md:grid-cols-2'>
-				{referents.map((r) => (
-					<ReferentCard key={r.id} r={r} onEdit={() => setEditing(r)} />
-				))}
-			</div>
+			<DashboardHeading title='Referentes' description='Administra a las personas que acompañan la comunidad.' action='Agregar referente' onAdd={() => setEditing(null)} />
+			<DashboardToolbar query={query} onQueryChange={setQuery} placeholder='Buscar por nombre o rol…' resultLabel={loadState === 'ready' ? `${search ? `${visibleReferents.length} de ` : ''}${referents.length} ${referents.length === 1 ? 'referente' : 'referentes'}` : ''} />
+			{loadState === 'loading' ? <DashboardState title='Cargando referentes…' loading />
+				: loadState === 'error' ? <DashboardState title='No se pudieron cargar los referentes' description='Comprueba la conexión e inténtalo de nuevo.' onRetry={onRetry} />
+				: referents.length === 0 ? <DashboardState title='Aún no hay referentes' description='Agrega el primer referente para completar los perfiles de la comunidad.' />
+				: visibleReferents.length === 0 ? <DashboardState title='No se encontraron referentes' description='Prueba con otro nombre o rol.' />
+				: <div className='dashboard-grid'>{visibleReferents.map((r) => <ReferentCard key={r.id} r={r} onEdit={() => setEditing(r)} />)}</div>
+			}
 			{editing !== undefined && (
 				<ReferentModal
 					key={editing?.id ?? 'new'}

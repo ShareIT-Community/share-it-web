@@ -1,26 +1,20 @@
+import { FiEdit2 } from 'react-icons/fi'
 import type { Referent } from './types'
 
-// Same card look as GroupCard: photo, name, role and an edit button.
 export default function ReferentCard({ r, onEdit }: { r: Referent; onEdit: () => void }) {
 	return (
-		<div
-			onClick={onEdit}
-			className='group/card relative flex cursor-pointer items-center gap-4 overflow-hidden rounded-3xl border border-white/5 bg-[#0a0f1d]/60 p-6 backdrop-blur-md transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_0_40px_rgba(0,229,255,0.06)]'
-		>
-			<div className='h-16 w-16 shrink-0 overflow-hidden rounded-full border border-white/10 bg-white/5 transition-all duration-500 group-hover/card:border-[#00e5ff]/50'>
-				{r.image_url && <img src={r.image_url} alt={r.name} className='h-full w-full object-cover' />}
+		<article className='dashboard-card'>
+			<div className='dashboard-card__header'>
+				<div className='dashboard-card__image dashboard-card__image--avatar'>
+					{r.image_url ? <img src={r.image_url} alt='' loading='lazy' /> : <span aria-hidden='true'>{r.name.trim().split(/\s+/).slice(0, 2).map((part) => part[0]).join('')}</span>}
+				</div>
+				<div className='dashboard-card__heading'><h2>{r.name}</h2><p className='dashboard-card__role'>{r.role}</p></div>
 			</div>
-			<div className='min-w-0 flex-1'>
-				<h3 className='truncate text-xl font-bold text-white transition-colors group-hover/card:text-[#00e5ff]'>{r.name}</h3>
-				<p className='truncate text-sm text-gray-400'>{r.role}</p>
+			<p className='dashboard-card__description'>{r.description.replace(/\n\s*\n/g, ' ')}</p>
+			<div className='dashboard-card__footer'>
+				<span className='dashboard-card__meta'>{r.links.length} {r.links.length === 1 ? 'enlace' : 'enlaces'}</span>
+				<button type='button' onClick={onEdit} aria-label={`Editar referente ${r.name}`} className='dashboard-button dashboard-card__edit'><FiEdit2 aria-hidden='true' />Editar</button>
 			</div>
-			<button
-				type='button'
-				onClick={onEdit}
-				className='cursor-pointer rounded-xl border border-white/20 px-4 py-1.5 text-sm font-semibold text-gray-200 hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00e5ff]'
-			>
-				Editar
-			</button>
-		</div>
+		</article>
 	)
 }

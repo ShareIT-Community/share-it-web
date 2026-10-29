@@ -1,24 +1,25 @@
 import { useEffect, useState, type FormEvent } from 'react'
+import { FiX } from 'react-icons/fi'
 import GroupCard from './GroupCard'
 import GroupModal from './GroupModal'
 import ReferentsPanel from './ReferentsPanel'
+import LoginPanel from './LoginPanel'
+import DashboardShell, { DashboardHeading, DashboardState, DashboardToolbar, type DashboardLoadState, type DashboardSection } from './DashboardShell'
+import { normalizeSearch } from './search'
 import type { Group, GroupBody, Referent } from './types'
 
 const API = import.meta.env.PUBLIC_API_URL ?? 'http://localhost:8000/api/v1'
 const KEY = 'panel_token'
 
-const input =
-	'mt-1 block w-full rounded-xl bg-white/5 border border-white/10 px-3 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-[#00e5ff] focus:ring-2 focus:ring-[#00e5ff]/50'
-const label = 'block text-sm font-medium text-gray-300'
-const btn =
-	'cursor-pointer rounded-xl px-5 py-2 font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00e5ff] focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900'
-const card = 'rounded-3xl bg-[#0a0f1d]/60 border border-white/5 backdrop-blur-md p-6'
-
 export default function GroupsPanel() {
 	const [token, setToken] = useState<string | null>(null)
 	const [groups, setGroups] = useState<Group[]>([])
 	const [referents, setReferents] = useState<Referent[]>([])
-	const [tab, setTab] = useState<'groups' | 'referents'>('groups')
+	const [tab, setTab] = useState<DashboardSection>('groups')
+	const [query, setQuery] = useState('')
+	const [groupsState, setGroupsState] = useState<DashboardLoadState>('loading')
+	const [referentsState, setReferentsState] = useState<DashboardLoadState>('loading')
+	const [reload, setReload] = useState(0)
 	const [msg, setMsg] = useState('')
 	// undefined = closed, null = creating, Group = editing
 	const [editing, setEditing] = useState<Group | null | undefined>(undefined)
@@ -28,6 +29,8 @@ export default function GroupsPanel() {
 		setToken(null)
 		setGroups([])
 		setReferents([])
+		setQuery('')
+		setTab('groups')
 		setEditing(undefined)
 		setMsg(m)
 	}
@@ -38,15 +41,27 @@ export default function GroupsPanel() {
 
 	useEffect(() => {
 		if (!token) return
+		let active = true
+		setGroupsState('loading')
+		setReferentsState('loading')
 		fetch(`${API}/groups`)
 			.then((r) => (r.ok ? r.json() : Promise.reject()))
-			.then(setGroups)
-			.catch(() => setMsg('No se pudieron cargar los grupos'))
+			.then((data: Group[]) => {
+				if (!active) return
+				setGroups(data)
+				setGroupsState('ready')
+			})
+			.catch(() => { if (active) setGroupsState('error') })
 		fetch(`${API}/referents`)
 			.then((r) => (r.ok ? r.json() : Promise.reject()))
-			.then(setReferents)
-			.catch(() => setMsg('No se pudieron cargar los referentes'))
-	}, [token])
+			.then((data: Referent[]) => {
+				if (!active) return
+				setReferents(data)
+				setReferentsState('ready')
+			})
+			.catch(() => { if (active) setReferentsState('error') })
+		return () => { active = false }
+	}, [token, reload])
 
 	async function login(e: FormEvent<HTMLFormElement>) {
 		e.preventDefault()
@@ -113,78 +128,31 @@ export default function GroupsPanel() {
 
 	const ok = msg.startsWith('Guardado')
 
+	if (!token) return <LoginPanel onSubmit={login} message={msg} />
+
+	const search = normalizeSearch(query)
+	const visibleGroups = groups.filter((g) => normalizeSearch(`${g.title} ${g.description}`).includes(search)).sort((a, b) => a.order - b.order)
+	const retry = () => setReload((value) => value + 1)
+
 	return (
-		<main className='mx-auto w-full max-w-6xl px-4 py-10'>
-			<div className='mb-6 flex items-center justify-between gap-4'>
-				<h1 className='font-[Josefin_Sans] text-3xl font-bold text-white'>Panel</h1>
-				{token && (
-					<button onClick={() => logout()} className={`${btn} border border-white/20 text-gray-200 hover:bg-white/10`}>
-						Salir
-					</button>
-				)}
-			</div>
+		<DashboardShell section={tab} onSectionChange={(section) => { setTab(section); setQuery(''); setMsg('') }} onLogout={() => logout()} groupCount={groupsState === 'ready' ? groups.length : undefined} referentCount={referentsState === 'ready' ? referents.length : undefined}>
 			{msg && (
-				<p
-					role='status'
-					className={`mb-6 rounded-xl border px-4 py-3 text-sm ${ok ? 'border-emerald-500/40 bg-emerald-500/10 text-emerald-300' : 'border-red-500/40 bg-red-500/10 text-red-300'}`}
-				>
-					{msg}
-				</p>
+				<div className={`dashboard-notice ${ok ? 'dashboard-notice--success' : ''}`} role='status'>
+					<p>{msg}</p><button type='button' onClick={() => setMsg('')} aria-label='Cerrar mensaje'><FiX aria-hidden='true' /></button>
+				</div>
 			)}
-			{!token ? (
-				<form onSubmit={login} className={`${card} mx-auto max-w-sm space-y-4`}>
-					<label className={label}>
-						Email
-						<input className={input} name='username' type='email' autoComplete='username' required />
-					</label>
-					<label className={label}>
-						Contraseña
-						<input className={input} name='password' type='password' autoComplete='current-password' required />
-					</label>
-					<button type='submit' className={`${btn} w-full bg-[#00e5ff] text-gray-900 hover:brightness-110`}>
-						Ingresar
-					</button>
-				</form>
+			{tab === 'referents' ? (
+				<ReferentsPanel token={token} referents={referents} setReferents={setReferents} notify={setMsg} onUnauthorized={() => logout('Sesión vencida')} loadState={referentsState} onRetry={retry} />
 			) : (
 				<>
-					<div role='tablist' className='mb-6 inline-flex rounded-xl border border-white/10 p-1'>
-						{(['groups', 'referents'] as const).map((t) => (
-							<button
-								key={t}
-								role='tab'
-								aria-selected={tab === t}
-								onClick={() => setTab(t)}
-								className={`${btn} py-1.5 ${tab === t ? 'bg-white/10 text-white' : 'text-gray-400 hover:text-white'}`}
-							>
-								{t === 'groups' ? 'Grupos' : 'Referentes'}
-							</button>
-						))}
-					</div>
-					{tab === 'referents' ? (
-						<ReferentsPanel
-							token={token}
-							referents={referents}
-							setReferents={setReferents}
-							notify={setMsg}
-							onUnauthorized={() => logout('Sesión vencida')}
-						/>
-					) : (
-						<>
-							<button
-								onClick={() => setEditing(null)}
-								className={`${btn} mb-6 bg-[#00e5ff] text-gray-900 hover:brightness-110`}
-							>
-								+ Agregar grupo
-							</button>
-							<div className='grid grid-cols-1 gap-8 md:grid-cols-2'>
-								{[...groups]
-									.sort((a, b) => a.order - b.order)
-									.map((g) => (
-										<GroupCard key={g.id} g={g} onEdit={() => setEditing(g)} />
-									))}
-							</div>
-						</>
-					)}
+					<DashboardHeading title='Grupos' description='Administra los espacios de la comunidad.' action='Agregar grupo' onAdd={() => setEditing(null)} />
+					<DashboardToolbar query={query} onQueryChange={setQuery} placeholder='Buscar grupos…' resultLabel={groupsState === 'ready' ? `${search ? `${visibleGroups.length} de ` : ''}${groups.length} ${groups.length === 1 ? 'grupo' : 'grupos'}` : ''} />
+					{groupsState === 'loading' ? <DashboardState title='Cargando grupos…' loading />
+						: groupsState === 'error' ? <DashboardState title='No se pudieron cargar los grupos' description='Comprueba la conexión e inténtalo de nuevo.' onRetry={retry} />
+						: groups.length === 0 ? <DashboardState title='Aún no hay grupos' description='Agrega el primer grupo de la comunidad para comenzar.' />
+						: visibleGroups.length === 0 ? <DashboardState title='No se encontraron grupos' description='Prueba con otro nombre o una palabra de la descripción.' />
+						: <div className='dashboard-grid'>{visibleGroups.map((g) => <GroupCard key={g.id} g={g} onEdit={() => setEditing(g)} />)}</div>
+					}
 				</>
 			)}
 			{editing !== undefined && (
@@ -198,6 +166,6 @@ export default function GroupsPanel() {
 					onClose={() => setEditing(undefined)}
 				/>
 			)}
-		</main>
+		</DashboardShell>
 	)
 }

@@ -47,11 +47,11 @@ export default function Modal({ title, itemName, children, onSubmit, onDelete, o
 	return (
 		<dialog
 			ref={ref}
-			onClose={onClose}
+			onClose={(event) => { if (event.target === event.currentTarget) onClose() }}
 			onClick={(e) => e.target === ref.current && ref.current?.close()}
 			aria-labelledby='modal-title'
 			aria-modal='true'
-			className='m-auto w-[calc(100%-2rem)] max-w-lg overflow-hidden rounded-3xl border border-white/10 bg-[#0a0f1d] p-0 text-white backdrop:bg-black/70 open:flex open:max-h-[90dvh] open:flex-col'
+			className='dashboard-dialog m-auto w-[calc(100%-2rem)] max-w-lg overflow-hidden rounded-3xl border border-white/10 bg-[#0a0f1d] p-0 text-white backdrop:bg-black/70 open:flex open:max-h-[90dvh] open:flex-col'
 		>
 			<form onSubmit={submit} className='flex min-h-0 flex-1 flex-col'>
 				<div className='flex items-start justify-between gap-3 px-6 pt-5 pb-2'>
