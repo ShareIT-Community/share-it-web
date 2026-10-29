@@ -6,7 +6,7 @@ Bienvenido a **Share IT**. Somos una comunidad unida por el deseo de aprender, c
 
 Este repositorio es el **frontend** ([share-it.tech](https://share-it.tech)): el sitio público y el panel de administración. Los datos de grupos, referentes y eventos vienen de la API de [`share-it-web-backend`](https://github.com/ShareIT-Community/share-it-web-backend).
 
-## ✨ Funcionalidades
+## Funcionalidades
 
 - 🗓️ Eventos con estado dinámico (próximo, en vivo, pasado), mostrados en hora de Argentina
 - 👥 Página de comunidad con los grupos de WhatsApp y sus referentes
@@ -14,14 +14,14 @@ Este repositorio es el **frontend** ([share-it.tech](https://share-it.tech)): el
 - 📝 Blog de artículos en Markdown con tags y paginación
 - 🛠️ Panel de administración (`/dashboard`) para gestionar grupos, referentes y eventos sin tocar código
 
-## 🧱 Stack
+## Stack
 
 - [Astro 5](https://astro.build) con islas de [React 19](https://react.dev)
 - [Tailwind CSS 4](https://tailwindcss.com)
 - Adaptador de [Netlify](https://docs.astro.build/en/guides/integrations-guide/netlify/): la mayoría de las páginas son estáticas; `/community` y `/dashboard` se renderizan en el servidor (`prerender = false`)
 - pnpm `10.32.0` (fijado en `packageManager`)
 
-## 🔄 Cómo fluyen los datos
+## Cómo fluyen los datos
 
 ```text
                  ┌──────────────────────────┐
@@ -40,7 +40,7 @@ Este repositorio es el **frontend** ([share-it.tech](https://share-it.tech)): el
 - **Panel**: `/dashboard` hace login contra `POST /auth/token` y guarda el token en `sessionStorage`. Las escrituras (POST/PATCH/DELETE) van con `Authorization: Bearer`. La página no está enlazada desde el sitio y tiene `noindex, nofollow`.
 - Las fechas de los eventos viajan en UTC (ISO); el panel las edita en la hora local del navegador y el sitio las muestra en hora de Argentina.
 
-## 🗂️ Estructura del Proyecto
+## Estructura del Proyecto
 
 ```text
 /
@@ -169,7 +169,7 @@ El estado (`próximo`, `en vivo`, `pasado`) se calcula a partir de `start_at` y 
 
 Los artículos son archivos Markdown en `src/modules/blog/content/articles/`.
 
-## 🤝 Contribuir
+## Contribuir
 
 Para añadir artículos debes ser parte de nuestra comunidad. El contenido es revisado antes de publicarse. Si deseas contribuir, únete primero a uno de nuestros canales de la comunidad.
 
