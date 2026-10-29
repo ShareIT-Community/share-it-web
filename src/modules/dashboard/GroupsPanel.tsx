@@ -2,7 +2,8 @@ import { useEffect, useState, type FormEvent } from 'react'
 import GroupCard from './GroupCard'
 import GroupModal from './GroupModal'
 import ReferentsPanel from './ReferentsPanel'
-import type { Group, GroupBody, Referent } from './types'
+import EventsPanel from './EventsPanel'
+import type { EventItem, Group, GroupBody, Referent } from './types'
 
 const API = import.meta.env.PUBLIC_API_URL ?? 'http://localhost:8000/api/v1'
 const KEY = 'panel_token'
@@ -18,7 +19,8 @@ export default function GroupsPanel() {
 	const [token, setToken] = useState<string | null>(null)
 	const [groups, setGroups] = useState<Group[]>([])
 	const [referents, setReferents] = useState<Referent[]>([])
-	const [tab, setTab] = useState<'groups' | 'referents'>('groups')
+	const [tab, setTab] = useState<'groups' | 'referents' | 'events'>('groups')
+	const [events, setEvents] = useState<EventItem[]>([])
 	const [msg, setMsg] = useState('')
 	// undefined = closed, null = creating, Group = editing
 	const [editing, setEditing] = useState<Group | null | undefined>(undefined)
@@ -28,6 +30,7 @@ export default function GroupsPanel() {
 		setToken(null)
 		setGroups([])
 		setReferents([])
+		setEvents([])
 		setEditing(undefined)
 		setMsg(m)
 	}
@@ -46,6 +49,10 @@ export default function GroupsPanel() {
 			.then((r) => (r.ok ? r.json() : Promise.reject()))
 			.then(setReferents)
 			.catch(() => setMsg('No se pudieron cargar los referentes'))
+		fetch(`${API}/events`)
+			.then((r) => (r.ok ? r.json() : Promise.reject()))
+			.then(setEvents)
+			.catch(() => setMsg('No se pudieron cargar los eventos'))
 	}, [token])
 
 	async function login(e: FormEvent<HTMLFormElement>) {
@@ -147,8 +154,8 @@ export default function GroupsPanel() {
 				</form>
 			) : (
 				<>
-					<div role='tablist' className='mb-6 inline-flex rounded-xl border border-white/10 p-1'>
-						{(['groups', 'referents'] as const).map((t) => (
+					<div role='tablist' className='mb-6 inline-flex rounded-xl border border-white/10 p-1 mr-2'>
+						{(['groups', 'referents', 'events'] as const).map((t) => (
 							<button
 								key={t}
 								role='tab'
@@ -156,11 +163,19 @@ export default function GroupsPanel() {
 								onClick={() => setTab(t)}
 								className={`${btn} py-1.5 ${tab === t ? 'bg-white/10 text-white' : 'text-gray-400 hover:text-white'}`}
 							>
-								{t === 'groups' ? 'Grupos' : 'Referentes'}
+								{{ groups: 'Grupos', referents: 'Referentes', events: 'Eventos' }[t]}
 							</button>
 						))}
 					</div>
-					{tab === 'referents' ? (
+					{tab === 'events' ? (
+						<EventsPanel
+							token={token}
+							events={events}
+							setEvents={setEvents}
+							notify={setMsg}
+							onUnauthorized={() => logout('Sesión vencida')}
+						/>
+					) : tab === 'referents' ? (
 						<ReferentsPanel
 							token={token}
 							referents={referents}
