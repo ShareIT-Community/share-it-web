@@ -109,7 +109,7 @@ Los eventos se gestionan en `src/modules/global/constants/events.const.ts`. Cada
 
 El estado del evento (`próximo`, `en vivo`, `pasado`) se calcula automáticamente en el cliente.
 
-## 🤝 Contribuir
+## Contribuir
 
 Para añadir artículos debes ser parte de nuestra comunidad. El contenido es revisado antes de publicarse. Si deseas contribuir, únete primero a uno de nuestros canales de la comunidad.
 
