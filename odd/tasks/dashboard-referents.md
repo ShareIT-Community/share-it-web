@@ -16,10 +16,11 @@ Strict TDD configured globally; repo has no test runner. Checks: `pnpm build` (A
 - [x] R1 groups.service maps nested `referents` to `GroupReferent`; community.astro prefers `group.referents`
 - [x] R2 Dashboard tabs Grupos | Referentes; referent cards, modal (links editor, image preview), two-step delete, 401 logout
 - [x] R3 Group modal referent checklist; `referent_ids` sent on POST/PATCH, current referents pre-checked
-- [ ] R4 Mobile modal layout, icon close/delete, shared ConfirmDialog (new `Modal.tsx` shell + `ConfirmDialog.tsx`; X close, trash icon, links rows stack on mobile). Pending browser check at 360px.
+- [x] R4 Mobile modal layout, icon close/delete, shared ConfirmDialog (new `Modal.tsx` shell + `ConfirmDialog.tsx`; X close, trash icon, links rows stack on mobile).
 
 ## Progress
-- R4 implemented; tsc clean in dashboard, astro build compiles, /dashboard 200. Not yet verified in a browser.
+- R4 implemented; tsc clean in dashboard, astro build compiles, /dashboard 200. Mobile modal verified in the browser by the user (works).
+- `/community` falls back to the constants when the API errors, times out (3s) or returns an empty list.
 
 ## Checks
 See final report (build / dev curl results).
