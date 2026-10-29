@@ -7,9 +7,9 @@ import LoginPanel from './LoginPanel'
 import DashboardShell, { DashboardHeading, DashboardState, DashboardToolbar, type DashboardLoadState, type DashboardSection } from './DashboardShell'
 import { normalizeSearch } from './search'
 import EventsPanel from './EventsPanel'
+import { API, useCrud } from './useCrud'
 import type { EventItem, Group, GroupBody, Referent } from './types'
 
-const API = import.meta.env.PUBLIC_API_URL ?? 'http://localhost:8000/api/v1'
 const KEY = 'panel_token'
 
 export default function GroupsPanel() {
@@ -24,8 +24,15 @@ export default function GroupsPanel() {
 	const [reload, setReload] = useState(0)
 	const [events, setEvents] = useState<EventItem[]>([])
 	const [msg, setMsg] = useState('')
-	// undefined = closed, null = creating, Group = editing
-	const [editing, setEditing] = useState<Group | null | undefined>(undefined)
+	const { editing, setEditing, submit, remove } = useCrud<Group, GroupBody>({
+		resource: 'groups',
+		token,
+		setItems: setGroups,
+		notify: setMsg,
+		onUnauthorized: () => logout('Sesión vencida'),
+		itemName: (g) => g.title,
+		deletedMessage: 'grupo borrado',
+	})
 
 	const logout = (m = '') => {
 		sessionStorage.removeItem(KEY)
@@ -92,53 +99,6 @@ export default function GroupsPanel() {
 		}
 	}
 
-	/** Create (POST) or update (PATCH); returns an error message for the modal, undefined on success. */
-	async function submit(body: GroupBody): Promise<string | undefined> {
-		const id = editing?.id
-		try {
-			const res = await fetch(`${API}/groups${id ? `/${id}` : ''}`, {
-				method: id ? 'PATCH' : 'POST',
-				headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-				body: JSON.stringify(body),
-			})
-			if (res.status === 401) {
-				logout('Sesión vencida')
-				return
-			}
-			if (!res.ok) {
-				const { detail } = await res.json().catch(() => ({}))
-				return typeof detail === 'string' ? detail : `Error al guardar (${res.status})`
-			}
-			const saved: Group = await res.json()
-			setGroups((gs) => (id ? gs.map((x) => (x.id === id ? saved : x)) : [...gs, saved]))
-			setMsg(`Guardado: ${saved.title}`)
-			setEditing(undefined)
-		} catch {
-			return 'No se pudo conectar'
-		}
-	}
-
-	/** DELETE (204); returns an error message for the modal, undefined on success. */
-	async function remove(): Promise<string | undefined> {
-		const id = editing?.id
-		try {
-			const res = await fetch(`${API}/groups/${id}`, { method: 'DELETE', headers: { Authorization: `Bearer ${token}` } })
-			if (res.status === 401) {
-				logout('Sesión vencida')
-				return
-			}
-			if (!res.ok) {
-				const { detail } = await res.json().catch(() => ({}))
-				return typeof detail === 'string' ? detail : `Error al borrar (${res.status})`
-			}
-			setGroups((gs) => gs.filter((x) => x.id !== id))
-			setMsg('Guardado: grupo borrado')
-			setEditing(undefined)
-		} catch {
-			return 'No se pudo conectar'
-		}
-	}
-
 	const ok = msg.startsWith('Guardado')
 
 	if (!token) return <LoginPanel onSubmit={login} message={msg} />
@@ -155,9 +115,7 @@ export default function GroupsPanel() {
 				</div>
 			)}
 			{tab === 'events' ? (
-				eventsState === 'loading' ? <DashboardState title='Cargando eventos…' loading />
-					: eventsState === 'error' ? <DashboardState title='No se pudieron cargar los eventos' description='Comprueba la conexión e inténtalo de nuevo.' onRetry={retry} />
-					: <EventsPanel token={token} events={events} setEvents={setEvents} notify={setMsg} onUnauthorized={() => logout('Sesión vencida')} />
+				<EventsPanel token={token} events={events} setEvents={setEvents} notify={setMsg} onUnauthorized={() => logout('Sesión vencida')} loadState={eventsState} onRetry={retry} />
 			) : tab === 'referents' ? (
 				<ReferentsPanel token={token} referents={referents} setReferents={setReferents} notify={setMsg} onUnauthorized={() => logout('Sesión vencida')} loadState={referentsState} onRetry={retry} />
 			) : (
