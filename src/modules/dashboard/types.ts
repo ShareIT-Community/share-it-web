@@ -25,3 +25,19 @@ export interface Group {
 }
 
 export type GroupBody = Omit<Group, 'id' | 'referents'> & { referent_ids: number[] }
+
+export interface EventItem {
+	id: number
+	title: string
+	description: string
+	type: 'meetup' | 'workshop'
+	start_at: string
+	end_at: string
+	location: string | null
+	speaker: string | null
+	site: string | null
+	media: string | null
+	repository: string | null
+}
+
+export type EventBody = Omit<EventItem, 'id'>
