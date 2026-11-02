@@ -10,21 +10,18 @@ interface Props {
 	token: string
 	referents: Referent[]
 	setReferents: React.Dispatch<React.SetStateAction<Referent[]>>
-	notify: (msg: string) => void
 	onUnauthorized: () => void
 	loadState: DashboardLoadState
 	onRetry: () => void
 }
 
-export default function ReferentsPanel({ token, referents, setReferents, notify, onUnauthorized, loadState, onRetry }: Props) {
+export default function ReferentsPanel({ token, referents, setReferents, onUnauthorized, loadState, onRetry }: Props) {
 	const { editing, setEditing, submit, remove } = useCrud<Referent, ReferentBody>({
 		resource: 'referents',
 		token,
 		setItems: setReferents,
-		notify,
 		onUnauthorized,
-		itemName: (r) => r.name,
-		deletedMessage: 'referente borrado',
+		noun: 'Referente',
 	})
 	const [query, setQuery] = useState('')
 

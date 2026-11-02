@@ -10,21 +10,18 @@ interface Props {
 	token: string
 	events: EventItem[]
 	setEvents: React.Dispatch<React.SetStateAction<EventItem[]>>
-	notify: (msg: string) => void
 	onUnauthorized: () => void
 	loadState: DashboardLoadState
 	onRetry: () => void
 }
 
-export default function EventsPanel({ token, events, setEvents, notify, onUnauthorized, loadState, onRetry }: Props) {
+export default function EventsPanel({ token, events, setEvents, onUnauthorized, loadState, onRetry }: Props) {
 	const { editing, setEditing, submit, remove } = useCrud<EventItem, EventBody>({
 		resource: 'events',
 		token,
 		setItems: setEvents,
-		notify,
 		onUnauthorized,
-		itemName: (e) => e.title,
-		deletedMessage: 'evento borrado',
+		noun: 'Evento',
 	})
 	const [query, setQuery] = useState('')
 

@@ -4,10 +4,9 @@ import './LoginPanel.css'
 
 type Props = {
 	onSubmit: (event: FormEvent<HTMLFormElement>) => void | Promise<void>
-	message: string
 }
 
-export default function LoginPanel({ onSubmit, message }: Props) {
+export default function LoginPanel({ onSubmit }: Props) {
 	const [showPassword, setShowPassword] = useState(false)
 
 	return (
@@ -28,18 +27,17 @@ export default function LoginPanel({ onSubmit, message }: Props) {
 						<p className='dashboard-login__eyebrow'>Panel de grupos</p>
 						<h1 id='login-title'>Hola de nuevo.</h1>
 						<p className='dashboard-login__copy'>Ingresa con tu cuenta para administrar los grupos de Share It.</p>
-						{message && <p id='login-message' className='dashboard-login__message' role='alert'>{message}</p>}
 						<form className='dashboard-login__form' onSubmit={onSubmit}>
 							<div>
 								<label htmlFor='login-email'>Correo electrónico</label>
 								<div className='dashboard-login__input-wrap'>
-									<input id='login-email' name='username' type='email' autoComplete='username' placeholder='nombre@share-it.tech' aria-describedby={message ? 'login-message' : undefined} required />
+									<input id='login-email' name='username' type='email' autoComplete='username' placeholder='nombre@share-it.tech' required />
 								</div>
 							</div>
 							<div>
 								<label htmlFor='login-password'>Contraseña</label>
 								<div className='dashboard-login__input-wrap'>
-									<input id='login-password' name='password' type={showPassword ? 'text' : 'password'} autoComplete='current-password' placeholder='Tu contraseña' aria-describedby={message ? 'login-message' : undefined} required />
+									<input id='login-password' name='password' type={showPassword ? 'text' : 'password'} autoComplete='current-password' placeholder='Tu contraseña' required />
 									<button className='dashboard-login__show-password' type='button' aria-controls='login-password' aria-pressed={showPassword} aria-label={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'} onClick={() => setShowPassword((visible) => !visible)}>
 										{showPassword ? 'Ocultar' : 'Mostrar'}
 									</button>

@@ -71,12 +71,6 @@
 .dashboard-state h2 { margin: 0; color: var(--dashboard-text); font: 600 20px/26px var(--font-heading); }
 .dashboard-state p { max-width: 380px; margin: 0; color: var(--dashboard-muted); font-size: 14px; line-height: 23px; }
 .dashboard-state .dashboard-button { margin-top: 8px; }
-.dashboard-notice { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 24px; border: 1px solid #fb718566; border-radius: 8px; padding: 12px 16px; background: #fb71850c; }
-.dashboard-notice p { margin: 0; color: #fda4af; font-size: 14px; line-height: 22px; overflow-wrap: anywhere; }
-.dashboard-notice--success { border-color: #55cba64d; background: #55cba608; }
-.dashboard-notice--success p { color: #99dec7; }
-.dashboard-notice button { flex: none; border-radius: 4px; padding: 5px; color: var(--dashboard-muted); }
-.dashboard-notice svg { width: 16px; height: 16px; }
 .dashboard-shell .dashboard-dialog { border-color: var(--dashboard-line); border-radius: 16px; background: var(--dashboard-surface); }
 .dashboard-shell .dashboard-dialog :is(input:not([type='checkbox']), textarea, select) { border-color: #33475f; border-radius: 8px; background: #0c1725; }
 
@@ -122,4 +116,20 @@
 	.dashboard-card .dashboard-card__description { font-size: 13px; line-height: 23px; }
 	.dashboard-card__meta { font-size: 11px; }
 	.dashboard-state { padding: 48px 20px; }
+}
+
+/* Toasts (react-toastify) */
+.dashboard-toaster { position: fixed; inset: 0; width: 0; height: 0; margin: 0; padding: 0; border: 0; overflow: visible; background: none; }
+.dashboard-toast-container { --toastify-toast-width: min(380px, calc(100vw - 32px)); padding: 0; }
+.Toastify__toast-container--bottom-right { right: 16px; bottom: 16px; }
+.dashboard-toast { border: 1px solid var(--dashboard-line); border-radius: 8px; background: var(--dashboard-surface); color: var(--dashboard-text); font-size: 14px; line-height: 22px; overflow-wrap: anywhere; }
+.dashboard-toast.Toastify__toast--success { border-color: #55cba64d; --toastify-icon-color-success: #99dec7; }
+.dashboard-toast.Toastify__toast--error { border-color: #fb718566; --toastify-icon-color-error: #fda4af; }
+.dashboard-toast-close { flex: none; align-self: flex-start; border-radius: 4px; padding: 0 6px; color: var(--dashboard-muted); font-size: 20px; line-height: 22px; }
+.dashboard-toast-close:hover { color: var(--dashboard-text); }
+@media (max-width: 640px) {
+	.dashboard-toast-container.Toastify__toast-container--bottom-right { right: 16px; bottom: 16px; left: 16px; width: auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+	.dashboard-toast, .dashboard-toast * { animation-duration: 1ms !important; transition-duration: 1ms !important; }
 }

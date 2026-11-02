@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import Modal from './Modal'
-import { Field, ImageUrlField, inputClass, labelClass, TextAreaField } from './fields'
+import { imageChange, type ImageChange } from './image'
+import { Field, ImageField, ImageUrlField, inputClass, labelClass, TextAreaField } from './fields'
 import type { Link, Referent, ReferentBody } from './types'
 
 const btn =
@@ -9,7 +10,7 @@ const btn =
 interface Props {
 	referent: Referent | null // null = create
 	/** Returns an error message, or undefined on success. */
-	onSubmit: (body: ReferentBody) => Promise<string | undefined>
+	onSubmit: (body: ReferentBody, image: ImageChange) => Promise<string | undefined>
 	/** Returns an error message, or undefined on success. */
 	onDelete: () => Promise<string | undefined>
 	onClose: () => void
@@ -34,12 +35,13 @@ export default function ReferentModal({ referent, onSubmit, onDelete, onClose }:
 					description: String(f.get('description')),
 					image_url: String(f.get('image_url')) || null,
 					links,
-				})
+				}, imageChange(f))
 			}
 		>
 			<Field label='Nombre' name='name' defaultValue={referent?.name} maxLength={100} required />
 			<Field label='Rol' name='role' defaultValue={referent?.role} maxLength={100} required />
 			<TextAreaField label='Descripción (separá los párrafos con una línea en blanco)' name='description' rows={6} defaultValue={referent?.description} required />
+			<ImageField label='Subir foto' current={referent?.image_url} avatar />
 			<ImageUrlField label='Foto (URL)' name='image_url' defaultValue={referent?.image_url} avatar />
 			<fieldset className='space-y-2'>
 				<legend className={labelClass}>Enlaces</legend>

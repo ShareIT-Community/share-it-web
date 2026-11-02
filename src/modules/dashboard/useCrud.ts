@@ -1,4 +1,6 @@
 import { useState, type Dispatch, type SetStateAction } from 'react'
+import type { ImageChange } from './image'
+import { notifyError, notifyOk } from './Toaster'
 
 export const API = import.meta.env.PUBLIC_API_URL ?? 'http://localhost:8000/api/v1'
 
@@ -15,24 +17,23 @@ interface Options<T> {
 	resource: string
 	token: string | null
 	setItems: Dispatch<SetStateAction<T[]>>
-	notify: (msg: string) => void
 	onUnauthorized: () => void
-	/** Name shown in the "Guardado: …" notice. */
-	itemName: (item: T) => string
-	deletedMessage: string
+	/** Singular noun for toasts, e.g. `Grupo` -> "Grupo guardado". */
+	noun: string
 }
 
 /** Create/update/delete for one collection plus the modal's editing state. */
-export function useCrud<T extends { id: number }, B>({ resource, token, setItems, notify, onUnauthorized, itemName, deletedMessage }: Options<T>) {
+export function useCrud<T extends { id: number }, B>({ resource, token, setItems, onUnauthorized, noun }: Options<T>) {
 	const [editing, setEditing] = useState<T | null | undefined>(undefined)
 
-	/** Shared fetch for writes; returns an error message for the modal, undefined on success. */
-	async function write(path: string, method: string, body?: B): Promise<{ ok?: boolean; error?: string; data?: T }> {
+	/** Shared fetch for writes; returns the error text (the caller toasts it), `ok` on success. */
+	async function write(path: string, method: string, body?: B | FormData): Promise<{ ok?: boolean; error?: string; data?: T }> {
 		try {
 			const res = await fetch(`${API}/${resource}${path}`, {
 				method,
-				headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-				body: body && JSON.stringify(body),
+				// FormData: the browser sets the multipart Content-Type (with boundary) itself.
+				headers: { ...(body instanceof FormData ? {} : { 'Content-Type': 'application/json' }), Authorization: `Bearer ${token}` },
+				body: body instanceof FormData ? body : body && JSON.stringify(body),
 			})
 			if (res.status === 401) {
 				onUnauthorized()
@@ -48,21 +49,47 @@ export function useCrud<T extends { id: number }, B>({ resource, token, setItems
 		}
 	}
 
-	async function submit(body: B): Promise<string | undefined> {
+	/** PATCH/POST the fields, then PUT or DELETE the image. Feedback goes through toasts. */
+	async function submit(body: B, image: ImageChange = {}): Promise<undefined> {
 		const id = editing?.id
-		const { error, data } = await write(id ? `/${id}` : '', id ? 'PATCH' : 'POST', body)
-		if (!data) return error
-		setItems((items) => (id ? items.map((x) => (x.id === id ? data : x)) : [...items, data]))
-		notify(`Guardado: ${itemName(data)}`)
+		const saved = await write(id ? `/${id}` : '', id ? 'PATCH' : 'POST', body)
+		if (!saved.data) {
+			if (saved.error) notifyError(saved.error)
+			return
+		}
+		let data = saved.data
+		let imageError: string | undefined
+		const imagePath = `/${data.id}/image`
+		if (image.file) {
+			const form = new FormData()
+			form.append('file', image.file)
+			const res = await write(imagePath, 'PUT', form)
+			res.data ? (data = res.data) : (imageError = res.error ?? 'Sesión vencida')
+			if (res.data) notifyOk('Imagen subida')
+		} else if (image.remove && id) {
+			const res = await write(imagePath, 'DELETE')
+			res.data ? (data = res.data) : (imageError = res.error ?? 'Sesión vencida')
+			if (res.data) notifyOk('Imagen eliminada')
+		}
+		setItems((items) => (items.some((x) => x.id === data.id) ? items.map((x) => (x.id === data.id ? data : x)) : [...items, data]))
+		if (imageError) {
+			setEditing(data) // fields are saved; a retry must PATCH, not create a duplicate
+			notifyError(`Se guardaron los datos, pero la imagen falló: ${imageError}`)
+			return
+		}
+		notifyOk(`${noun} guardado`)
 		setEditing(undefined)
 	}
 
-	async function remove(): Promise<string | undefined> {
+	async function remove(): Promise<undefined> {
 		const id = editing?.id
 		const { ok, error } = await write(`/${id}`, 'DELETE')
-		if (!ok) return error
+		if (!ok) {
+			if (error) notifyError(error)
+			return
+		}
 		setItems((items) => items.filter((x) => x.id !== id))
-		notify(`Guardado: ${deletedMessage}`)
+		notifyOk(`${noun} eliminado`)
 		setEditing(undefined)
 	}
 
