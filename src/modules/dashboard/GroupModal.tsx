@@ -1,6 +1,7 @@
 import { whatsappGroupIcons } from 'src/modules/community/constants/whatsappGroupIcons'
 import Modal from './Modal'
-import { Field, ImageUrlField, labelClass, selectClass, TextAreaField } from './fields'
+import { imageChange, type ImageChange } from './image'
+import { Field, ImageField, ImageUrlField, labelClass, selectClass, TextAreaField } from './fields'
 import type { Group, GroupBody, Referent } from './types'
 
 interface Props {
@@ -8,7 +9,7 @@ interface Props {
 	defaultOrder: number
 	referents: Referent[]
 	/** Returns an error message, or undefined on success. */
-	onSubmit: (body: GroupBody) => Promise<string | undefined>
+	onSubmit: (body: GroupBody, image: ImageChange) => Promise<string | undefined>
 	/** Returns an error message, or undefined on success. */
 	onDelete: () => Promise<string | undefined>
 	onClose: () => void
@@ -29,12 +30,13 @@ export default function GroupModal({ group, defaultOrder, referents, onSubmit, o
 					image_url: String(f.get('image_url')) || null,
 					icon: String(f.get('icon')) || null,
 					referent_ids: f.getAll('referent_ids').map(Number),
-				})
+				}, imageChange(f))
 			}
 		>
 			<Field label='Título' name='title' defaultValue={group?.title} maxLength={100} required />
 			<Field label='Orden' name='order' type='number' defaultValue={group?.order ?? defaultOrder} required />
 			<TextAreaField label='Descripción (separá los párrafos con una línea en blanco)' name='description' rows={6} defaultValue={group?.description} required />
+			<ImageField label='Subir imagen' current={group?.image_url} />
 			<ImageUrlField label='Imagen (URL)' name='image_url' defaultValue={group?.image_url} />
 			<label className={labelClass}>
 				Ícono

@@ -1,5 +1,6 @@
 import Modal from './Modal'
-import { Field, labelClass, selectClass, TextAreaField } from './fields'
+import { imageChange, mediaImage, type ImageChange } from './image'
+import { Field, ImageField, labelClass, selectClass, TextAreaField } from './fields'
 import type { EventBody, EventItem } from './types'
 
 const pad = (n: number) => String(n).padStart(2, '0')
@@ -14,7 +15,7 @@ const text = (f: FormData, k: string) => String(f.get(k) ?? '').trim() || null
 
 interface Props {
 	event: EventItem | null 
-	onSubmit: (body: EventBody) => Promise<string | undefined>
+	onSubmit: (body: EventBody, image: ImageChange) => Promise<string | undefined>
 	onDelete: () => Promise<string | undefined>
 	onClose: () => void
 }
@@ -38,7 +39,7 @@ export default function EventModal({ event, onSubmit, onDelete, onClose }: Props
 					site: text(f, 'site'),
 					media: text(f, 'media'),
 					repository: text(f, 'repository'),
-				})
+				}, imageChange(f))
 			}
 		>
 			<Field label='Título' name='title' defaultValue={event?.title} maxLength={150} required />
@@ -57,6 +58,7 @@ export default function EventModal({ event, onSubmit, onDelete, onClose }: Props
 			<Field label='Lugar' name='location' defaultValue={event?.location ?? ''} />
 			<Field label='Orador/a' name='speaker' defaultValue={event?.speaker ?? ''} />
 			<Field label='Sitio (URL)' name='site' type='url' placeholder='https://…' defaultValue={event?.site ?? ''} />
+			<ImageField label='Subir imagen (reemplaza el campo Grabación)' current={mediaImage(event?.media)} />
 			<Field label='Grabación (URL)' name='media' type='url' placeholder='https://…' defaultValue={event?.media ?? ''} />
 			<Field label='Repositorio (URL)' name='repository' type='url' placeholder='https://…' defaultValue={event?.repository ?? ''} />
 		</Modal>

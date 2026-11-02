@@ -100,15 +100,26 @@ pnpm dev
 - [ ] Fallback, backend down (`docker compose stop api`): `/community` still renders from the hard-coded constants. Restart with `docker compose start api`.
 - [ ] Fallback, empty tables: with no groups or events in the DB, `/community` shows the constants instead of an empty page. The same happens on an API error or a response slower than 3 s.
 
-## 6. Known issues
+## 6. Images
+
+Groups, referents and events can upload an image from their modal (JPG, PNG, WebP or GIF, max 5 MB). The backend stores it in Cloudinary.
+
+- Backend: set `CLOUDINARY_URL=cloudinary://<key>:<secret>@<cloud_name>` in its `.env` and recreate the container (`docker compose up -d`). Without it, uploads return 503.
+- Upload: open an item, choose a file in "Subir imagen" (the preview updates), Guardar. Fields are saved first, then the image.
+- Replace: choose another file and Guardar. The old Cloudinary asset is deleted.
+- Remove: "Quitar imagen", then Guardar.
+- Confirm in Cloudinary: open Media Library, find the folder the backend uses, and check that the new asset exists and the old one is gone after a replace or remove.
+- Errors appear in the modal: 422 bad type, 413 over 5 MB, 503 not configured, 502 Cloudinary failed. If the image fails, the fields are already saved.
+
+## 7. Known issues
 
 - `pnpm build` fails on Windows at the Netlify adapter with `EPERM` on a symlink (Astro compile passes before it). Enable Developer Mode or use an elevated shell, or build in CI.
 - The token lives in `sessionStorage`: it is readable by any XSS on the origin, and cleared when the tab closes. Accepted tradeoff for now.
-- Events have no image: the backend `Event` model has no `image_url` (would need a field and a migration).
+- Event images are stored in `media`, the same field as the recording URL: uploading an image replaces a recording URL, and removing it clears the field.
 - Referents and events flows were checked in the browser by the user, not by automated tests (the repo has no frontend test runner).
 - Local only, not deployed.
 
-## 7. Troubleshooting
+## 8. Troubleshooting
 
 | Symptom | Cause / fix |
 | :-- | :-- |

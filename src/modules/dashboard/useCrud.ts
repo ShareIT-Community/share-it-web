@@ -1,4 +1,5 @@
 import { useState, type Dispatch, type SetStateAction } from 'react'
+import type { ImageChange } from './image'
 
 export const API = import.meta.env.PUBLIC_API_URL ?? 'http://localhost:8000/api/v1'
 
@@ -27,12 +28,13 @@ export function useCrud<T extends { id: number }, B>({ resource, token, setItems
 	const [editing, setEditing] = useState<T | null | undefined>(undefined)
 
 	/** Shared fetch for writes; returns an error message for the modal, undefined on success. */
-	async function write(path: string, method: string, body?: B): Promise<{ ok?: boolean; error?: string; data?: T }> {
+	async function write(path: string, method: string, body?: B | FormData): Promise<{ ok?: boolean; error?: string; data?: T }> {
 		try {
 			const res = await fetch(`${API}/${resource}${path}`, {
 				method,
-				headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-				body: body && JSON.stringify(body),
+				// FormData: the browser sets the multipart Content-Type (with boundary) itself.
+				headers: { ...(body instanceof FormData ? {} : { 'Content-Type': 'application/json' }), Authorization: `Bearer ${token}` },
+				body: body instanceof FormData ? body : body && JSON.stringify(body),
 			})
 			if (res.status === 401) {
 				onUnauthorized()
@@ -48,11 +50,28 @@ export function useCrud<T extends { id: number }, B>({ resource, token, setItems
 		}
 	}
 
-	async function submit(body: B): Promise<string | undefined> {
+	/** PATCH/POST the fields, then PUT or DELETE the image. Returns an error message, undefined on success. */
+	async function submit(body: B, image: ImageChange = {}): Promise<string | undefined> {
 		const id = editing?.id
-		const { error, data } = await write(id ? `/${id}` : '', id ? 'PATCH' : 'POST', body)
-		if (!data) return error
-		setItems((items) => (id ? items.map((x) => (x.id === id ? data : x)) : [...items, data]))
+		const saved = await write(id ? `/${id}` : '', id ? 'PATCH' : 'POST', body)
+		if (!saved.data) return saved.error
+		let data = saved.data
+		let imageError: string | undefined
+		const imagePath = `/${data.id}/image`
+		if (image.file) {
+			const form = new FormData()
+			form.append('file', image.file)
+			const res = await write(imagePath, 'PUT', form)
+			res.data ? (data = res.data) : (imageError = res.error ?? 'Sesión vencida')
+		} else if (image.remove && id) {
+			const res = await write(imagePath, 'DELETE')
+			res.data ? (data = res.data) : (imageError = res.error ?? 'Sesión vencida')
+		}
+		setItems((items) => (items.some((x) => x.id === data.id) ? items.map((x) => (x.id === data.id ? data : x)) : [...items, data]))
+		if (imageError) {
+			setEditing(data) // fields are saved; a retry must PATCH, not create a duplicate
+			return `Se guardaron los datos, pero la imagen falló: ${imageError}`
+		}
 		notify(`Guardado: ${itemName(data)}`)
 		setEditing(undefined)
 	}
