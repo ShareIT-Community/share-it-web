@@ -15,6 +15,7 @@ TDD: no test runner in repo. Checks: `npx tsc --noEmit` + `pnpm build` (Netlify 
 ## Tasks (route: single direct writer)
 - [x] I1 `image.ts` (type/5 MB pre-check, FormData reader) + `ImageField` component (preview, remove, inline error) + `useCrud.submit` PATCH/POST then PUT/DELETE image; wired in the three modals; event card shows the image (31f3ed8)
 - [x] I2 `docs/dashboard-e2e.md` "Images" section (31f3ed8)
+- [x] T3 Toast feedback (route: delegated): `Toaster.tsx` (react-toastify, already installed; popover wrapper keeps it above open modals), `useCrud` emits save/delete/image success and error toasts, load/login/401 errors toast in `GroupsPanel`; old top notice and login message removed (HASH)
 
 ## Progress
 - Partial image failure keeps the modal open and switches it to edit mode so a retry PATCHes instead of duplicating.

@@ -48,7 +48,6 @@
 .dashboard-login :is(button, a):focus-visible { outline: 2px solid var(--login-cyan); outline-offset: 5px; }
 .dashboard-login .dashboard-login__note { display: flex; align-items: center; justify-content: center; gap: 8px; border-top: 1px solid var(--login-line); margin: 28px 0 0; padding-top: 21px; color: var(--login-quiet); font-size: 12px; line-height: 20px; text-align: center; }
 .dashboard-login__note svg { height: 14px; width: 14px; flex: none; }
-.dashboard-login .dashboard-login__message { margin: 0 0 24px; padding: 12px 14px; border: 1px solid #fb718566; border-radius: 10px; background: #fb718510; color: #fda4af; font-size: 14px; line-height: 22px; }
 .dashboard-login__footer { display: flex; align-items: center; justify-content: center; color: var(--login-quiet); line-height: 20px; }
 .dashboard-login__desktop-footer { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; }
 .dashboard-login__mobile-footer, .dashboard-login__mobile-back { display: none; }

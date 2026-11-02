@@ -1,9 +1,9 @@
 import { useEffect, useState, type FormEvent } from 'react'
-import { FiX } from 'react-icons/fi'
 import GroupCard from './GroupCard'
 import GroupModal from './GroupModal'
 import ReferentsPanel from './ReferentsPanel'
 import LoginPanel from './LoginPanel'
+import Toaster, { notifyError } from './Toaster'
 import DashboardShell, { DashboardHeading, DashboardState, DashboardToolbar, type DashboardLoadState, type DashboardSection } from './DashboardShell'
 import { normalizeSearch } from './search'
 import EventsPanel from './EventsPanel'
@@ -23,18 +23,16 @@ export default function GroupsPanel() {
 	const [eventsState, setEventsState] = useState<DashboardLoadState>('loading')
 	const [reload, setReload] = useState(0)
 	const [events, setEvents] = useState<EventItem[]>([])
-	const [msg, setMsg] = useState('')
 	const { editing, setEditing, submit, remove } = useCrud<Group, GroupBody>({
 		resource: 'groups',
 		token,
 		setItems: setGroups,
-		notify: setMsg,
 		onUnauthorized: () => logout('Sesión vencida'),
-		itemName: (g) => g.title,
-		deletedMessage: 'grupo borrado',
+		noun: 'Grupo',
 	})
 
 	const logout = (m = '') => {
+		if (m) notifyError(m)
 		sessionStorage.removeItem(KEY)
 		setToken(null)
 		setGroups([])
@@ -43,7 +41,6 @@ export default function GroupsPanel() {
 		setTab('groups')
 		setEvents([])
 		setEditing(undefined)
-		setMsg(m)
 	}
 
 	useEffect(() => {
@@ -63,7 +60,7 @@ export default function GroupsPanel() {
 				setGroups(data)
 				setGroupsState('ready')
 			})
-			.catch(() => { if (active) setGroupsState('error') })
+			.catch(() => { if (active) { setGroupsState('error'); notifyError('No se pudieron cargar los grupos') } })
 		fetch(`${API}/referents`)
 			.then((r) => (r.ok ? r.json() : Promise.reject()))
 			.then((data: Referent[]) => {
@@ -71,7 +68,7 @@ export default function GroupsPanel() {
 				setReferents(data)
 				setReferentsState('ready')
 			})
-			.catch(() => { if (active) setReferentsState('error') })
+			.catch(() => { if (active) { setReferentsState('error'); notifyError('No se pudieron cargar los referentes') } })
 		fetch(`${API}/events`)
 			.then((r) => (r.ok ? r.json() : Promise.reject()))
 			.then((data: EventItem[]) => {
@@ -79,7 +76,7 @@ export default function GroupsPanel() {
 				setEvents(data)
 				setEventsState('ready')
 			})
-			.catch(() => { if (active) setEventsState('error') })
+			.catch(() => { if (active) { setEventsState('error'); notifyError('No se pudieron cargar los eventos') } })
 		return () => { active = false }
 	}, [token, reload])
 
@@ -89,35 +86,27 @@ export default function GroupsPanel() {
 		try {
 			// OAuth2 form: `username` carries the email
 			const res = await fetch(`${API}/auth/token`, { method: 'POST', body: new URLSearchParams(f as never) })
-			if (!res.ok) return setMsg('Credenciales inválidas')
+			if (!res.ok) { notifyError('Credenciales inválidas'); return }
 			const { access_token } = await res.json()
 			sessionStorage.setItem(KEY, access_token)
-			setMsg('')
 			setToken(access_token)
 		} catch {
-			setMsg('No se pudo conectar')
+			notifyError('No se pudo conectar')
 		}
 	}
 
-	const ok = msg.startsWith('Guardado')
-
-	if (!token) return <LoginPanel onSubmit={login} message={msg} />
+	if (!token) return <><LoginPanel onSubmit={login} /><Toaster /></>
 
 	const search = normalizeSearch(query)
 	const visibleGroups = groups.filter((g) => normalizeSearch(`${g.title} ${g.description}`).includes(search)).sort((a, b) => a.order - b.order)
 	const retry = () => setReload((value) => value + 1)
 
 	return (
-		<DashboardShell section={tab} onSectionChange={(section) => { setTab(section); setQuery(''); setMsg('') }} onLogout={() => logout()} groupCount={groupsState === 'ready' ? groups.length : undefined} referentCount={referentsState === 'ready' ? referents.length : undefined} eventCount={eventsState === 'ready' ? events.length : undefined}>
-			{msg && (
-				<div className={`dashboard-notice ${ok ? 'dashboard-notice--success' : ''}`} role='status'>
-					<p>{msg}</p><button type='button' onClick={() => setMsg('')} aria-label='Cerrar mensaje'><FiX aria-hidden='true' /></button>
-				</div>
-			)}
+		<DashboardShell section={tab} onSectionChange={(section) => { setTab(section); setQuery('') }} onLogout={() => logout()} groupCount={groupsState === 'ready' ? groups.length : undefined} referentCount={referentsState === 'ready' ? referents.length : undefined} eventCount={eventsState === 'ready' ? events.length : undefined}>
 			{tab === 'events' ? (
-				<EventsPanel token={token} events={events} setEvents={setEvents} notify={setMsg} onUnauthorized={() => logout('Sesión vencida')} loadState={eventsState} onRetry={retry} />
+				<EventsPanel token={token} events={events} setEvents={setEvents} onUnauthorized={() => logout('Sesión vencida')} loadState={eventsState} onRetry={retry} />
 			) : tab === 'referents' ? (
-				<ReferentsPanel token={token} referents={referents} setReferents={setReferents} notify={setMsg} onUnauthorized={() => logout('Sesión vencida')} loadState={referentsState} onRetry={retry} />
+				<ReferentsPanel token={token} referents={referents} setReferents={setReferents} onUnauthorized={() => logout('Sesión vencida')} loadState={referentsState} onRetry={retry} />
 			) : (
 				<>
 					<DashboardHeading title='Grupos' description='Administra los espacios de la comunidad.' action='Agregar grupo' onAdd={() => setEditing(null)} />
@@ -141,6 +130,7 @@ export default function GroupsPanel() {
 					onClose={() => setEditing(undefined)}
 				/>
 			)}
+			<Toaster />
 		</DashboardShell>
 	)
 }
