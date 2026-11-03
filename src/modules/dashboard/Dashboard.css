@@ -46,7 +46,7 @@
 .dashboard-heading__actions { display: flex; flex-wrap: wrap; gap: 10px; }
 .dashboard-reorder-bar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; padding: 12px 16px; border: 1px solid var(--dashboard-cyan); border-radius: 10px; color: var(--dashboard-muted); font-size: 13px; }
 .dashboard-reorder-bar div { display: flex; gap: 10px; }
-.dashboard-reorder-list { display: flex; flex-direction: column; gap: 8px; max-width: 640px; margin: 0; padding: 0; list-style: none; }
+.dashboard-reorder-list { display: flex; flex-direction: column; gap: 8px; margin: 0; padding: 0; list-style: none; }
 .dashboard-reorder-row { display: flex; align-items: center; gap: 12px; padding: 8px 10px; border: 1px solid var(--dashboard-line); border-radius: 10px; background: var(--dashboard-surface); }
 .dashboard-reorder-row button { display: grid; place-items: center; flex: none; width: 36px; height: 36px; border: 0; border-radius: 8px; background: transparent; color: var(--dashboard-muted); cursor: pointer; }
 .dashboard-reorder-row button:hover:not(:disabled) { color: var(--dashboard-cyan); }
