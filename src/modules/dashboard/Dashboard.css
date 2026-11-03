@@ -46,7 +46,17 @@
 .dashboard-heading__actions { display: flex; flex-wrap: wrap; gap: 10px; }
 .dashboard-reorder-bar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; padding: 12px 16px; border: 1px solid var(--dashboard-cyan); border-radius: 10px; color: var(--dashboard-muted); font-size: 13px; }
 .dashboard-reorder-bar div { display: flex; gap: 10px; }
-.dashboard-sortable__handle { cursor: grab; touch-action: none; }
+.dashboard-reorder-list { display: flex; flex-direction: column; gap: 8px; max-width: 640px; margin: 0; padding: 0; list-style: none; }
+.dashboard-reorder-row { display: flex; align-items: center; gap: 12px; padding: 8px 10px; border: 1px solid var(--dashboard-line); border-radius: 10px; background: var(--dashboard-surface); }
+.dashboard-reorder-row button { display: grid; place-items: center; flex: none; width: 36px; height: 36px; border: 0; border-radius: 8px; background: transparent; color: var(--dashboard-muted); cursor: pointer; }
+.dashboard-reorder-row button:hover:not(:disabled) { color: var(--dashboard-cyan); }
+.dashboard-reorder-row button:disabled { opacity: .3; cursor: not-allowed; }
+.dashboard-reorder-row button:focus-visible { outline: 2px solid var(--dashboard-cyan); outline-offset: 1px; }
+.dashboard-reorder-row svg { width: 18px; height: 18px; }
+.dashboard-reorder-row .dashboard-reorder-row__handle { cursor: grab; touch-action: none; }
+.dashboard-reorder-row__image { display: grid; place-items: center; flex: none; width: 40px; height: 40px; overflow: hidden; border-radius: 8px; background: var(--dashboard-line); color: var(--dashboard-quiet); }
+.dashboard-reorder-row__image img { width: 100%; height: 100%; object-fit: cover; }
+.dashboard-reorder-row__title { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 600; }
 .dashboard-sortable--dragging { position: relative; z-index: 1; opacity: .85; }
 .dashboard-button svg { flex: none; width: 16px; height: 16px; }
 .dashboard-button--primary { border-color: transparent; background: var(--dashboard-cyan); color: #05232e; font-weight: 600; }

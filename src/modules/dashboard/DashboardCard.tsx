@@ -11,14 +11,12 @@ interface Props {
 	/** Round image, for people. */
 	avatar?: boolean
 	meta: string[]
-	editLabel?: string
-	onEdit?: () => void
-	/** Replaces the Editar button (e.g. a drag handle while reordering). */
-	control?: ReactNode
+	editLabel: string
+	onEdit: () => void
 }
 
 /** Shared card for every dashboard section: image, heading, clamped description and a footer with meta + Editar. */
-export default function DashboardCard({ title, subtitle, description, image, fallback, avatar, meta, editLabel, onEdit, control }: Props) {
+export default function DashboardCard({ title, subtitle, description, image, fallback, avatar, meta, editLabel, onEdit }: Props) {
 	return (
 		<article className='dashboard-card'>
 			<div className='dashboard-card__header'>
@@ -30,7 +28,7 @@ export default function DashboardCard({ title, subtitle, description, image, fal
 			<p className='dashboard-card__description'>{description.replace(/\n\s*\n/g, ' ')}</p>
 			<div className='dashboard-card__footer'>
 				<div className='dashboard-card__meta'>{meta.map((m, i) => <span key={i}>{m}</span>)}</div>
-				{control ?? <button type='button' onClick={onEdit} aria-label={editLabel} className='dashboard-button dashboard-card__edit'><FiEdit2 aria-hidden='true' />Editar</button>}
+				<button type='button' onClick={onEdit} aria-label={editLabel} className='dashboard-button dashboard-card__edit'><FiEdit2 aria-hidden='true' />Editar</button>
 			</div>
 		</article>
 	)
