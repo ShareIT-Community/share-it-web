@@ -86,6 +86,16 @@ export default function GroupsPanel() {
 		return () => { active = false }
 	}, [token, reload])
 
+	// Warn before a reload or tab close would drop an unsaved order.
+	useEffect(() => {
+		if (!draft) return
+		const saved = [...groups].sort((a, b) => a.order - b.order)
+		if (!draft.some((g, i) => g.id !== saved[i]?.id)) return
+		const warn = (e: BeforeUnloadEvent) => e.preventDefault()
+		window.addEventListener('beforeunload', warn)
+		return () => window.removeEventListener('beforeunload', warn)
+	}, [draft, groups])
+
 	async function login(e: FormEvent<HTMLFormElement>) {
 		e.preventDefault()
 		const f = new FormData(e.currentTarget)
@@ -147,7 +157,7 @@ export default function GroupsPanel() {
 					<DashboardHeading title='Grupos' description='Administra los espacios de la comunidad.' action='Agregar grupo' onAdd={() => setEditing(null)} addDisabled={reordering} extra={groupsState === 'ready' && groups.length > 1 && !reordering ? <button className='dashboard-button' type='button' onClick={() => setDraft(sortedGroups)}><FiMove aria-hidden='true' />Reordenar</button> : undefined} />
 					{reordering ? (
 						<div className='dashboard-reorder-bar'>
-							<p>Arrastra los grupos (o usa el teclado) para cambiar su orden.</p>
+							<p>Arrastra los grupos desde el ícono o usa las flechas para cambiar su orden.</p>
 							<div>
 								<button className='dashboard-button' type='button' onClick={() => setDraft(null)} disabled={saving}>Cancelar</button>
 								<button className='dashboard-button dashboard-button--primary' type='button' onClick={saveOrder} disabled={saving || !changed}>{saving ? 'Guardando…' : 'Guardar'}</button>
