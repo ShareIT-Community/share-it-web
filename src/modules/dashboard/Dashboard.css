@@ -42,6 +42,22 @@
 .dashboard-heading p { margin: 7px 0 0; color: var(--dashboard-muted); font-size: 14px; line-height: 23px; }
 .dashboard-button { display: inline-flex; align-items: center; justify-content: center; flex: none; gap: 8px; min-height: 40px; border: 1px solid var(--dashboard-line); border-radius: 8px; padding: 9px 14px; background: transparent; color: var(--dashboard-text); font-size: 13px; font-weight: 500; line-height: 20px; }
 .dashboard-button:hover { background: var(--dashboard-hover); }
+.dashboard-button:disabled { opacity: .5; cursor: not-allowed; }
+.dashboard-heading__actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.dashboard-reorder-bar { position: sticky; top: 12px; z-index: 2; background: var(--dashboard-bg); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; padding: 12px 16px; border: 1px solid var(--dashboard-cyan); border-radius: 10px; color: var(--dashboard-muted); font-size: 13px; }
+.dashboard-reorder-bar div { display: flex; gap: 10px; }
+.dashboard-reorder-list { display: flex; flex-direction: column; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.dashboard-reorder-row { display: flex; align-items: center; gap: 12px; padding: 8px 10px; border: 1px solid var(--dashboard-line); border-radius: 10px; background: var(--dashboard-surface); }
+.dashboard-reorder-row button { display: grid; place-items: center; flex: none; width: 36px; height: 36px; border: 0; border-radius: 8px; background: transparent; color: var(--dashboard-muted); cursor: pointer; }
+.dashboard-reorder-row button:hover:not(:disabled) { color: var(--dashboard-cyan); }
+.dashboard-reorder-row button:disabled { opacity: .3; cursor: not-allowed; }
+.dashboard-reorder-row button:focus-visible { outline: 2px solid var(--dashboard-cyan); outline-offset: 1px; }
+.dashboard-reorder-row svg { width: 18px; height: 18px; }
+.dashboard-reorder-row .dashboard-reorder-row__handle { cursor: grab; touch-action: none; }
+.dashboard-reorder-row__image { display: grid; place-items: center; flex: none; width: 40px; height: 40px; overflow: hidden; border-radius: 8px; background: var(--dashboard-line); color: var(--dashboard-quiet); }
+.dashboard-reorder-row__image img { width: 100%; height: 100%; object-fit: cover; }
+.dashboard-reorder-row__title { flex: 1; min-width: 0; display: -webkit-box; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-height: 1.3; overflow-wrap: anywhere; font-weight: 600; }
+.dashboard-sortable--dragging { position: relative; z-index: 1; opacity: .85; }
 .dashboard-button svg { flex: none; width: 16px; height: 16px; }
 .dashboard-button--primary { border-color: transparent; background: var(--dashboard-cyan); color: #05232e; font-weight: 600; }
 .dashboard-button--primary:hover { background: #65efff; }
@@ -93,7 +109,7 @@
 	.dashboard-shell__site-link { display: inline-flex; align-items: center; gap: 6px; color: var(--dashboard-muted) !important; font-size: 12px; }
 	.dashboard-shell__site-link svg { width: 16px; height: 16px; }
 	.dashboard-shell__content { padding: 32px 24px calc(104px + env(safe-area-inset-bottom, 0px)); }
-	.dashboard-shell__bottom-nav { position: fixed; inset: auto 0 0; z-index: 30; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; border-top: 1px solid var(--dashboard-line); padding: 8px 16px calc(8px + env(safe-area-inset-bottom, 0px)); background: var(--dashboard-bg); }
+	.dashboard-shell__bottom-nav { position: fixed; inset: auto 0 0; z-index: 30; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 4px; border-top: 1px solid var(--dashboard-line); padding: 8px 16px calc(8px + env(safe-area-inset-bottom, 0px)); background: var(--dashboard-bg); }
 	.dashboard-shell__bottom-nav button { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; min-height: 52px; border: 1px solid transparent; border-radius: 8px; padding: 5px 8px; background: transparent; color: var(--dashboard-quiet); font-size: 11px; line-height: 16px; }
 	.dashboard-shell__bottom-nav button[aria-current='page'] { background: var(--dashboard-hover); color: var(--dashboard-cyan); }
 	.dashboard-shell__bottom-nav svg { width: 20px; height: 20px; }

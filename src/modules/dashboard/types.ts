@@ -24,7 +24,7 @@ export interface Group {
 	referents: Referent[]
 }
 
-export type GroupBody = Omit<Group, 'id' | 'referents'> & { referent_ids: number[] }
+export type GroupBody = Omit<Group, 'id' | 'referents' | 'order'> & { referent_ids: number[] }
 
 export interface EventItem {
 	id: number
