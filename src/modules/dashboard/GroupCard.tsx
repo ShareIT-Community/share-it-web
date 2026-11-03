@@ -1,8 +1,9 @@
+import type { ReactNode } from 'react'
 import { FiGrid } from 'react-icons/fi'
 import DashboardCard from './DashboardCard'
 import type { Group } from './types'
 
-export default function GroupCard({ g, onEdit }: { g: Group; onEdit: () => void }) {
+export default function GroupCard({ g, onEdit, control }: { g: Group; onEdit?: () => void; control?: ReactNode }) {
 	return (
 		<DashboardCard
 			title={g.title}
@@ -12,6 +13,7 @@ export default function GroupCard({ g, onEdit }: { g: Group; onEdit: () => void 
 			meta={[`Orden ${g.order}`, `${g.referents.length} ${g.referents.length === 1 ? 'referente' : 'referentes'}`]}
 			editLabel={`Editar grupo ${g.title}`}
 			onEdit={onEdit}
+			control={control}
 		/>
 	)
 }

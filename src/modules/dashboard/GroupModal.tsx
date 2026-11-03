@@ -6,7 +6,6 @@ import type { Group, GroupBody, Referent } from './types'
 
 interface Props {
 	group: Group | null // null = create
-	defaultOrder: number
 	referents: Referent[]
 	/** Returns an error message, or undefined on success. */
 	onSubmit: (body: GroupBody, image: ImageChange) => Promise<string | undefined>
@@ -15,7 +14,7 @@ interface Props {
 	onClose: () => void
 }
 
-export default function GroupModal({ group, defaultOrder, referents, onSubmit, onDelete, onClose }: Props) {
+export default function GroupModal({ group, referents, onSubmit, onDelete, onClose }: Props) {
 	return (
 		<Modal
 			title={group ? 'Editar grupo' : 'Agregar grupo'}
@@ -25,7 +24,6 @@ export default function GroupModal({ group, defaultOrder, referents, onSubmit, o
 			onSubmit={(f) =>
 				onSubmit({
 					title: String(f.get('title')),
-					order: Number(f.get('order')),
 					description: String(f.get('description')),
 					image_url: String(f.get('image_url')) || null,
 					icon: String(f.get('icon')) || null,
@@ -34,7 +32,6 @@ export default function GroupModal({ group, defaultOrder, referents, onSubmit, o
 			}
 		>
 			<Field label='Título' name='title' defaultValue={group?.title} maxLength={100} required />
-			<Field label='Orden' name='order' type='number' defaultValue={group?.order ?? defaultOrder} required />
 			<TextAreaField label='Descripción (separá los párrafos con una línea en blanco)' name='description' rows={6} defaultValue={group?.description} required />
 			<ImageField label='Subir imagen' current={group?.image_url} />
 			<ImageUrlField label='Imagen (URL)' name='image_url' defaultValue={group?.image_url} />

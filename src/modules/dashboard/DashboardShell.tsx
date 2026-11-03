@@ -62,11 +62,14 @@ export default function DashboardShell({ section, onSectionChange, onLogout, gro
 	)
 }
 
-export function DashboardHeading({ title, description, action, onAdd }: { title: string; description: string; action: string; onAdd: () => void }) {
+export function DashboardHeading({ title, description, action, onAdd, addDisabled, extra }: { title: string; description: string; action: string; onAdd: () => void; addDisabled?: boolean; extra?: ReactNode }) {
 	return (
 		<header className='dashboard-heading'>
 			<div><h1>{title}</h1><p>{description}</p></div>
-			<button className='dashboard-button dashboard-button--primary' type='button' onClick={onAdd}><FiPlus aria-hidden='true' />{action}</button>
+			<div className='dashboard-heading__actions'>
+				{extra}
+				<button className='dashboard-button dashboard-button--primary' type='button' onClick={onAdd} disabled={addDisabled}><FiPlus aria-hidden='true' />{action}</button>
+			</div>
 		</header>
 	)
 }

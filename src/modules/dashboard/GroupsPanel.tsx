@@ -1,10 +1,12 @@
 import { useEffect, useState, type FormEvent } from 'react'
 import GroupCard from './GroupCard'
 import GroupModal from './GroupModal'
+import GroupReorderList from './GroupReorderList'
 import ReferentsPanel from './ReferentsPanel'
 import LoginPanel from './LoginPanel'
-import Toaster, { notifyError } from './Toaster'
+import Toaster, { notifyError, notifyOk } from './Toaster'
 import DashboardShell, { DashboardHeading, DashboardState, DashboardToolbar, type DashboardLoadState, type DashboardSection } from './DashboardShell'
+import { FiMove } from 'react-icons/fi'
 import { normalizeSearch } from './search'
 import EventsPanel from './EventsPanel'
 import { API, useCrud } from './useCrud'
@@ -23,6 +25,9 @@ export default function GroupsPanel() {
 	const [eventsState, setEventsState] = useState<DashboardLoadState>('loading')
 	const [reload, setReload] = useState(0)
 	const [events, setEvents] = useState<EventItem[]>([])
+	/** Working order while reordering; null = not reordering. */
+	const [draft, setDraft] = useState<Group[] | null>(null)
+	const [saving, setSaving] = useState(false)
 	const { editing, setEditing, submit, remove } = useCrud<Group, GroupBody>({
 		resource: 'groups',
 		token,
@@ -41,6 +46,7 @@ export default function GroupsPanel() {
 		setTab('groups')
 		setEvents([])
 		setEditing(undefined)
+		setDraft(null)
 	}
 
 	useEffect(() => {
@@ -97,9 +103,38 @@ export default function GroupsPanel() {
 
 	if (!token) return <><LoginPanel onSubmit={login} /><Toaster /></>
 
+	const sortedGroups = [...groups].sort((a, b) => a.order - b.order)
 	const search = normalizeSearch(query)
-	const visibleGroups = groups.filter((g) => normalizeSearch(`${g.title} ${g.description}`).includes(search)).sort((a, b) => a.order - b.order)
+	const visibleGroups = sortedGroups.filter((g) => normalizeSearch(`${g.title} ${g.description}`).includes(search))
 	const retry = () => setReload((value) => value + 1)
+	const reordering = draft !== null
+	const changed = reordering && draft.some((g, i) => g.id !== sortedGroups[i]?.id)
+
+	async function saveOrder() {
+		if (!draft) return
+		setSaving(true)
+		try {
+			const res = await fetch(`${API}/groups/order`, {
+				method: 'PUT',
+				headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+				body: JSON.stringify({ ids: draft.map((g) => g.id) }),
+			})
+			if (res.status === 401 || res.status === 403) return logout('Sesión vencida')
+			if (res.status === 409) {
+				notifyError('La lista de grupos cambió. Se recargó la lista.')
+				setDraft(null)
+				return retry()
+			}
+			if (!res.ok) return notifyError(`Error al guardar el orden (${res.status})`)
+			setGroups(await res.json())
+			setDraft(null)
+			notifyOk('Orden guardado')
+		} catch {
+			notifyError('No se pudo conectar')
+		} finally {
+			setSaving(false)
+		}
+	}
 
 	return (
 		<DashboardShell section={tab} onSectionChange={(section) => { setTab(section); setQuery('') }} onLogout={() => logout()} groupCount={groupsState === 'ready' ? groups.length : undefined} referentCount={referentsState === 'ready' ? referents.length : undefined} eventCount={eventsState === 'ready' ? events.length : undefined}>
@@ -109,11 +144,20 @@ export default function GroupsPanel() {
 				<ReferentsPanel token={token} referents={referents} setReferents={setReferents} onUnauthorized={() => logout('Sesión vencida')} loadState={referentsState} onRetry={retry} />
 			) : (
 				<>
-					<DashboardHeading title='Grupos' description='Administra los espacios de la comunidad.' action='Agregar grupo' onAdd={() => setEditing(null)} />
-					<DashboardToolbar query={query} onQueryChange={setQuery} placeholder='Buscar grupos…' resultLabel={groupsState === 'ready' ? `${search ? `${visibleGroups.length} de ` : ''}${groups.length} ${groups.length === 1 ? 'grupo' : 'grupos'}` : ''} />
+					<DashboardHeading title='Grupos' description='Administra los espacios de la comunidad.' action='Agregar grupo' onAdd={() => setEditing(null)} addDisabled={reordering} extra={groupsState === 'ready' && groups.length > 1 && !reordering ? <button className='dashboard-button' type='button' onClick={() => setDraft(sortedGroups)}><FiMove aria-hidden='true' />Reordenar</button> : undefined} />
+					{reordering ? (
+						<div className='dashboard-reorder-bar'>
+							<p>Arrastra los grupos (o usa el teclado) para cambiar su orden.</p>
+							<div>
+								<button className='dashboard-button' type='button' onClick={() => setDraft(null)} disabled={saving}>Cancelar</button>
+								<button className='dashboard-button dashboard-button--primary' type='button' onClick={saveOrder} disabled={saving || !changed}>{saving ? 'Guardando…' : 'Guardar'}</button>
+							</div>
+						</div>
+					) : <DashboardToolbar query={query} onQueryChange={setQuery} placeholder='Buscar grupos…' resultLabel={groupsState === 'ready' ? `${search ? `${visibleGroups.length} de ` : ''}${groups.length} ${groups.length === 1 ? 'grupo' : 'grupos'}` : ''} />}
 					{groupsState === 'loading' ? <DashboardState title='Cargando grupos…' loading />
 						: groupsState === 'error' ? <DashboardState title='No se pudieron cargar los grupos' description='Comprueba la conexión e inténtalo de nuevo.' onRetry={retry} />
 						: groups.length === 0 ? <DashboardState title='Aún no hay grupos' description='Agrega el primer grupo de la comunidad para comenzar.' />
+						: reordering ? <GroupReorderList groups={draft} onChange={setDraft} />
 						: visibleGroups.length === 0 ? <DashboardState title='No se encontraron grupos' description='Prueba con otro nombre o una palabra de la descripción.' />
 						: <div className='dashboard-grid'>{visibleGroups.map((g) => <GroupCard key={g.id} g={g} onEdit={() => setEditing(g)} />)}</div>
 					}
@@ -124,7 +168,6 @@ export default function GroupsPanel() {
 					key={editing?.id ?? 'new'}
 					group={editing}
 					referents={referents}
-					defaultOrder={Math.max(0, ...groups.map((g) => g.order)) + 1}
 					onSubmit={submit}
 					onDelete={remove}
 					onClose={() => setEditing(undefined)}
