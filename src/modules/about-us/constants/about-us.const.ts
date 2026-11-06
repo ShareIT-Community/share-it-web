@@ -114,15 +114,4 @@ export const admins: Admin[] = [
       'Me destaco por combinar la excelencia en ingeniería con un rol activo en la formación de talento - habiendo mentorizado a decenas de desarrolladores- y por integrar herramientas de IA de vanguardia para optimizar procesos de desarrollo y productividad',
     ],
   },
-  {
-    name: 'Job Villanueva (Jovix)',
-    about: 'Admin',
-    role: 'DevOps & Cloud Engineer',
-    avatar: '/images/Job.jpeg',
-    linkedin: 'https://www.linkedin.com/in/job-villanueva-arza/',
-    description: [
-      'DevOps & Cloud Engineer con experiencia acompañando todo el ciclo de vida del software, desde el desarrollo y la entrega hasta la operación en producción. Trabajo con cloud, contenedores, automatización, CI/CD, observabilidad y seguridad, buscando que las plataformas sean confiables, eficientes y fáciles de mantener.',
-      'Me enfoco en anticipar riesgos, automatizar lo repetitivo y resolver problemas complejos sin perder de vista el negocio, para que los equipos puedan entregar software de forma segura, estable y continua.',
-    ],
-  },
 ]
