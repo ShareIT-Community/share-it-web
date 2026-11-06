@@ -189,6 +189,7 @@ Para código, sigue las convenciones de [`rules/`](rules/): [ramas](rules/branch
 - [Backend: share-it-web-backend](https://github.com/ShareIT-Community/share-it-web-backend)
 - [Guía E2E del dashboard (local)](docs/dashboard-e2e.md)
 - [Elias Velazquez 👨🏻‍💻](https://github.com/eliasvelazquezdev)
+- [Guía E2E del dashboard (local)](docs/dashboard-e2e.md)
 - [Documentación de Astro](https://docs.astro.build)
 
 ---
