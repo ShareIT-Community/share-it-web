@@ -4,6 +4,9 @@ import SectionDivider from 'src/modules/home/components/SectionDivider.astro'
 import AboutUsInfo from 'src/modules/about-us/components/AboutUsInfo.astro'
 import OurCulture from 'src/modules/about-us/components/OurCulture.astro'
 import AdminsInfo from 'src/modules/about-us/components/AdminsInfo.astro'
+
+// Admins come from the API, so render on each request.
+export const prerender = false
 ---
 
 <Layout title='Acerca de | Share IT' fullWidth={true}>
