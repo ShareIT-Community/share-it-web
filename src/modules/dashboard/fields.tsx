@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState, type InputHTMLAttributes, type TextareaHTMLAttributes } from 'react'
 import { IMAGE_TYPES, validateImage } from './image'
+import type { Link } from './types'
 
 export const inputClass =
 	'mt-1 block w-full rounded-xl bg-white/5 border border-white/10 px-3 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-[#00e5ff] focus:ring-2 focus:ring-[#00e5ff]/50'
@@ -95,5 +96,54 @@ export function ImageField({ label, current, avatar }: { label: string; current?
 				)}
 			</div>
 		</div>
+	)
+}
+
+const linkButton =
+	'cursor-pointer rounded-xl px-5 py-2 font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00e5ff] focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900'
+
+/** Editable list of `{label, url}` links; the parent owns the state. */
+export function LinksField({ links, onChange }: { links: Link[]; onChange: (links: Link[]) => void }) {
+	const setLink = (i: number, patch: Partial<Link>) => onChange(links.map((l, j) => (j === i ? { ...l, ...patch } : l)))
+	return (
+		<fieldset className='space-y-2'>
+			<legend className={labelClass}>Enlaces</legend>
+			{links.map((l, i) => (
+				<div key={i} className='flex flex-col gap-2 sm:flex-row sm:items-center'>
+					<input
+						className={`${inputClass} mt-0 min-w-0 sm:w-1/3`}
+						aria-label='Etiqueta'
+						placeholder='LinkedIn'
+						value={l.label}
+						onChange={(e) => setLink(i, { label: e.target.value })}
+						required
+					/>
+					<input
+						className={`${inputClass} mt-0 min-w-0 flex-1`}
+						aria-label='URL'
+						type='url'
+						placeholder='https://…'
+						value={l.url}
+						onChange={(e) => setLink(i, { url: e.target.value })}
+						required
+					/>
+					<button
+						type='button'
+						aria-label='Quitar enlace'
+						onClick={() => onChange(links.filter((_, j) => j !== i))}
+						className={`${linkButton} self-end px-3 text-gray-300 hover:bg-white/10 sm:self-auto`}
+					>
+						×
+					</button>
+				</div>
+			))}
+			<button
+				type='button'
+				onClick={() => onChange([...links, { label: '', url: '' }])}
+				className={`${linkButton} border border-white/20 py-1.5 text-sm text-gray-200 hover:bg-white/10`}
+			>
+				+ Agregar enlace
+			</button>
+		</fieldset>
 	)
 }

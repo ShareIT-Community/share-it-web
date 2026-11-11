@@ -1,7 +1,8 @@
 import { useEffect, useState, type FormEvent } from 'react'
 import GroupCard from './GroupCard'
 import GroupModal from './GroupModal'
-import GroupReorderList from './GroupReorderList'
+import ReorderList from './ReorderList'
+import AdminsPanel from './AdminsPanel'
 import ReferentsPanel from './ReferentsPanel'
 import LoginPanel from './LoginPanel'
 import Toaster, { notifyError, notifyOk } from './Toaster'
@@ -10,7 +11,7 @@ import { FiMove } from 'react-icons/fi'
 import { normalizeSearch } from './search'
 import EventsPanel from './EventsPanel'
 import { API, useCrud } from './useCrud'
-import type { EventItem, Group, GroupBody, Referent } from './types'
+import type { Admin, EventItem, Group, GroupBody, Referent } from './types'
 
 const KEY = 'panel_token'
 
@@ -18,10 +19,12 @@ export default function GroupsPanel() {
 	const [token, setToken] = useState<string | null>(null)
 	const [groups, setGroups] = useState<Group[]>([])
 	const [referents, setReferents] = useState<Referent[]>([])
+	const [admins, setAdmins] = useState<Admin[]>([])
 	const [tab, setTab] = useState<DashboardSection>('groups')
 	const [query, setQuery] = useState('')
 	const [groupsState, setGroupsState] = useState<DashboardLoadState>('loading')
 	const [referentsState, setReferentsState] = useState<DashboardLoadState>('loading')
+	const [adminsState, setAdminsState] = useState<DashboardLoadState>('loading')
 	const [eventsState, setEventsState] = useState<DashboardLoadState>('loading')
 	const [reload, setReload] = useState(0)
 	const [events, setEvents] = useState<EventItem[]>([])
@@ -42,6 +45,7 @@ export default function GroupsPanel() {
 		setToken(null)
 		setGroups([])
 		setReferents([])
+		setAdmins([])
 		setQuery('')
 		setTab('groups')
 		setEvents([])
@@ -58,6 +62,7 @@ export default function GroupsPanel() {
 		let active = true
 		setGroupsState('loading')
 		setReferentsState('loading')
+		setAdminsState('loading')
 		setEventsState('loading')
 		fetch(`${API}/groups`)
 			.then((r) => (r.ok ? r.json() : Promise.reject()))
@@ -75,6 +80,14 @@ export default function GroupsPanel() {
 				setReferentsState('ready')
 			})
 			.catch(() => { if (active) { setReferentsState('error'); notifyError('No se pudieron cargar los referentes') } })
+		fetch(`${API}/admins`)
+			.then((r) => (r.ok ? r.json() : Promise.reject()))
+			.then((data: Admin[]) => {
+				if (!active) return
+				setAdmins(data)
+				setAdminsState('ready')
+			})
+			.catch(() => { if (active) { setAdminsState('error'); notifyError('No se pudieron cargar los admins') } })
 		fetch(`${API}/events`)
 			.then((r) => (r.ok ? r.json() : Promise.reject()))
 			.then((data: EventItem[]) => {
@@ -147,9 +160,11 @@ export default function GroupsPanel() {
 	}
 
 	return (
-		<DashboardShell section={tab} onSectionChange={(section) => { setTab(section); setQuery('') }} onLogout={() => logout()} groupCount={groupsState === 'ready' ? groups.length : undefined} referentCount={referentsState === 'ready' ? referents.length : undefined} eventCount={eventsState === 'ready' ? events.length : undefined}>
+		<DashboardShell section={tab} onSectionChange={(section) => { setTab(section); setQuery('') }} onLogout={() => logout()} groupCount={groupsState === 'ready' ? groups.length : undefined} referentCount={referentsState === 'ready' ? referents.length : undefined} adminCount={adminsState === 'ready' ? admins.length : undefined} eventCount={eventsState === 'ready' ? events.length : undefined}>
 			{tab === 'events' ? (
 				<EventsPanel token={token} events={events} setEvents={setEvents} onUnauthorized={() => logout('Sesión vencida')} loadState={eventsState} onRetry={retry} />
+			) : tab === 'admins' ? (
+				<AdminsPanel token={token} admins={admins} setAdmins={setAdmins} onUnauthorized={() => logout('Sesión vencida')} loadState={adminsState} onRetry={retry} />
 			) : tab === 'referents' ? (
 				<ReferentsPanel token={token} referents={referents} setReferents={setReferents} onUnauthorized={() => logout('Sesión vencida')} loadState={referentsState} onRetry={retry} />
 			) : (
@@ -167,7 +182,7 @@ export default function GroupsPanel() {
 					{groupsState === 'loading' ? <DashboardState title='Cargando grupos…' loading />
 						: groupsState === 'error' ? <DashboardState title='No se pudieron cargar los grupos' description='Comprueba la conexión e inténtalo de nuevo.' onRetry={retry} />
 						: groups.length === 0 ? <DashboardState title='Aún no hay grupos' description='Agrega el primer grupo de la comunidad para comenzar.' />
-						: reordering ? <GroupReorderList groups={draft} onChange={setDraft} />
+						: reordering ? <ReorderList items={draft.map((g) => ({ ...g, label: g.title }))} onChange={setDraft} />
 						: visibleGroups.length === 0 ? <DashboardState title='No se encontraron grupos' description='Prueba con otro nombre o una palabra de la descripción.' />
 						: <div className='dashboard-grid'>{visibleGroups.map((g) => <GroupCard key={g.id} g={g} onEdit={() => setEditing(g)} />)}</div>
 					}

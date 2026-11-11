@@ -31,3 +31,5 @@ pnpm-lock.yaml
 
 # Local Netlify folder
 .netlify
+
+e2e-credentials.txt
