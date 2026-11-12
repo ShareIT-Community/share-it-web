@@ -1,7 +1,31 @@
 ---
-import { admins } from 'src/modules/about-us/constants/about-us.const'
-import { SocialLinks } from 'src/modules/about-us/components/CarouselAdmin/CustomLinks'
+import { fetchAdmins } from 'src/modules/about-us/services/admins.service'
+import {
+  GithubIcon,
+  InstagramIcon,
+  LinkedinIcon,
+  TwitterIcon,
+  WebsiteIcon,
+} from '@icons/Icons'
+
+const admins = await fetchAdmins()
+const SOCIAL_ICONS = {
+  github: GithubIcon,
+  instagram: InstagramIcon,
+  linkedin: LinkedinIcon,
+  twitter: TwitterIcon,
+  website: WebsiteIcon,
+}
+const SOCIAL_LABELS = {
+  github: 'GitHub profile',
+  instagram: 'Instagram profile',
+  linkedin: 'LinkedIn profile',
+  twitter: 'Twitter profile',
+  website: 'Personal website',
+}
 ---
+
+{admins.length > 0 && (
 
 <section class='py-16 md:py-24'>
   <div class='max-w-5xl mx-auto px-6'>
@@ -18,11 +42,13 @@ import { SocialLinks } from 'src/modules/about-us/components/CarouselAdmin/Custo
 
             <div class='w-full md:w-72 shrink-0 flex flex-col items-center justify-center border-b md:border-b-0 md:border-r border-white/5 pb-8 md:pb-0 md:pr-8'>
               <div class='relative mb-6'>
-                <img
-                  src={admin.avatar}
-                  alt={admin.name}
-                  class='w-36 h-36 rounded-full object-cover shadow-2xl transition-transform duration-500 group-hover:scale-105'
-                />
+                {admin.image_url && (
+                  <img
+                    src={admin.image_url}
+                    alt={admin.name}
+                    class='w-36 h-36 rounded-full object-cover shadow-2xl transition-transform duration-500 group-hover:scale-105'
+                  />
+                )}
               </div>
 
               <div class='text-center space-y-2'>
@@ -37,20 +63,29 @@ import { SocialLinks } from 'src/modules/about-us/components/CarouselAdmin/Custo
                 </p>
 
                 <div class='pt-4'>
-                  <SocialLinks
-                    linkedin={admin.linkedin}
-                    website={admin.website}
-                    github={admin.github}
-                    twitter={admin.twitter}
-                    instagram={admin.instagram}
-                    className='flex gap-5 justify-center'
-                  />
+                  <div class='flex gap-5 justify-center'>
+                    {admin.links.map(({ kind, url, label }) => {
+                      const Icon = SOCIAL_ICONS[kind]
+
+                      return (
+                        <a
+                          href={url}
+                          target='_blank'
+                          rel='noopener noreferrer'
+                          class='text-inherit hover:text-secondary transition-colors'
+                          aria-label={label || SOCIAL_LABELS[kind]}
+                        >
+                          <Icon />
+                        </a>
+                      )
+                    })}
+                  </div>
                 </div>
               </div>
             </div>
 
             <div class='flex-1 flex flex-col justify-center space-y-5 py-4'>
-              {admin.description?.map((paragraph) => (
+              {admin.description.map((paragraph) => (
                 <p class='text-gray-400 leading-relaxed text-lg [text-wrap:pretty]'>
                   {paragraph}
                 </p>
@@ -62,3 +97,4 @@ import { SocialLinks } from 'src/modules/about-us/components/CarouselAdmin/Custo
     </div>
   </div>
 </section>
+)}

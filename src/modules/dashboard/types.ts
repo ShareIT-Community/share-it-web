@@ -14,6 +14,19 @@ export interface Referent {
 
 export type ReferentBody = Omit<Referent, 'id'>
 
+export interface Admin {
+	id: number
+	name: string
+	about: string
+	role: string
+	order: number
+	description: string
+	image_url: string | null
+	links: Link[]
+}
+
+export type AdminBody = Omit<Admin, 'id' | 'order'>
+
 export interface Group {
 	id: number
 	title: string
