@@ -36,7 +36,8 @@ export default function ResourcesPanel({ token, resources, setResources, tags, o
 
 	return (
 		<>
-			<DashboardHeading title='Recursos' description='Administra los recursos que la comunidad comparte en la web.' action='Agregar recurso' onAdd={() => setEditing(null)} />
+			{/* Until the list loads, a save would be overwritten by the late snapshot. */}
+			<DashboardHeading title='Recursos' description='Administra los recursos que la comunidad comparte en la web.' action='Agregar recurso' onAdd={() => setEditing(null)} addDisabled={loadState !== 'ready'} />
 			<DashboardToolbar query={query} onQueryChange={setQuery} placeholder='Buscar por título, descripción o tag…' resultLabel={loadState === 'ready' ? `${search ? `${visible.length} de ` : ''}${resources.length} ${resources.length === 1 ? 'recurso' : 'recursos'}` : ''} />
 			{loadState === 'loading' ? <DashboardState title='Cargando recursos…' loading />
 				: loadState === 'error' ? <DashboardState title='No se pudieron cargar los recursos' description='Comprueba la conexión e inténtalo de nuevo.' onRetry={onRetry} />
