@@ -10,8 +10,9 @@ import DashboardShell, { DashboardHeading, DashboardState, DashboardToolbar, typ
 import { FiMove } from 'react-icons/fi'
 import { normalizeSearch } from './search'
 import EventsPanel from './EventsPanel'
+import ResourcesPanel from './ResourcesPanel'
 import { API, useCrud } from './useCrud'
-import type { Admin, EventItem, Group, GroupBody, Referent } from './types'
+import type { Admin, EventItem, Group, GroupBody, Referent, Resource, Tag } from './types'
 
 const KEY = 'panel_token'
 
@@ -28,6 +29,9 @@ export default function GroupsPanel() {
 	const [eventsState, setEventsState] = useState<DashboardLoadState>('loading')
 	const [reload, setReload] = useState(0)
 	const [events, setEvents] = useState<EventItem[]>([])
+	const [resources, setResources] = useState<Resource[]>([])
+	const [tags, setTags] = useState<Tag[]>([])
+	const [resourcesState, setResourcesState] = useState<DashboardLoadState>('loading')
 	/** Working order while reordering; null = not reordering. */
 	const [draft, setDraft] = useState<Group[] | null>(null)
 	const [saving, setSaving] = useState(false)
@@ -49,6 +53,8 @@ export default function GroupsPanel() {
 		setQuery('')
 		setTab('groups')
 		setEvents([])
+		setResources([])
+		setTags([])
 		setEditing(undefined)
 		setDraft(null)
 	}
@@ -64,6 +70,7 @@ export default function GroupsPanel() {
 		setReferentsState('loading')
 		setAdminsState('loading')
 		setEventsState('loading')
+		setResourcesState('loading')
 		fetch(`${API}/groups`)
 			.then((r) => (r.ok ? r.json() : Promise.reject()))
 			.then((data: Group[]) => {
@@ -96,6 +103,18 @@ export default function GroupsPanel() {
 				setEventsState('ready')
 			})
 			.catch(() => { if (active) { setEventsState('error'); notifyError('No se pudieron cargar los eventos') } })
+		// shortcut: one page of 100 (the API max); paginate when the community passes 100 resources.
+		Promise.all([
+			fetch(`${API}/resources?per_page=100`).then((r) => (r.ok ? r.json() : Promise.reject())),
+			fetch(`${API}/tags`).then((r) => (r.ok ? r.json() : Promise.reject())),
+		])
+			.then(([page, tagList]: [{ items: Resource[] }, Tag[]]) => {
+				if (!active) return
+				setResources(page.items)
+				setTags(tagList)
+				setResourcesState('ready')
+			})
+			.catch(() => { if (active) { setResourcesState('error'); notifyError('No se pudieron cargar los recursos') } })
 		return () => { active = false }
 	}, [token, reload])
 
@@ -160,8 +179,10 @@ export default function GroupsPanel() {
 	}
 
 	return (
-		<DashboardShell section={tab} onSectionChange={(section) => { setTab(section); setQuery('') }} onLogout={() => logout()} groupCount={groupsState === 'ready' ? groups.length : undefined} referentCount={referentsState === 'ready' ? referents.length : undefined} adminCount={adminsState === 'ready' ? admins.length : undefined} eventCount={eventsState === 'ready' ? events.length : undefined}>
-			{tab === 'events' ? (
+		<DashboardShell section={tab} onSectionChange={(section) => { setTab(section); setQuery('') }} onLogout={() => logout()} groupCount={groupsState === 'ready' ? groups.length : undefined} referentCount={referentsState === 'ready' ? referents.length : undefined} adminCount={adminsState === 'ready' ? admins.length : undefined} eventCount={eventsState === 'ready' ? events.length : undefined} resourceCount={resourcesState === 'ready' ? resources.length : undefined}>
+			{tab === 'resources' ? (
+				<ResourcesPanel token={token} resources={resources} setResources={setResources} tags={tags} onUnauthorized={() => logout('Sesión vencida')} loadState={resourcesState} onRetry={retry} />
+			) : tab === 'events' ? (
 				<EventsPanel token={token} events={events} setEvents={setEvents} onUnauthorized={() => logout('Sesión vencida')} loadState={eventsState} onRetry={retry} />
 			) : tab === 'admins' ? (
 				<AdminsPanel token={token} admins={admins} setAdmins={setAdmins} onUnauthorized={() => logout('Sesión vencida')} loadState={adminsState} onRetry={retry} />

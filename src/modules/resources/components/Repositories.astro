@@ -1,14 +1,8 @@
 ---
-import { getCollection } from 'astro:content';
-import { getTagNamesByEntries } from '@helpers/tag.helper';
 import ContentCard from 'src/modules/global/components/CustomCard/ContentCard.astro';
+import { fetchResources } from 'src/modules/resources/services/resources.service';
 
-const resources = await getCollection('resources');
-const tagNamesByResources = await getTagNamesByEntries(resources);
-
-const sortedResources = resources.sort(
-	(a, b) => b.data.date.getTime() - a.data.date.getTime(),
-);
+const sortedResources = await fetchResources();
 ---
 
 <div>
@@ -25,11 +19,11 @@ const sortedResources = resources.sort(
 					<ContentCard
 						target='_blank'
 						rel='noopener noreferrer'
-						title={resource.data.title}
-						description={resource.data.description}
-						tags={tagNamesByResources.get(resource.id)}
-						date={resource.data.date}
-						href={resource.data.url}
+						title={resource.title}
+						description={resource.description}
+						tags={resource.tags}
+						date={resource.date}
+						href={resource.url}
 					/>
 				))}
 			</div>

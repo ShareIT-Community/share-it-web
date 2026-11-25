@@ -147,3 +147,53 @@ export function LinksField({ links, onChange }: { links: Link[]; onChange: (link
 		</fieldset>
 	)
 }
+
+const sameTag = (a: string, b: string) => a.toLocaleLowerCase('es') === b.toLocaleLowerCase('es')
+
+/** Chips with autocomplete; Enter or comma adds the typed tag, existing or new (the API creates it). */
+export function TagsField({ tags, suggestions, onChange }: { tags: string[]; suggestions: string[]; onChange: (tags: string[]) => void }) {
+	const [draft, setDraft] = useState('')
+	const add = (raw: string) => {
+		const name = raw.trim()
+		// Reuse the existing spelling ("javascript" -> "JavaScript") and skip repeats.
+		const known = suggestions.find((s) => sameTag(s, name)) ?? name
+		if (name && !tags.some((t) => sameTag(t, known))) onChange([...tags, known])
+		setDraft('')
+	}
+	return (
+		<fieldset className='space-y-2'>
+			<legend className={labelClass}>Tags</legend>
+			{tags.length > 0 && (
+				<ul className='flex flex-wrap gap-2'>
+					{tags.map((t) => (
+						<li key={t} className='flex items-center gap-1 rounded-full bg-white/10 py-1 pl-3 pr-1 text-sm text-gray-200'>
+							{t}
+							<button type='button' aria-label={`Quitar tag ${t}`} onClick={() => onChange(tags.filter((x) => x !== t))} className={`${linkButton} px-2 py-0 text-gray-300 hover:bg-white/10`}>
+								×
+							</button>
+						</li>
+					))}
+				</ul>
+			)}
+			<input
+				className={inputClass}
+				aria-label='Agregar tag'
+				placeholder='Escribe un tag y presiona Enter'
+				list='dashboard-tag-suggestions'
+				maxLength={30}
+				value={draft}
+				onChange={(e) => setDraft(e.target.value)}
+				onKeyDown={(e) => {
+					if (e.key === 'Enter' || e.key === ',') {
+						e.preventDefault() // Enter would submit the modal form
+						add(draft)
+					}
+				}}
+				onBlur={() => add(draft)}
+			/>
+			<datalist id='dashboard-tag-suggestions'>
+				{suggestions.filter((s) => !tags.some((t) => sameTag(t, s))).map((s) => <option key={s} value={s} />)}
+			</datalist>
+		</fieldset>
+	)
+}
