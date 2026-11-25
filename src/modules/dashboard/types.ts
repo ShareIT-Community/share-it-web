@@ -54,3 +54,21 @@ export interface EventItem {
 }
 
 export type EventBody = Omit<EventItem, 'id'>
+
+export interface Tag {
+	id: number
+	name: string
+	slug: string
+}
+
+export interface Resource {
+	id: number
+	title: string
+	description: string
+	url: string
+	created_at: string
+	tags: Tag[]
+}
+
+/** `tags` are free-text names: the API reuses a matching tag or creates it. */
+export type ResourceBody = Pick<Resource, 'title' | 'description' | 'url'> & { tags: string[] }

@@ -1,6 +1,9 @@
 ---
 import Layout from 'src/modules/global/layouts/Layout.astro'
 import Tabs from 'src/modules/resources/components/Tabs.astro'
+
+// Rendered per request so dashboard edits show up without a rebuild.
+export const prerender = false
 ---
 
 <Layout title='Recursos | Share IT' showBackButton>
